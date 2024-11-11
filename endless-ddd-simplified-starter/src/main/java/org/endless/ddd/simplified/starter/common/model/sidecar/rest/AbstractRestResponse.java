@@ -1,6 +1,7 @@
 package org.endless.ddd.simplified.starter.common.model.sidecar.rest;
 
 import lombok.Getter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;

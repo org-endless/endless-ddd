@@ -1,8 +1,8 @@
-package com.tansun.atp.starter.common.model.domain.type;
+package org.endless.ddd.simplified.starter.common.model.domain.type;
 
-import com.tansun.atp.starter.common.exception.domain.type.EnumException;
 import lombok.Getter;
 import lombok.ToString;
+import org.endless.ddd.simplified.starter.common.exception.domain.type.EnumException;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;

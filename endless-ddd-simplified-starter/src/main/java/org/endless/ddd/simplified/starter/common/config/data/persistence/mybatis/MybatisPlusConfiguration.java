@@ -1,6 +1,6 @@
-package com.tansun.atp.starter.common.config.data.persistence.mybatis;
+package org.endless.ddd.simplified.starter.common.config.data.persistence.mybatis;
 
-import com.tansun.atp.starter.common.config.data.persistence.mybatis.handler.MybatisPlusMetaObjectHandler;
+import org.endless.ddd.simplified.starter.common.config.data.persistence.mybatis.handler.MybatisPlusMetaObjectHandler;
 import org.springframework.context.annotation.Import;
 
 /**

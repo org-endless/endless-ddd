@@ -1,6 +1,6 @@
-package com.tansun.atp.starter.common.config.data.cache.redis;
+package org.endless.ddd.simplified.starter.common.config.data.cache.redis;
 
-import com.tansun.atp.starter.common.config.data.cache.redis.serializer.FastJson2JsonRedisSerializer;
+import org.endless.ddd.simplified.starter.common.config.data.cache.redis.serializer.FastJson2JsonRedisSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;

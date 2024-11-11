@@ -1,7 +1,7 @@
-package com.tansun.atp.starter.common.config.data;
+package org.endless.ddd.simplified.starter.common.config.data;
 
-import com.tansun.atp.starter.common.config.data.cache.CacheConfiguration;
-import com.tansun.atp.starter.common.config.data.persistence.mybatis.MybatisPlusConfiguration;
+import org.endless.ddd.simplified.starter.common.config.data.cache.CacheConfiguration;
+import org.endless.ddd.simplified.starter.common.config.data.persistence.mybatis.MybatisPlusConfiguration;
 import org.springframework.context.annotation.Import;
 
 /**

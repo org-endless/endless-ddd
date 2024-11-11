@@ -1,8 +1,9 @@
-package com.tansun.atp.starter.common.model.infrastructure.data.persistence.bulk;
+package org.endless.ddd.simplified.starter.common.model.infrastructure.data.persistence.bulk;
 
-import com.tansun.atp.starter.common.model.domain.entity.Entity;
-import com.tansun.atp.starter.common.model.infrastructure.data.persistence.mapper.Mapper;
-import com.tansun.atp.starter.common.model.infrastructure.data.record.DataRecord;
+
+import org.endless.ddd.simplified.starter.common.model.domain.entity.Entity;
+import org.endless.ddd.simplified.starter.common.model.infrastructure.data.persistence.mapper.Mapper;
+import org.endless.ddd.simplified.starter.common.model.infrastructure.data.record.DataRecord;
 
 import java.util.List;
 

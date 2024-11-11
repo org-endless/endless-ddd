@@ -1,6 +1,6 @@
-package com.tansun.atp.starter.common.config.thread.common;
+package org.endless.ddd.simplified.starter.common.config.thread.common;
 
-import com.tansun.atp.starter.common.config.thread.model.AbstractThreadProperties;
+import org.endless.ddd.simplified.starter.common.config.thread.model.AbstractThreadProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**

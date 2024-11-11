@@ -1,5 +1,6 @@
 package org.endless.ddd.simplified.starter.common.utils.time;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;

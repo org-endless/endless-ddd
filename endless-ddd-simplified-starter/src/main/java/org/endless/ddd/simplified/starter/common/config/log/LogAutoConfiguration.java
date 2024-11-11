@@ -1,6 +1,6 @@
-package com.tansun.atp.starter.common.config.log;
+package org.endless.ddd.simplified.starter.common.config.log;
 
-import com.tansun.atp.starter.common.config.log.aspect.LogAspect;
+import org.endless.ddd.simplified.starter.common.config.log.aspect.LogAspect;
 import org.springframework.context.annotation.Import;
 
 /**

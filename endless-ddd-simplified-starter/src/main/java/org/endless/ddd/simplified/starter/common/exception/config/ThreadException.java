@@ -1,4 +1,4 @@
-package com.tansun.atp.starter.common.exception.config;
+package org.endless.ddd.simplified.starter.common.exception.config;
 
 /**
  * ThreadException

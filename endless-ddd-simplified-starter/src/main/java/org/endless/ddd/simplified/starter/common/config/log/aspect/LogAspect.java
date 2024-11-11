@@ -1,17 +1,17 @@
-package com.tansun.atp.starter.common.config.log.aspect;
+package org.endless.ddd.simplified.starter.common.config.log.aspect;
 
-import com.tansun.atp.starter.common.config.log.annotation.Log;
-import com.tansun.atp.starter.common.model.common.Transfer;
-import com.tansun.atp.starter.common.model.domain.entity.Entity;
-import com.tansun.atp.starter.common.model.domain.type.BaseEnum;
-import com.tansun.atp.starter.common.model.domain.value.Value;
-import com.tansun.atp.starter.common.model.infrastructure.data.record.Record;
-import com.tansun.atp.starter.common.utils.time.TimeStamp;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.endless.ddd.simplified.starter.common.config.log.annotation.Log;
+import org.endless.ddd.simplified.starter.common.model.common.Transfer;
+import org.endless.ddd.simplified.starter.common.model.domain.entity.Entity;
+import org.endless.ddd.simplified.starter.common.model.domain.type.BaseEnum;
+import org.endless.ddd.simplified.starter.common.model.domain.value.Value;
+import org.endless.ddd.simplified.starter.common.model.infrastructure.data.record.DataRecord;
+import org.endless.ddd.simplified.starter.common.utils.time.TimeStamp;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
@@ -128,20 +128,16 @@ public class LogAspect {
         if (field == null) {
             return "null";
         }
-        if (field instanceof Map) {
-            Map<?, ?> originalMap = (Map<?, ?>) field;
+        if (field instanceof Map<?, ?> originalMap) {
             Map<String, Object> maskedMap = new HashMap<>();
-            originalMap.forEach((key, value) -> {
-                maskedMap.put(key.toString(), isSensitiveKey(key.toString()) ? "******" : maskSensitiveData(value));
-            });
+            originalMap.forEach((key, value) ->
+                    maskedMap.put(key.toString(), isSensitiveKey(key.toString()) ? "******" : maskSensitiveData(value)));
             return maskedMap.toString();
-        } else if (field instanceof List) {
-            List<?> list = (List<?>) field;
+        } else if (field instanceof List<?> list) {
             return list.stream()
                     .map(this::maskSensitiveData)  // 对每个元素进行敏感数据处理
-                    .collect(Collectors.toList()).toString();
-        } else if (field instanceof Set) {
-            Set<?> set = (Set<?>) field;
+                    .toString();
+        } else if (field instanceof Set<?> set) {
             return set.stream()
                     .map(this::maskSensitiveData)  // 对每个元素进行敏感数据处理
                     .collect(Collectors.toSet()).toString();

@@ -1,7 +1,9 @@
 package org.endless.domain.simplified.server;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
  * DomainSimplifiedApplication
@@ -13,7 +15,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Deng Haozhi
  * @since 2.0.0
  */
+@EnableAsync
 @SpringBootApplication
+@MapperScan("org.endless.domain.simplified.server.common.**.mapper")
+@MapperScan("org.endless.domain.simplified.server.supporting.**.mapper")
 public class DomainSimplifiedApplication {
     public static void main(String[] args) {
         SpringApplication.run(DomainSimplifiedApplication.class, args);

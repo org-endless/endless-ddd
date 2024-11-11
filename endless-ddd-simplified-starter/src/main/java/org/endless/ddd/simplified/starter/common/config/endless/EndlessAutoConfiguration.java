@@ -1,7 +1,10 @@
 package org.endless.ddd.simplified.starter.common.config.endless;
 
 import lombok.extern.slf4j.Slf4j;
+import org.endless.ddd.simplified.starter.common.config.endless.properties.EndlessProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+
+import java.nio.charset.Charset;
 
 /**
  * EndlessAutoConfiguration
@@ -19,11 +22,16 @@ public class EndlessAutoConfiguration {
 
     private final EndlessProperties properties;
 
+
     public EndlessAutoConfiguration(EndlessProperties properties) {
         this.properties = properties;
     }
 
-    public void charset(){
-        // retrun properties.getCharset();
+    public Charset charset() {
+        return properties.getCharset().getCharset();
+    }
+
+    public String[] jsonAllowedTypes() {
+        return properties.getJsonAllowedTypes().toArray(new String[0]);
     }
 }

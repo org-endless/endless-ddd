@@ -2,6 +2,7 @@ package org.endless.ddd.simplified.starter.common.config.minio;
 
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
+import org.endless.ddd.simplified.starter.common.config.minio.properties.OkHttpProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
@@ -23,11 +24,8 @@ public class OkHttpClientConfiguration {
 
     @Bean
     public OkHttpClient okHttpClient(OkHttpProperties properties) {
-
-
         // 获取超时时间（秒）
         int timeout = properties.getTimeout();
-
         // 配置 OkHttpClient
         return new OkHttpClient.Builder()
                 // 配置连接池

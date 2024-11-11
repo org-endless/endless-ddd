@@ -1,12 +1,12 @@
-package com.tansun.atp.starter.common.config.data.cache.redis.serializer;
+package org.endless.ddd.simplified.starter.common.config.data.cache.redis.serializer;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONReader;
 import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.filter.Filter;
-import com.tansun.atp.starter.common.config.atp.AtpAutoConfiguration;
-import com.tansun.atp.starter.common.exception.infrastructure.data.manager.DataManagerException;
 import lombok.extern.slf4j.Slf4j;
+import org.endless.ddd.simplified.starter.common.config.endless.EndlessAutoConfiguration;
+import org.endless.ddd.simplified.starter.common.exception.infrastructure.data.manager.DataManagerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.serializer.RedisSerializer;
 
@@ -25,7 +25,7 @@ import java.nio.charset.Charset;
 @Slf4j
 public class FastJson2JsonRedisSerializer<T> implements RedisSerializer<T> {
 
-    private AtpAutoConfiguration configuration;
+    private EndlessAutoConfiguration configuration;
 
     private final Class<T> clazz;
 
@@ -69,7 +69,7 @@ public class FastJson2JsonRedisSerializer<T> implements RedisSerializer<T> {
     }
 
     @Autowired
-    private void setConfiguration(AtpAutoConfiguration configuration) {
+    private void setConfiguration(EndlessAutoConfiguration configuration) {
         this.configuration = configuration;
     }
 }

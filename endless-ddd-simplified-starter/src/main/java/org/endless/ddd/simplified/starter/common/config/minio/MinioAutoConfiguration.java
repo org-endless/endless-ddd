@@ -3,6 +3,7 @@ package org.endless.ddd.simplified.starter.common.config.minio;
 import io.minio.MinioClient;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
+import org.endless.ddd.simplified.starter.common.config.minio.properties.MinioProperties;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;

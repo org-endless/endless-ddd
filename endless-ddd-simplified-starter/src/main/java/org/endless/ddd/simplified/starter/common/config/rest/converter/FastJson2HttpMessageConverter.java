@@ -1,12 +1,12 @@
-package com.tansun.atp.starter.common.config.rest.converter;
+package org.endless.ddd.simplified.starter.common.config.rest.converter;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONReader;
 import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.filter.Filter;
-import com.tansun.atp.starter.common.config.atp.AtpAutoConfiguration;
-import com.tansun.atp.starter.common.exception.sidecar.rest.RestErrorException;
 import lombok.extern.slf4j.Slf4j;
+import org.endless.ddd.simplified.starter.common.config.endless.EndlessAutoConfiguration;
+import org.endless.ddd.simplified.starter.common.exception.sidecar.rest.RestErrorException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpInputMessage;
@@ -33,7 +33,7 @@ import java.nio.charset.Charset;
 @Slf4j
 public class FastJson2HttpMessageConverter<T> extends AbstractHttpMessageConverter<T> {
 
-    private AtpAutoConfiguration configuration;
+    private EndlessAutoConfiguration configuration;
 
 
     public FastJson2HttpMessageConverter() {
@@ -46,7 +46,7 @@ public class FastJson2HttpMessageConverter<T> extends AbstractHttpMessageConvert
     }
 
     @Override
-    protected @NotNull T readInternal(@NotNull Class<? extends T> clazz, @NotNull HttpInputMessage inputMessage) throws IOException, HttpMessageNotReadableException {
+    protected @NotNull T readInternal(@NotNull Class<? extends T> clazz, @NotNull HttpInputMessage inputMessage) {
         try (InputStream inputStream = inputMessage.getBody()) {
             // 使用缓冲区读取 InputStream 内容
             byte[] bytes = new byte[1024];
@@ -56,7 +56,7 @@ public class FastJson2HttpMessageConverter<T> extends AbstractHttpMessageConvert
                 byteArrayOutputStream.write(bytes, 0, length);
             }
             // 转换为字符串
-            String string = new String(byteArrayOutputStream.toByteArray(), charset());
+            String string = byteArrayOutputStream.toString(charset());
             log.trace("Rest 反序列化对象: {}", string);
             return JSON.parseObject(string, clazz, filter());
         } catch (Exception e) {
@@ -84,7 +84,7 @@ public class FastJson2HttpMessageConverter<T> extends AbstractHttpMessageConvert
     }
 
     @Autowired
-    private void setConfiguration(AtpAutoConfiguration configuration) {
+    private void setConfiguration(EndlessAutoConfiguration configuration) {
         this.configuration = configuration;
     }
 }

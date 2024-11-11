@@ -1,4 +1,4 @@
-package org.endless.ddd.simplified.starter.common.config.minio;
+package org.endless.ddd.simplified.starter.common.config.minio.properties;
 
 import lombok.Getter;
 import lombok.Setter;

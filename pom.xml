@@ -32,9 +32,11 @@
         <spring-boot.version>3.3.5</spring-boot.version>
         <druid.version>1.2.23</druid.version>
         <mybatis-plus.version>3.5.9</mybatis-plus.version>
+        <mybatis-spring.version>3.0.4</mybatis-spring.version>
         <pagehelper.version>2.1.0</pagehelper.version>
 
         <!-- Infrastructure -->
+        <netty.version>4.1.114.Final</netty.version>
         <minio.version>8.5.13</minio.version>
         <mysql.version>9.1.0</mysql.version>
 
@@ -77,7 +79,18 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.mybatis</groupId>
+                        <artifactId>mybatis-spring</artifactId>
+                    </exclusion>
+                </exclusions>
                 <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${mybatis-spring.version}</version>
             </dependency>
             <!-- Page Helper 分页 -->
             <dependency>
@@ -89,6 +102,11 @@
             <!-- Infrastructure -->
             <!-- Adapter -->
             <!-- MinIO -->
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
             <dependency>
                 <groupId>io.minio</groupId>
                 <artifactId>minio</artifactId>

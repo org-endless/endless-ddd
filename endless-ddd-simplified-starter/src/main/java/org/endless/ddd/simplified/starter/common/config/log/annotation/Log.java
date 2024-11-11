@@ -1,4 +1,4 @@
-package com.tansun.atp.starter.common.config.log.annotation;
+package org.endless.ddd.simplified.starter.common.config.log.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

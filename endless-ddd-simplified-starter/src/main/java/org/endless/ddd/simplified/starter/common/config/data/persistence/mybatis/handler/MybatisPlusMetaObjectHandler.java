@@ -1,8 +1,8 @@
-package com.tansun.atp.starter.common.config.data.persistence.mybatis.handler;
+package org.endless.ddd.simplified.starter.common.config.data.persistence.mybatis.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.tansun.atp.starter.common.utils.time.TimeStamp;
 import org.apache.ibatis.reflection.MetaObject;
+import org.endless.ddd.simplified.starter.common.utils.time.TimeStamp;
 import org.springframework.context.annotation.Configuration;
 
 /**

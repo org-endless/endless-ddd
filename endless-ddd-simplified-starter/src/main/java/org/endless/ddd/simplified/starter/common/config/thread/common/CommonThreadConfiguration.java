@@ -1,6 +1,6 @@
-package com.tansun.atp.starter.common.config.thread.common;
+package org.endless.ddd.simplified.starter.common.config.thread.common;
 
-import com.tansun.atp.starter.common.config.thread.model.AbstractThreadConfiguration;
+import org.endless.ddd.simplified.starter.common.config.thread.model.AbstractThreadConfiguration;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;

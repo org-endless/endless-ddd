@@ -97,3 +97,7 @@ minio:
     max-idle: ${endless.minio.connect-pool.max-idle} # 最大空闲连接数，设置较大值可以减少频繁的连接创建和关闭
     keep-alive: ${endless.minio.connect-pool.keep-alive} # 空闲连接保活时间，单位为分钟，超过该时间未使用的连接将被关闭
     timeout: ${endless.minio.connect-pool.timeout} # 连接超时时间，单位为秒，超过该时间未能建立连接则会超时
+io:
+  netty:
+    noUnsafe: true # 禁用 Netty 的 Unsafe 代码，提升性能
+    noPreferDirect: true # 禁用 Netty 的直接缓冲区，提升性能

@@ -1,7 +1,8 @@
 package org.endless.ddd.simplified.starter.common.config.rest.server;
 
-import org.endless.ddd.simplified.starter.common.config.rest.converter.FastJsonHttpMessageConverter;
+import org.endless.ddd.simplified.starter.common.config.rest.converter.FastJson2HttpMessageConverter;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 

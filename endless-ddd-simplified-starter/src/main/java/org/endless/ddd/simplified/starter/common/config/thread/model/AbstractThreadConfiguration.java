@@ -1,6 +1,6 @@
-package com.tansun.atp.starter.common.config.thread.model;
+package org.endless.ddd.simplified.starter.common.config.thread.model;
 
-import com.tansun.atp.starter.common.exception.config.ThreadException;
+import org.endless.ddd.simplified.starter.common.exception.config.ThreadException;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;

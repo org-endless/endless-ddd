@@ -1,8 +1,7 @@
-package com.tansun.atp.starter.common.config.data.cache;
+package org.endless.ddd.simplified.starter.common.config.data.cache;
 
-import com.tansun.atp.starter.common.config.data.cache.redis.RedisConfiguration;
-import com.tansun.atp.starter.common.config.data.cache.redis.serializer.FastJson2JsonRedisSerializer;
-import org.springframework.cache.annotation.CachingConfigurerSupport;
+import org.endless.ddd.simplified.starter.common.config.data.cache.redis.RedisConfiguration;
+import org.endless.ddd.simplified.starter.common.config.data.cache.redis.serializer.FastJson2JsonRedisSerializer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
@@ -25,7 +24,7 @@ import java.time.Duration;
  */
 @EnableCaching
 @Import(RedisConfiguration.class)
-public class CacheConfiguration extends CachingConfigurerSupport {
+public class CacheConfiguration {
 
     @Bean
     public RedisCacheManager cacheManager(RedisConnectionFactory redisConnectionFactory, FastJson2JsonRedisSerializer<Object> redisSerializer) {

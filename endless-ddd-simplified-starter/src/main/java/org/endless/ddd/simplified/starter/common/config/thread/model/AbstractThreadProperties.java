@@ -1,4 +1,4 @@
-package com.tansun.atp.starter.common.config.thread.model;
+package org.endless.ddd.simplified.starter.common.config.thread.model;
 
 import lombok.Getter;
 import lombok.Setter;

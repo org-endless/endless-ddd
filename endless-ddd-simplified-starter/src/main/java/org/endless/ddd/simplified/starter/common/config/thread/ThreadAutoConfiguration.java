@@ -1,6 +1,6 @@
-package com.tansun.atp.starter.common.config.thread;
+package org.endless.ddd.simplified.starter.common.config.thread;
 
-import com.tansun.atp.starter.common.config.thread.common.CommonThreadConfiguration;
+import org.endless.ddd.simplified.starter.common.config.thread.common.CommonThreadConfiguration;
 import org.springframework.context.annotation.Import;
 
 /**
