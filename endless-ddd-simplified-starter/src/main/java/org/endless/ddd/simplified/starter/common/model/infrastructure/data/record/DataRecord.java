@@ -67,10 +67,8 @@ public interface DataRecord<E extends Entity> {
      */
     default Field idField() {
         for (Field field : this.getClass().getDeclaredFields()) {
-            if (field.getName().endsWith("Id")) {
-                if (field.isAnnotationPresent(TableId.class)) {
+            if (field.getName().endsWith("Id") && field.isAnnotationPresent(TableId.class)) {
                     return field;
-                }
             }
         }
         throw new DataRecordException("未找到数据库实体的 ID 字段");

@@ -12,7 +12,7 @@ package org.endless.ddd.simplified.starter.common.exception.application.command.
  */
 public class CommandHandlerModifyException extends CommandHandlerException {
 
-    private static final String DEFAULT_MESSAGE = "修改命令异常";
+    private static final String DEFAULT_MESSAGE = "命令处理器修改命令异常";
 
     public CommandHandlerModifyException(String message) {
         super(message == null ? DEFAULT_MESSAGE + "：" : message);

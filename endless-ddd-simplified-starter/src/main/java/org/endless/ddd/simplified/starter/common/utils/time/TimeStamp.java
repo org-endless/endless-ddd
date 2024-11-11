@@ -17,10 +17,13 @@ import java.time.format.DateTimeFormatter;
  */
 public class TimeStamp {
 
-    public static long now() {
+    public static Long now() {
         return Instant.now().toEpochMilli();
     }
 
+    public static Long between(Long start, Long end) {
+        return Duration.between(Instant.ofEpochMilli(start), Instant.ofEpochMilli(end)).toMillis();
+    }
     protected static String format(Instant timestamp, String datePattern) {
         ZonedDateTime zonedDateTime = timestamp.atZone(ZoneId.systemDefault());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(datePattern);

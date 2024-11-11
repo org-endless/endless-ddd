@@ -17,15 +17,16 @@ import java.util.List;
  * @author Deng Haozhi
  * @since 2.0.0
  */
+@Import(FastJson2HttpMessageConverter.class)
 public class RestServerConfiguration implements WebMvcConfigurer {
 
-    @Bean
-    public HttpMessageConverter<Object> fastJsonHttpMessageConverter() {
-        return new FastJsonHttpMessageConverter();
-    }
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.add(fastJsonHttpMessageConverter());
+    }
+    @Bean
+    public HttpMessageConverter<Object> fastJsonHttpMessageConverter() {
+        return new FastJson2HttpMessageConverter<>();
     }
 }

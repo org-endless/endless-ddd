@@ -24,7 +24,7 @@ public class RestClientConfiguration {
         restTemplate.getMessageConverters().removeIf(converter ->
                 converter instanceof MappingJackson2HttpMessageConverter);
         // 添加 Fastjson2 转换器
-        restTemplate.getMessageConverters().add(new FastJsonHttpMessageConverter());
+        restTemplate.getMessageConverters().add(new FastJson2HttpMessageConverter<>());
         return restTemplate;
     }
 }

@@ -1,6 +1,6 @@
 #------------------------Endless------------------------
 endless:
-  version: 2.0.0-SNAPSHOT
+  version: 1.0.0-SNAPSHOT
 #------------------------Server-------------------------
 server:
   port: ${endless.server.port} # 服务端口
@@ -52,7 +52,7 @@ spring:
       keep-alive: ${endless.redis.socket-options.keep-alive} # 启用保持连接，保持连接活跃以避免频繁创建新连接
       tcp-no-delay: ${endless.redis.socket-options.tcp-no-delay} # 禁用 Nagle 算法，提升响应速度
   datasource:
-   # type: ${endless.datasource.type}  # 指定 Druid 数据源类型
+    type: ${endless.datasource.type}  # 指定 Druid 数据源类型
     driver-class-name: ${endless.datasource.driver-class-name}  # 设置数据库驱动类
     url: ${endless.datasource.url} # 数据库连接 URL
     username: ${endless.datasource.username}  # 数据库用户名

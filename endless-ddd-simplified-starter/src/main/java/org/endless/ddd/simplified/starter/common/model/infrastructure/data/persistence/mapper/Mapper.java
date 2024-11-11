@@ -44,48 +44,98 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
 
     Logger log = LoggerFactory.getLogger(Mapper.class);
 
+    Set<Class<?>> MAPPER_MODIFY_SUPPORTED_TYPES = new HashSet<>(Arrays.asList(
+            Integer.class, int.class, Long.class, long.class, Double.class, double.class,
+            Float.class, float.class, Boolean.class, boolean.class, String.class,
+            byte[].class, Byte[].class, Date.class, java.sql.Date.class,
+            Timestamp.class, BigDecimal.class
+    ));
 
+    Set<String> MAPPER_MODIFY_EXCLUDED_FIELDS = new HashSet<>(Arrays.asList(
+            "createAt", "modifyAt"
+    ));
+    Optional<R> findByIdForUpdate(String id);
     /**
      * 根据ID查询记录
      *
      * @param id 主键ID
      * @return {@link Optional }<{@link R }>
      */
+    @Log(message = "数据库根据ID查询记录", value = "' ID：' + #id", level = "TRACE")
     default Optional<R> findById(String id) {
+        Optional.ofNullable(id)
+                .filter(StringUtils::hasText)
+                .orElseThrow(() -> new MapperFindException("数据库根据ID查询ID不能为空"));
         try {
-            Instant start = Instant.now();
-            Optional<R> result = Optional.ofNullable(this.selectById(id))
+            return Optional.ofNullable(this.selectById(id))
                     .filter(record -> record.getIsRemoved() == null || !record.getIsRemoved());
-            log.trace("数据库查询成功，耗时：{} 毫秒", Duration.between(start, Instant.now()).toMillis());
-            return result;
         } catch (MapperException e) {
             throw e;
         } catch (Exception e) {
-            throw new MapperFindException("数据库记录查询失败，ID: " + id, e);
+            throw new MapperFindException("数据库根据ID查询记录失败，ID: " + id, e);
+        }
+    }
+    @Log(message = "数据库根据ID查询记录", value = "' ID：' + #id", level = "TRACE")
+    default Optional<R> findByIdNew(String id) {
+        try {
+            QueryWrapper<R> queryWrapper = new QueryWrapper<>();
+            queryWrapper
+                    .eq(StringTools.toSnake(getRecordIdName()), id)
+                    .eq("is_removed", false);
+            return Optional.ofNullable(this.selectOne(queryWrapper));
+        } catch (MapperException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new MapperFindException("数据库根据ID查询记录失败，ID: " + id, e);
         }
     }
 
+    @Log(message = "数据库根据ID列表查询记录", value = "' ID：' + #ids.toString()", level = "TRACE")
     default List<R> findByIds(List<String> ids) {
+        Optional.ofNullable(ids)
+                .filter(l -> !l.isEmpty())
+                .orElseThrow(() -> new MapperFindException("数据库根据ID列表ID列表不能为空"));
         try {
-            Instant start = Instant.now();
 
             // 查询并过滤掉已标记删除的记录
-            List<R> result = Optional.ofNullable(this.selectBatchIds(ids))
+            return Optional.ofNullable(this.selectBatchIds(ids))
                     .orElse(new ArrayList<>())
                     .stream()
                     .filter(record -> record.getIsRemoved() == null || !record.getIsRemoved())
                     .collect(Collectors.toList());
-
-            log.trace("数据库批量查询成功，耗时：{} 毫秒", Duration.between(start, Instant.now()).toMillis());
-            return result;
-
         } catch (MapperException e) {
             throw e;
         } catch (Exception e) {
-            throw new MapperFindException("数据库记录批量查询失败", e);
+            throw new MapperFindException("数据库根据ID列表查询记录失败", e);
         }
     }
 
+    @Log(message = "数据库根据ID列表查询记录", value = "' ID：' + #ids.toString()", level = "TRACE")
+    default List<R> findByIdsNew(List<String> ids) {
+        try {
+            QueryWrapper<R> queryWrapper = new QueryWrapper<>();
+            queryWrapper
+                    .in(StringTools.toSnake(getRecordIdName()), ids)
+                    .eq("is_removed", false);
+            return this.selectList(queryWrapper);
+        } catch (MapperException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new MapperFindException("数据库根据ID列表查询记录失败", e);
+        }
+    }
+
+    @Log(message = "数据库根据条件查询记录", value = "#queryWrapper", level = "TRACE")
+    default Optional<R> findByWrapper(QueryWrapper<R> queryWrapper) {
+        try {
+            queryWrapper.eq("is_removed", false);
+            return Optional.ofNullable(selectOne(queryWrapper));
+        } catch (MapperException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new MapperFindException("数据库根据ID列表查询记录失败", e);
+        }
+    }
 
     /**
      * 数据库记录分页查询，使用查询方法
@@ -95,16 +145,14 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
      * @param callback 回调函数
      * @return {@link PageInfo }<{@link R }>
      */
+    @Log(message = "数据库分页查询记录", value = "' 开始页：' + #pageNum + ', 每页记录数：' + #pageSize", level = "TRACE")
     default PageInfo<R> findPages(int pageNum, int pageSize, PageCallback<R> callback) {
         try {
-            Instant start = Instant.now();
             PageHelper.startPage(pageNum, pageSize);
             // 执行回调并获取结果
             List<R> result = callback.execute();
-            PageInfo<R> pageInfo = new PageInfo<>(result); // 这里直接创建 PageInfo
+            return new PageInfo<>(result);
 
-            log.trace("数据库分页回调查询成功，耗时：{} 毫秒", Duration.between(start, Instant.now()).toMillis());
-            return pageInfo;
         } catch (MapperException e) {
             throw e;
         } catch (Exception e) {
@@ -120,17 +168,15 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
      * @param queryWrapper 查询条件
      * @return {@link PageInfo }<{@link R }>
      */
+    @Log(message = "数据库分页查询记录", value = "' 开始页：' + #pageNum + ', 每页记录数：' + #pageSize", level = "TRACE")
     default PageInfo<R> findPages(int pageNum, int pageSize, QueryWrapper<R> queryWrapper) {
         try {
-            Instant start = Instant.now();
             PageHelper.startPage(pageNum, pageSize);
             // 过滤掉已删除的记录
             queryWrapper.eq("is_removed", false);
             List<R> results = this.selectList(queryWrapper);
 
-            PageInfo<R> pageInfo = PageInfo.of(results);
-            log.trace("数据库分页条件查询成功，耗时：{} 毫秒", Duration.between(start, Instant.now()).toMillis());
-            return pageInfo;
+            return PageInfo.of(results);
         } catch (MapperException e) {
             throw e;
         } catch (Exception e) {
@@ -143,17 +189,16 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
      *
      * @param record 数据库实体
      */
+    @Log(message = "数据库写入记录", value = "#record", level = "TRACE")
     default void save(R record) {
         String id = null;
         try {
-            Instant start = Instant.now();
             Optional.ofNullable(record)
                     .orElseThrow(() -> new MapperModifyException("要存入的数据库记录不能为空"));
             id = record.idValue();
             if (this.insert(record) == 0) {
                 throw new MapperSaveException("数据库记录存入失败，ID: " + id);
             }
-            log.trace("数据库存入成功，耗时：{} 毫秒", Duration.between(start, Instant.now()).toMillis());
         } catch (MapperException e) {
             throw e;
         } catch (Exception e) {
@@ -178,21 +223,20 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
      *
      * @param record 数据库实体
      */
+    @Log(message = "数据库写入或更新记录", value = "#record", level = "TRACE")
     default void upsert(R record) {
         String id = null;
         try {
-            Instant start = Instant.now();
             Optional.ofNullable(record)
-                    .orElseThrow(() -> new MapperModifyException("要存入或更新的数据库记录不能为空"));
+                    .orElseThrow(() -> new MapperModifyException("要写入或更新的数据库的记录不能为空"));
             id = record.idValue();
             if (!this.insertOrUpdate(record)) {
-                throw new MapperUpsertException("数据库记录存入或更新失败，ID: " + id);
+                throw new MapperUpsertException("数据库写入或更新记录失败，ID: " + id);
             }
-            log.trace("数据库存入或更新成功，耗时：{} 毫秒", Duration.between(start, Instant.now()).toMillis());
         } catch (MapperException e) {
             throw e;
         } catch (Exception e) {
-            throw new MapperUpsertException("数据库记录存入或更新失败，ID: " + id, e);
+            throw new MapperUpsertException("数据库写入或更新记录失败，ID: " + id, e);
         }
     }
 
@@ -201,24 +245,23 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
      *
      * @param record 数据库记录
      */
+    @Log(message = "数据库删除记录", value = "#record", level = "TRACE")
     default void remove(R record) {
         String id = null;
         try {
-            Instant start = Instant.now();
             Optional.ofNullable(record)
                     .orElseThrow(() -> new MapperRemoveFailedException("要删除的数据库记录不能为空"));
             id = record.idValue();
 
             if (record.getIsRemoved() == null || !record.getIsRemoved()) {
-                throw new MapperRemoveFailedException("删除数据库记录时删除标志 isRemoved 必须为 true，ID: " + id);
+                throw new MapperRemoveFailedException("数据库删除记录时删除标志 isRemoved 必须为 true，ID: " + id);
             }
             modify(record);
 
-            log.trace("数据库删除成功，耗时：{} 毫秒", Duration.between(start, Instant.now()).toMillis());
         } catch (MapperException e) {
             throw new MapperRemoveFailedException("数据库更新删除标志失败，ID: " + id + "，" + e.getMessage(), e);
         } catch (Exception e) {
-            throw new MapperRemoveException("数据库删除异常，ID: " + id, e);
+            throw new MapperRemoveException("数据库删除记录异常，ID: " + id, e);
         }
     }
 
@@ -227,6 +270,7 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
      *
      * @param records 数据库记录列表
      */
+    @Log(message = "数据库批量删除记录", value = "#record", level = "TRACE")
     default void remove(List<R> records) {
         if (records == null || records.isEmpty()) {
             throw new MapperRemoveFailedException("要删除的数据库记录列表不能为空");
@@ -241,16 +285,16 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
             String id = null;
             try {
                 count++;  // 记录当前是第几条
-                Instant start = Instant.now();
+                Long start = TimeStamp.now();
                 id = record.idValue();
                 remove(record);  // 调用单条删除方法
 
 
-                log.trace("数据库删除成功，第 {} 条记录，ID: {}，耗时：{} 毫秒", count, id, Duration.between(start, Instant.now()).toMillis());
+                log.trace("数据库删除记录成功，第 {} 条记录，ID: {}，耗时：{} 毫秒", count, id, TimeStamp.between(start, TimeStamp.now()));
             } catch (MapperException e) {
                 throw new MapperRemoveFailedException("数据库更新删除标志失败，ID: " + id + "，第 " + count + " 条记录", e);
             } catch (Exception e) {
-                throw new MapperRemoveException("数据库删除异常，ID: " + id + "，第 " + count + " 条记录", e);
+                throw new MapperRemoveException("数据库删除记录异常，ID: " + id + "，第 " + count + " 条记录", e);
             }
         }
     }
@@ -260,6 +304,8 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
      *
      * @param records 数据库记录列表
      */
+    @Log(message = "数据库多批次批量删除记录", value = "'记录数： ' + #records.size() ", level = "TRACE")
+    @Async
     default void removeBatch(List<R> records) {
 
         // 设置每批次处理的记录数量和线程池大小
@@ -289,7 +335,7 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
         } catch (MapperException e) {
             throw e;
         } catch (Exception e) {
-            throw new MapperRemoveException("批量数据库删除异常，线程池异常", e);
+            throw new MapperRemoveException("数据库多批次批量删除记录异常，线程池异常", e);
         } finally {
             // 关闭线程池
             executor.shutdown();
@@ -309,6 +355,7 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
      *
      * @param record 要更新的数据库记录
      */
+    @Log(message = "数据库更新记录", value = "#records", level = "TRACE")
     default void modify(R record) {
         String id = null;
         int retryCount = 0;
@@ -316,7 +363,6 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
 
         while (retryCount < MAX_RETRY_COUNT) {
             try {
-                Instant start = Instant.now();
                 Optional.ofNullable(record)
                         .orElseThrow(() -> new MapperModifyFailedException("要更新的数据库记录不能为空"));
                 id = record.idValue();
@@ -325,7 +371,7 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
                 R existingRecord = this.selectById(id);
                 // 检查记录是否存在
                 if (existingRecord == null) {
-                    throw new MapperModifyFailedException("数据库记录不存在，ID: " + id);
+                    throw new MapperModifyFailedException("要更新的数据库记录不存在，ID: " + id);
                 }
                 // 检查更新时间（乐观锁）字段
                 if (existingRecord.getModifyAt() == null) {
@@ -336,7 +382,7 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
                 if (isRemoved == null) {
                     throw new MapperModifyFailedException("数据库记录状态异常，请检查删除标志，ID: " + id);
                 } else if (isRemoved) {
-                    throw new MapperModifyFailedException("数据库记录已被标记为删除，ID: " + id);
+                    throw new MapperModifyFailedException("数据库记录被标记为已删除，ID: " + id);
                 }
 
                 UpdateWrapper<R> wrapper = new UpdateWrapper<>();
@@ -349,38 +395,75 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
                         field.setAccessible(true);
                         Object newValue = field.get(record);
                         Object existingValue = field.get(existingRecord);
-
+                        String fieldName = field.getName();
+                        Class<?> fieldType = field.getType();
                         if (newValue != null && !Objects.equals(newValue, existingValue)
-                                && !field.getName().equals("createAt")
-                                && !field.getName().equals("modifyAt")
-                                && !field.getName().equals(idName)) {
-                            log.trace("字段 {} 值变更: {} -> {}", field.getName(), existingValue, newValue);
+                                && MAPPER_MODIFY_SUPPORTED_TYPES.contains(fieldType)
+                                && !MAPPER_MODIFY_EXCLUDED_FIELDS.contains(fieldName)
+                                && !fieldName.equals(idName)) {
+                            log.trace("字段 {} 值变更: {} -> {}", fieldName, existingValue, newValue);
                             // 只在有新值且不同的情况下设置更新
-                            wrapper.set(StringTools.toSnake(field.getName()), newValue);
+                            wrapper.set(StringTools.toSnake(fieldName), newValue);
                             hasUpdates = true; // 标记为有更新
                         }
                     } catch (IllegalAccessException e) {
-                        throw new MapperModifyFailedException("更新字段时反射访问出错", e);
+                        throw new MapperModifyFailedException("数据库更新字段时反射访问出错", e);
                     } catch (Exception e) {
-                        throw new MapperModifyFailedException("更新字段时获取 getter 方法出错", e);
+                        throw new MapperModifyFailedException("数据库更新字段时获取 getter 方法出错", e);
                     }
                 }
                 // 执行更新操作
                 if (hasUpdates && this.update(record, wrapper) == 0) {
                     retryCount++;
-                    log.warn("数据库记录更新失败，重试第 {} 次，ID: {}", retryCount, id);
+                    log.warn("数据库更新记录失败，重试第 {} 次，ID: {}", retryCount, id);
                     if (retryCount == MAX_RETRY_COUNT) {
-                        throw new MapperModifyFailedException("数据库记录更新失败，已达到最大重试次数，ID: " + id);
+                        throw new MapperModifyFailedException("数据库更新记录失败，已达到最大重试次数，ID: " + id);
                     }
                 } else {
-                    log.trace("数据库更新成功，耗时：{} 毫秒", Duration.between(start, Instant.now()).toMillis());
                     break; // 成功更新则跳出循环
                 }
             } catch (MapperException e) {
                 throw e;
             } catch (Exception e) {
-                throw new MapperModifyException("数据库记录更新异常，ID: " + id, e);
+                throw new MapperModifyException("数据库更新记录异常，ID: " + id, e);
             }
         }
+    }
+    default String getRecordIdName() {
+        Class<?> proxyClass = this.getClass();
+        for (Type interfaceType : proxyClass.getGenericInterfaces()) {
+            if (interfaceType instanceof ParameterizedType) {
+                ParameterizedType paramType = (ParameterizedType) interfaceType;
+                Type[] typeArguments = paramType.getActualTypeArguments();
+                if (typeArguments.length > 0 && typeArguments[0] instanceof Class<?>) {
+                    Class<?> entityClass = (Class<?>) typeArguments[0];
+                    Field idField = Arrays.stream(entityClass.getDeclaredFields())
+                            .filter(field -> field.isAnnotationPresent(TableId.class))
+                            .findFirst()
+                            .orElseThrow(() ->
+                                    new MapperException("未找到标注了 @TableId 注解的 ID 字段，类: " + entityClass.getName()));
+                    return idField.getName();
+                }
+            }
+        }
+        throw new MapperException("未找到泛型接口的类型信息。");
+    }
+    default String findIdFieldInType(Type[] interfaces) {
+        for (Type type : interfaces) {
+            if (type instanceof ParameterizedType) {
+                ParameterizedType paramType = (ParameterizedType) type;
+                Type[] typeArguments = paramType.getActualTypeArguments();
+                if (typeArguments.length > 0 && typeArguments[0] instanceof Class<?>) {
+                    Class<?> entityClass = (Class<?>) typeArguments[0];
+                    for (Field field : entityClass.getDeclaredFields()) {
+                        if (field.isAnnotationPresent(TableId.class)) {
+                            return field.getName();
+                        }
+                    }
+                    throw new MapperException("未找到标注了 @TableId 注解的 ID 字段，类: " + entityClass.getName());
+                }
+            }
+        }
+        return null; // 未找到合适的泛型参数
     }
 }

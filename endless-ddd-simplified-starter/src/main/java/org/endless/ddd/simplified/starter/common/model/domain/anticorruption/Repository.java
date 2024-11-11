@@ -19,14 +19,14 @@ import java.util.Optional;
  */
 public interface Repository<A extends Aggregate> {
 
+    A save(A aggregate);
+    void remove(A aggregate);
+    A modify(A aggregate);
     Optional<A> findById(String id);
 
     Optional<A> findByIdForUpdate(String id);
 
-    void modify(A aggregate);
 
-    void save(A aggregate);
 
-    void remove(A aggregate);
 
 }

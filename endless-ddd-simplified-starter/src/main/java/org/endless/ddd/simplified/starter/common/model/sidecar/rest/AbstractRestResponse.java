@@ -20,6 +20,7 @@ import java.util.List;
  * @since 2.0.0
  */
 @Getter
+@ToString
 @SuperBuilder
 public abstract class AbstractRestResponse implements RestResponse {
 
