@@ -9,6 +9,7 @@ import static org.endless.ddd.simplified.generator.template.CommentTemplate.comm
 import static org.endless.ddd.simplified.generator.template.DefineTemplate.interfaceDefine;
 import static org.endless.ddd.simplified.generator.template.EndTemplate.end;
 import static org.endless.ddd.simplified.generator.template.HeaderTemplate.*;
+import static org.endless.ddd.simplified.generator.utils.DDDUtils.*;
 import static org.endless.ddd.simplified.generator.utils.StringTools.exchangeSuffix;
 
 /**

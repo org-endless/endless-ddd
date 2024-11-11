@@ -180,7 +180,6 @@ public class StringTools {
     /**
      * 处理泛型后缀的修改
      *
-     * @param listType  原始 List 类型字符串
      * @param oldSuffix 旧的后缀
      * @param newSuffix 新的后缀
      * @return 修改后 List 类型的字符串

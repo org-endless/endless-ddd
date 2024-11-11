@@ -2,7 +2,6 @@ package org.endless.ddd.simplified.generator.service;
 
 import com.alibaba.fastjson2.JSON;
 import org.endless.ddd.simplified.generator.generators.*;
-import org.endless.domain.simplified.generator.generators.*;
 import org.endless.ddd.simplified.generator.object.dto.AggregateDTO;
 import org.endless.ddd.simplified.generator.object.dto.GeneratorDTO;
 import org.endless.ddd.simplified.generator.object.entity.Aggregate;

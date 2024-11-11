@@ -20,6 +20,7 @@ import static org.endless.ddd.simplified.generator.template.HeaderTemplate.packa
 import static org.endless.ddd.simplified.generator.template.MethodTemplate.*;
 import static org.endless.ddd.simplified.generator.template.ValidateTemplate.validate;
 import static org.endless.ddd.simplified.generator.template.ValidateTemplate.validateMethods;
+import static org.endless.ddd.simplified.generator.utils.DDDUtils.*;
 
 /**
  * AggregateGenerator

@@ -19,6 +19,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static org.endless.ddd.simplified.generator.utils.StringTools.*;
+
 /**
  * DDDUtils
  * <p>

@@ -17,6 +17,7 @@ import static org.endless.ddd.simplified.generator.template.HeaderTemplate.impor
 import static org.endless.ddd.simplified.generator.template.HeaderTemplate.packageHeader;
 import static org.endless.ddd.simplified.generator.template.ValidateTemplate.validate;
 import static org.endless.ddd.simplified.generator.template.ValidateTemplate.validateMethods;
+import static org.endless.ddd.simplified.generator.utils.DDDUtils.*;
 
 /**
  * CommandTransferGenerator

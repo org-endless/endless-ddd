@@ -17,6 +17,7 @@ import static org.endless.ddd.simplified.generator.template.FieldTemplate.enumVa
 import static org.endless.ddd.simplified.generator.template.HeaderTemplate.importHeaderEnum;
 import static org.endless.ddd.simplified.generator.template.HeaderTemplate.packageHeader;
 import static org.endless.ddd.simplified.generator.template.MethodTemplate.fromCode;
+import static org.endless.ddd.simplified.generator.utils.DDDUtils.*;
 
 /**
  * EnumTemplate

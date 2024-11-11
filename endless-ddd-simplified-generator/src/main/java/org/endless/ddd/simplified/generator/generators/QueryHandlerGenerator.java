@@ -17,6 +17,7 @@ import static org.endless.ddd.simplified.generator.template.DefineTemplate.inter
 import static org.endless.ddd.simplified.generator.template.EndTemplate.end;
 import static org.endless.ddd.simplified.generator.template.FieldTemplate.fields;
 import static org.endless.ddd.simplified.generator.template.HeaderTemplate.*;
+import static org.endless.ddd.simplified.generator.utils.DDDUtils.*;
 import static org.endless.ddd.simplified.generator.utils.StringTools.exchangeSuffix;
 
 /**

@@ -8,6 +8,9 @@ import org.springframework.util.StringUtils;
 import java.util.List;
 import java.util.Set;
 
+import static org.endless.ddd.simplified.generator.utils.DDDUtils.fieldMethod;
+import static org.endless.ddd.simplified.generator.utils.StringTools.*;
+
 /**
  * ConstructorTemplate
  * <p>

@@ -10,6 +10,10 @@ import org.springframework.util.StringUtils;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static org.endless.ddd.simplified.generator.utils.DDDUtils.id;
+import static org.endless.ddd.simplified.generator.utils.StringTools.generics;
+import static org.endless.ddd.simplified.generator.utils.StringTools.getLastCamelCase;
+
 /**
  * FieldTemplate
  * <p>
