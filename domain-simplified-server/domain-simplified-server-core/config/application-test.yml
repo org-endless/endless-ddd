@@ -1,0 +1,50 @@
+endless-config:
+
+  server-port: 10001
+
+  logging:
+    config: file:config/log4j2-test.xml
+
+  # 项目相关配置
+  home-path: /endless-ddd-simplified-server
+  home-url: http://20.1.37.142:10001
+  jmeter-home: ${endless-config.home-path}/jmeter
+
+  execute-server-host: execute-server
+  execute-server-port: 10002
+
+  # mysql配置
+  mysql-host: 20.1.10.96:2883
+  mysql-db: atp
+  mysql-username: atp@ats#oceanbase_dev
+  mysql-password: atp
+
+  # redis配置
+  redis-host: redis
+  redis-port: 10010
+  redis-database: 4
+  redis-password: atp@redis
+
+  # minio配置
+  minio-endpoint: http://20.1.37.142:10008
+  minio-accessKey: atp
+  minio-secretKey: atp@minio
+  minio-bucket: atp
+
+
+  #数据源密码加解密
+  aes-key: IjGBGSoiruZq9y2A
+  des-key: mFTBDnaK/Qc=
+  rsa-publicKey: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCuyweJKvjD5fKaJ+Q3pNDnvjPAXDthC6ty1vEkjwWhXhxnck9cvQMCoWcgQ3bzd6OJBP+ed3uRWkP4jKnB0KI2ijwjclodtpOLFi1PMu4KUK3Rm9U2vl1qLB7EFY9PeFn+kX5Mvw7F7sa9WqaWGfbs5D3o/mw+Bc/pAU1+xECCVQIDAQAB
+  rsa-privateKey: MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAK7LB4kq+MPl8pon5Dek0Oe+M8BcO2ELq3LW8SSPBaFeHGdyT1y9AwKhZyBDdvN3o4kE/553e5FaQ/iMqcHQojaKPCNyWh22k4sWLU8y7gpQrdGb1Ta+XWosHsQVj094Wf6Rfky/DsXuxr1appYZ9uzkPej+bD4Fz+kBTX7EQIJVAgMBAAECgYAp3+jvwxQytkF/DeR+MiV8B1SVlmMBVk7eJcFCjWL/bDDo1XlO0ddJR4qRr6ftHvHWLxTgDWbUhSf4gRZgIM/jVHcUq7eUO5im/ACENgZSqVY5AnGl9tC0tzOyzjPKdfG+Df2ewBueTN4kw6JozrBco0iEQ1XPSdbY7gfb+nFIwQJBAOJfKXK6qM2ZOrHp7bcPVUVRNXI6vKt8SLOdXxhfT2EIFqiTO1vPttxMwJiJRN7Q3pTR2xbIOqWsEj6aK2Oqi/UCQQDFq6rZIV6JVVH8ry/48EPPauNCOMLedJQKclg7V2Y08XXoe7lNnp34pmR2iXqYhIf4HxfL3yiIXvL2YAncPYDhAkARdQE/RcHKySxLmByq51XOGKskef8ewmDg6RvyRzdZ5kPJEEGdnPEfIBQiL0POYxEnLN/Wa+6J5DEr/rul3fsZAkBJikpvqYiAU2vDNHIGjWzM+BlAg9mL5ZdGI7BLs4Jk5AhXy9/uzro6zbzGlPM1Vuk3GGpEAOwVgC2oF6bTd1ZBAkEA4Ey+Yz50g3iX5UGUDb4h4HZio/2zvXPzi+j2I1g2nNbZsjeOHH7XzKU8KfVrYtAGgdCYVmjFSFImBY2a/IbDwA==
+
+  #python解释器和脚本目录
+  #下载一个arm的python
+  python-path: ${endless-config.home-path}/lib/python
+  venv-path: ${endless-config.home-path}/lib/python/bin/python3.8
+  jython-Lib: ${endless-config.home-path}/lib/jython
+
+  #mtp
+  mtp-host: http://test-platform-IP:7777
+  #案例关联执行集最大线程数
+  case-maxPoolSize: 30

@@ -1,0 +1,4 @@
+org.endless.ddd.simplified.starter.common.config.minio.MinioAutoConfiguration
+org.endless.ddd.simplified.starter.common.config.cache.redis.RedisAutoConfiguration
+org.endless.ddd.simplified.starter.common.config.rest.RestAutoConfiguration
+org.endless.ddd.simplified.starter.common.config.endless.EndlessAutoConfiguration

@@ -1,0 +1,18 @@
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+    mode: HTML
+  devtools:
+    restart:
+      enabled: true
+      livereload:
+        port: 35731
+server:
+  port: 10002
+  error:
+    whitelabel:
+      enabled: false
+logging:
+  config: file:config/log4j2.xml

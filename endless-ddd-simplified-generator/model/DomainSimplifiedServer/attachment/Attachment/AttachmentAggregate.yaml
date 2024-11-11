@@ -1,0 +1,132 @@
+author: Deng Haozhi
+version: 2.0.0
+groupId: org.endless
+serviceName: DomainSimplifiedServer
+rootPath: domain-simplified-server/domain-simplified-server-supporting
+serviceSubPackage: supporting
+contextName: attachment
+domainName: Attachment
+aggregateName: AttachmentAggregate
+description: 附件
+fields:
+  - name: attachmentId
+    type: String
+    description: 附件ID
+    nullable: false
+  - name: name
+    type: String
+    description: 附件名称
+    nullable: false
+  - name: description
+    type: String
+    description: 附件描述
+    nullable: true
+  - name: file
+    type: FileEntity
+    description: 文件
+    nullable: false
+entities:
+  - name: FileEntity
+    description: 文件
+    fields:
+      - name: fileId
+        type: String
+        description: 文件ID
+        nullable: false
+      - name: name
+        type: String
+        description: 文件名
+        nullable: false
+      - name: path
+        type: String
+        description: 文件路径
+        nullable: false
+      - name: contentType
+        type: String
+        description: 文件上下文类型
+        nullable: false
+      - name: size
+        type: Long
+        description: 文件大小
+        nullable: false
+transfers:
+  - name: AttachmentCreateReqCTransfer
+    adapterType: DRIVING
+    cqrsType: COMMAND
+    messageType: REQUEST
+    description: 创建附件请求传输对象
+    fields:
+      - name: name
+        type: String
+        description: 附件名称
+        nullable: false
+      - name: description
+        type: String
+        description: 附件描述
+        nullable: true
+      - name: userId
+        type: String
+        description: 用户ID
+        nullable: false
+  - name: AttachmentCreateRespCTransfer
+    adapterType: DRIVING
+    cqrsType: COMMAND
+    messageType: RESPONSE
+    description: 创建附件响应传输对象
+    fields:
+      - name: attachmentId
+        type: String
+        description: 附件ID
+        nullable: false
+  - name: AttachmentRemoveReqCTransfer
+    adapterType: DRIVING
+    cqrsType: COMMAND
+    messageType: REQUEST
+    description: 删除附件请求传输对象
+    fields:
+      - name: attachmentId
+        type: String
+        description: 附件ID
+        nullable: false
+  - name: AttachmentModifyInfoReqCTransfer
+    adapterType: DRIVING
+    cqrsType: COMMAND
+    messageType: REQUEST
+    description: 修改附件信息请求传输对象
+    fields:
+      - name: attachmentId
+        type: String
+        description: 附件ID
+        nullable: false
+      - name: name
+        type: String
+        description: 附件名称
+        nullable: false
+      - name: description
+        type: String
+        description: 附件描述
+        nullable: false
+  - name: AttachmentFindByIdReqQTransfer
+    adapterType: DRIVING
+    cqrsType: QUERY
+    messageType: REQUEST
+    description: 根据ID查询附件请求传输对象
+    fields:
+      - name: attachmentId
+        type: String
+        description: 附件ID
+        nullable: false
+  - name: AttachmentFindByIdRespQTransfer
+    adapterType: DRIVING
+    cqrsType: QUERY
+    messageType: RESPONSE
+    description: 根据ID查询附件响应传输对象
+    fields:
+      - name: attachmentId
+        type: String
+        description: 附件ID
+        nullable: false
+      - name: name
+        type: String
+        description: 附件名称
+        nullable: true
