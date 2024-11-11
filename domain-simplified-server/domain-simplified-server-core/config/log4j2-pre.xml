@@ -23,29 +23,21 @@
         </RollingRandomAccessFile>
     </Appenders>
     <Loggers>
-        <!--        <Logger name="org.mongodb" level="INFO"/>-->
-        <!--        <Logger name="org.mybatis" level="INFO"/>-->
-        <!--        <Logger name="com.baomidou.mybatisplus" level="INFO"/>-->
-        <!--        <Logger name="org.apache" level="INFO"/>-->
-        <!--        <Logger name="org.springframework" level="INFO"/>-->
-        <!--        <Logger name="_org.springframework" level="INFO"/>-->
-        <!--        <Logger name="org.jboss" level="INFO"/>-->
-        <!--        <Logger name="org.thymeleaf" level="INFO"/>-->
-        <!--        <Logger name="org.hibernate" level="INFO"/>-->
-        <!--        <Logger name="javax.management" level="INFO"/>-->
-        <!--        <Logger name="sun.rmi" level="INFO"/>-->
-        <!--        <Logger name="sun.net" level="INFO"/>-->
-        <!--        <Logger name="jdk.event" level="INFO"/>-->
-        <Logger name="org.springframework.util" level="ERROR"/>
-        <Logger name="org.springframework.beans" level="ERROR"/>
-        <Logger name="org.springframework.aop" level="ERROR"/>
-        <Logger name="org.springframework.boot.autoconfigure" level="ERROR"/>
-        <Logger name="io.netty" level="ERROR"/>
-        <Logger name="org.springframework.boot.test.context" level="ERROR"/>
-        <Logger name="org.springframework.test.context" level="ERROR"/>
-        <Logger name="org.springframework.data.repository.config.RepositoryComponentProvider.scanCandidateComponents"
-                level="ERROR"/>
-
+        <Logger name="org.springframework" level="INFO"/>
+        <Logger name="_org.springframework" level="INFO"/>
+        <Logger name="org.mongodb" level="INFO"/>
+        <Logger name="org.mybatis" level="INFO"/>
+        <Logger name="com.baomidou.mybatisplus" level="INFO"/>
+        <Logger name="org.apache" level="INFO"/>
+        <Logger name="org.jboss" level="INFO"/>
+        <Logger name="org.thymeleaf" level="INFO"/>
+        <Logger name="org.hibernate" level="INFO"/>
+        <Logger name="javax.management" level="INFO"/>
+        <Logger name="sun.rmi" level="INFO"/>
+        <Logger name="sun.net" level="INFO"/>
+        <Logger name="jdk.event" level="INFO"/>
+        <Logger name="io.netty" level="INFO"/>
+        <Logger name="java.io.serialization" level="INFO"/>
         <Root level="trace">
             <AppenderRef ref="Console"/>
             <!--        <AppenderRef ref="RollingRandomAccessFile" />-->

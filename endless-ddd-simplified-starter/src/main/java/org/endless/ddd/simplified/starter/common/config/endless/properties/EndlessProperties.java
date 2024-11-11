@@ -25,7 +25,7 @@ import java.util.List;
 @ConfigurationProperties(prefix = "endless")
 public class EndlessProperties {
 
-    private CharsetType charset;
+    private CharsetType charset = CharsetType.UTF8;
 
     private List<String> jsonAllowedTypes = Arrays.asList(
             "java.lang.String",

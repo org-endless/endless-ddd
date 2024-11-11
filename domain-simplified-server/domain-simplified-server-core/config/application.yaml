@@ -1,6 +1,7 @@
 #------------------------Endless------------------------
 endless:
   version: 1.0.0-SNAPSHOT
+  charset: UTF-8
 #------------------------Server-------------------------
 server:
   port: ${endless.server.port} # 服务端口
