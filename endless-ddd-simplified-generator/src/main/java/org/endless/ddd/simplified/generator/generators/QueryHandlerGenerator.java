@@ -73,9 +73,11 @@ public class QueryHandlerGenerator {
         String queryRepository = exchangeSuffix(generic, "QueryRepository", 1);
         List<Field> fields = new ArrayList<>();
         fields.add(Field.builder().name(StringUtils.uncapitalize(queryRepository)).type(queryRepository).description(aggregate.getDescription() + "聚合查询仓储接口").nullable(false).build());
-        for (Entity entity : aggregate.getEntities()) {
-            String entityRepository = exchangeSuffix(entity.getName(), "QueryRepository", 1);
-            fields.add(Field.builder().name(StringUtils.uncapitalize(entityRepository)).type(entityRepository).description(entity.getDescription() + "实体查询仓储接口").nullable(false).build());
+        if (aggregate.getEntities() != null && !aggregate.getEntities().isEmpty()) {
+            for (Entity entity : aggregate.getEntities()) {
+                String entityRepository = exchangeSuffix(entity.getName(), "QueryRepository", 1);
+                fields.add(Field.builder().name(StringUtils.uncapitalize(entityRepository)).type(entityRepository).description(entity.getDescription() + "实体查询仓储接口").nullable(false).build());
+            }
         }
         String classDescription = aggregate.getDescription() + "领域查询处理器";
 

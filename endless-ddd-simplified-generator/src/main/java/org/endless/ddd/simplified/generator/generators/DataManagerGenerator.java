@@ -72,7 +72,7 @@ public class DataManagerGenerator {
         String aggregateName = exchangeSuffix(className, "Aggregate", 2);
         List<Field> fields = new ArrayList<>();
         fields.add(Field.builder().name(StringUtils.uncapitalize(mapperName)).type(mapperName).description(description + " Mybatis-Plus 数据访问对象").nullable(false).build());
-        if (aggregateName.equals(aggregate.getAggregateName())) {
+        if (aggregateName.equals(aggregate.getAggregateName()) && aggregate.getEntities() != null && !aggregate.getEntities().isEmpty()) {
             for (Entity entity : aggregate.getEntities()) {
                 String entityMapper = exchangeSuffix(entity.getName(), "Mapper", 1);
                 fields.add(Field.builder().name(StringUtils.uncapitalize(entityMapper)).type(entityMapper).description(entity.getDescription() + "实体 Mybatis-Plus 数据访问对象").nullable(false).build());

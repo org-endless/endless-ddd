@@ -31,14 +31,13 @@
             <optional>true</optional>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>org.endless.ddd.server.EndlessDDDSimplifiedApplication</mainClass>
+                    <mainClass>org.endless.domain.simplified.server.DomainSimplifiedApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

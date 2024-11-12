@@ -39,7 +39,7 @@ public class DDDUtils {
     private static final String PROJECT_ROOT = "..";
 
     public static String domainPackage(Aggregate aggregate) {
-        return servicePackage(aggregate) + "." + aggregate.getServiceSubPackage() + "." + aggregate.getContextName().toLowerCase() + "." + aggregate.getDomainName().toLowerCase();
+        return servicePackage(aggregate) + "." + aggregate.getServiceSubPackage() + "." + aggregate.getContextName().toLowerCase() + "." + convertToDot(aggregate.getDomainName());
     }
 
     public static String servicePackage(Aggregate aggregate) {
