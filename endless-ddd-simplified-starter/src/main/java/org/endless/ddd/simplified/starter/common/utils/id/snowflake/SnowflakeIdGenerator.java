@@ -61,7 +61,7 @@ public class SnowflakeIdGenerator {
     }
 
     public SnowflakeIdGenerator() {
-        String hostName;
+        String hostName = null;
         try {
             hostName = InetAddress.getLocalHost().getHostName();
         } catch (UnknownHostException e) {
