@@ -114,7 +114,7 @@ public class FieldTemplate {
                 }
 
                 if (className.endsWith("Record")) {
-                    if (fieldName.equals(id(className, 1))) {
+                    if (fieldName.equals(id(className, 1)) || fieldName.equals("associationId")) {
                         stringBuilder.append("    @TableId\n");
                     }
                     if (fieldType.startsWith("List<")) {

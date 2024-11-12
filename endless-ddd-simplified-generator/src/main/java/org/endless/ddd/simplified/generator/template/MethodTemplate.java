@@ -103,8 +103,12 @@ public class MethodTemplate {
             if (entityNames.contains(fieldType)) {
                 stringBuilder.append("        this.").append(field.getName()).append(".remove();\n");
             }
-            if (fieldType.startsWith("List<") && entityNames.contains(generics)) {
+            if (fieldType.startsWith("List<")) {
+                if (entityNames.contains(generics)) {
                 stringBuilder.append("        this.").append(field.getName()).append(".forEach(").append(generics).append("::remove);\n");
+                } else {
+                    stringBuilder.append("        this.").append(field.getName()).append(".clear();\n");
+                }
             }
         }
         stringBuilder
@@ -135,7 +139,7 @@ public class MethodTemplate {
             String fieldName = field.getName();
             String generics = generics(fieldType);
 
-            if (className.endsWith("Record")) {
+            if (className.endsWith("Record") && !fieldType.startsWith("List<String>")) {
                 fieldType = exchangeGenerics(fieldType, "Entity", "Record");
                 generics = exchangeSuffix(generics, "Entity", "Record");
             }
@@ -288,9 +292,13 @@ public class MethodTemplate {
                 .stream()
                 .collect(Collectors.toMap(Value::getName, value -> value));
         Set<String> expandedTypes = new HashSet<>(); // 用于记录已展开的类型
-        String param, objectParam;
+        String param, objectParam, associationParam = "";
         String aggregateId = id(aggregateName, 1);
-        if (generics.endsWith("Aggregate")) {
+        if (className.endsWith("AssociationRecord")) {
+            associationParam = StringUtils.uncapitalize(removeSuffix(removePrefix(className, removeSuffix(aggregateName, "Aggregate")), "AssociationRecord")) + "Id";
+            param = "aggregate, String " + associationParam;
+            objectParam = "aggregate";
+        } else if (generics.endsWith("Aggregate")) {
             param = "aggregate";
             objectParam = "aggregate";
         } else {
@@ -299,7 +307,7 @@ public class MethodTemplate {
         }
         stringBuilder
                 .append("    ").append(access(generics, false, true)).append(" static ").append(className).append(" from").append("(").append(generics).append(" ").append(param).append(") {\n");
-        if (generics.endsWith("Aggregate")) {
+        if (generics.endsWith("Aggregate") && !className.endsWith("AssociationRecord")) {
             stringBuilder.append("        String ").append(aggregateId).append(" = ").append(param).append(".get").append(StringUtils.capitalize(aggregateId)).append("();\n");
         }
         stringBuilder.append("        return ").append(className).append(".builder()\n");
@@ -314,10 +322,18 @@ public class MethodTemplate {
                 continue;
             } else if (fieldName.equals(id(className, 1))) {
                 if (generics.endsWith("Aggregate")) {
-                    stringBuilder.append("                 .").append(fieldName).append("(").append(aggregateId).append(")\n");
+                    stringBuilder.append("                .").append(fieldName).append("(").append(aggregateId).append(")\n");
                 } else {
-                    stringBuilder.append("                 .").append(fieldName).append("(").append(objectParam).append(".get").append(StringUtils.capitalize(fieldName)).append("())\n");
-                    stringBuilder.append("                 .").append(aggregateId).append("(").append(aggregateId).append(")\n");
+                    stringBuilder.append("                .").append(fieldName).append("(").append(objectParam).append(".get").append(StringUtils.capitalize(fieldName)).append("())\n");
+                    stringBuilder.append("                .").append(aggregateId).append("(").append(aggregateId).append(")\n");
+                }
+            } else if (className.endsWith("AssociationRecord")) {
+                if (fieldName.equals("associationId")) {
+                    stringBuilder.append("                .").append(fieldName).append("(IdGenerator.getId())\n");
+                } else if (fieldName.equals(associationParam)) {
+                    stringBuilder.append("                .").append(associationParam).append("(").append(associationParam).append(")\n");
+                } else {
+                    stringBuilder.append("                .").append(fieldName).append("(").append(objectParam).append(".get").append(StringUtils.capitalize(fieldName)).append("())\n");
                 }
             } else if (fieldType.startsWith("List<")) {
                 if (entityNames.contains(fieldGenerics)) {
@@ -344,8 +360,7 @@ public class MethodTemplate {
             }
         }
         stringBuilder
-                .append("                .build()\n")
-                .append("                .validate();\n")
+                .append("                .build();\n")
                 .append("    }\n\n");
     }
 
@@ -357,10 +372,20 @@ public class MethodTemplate {
                 .collect(Collectors.toMap(Value::getName, value -> value));
         Set<String> expandedTypes = new HashSet<>(); // 用于记录已展开的类型
 
+        if (className.endsWith("AssociationRecord")) {
+            String associationParam = StringUtils.uncapitalize(removeSuffix(removePrefix(className, removeSuffix(generics, "Aggregate")), "AssociationRecord")) + "Id";
         stringBuilder
+                    .append("    ").append(access(generics, false, true)).append(" ").append("String to").append("() {\n")
+                    .append("        validate();\n")
+                    .append("        return ").append(associationParam).append(";\n")
+                    .append("    }\n\n");
+            return;
+        } else {
+            stringBuilder
                 .append("    ").append(access(generics, false, true)).append(" ").append(generics).append(" to").append("() {\n")
                 .append("        validate();\n")
                 .append("        return ").append(generics).append(".builder()\n");
+        }
         for (Field field : fields) {
             String fieldName = field.getName();
             String fieldType = field.getType();

@@ -109,6 +109,7 @@ public class DDDGeneratorService {
             if (generatorDTO.getEnableEntity()) {
                 new EntityGenerator().generateAggregate(aggregate);
             }
+            new AssociationGenerator().generate(aggregate, generatorDTO.getEnableRecord(), generatorDTO.getEnableMapper());
             // 处理数据库记录实体
             if (generatorDTO.getEnableRecord()) {
                 new DataRecordGenerator().generateAggregate(aggregate);
@@ -190,7 +191,6 @@ public class DDDGeneratorService {
                             if (generatorDTO.getEnableRecord()) {
                                 DataRecordGenerator dataRecordGenerator = new DataRecordGenerator();
                                 dataRecordGenerator.generateEntity(aggregate, entity);
-                                dataRecordGenerator.generateAssociation(aggregate, entity);
                             }
                             if (generatorDTO.getEnableRepository()) {
                                 new RepositoryGenerator().generateEntityQuery(aggregate, entity);

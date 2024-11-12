@@ -73,8 +73,17 @@ public class DataManagerGenerator {
         fields.add(Field.builder().name(StringUtils.uncapitalize(mapperName)).type(mapperName).description(description + " Mybatis-Plus 数据访问对象").nullable(false).build());
         if (aggregateName.equals(aggregate.getAggregateName())) {
             for (Entity entity : aggregate.getEntities()) {
-                String entityRepository = exchangeSuffix(entity.getName(), "Mapper", 1);
-                fields.add(Field.builder().name(StringUtils.uncapitalize(entityRepository)).type(entityRepository).description(entity.getDescription() + "实体 Mybatis-Plus 数据访问对象").nullable(false).build());
+                String entityMapper = exchangeSuffix(entity.getName(), "Mapper", 1);
+                fields.add(Field.builder().name(StringUtils.uncapitalize(entityMapper)).type(entityMapper).description(entity.getDescription() + "实体 Mybatis-Plus 数据访问对象").nullable(false).build());
+            }
+        }
+        for (Field aggregateField : aggregate.getFields()) {
+            String aggregateFieldType = aggregateField.getType();
+            if (("List<String>".equals(aggregateFieldType) || "List<Long>".equals(aggregateFieldType)) && description.endsWith("聚合")) {
+                String associationClassName = StringUtils.capitalize(removeSuffix(aggregateField.getName(), "Ids"));
+                String associationMapper = removeSuffix(aggregateName, "Aggregate") + associationClassName + "AssociationMapper";
+                String associationDescription = aggregate.getDescription() + "-" + removeSuffix(aggregateField.getDescription(), "ID列表");
+                fields.add(Field.builder().name(StringUtils.uncapitalize(associationMapper)).type(associationMapper).description(associationDescription + "关系 Mybatis-Plus 数据访问对象").nullable(false).build());
             }
         }
         packageHeader(stringBuilder, packageName);

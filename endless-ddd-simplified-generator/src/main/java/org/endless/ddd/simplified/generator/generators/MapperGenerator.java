@@ -38,7 +38,7 @@ public class MapperGenerator {
         generate(aggregate, interfaceName, generic, entity.getDescription() + "实体");
     }
 
-    private void generate(Aggregate aggregate, String interfaceName, String generic, String description) throws Exception {
+    protected void generate(Aggregate aggregate, String interfaceName, String generic, String description) throws Exception {
 
         StringBuilder stringBuilder = new StringBuilder();
 
