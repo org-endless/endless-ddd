@@ -19,6 +19,7 @@ import static org.endless.ddd.simplified.generator.template.HeaderTemplate.impor
 import static org.endless.ddd.simplified.generator.template.HeaderTemplate.packageHeader;
 import static org.endless.ddd.simplified.generator.utils.DDDUtils.*;
 import static org.endless.ddd.simplified.generator.utils.StringTools.exchangeSuffix;
+import static org.endless.ddd.simplified.generator.utils.StringTools.removeSuffix;
 
 /**
  * DataManagerGenerator
