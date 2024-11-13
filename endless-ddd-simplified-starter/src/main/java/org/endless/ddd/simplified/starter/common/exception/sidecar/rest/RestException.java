@@ -16,7 +16,7 @@ public class RestException extends RuntimeException {
     private static final String DEFAULT_MESSAGE = "Rest请求异常";
 
     public RestException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public RestException(Throwable throwable) {
@@ -24,6 +24,6 @@ public class RestException extends RuntimeException {
     }
 
     public RestException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 }

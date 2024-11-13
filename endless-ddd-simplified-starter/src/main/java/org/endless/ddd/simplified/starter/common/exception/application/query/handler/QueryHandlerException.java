@@ -15,11 +15,11 @@ public class QueryHandlerException extends RuntimeException {
     private static final String DEFAULT_MESSAGE = "查询处理器异常";
 
     public QueryHandlerException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public QueryHandlerException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 
     public QueryHandlerException(Throwable throwable) {

@@ -16,7 +16,7 @@ public class MapperFindException extends MapperException {
     private static final String DEFAULT_MESSAGE = "MyBatis数据库查询异常";
 
     public MapperFindException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public MapperFindException(Throwable throwable) {
@@ -24,6 +24,6 @@ public class MapperFindException extends MapperException {
     }
 
     public MapperFindException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 }

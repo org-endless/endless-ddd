@@ -15,11 +15,11 @@ public class ServiceException extends RuntimeException {
     private static final String DEFAULT_MESSAGE = "领域服务异常";
 
     public ServiceException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public ServiceException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 
     public ServiceException(Throwable throwable) {

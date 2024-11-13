@@ -16,7 +16,7 @@ public class ValidateException extends RuntimeException {
     private static final String DEFAULT_MESSAGE = "数据校验异常";
 
     public ValidateException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public ValidateException(Throwable throwable) {
@@ -24,6 +24,6 @@ public class ValidateException extends RuntimeException {
     }
 
     public ValidateException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 }

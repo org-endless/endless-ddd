@@ -15,11 +15,11 @@ public class CommandHandlerModifyException extends CommandHandlerException {
     private static final String DEFAULT_MESSAGE = "命令处理器修改命令异常";
 
     public CommandHandlerModifyException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public CommandHandlerModifyException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 
     public CommandHandlerModifyException(Throwable throwable) {

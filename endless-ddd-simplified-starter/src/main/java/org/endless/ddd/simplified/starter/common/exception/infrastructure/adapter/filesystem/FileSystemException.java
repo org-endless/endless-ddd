@@ -16,7 +16,7 @@ public class FileSystemException extends RuntimeException {
     private static final String DEFAULT_MESSAGE = "文件系统异常";
 
     public FileSystemException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public FileSystemException(Throwable throwable) {
@@ -24,6 +24,6 @@ public class FileSystemException extends RuntimeException {
     }
 
     public FileSystemException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 }

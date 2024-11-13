@@ -46,6 +46,7 @@ public class HeaderTemplate {
                 .append("import org.springframework.util.StringUtils;\n\n")
                 .append("import java.util.ArrayList;\n")
                 .append("import java.util.List;\n")
+                .append("import java.util.Set;\n")
                 .append("import java.util.stream.Collectors;\n\n");
     }
 

@@ -17,7 +17,7 @@ public class MapperSaveException extends MapperException {
     private static final String DEFAULT_MESSAGE = "MyBatis数据库存入异常";
 
     public MapperSaveException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public MapperSaveException(Throwable throwable) {
@@ -25,6 +25,6 @@ public class MapperSaveException extends MapperException {
     }
 
     public MapperSaveException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 }

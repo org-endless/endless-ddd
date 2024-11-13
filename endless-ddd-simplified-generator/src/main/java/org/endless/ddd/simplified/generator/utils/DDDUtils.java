@@ -61,6 +61,9 @@ public class DDDUtils {
         return StringUtils.uncapitalize(removeSuffix(className, classType(className, uppercase)) + "Id");
     }
 
+    public static String getter(String fieldName) {
+        return "get" + StringUtils.capitalize(fieldName);
+    }
     /**
      * 工具方法：获取类的类型
      *

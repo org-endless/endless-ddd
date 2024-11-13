@@ -93,8 +93,8 @@ public class EntityGenerator {
         fields(stringBuilder, entityNames, valueNames, newFields, className);
         create(stringBuilder, newFields, className);
         remove(stringBuilder, entityNames, newFields, className);
-        add(stringBuilder, entityNames, newFields, className);
-        removeList(stringBuilder, entityNames, newFields, className);
+        addItem(stringBuilder, entityNames, newFields, className);
+        removeItem(stringBuilder, entityNames, newFields, className);
         validate(stringBuilder, newFields, className);
         validateMethods(stringBuilder, newFields, className);
         end(stringBuilder);

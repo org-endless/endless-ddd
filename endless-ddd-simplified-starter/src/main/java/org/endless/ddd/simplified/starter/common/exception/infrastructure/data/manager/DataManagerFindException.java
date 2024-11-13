@@ -16,7 +16,7 @@ public class DataManagerFindException extends DataManagerException {
     private static final String DEFAULT_MESSAGE = "数据管理器查询异常";
 
     public DataManagerFindException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public DataManagerFindException(Throwable throwable) {
@@ -24,6 +24,6 @@ public class DataManagerFindException extends DataManagerException {
     }
 
     public DataManagerFindException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 }

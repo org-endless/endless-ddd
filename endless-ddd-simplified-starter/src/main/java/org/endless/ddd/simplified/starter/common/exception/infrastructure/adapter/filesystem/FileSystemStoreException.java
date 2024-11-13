@@ -16,7 +16,7 @@ public class FileSystemStoreException extends FileSystemException {
     private static final String DEFAULT_MESSAGE = "文件系统存储异常";
 
     public FileSystemStoreException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public FileSystemStoreException(Throwable throwable) {
@@ -24,6 +24,6 @@ public class FileSystemStoreException extends FileSystemException {
     }
 
     public FileSystemStoreException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 }

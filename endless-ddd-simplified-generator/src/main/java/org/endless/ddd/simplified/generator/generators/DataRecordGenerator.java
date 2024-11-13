@@ -79,7 +79,7 @@ public class DataRecordGenerator {
         fields(stringBuilder, entityNames, valueNames, newFields, className);
         from(stringBuilder, entityNames, values, defaultFields, aggregateName, className, generics);
         to(stringBuilder, entityNames, values, defaultFields, className, generics);
-        add(stringBuilder, entityNames, newFields, className);
+        addItem(stringBuilder, entityNames, newFields, className);
         validate(stringBuilder, newFields, className);
         validateMethods(stringBuilder, newFields, className);
         end(stringBuilder);

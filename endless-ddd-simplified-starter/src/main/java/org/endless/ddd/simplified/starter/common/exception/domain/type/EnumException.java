@@ -15,11 +15,11 @@ public class EnumException extends RuntimeException {
     private static final String DEFAULT_MESSAGE = "枚举异常";
 
     public EnumException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public EnumException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 
     public EnumException(Throwable throwable) {

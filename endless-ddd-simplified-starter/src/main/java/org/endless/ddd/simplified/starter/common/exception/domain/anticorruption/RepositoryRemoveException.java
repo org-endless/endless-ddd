@@ -17,11 +17,11 @@ public class RepositoryRemoveException extends RepositoryException {
     private static final String DEFAULT_MESSAGE = "仓储删除异常";
 
     public RepositoryRemoveException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public RepositoryRemoveException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 
     public RepositoryRemoveException(Throwable throwable) {

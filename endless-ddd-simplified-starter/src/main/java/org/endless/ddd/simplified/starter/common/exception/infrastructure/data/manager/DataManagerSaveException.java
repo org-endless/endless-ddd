@@ -16,7 +16,7 @@ public class DataManagerSaveException extends DataManagerException {
     private static final String DEFAULT_MESSAGE = "数据管理器写入异常";
 
     public DataManagerSaveException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public DataManagerSaveException(Throwable throwable) {
@@ -24,6 +24,6 @@ public class DataManagerSaveException extends DataManagerException {
     }
 
     public DataManagerSaveException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 }

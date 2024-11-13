@@ -15,11 +15,11 @@ public class EntityRemoveException extends EntityException {
     private static final String DEFAULT_MESSAGE = "实体删除行为异常";
 
     public EntityRemoveException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public EntityRemoveException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 
     public EntityRemoveException(Throwable throwable) {

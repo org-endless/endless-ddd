@@ -16,7 +16,7 @@ public class PageFindException extends PageException {
     private static final String DEFAULT_MESSAGE = "分页查询异常";
 
     public PageFindException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public PageFindException(Throwable throwable) {
@@ -24,6 +24,6 @@ public class PageFindException extends PageException {
     }
 
     public PageFindException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 }

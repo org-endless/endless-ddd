@@ -58,15 +58,19 @@ public class LogAspect {
                     .map(this::maskSensitiveData)  // 处理敏感信息
                     .collect(Collectors.joining(", "));
         } else {
+            String result;
+            try {
             ExpressionParser parser = new SpelExpressionParser();
             StandardEvaluationContext context = new StandardEvaluationContext();
             context.setVariables(fieldsMap(joinPoint));
             Object evaluatedValue = parser.parseExpression(value).getValue(context);
-            String result;
             if (evaluatedValue != null) {
                 result = evaluatedValue instanceof String ? (String) evaluatedValue : evaluatedValue.toString();
             } else {
                 result = "";
+                }
+            } catch (Exception e) {
+                throw new LogException("Spring EL表达式解析失败: " + e.getMessage(), e);
             }
             value = maskSensitiveData(result);
         }
@@ -128,16 +132,20 @@ public class LogAspect {
         if (field == null) {
             return "null";
         }
-        if (field instanceof Map<?, ?> originalMap) {
+        if (field instanceof Map) {
+            Map<?, ?> originalMap = (Map<?, ?>) field;
             Map<String, Object> maskedMap = new HashMap<>();
-            originalMap.forEach((key, value) ->
-                    maskedMap.put(key.toString(), isSensitiveKey(key.toString()) ? "******" : maskSensitiveData(value)));
+            originalMap.forEach((key, value) -> {
+                maskedMap.put(key.toString(), isSensitiveKey(key.toString()) ? "******" : maskSensitiveData(value));
+            });
             return maskedMap.toString();
-        } else if (field instanceof List<?> list) {
+        } else if (field instanceof List) {
+            List<?> list = (List<?>) field;
             return list.stream()
                     .map(this::maskSensitiveData)  // 对每个元素进行敏感数据处理
-                    .toString();
-        } else if (field instanceof Set<?> set) {
+                    .collect(Collectors.toList()).toString();
+        } else if (field instanceof Set) {
+            Set<?> set = (Set<?>) field;
             return set.stream()
                     .map(this::maskSensitiveData)  // 对每个元素进行敏感数据处理
                     .collect(Collectors.toSet()).toString();

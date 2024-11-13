@@ -29,49 +29,49 @@ public abstract class AbstractRestAdapterExceptionHandler implements RestAdapter
     // TODO 实现策略模式
     @ExceptionHandler(RestErrorException.class)
     public ResponseEntity<RestResponse> handleRestErrorException(RestErrorException e) {
-        log.error("服务调用失败 : ", e);
+        log.error("[服务调用失败]", e);
         return response().error(e.getMessage());
     }
 
     @ExceptionHandler(MapperModifyFailedException.class)
     public ResponseEntity<RestResponse> handleMapperModifyFailedException(MapperModifyFailedException e) {
-        log.error("服务调用失败 :  ", e);
+        log.error("[服务调用失败]", e);
         return response().error(e.getMessage());
     }
 
     @ExceptionHandler(MapperRemoveFailedException.class)
     public ResponseEntity<RestResponse> handleMapperRemoveFailedException(MapperRemoveFailedException e) {
-        log.error("服务调用失败 : ", e);
+        log.error("[服务调用失败]", e);
         return response().error(e.getMessage());
     }
 
     @ExceptionHandler(ValidateException.class)
     public ResponseEntity<RestResponse> handleRestErrorException(ValidateException e) {
-        log.error("服务调用失败 : ", e);
+        log.error("[服务调用失败]", e);
         return response().error(e.getMessage());
     }
 
     @ExceptionHandler(RestUnauthorizedException.class)
     public ResponseEntity<RestResponse> handleRestUnauthorizedException(RestUnauthorizedException e) {
-        log.error("身份认证失败 : ", e);
+        log.error("[身份认证失败]", e);
         return response().unauthorized(e.getMessage());
     }
 
     @ExceptionHandler(RestBadRequestException.class)
     public ResponseEntity<RestResponse> handleRestBadRequestException(RestBadRequestException e) {
-        log.error("请求格式或参数错误 : ", e);
+        log.error("[请求格式或参数错误]", e);
         return response().badRequest(e.getMessage());
     }
 
     @ExceptionHandler(RestNotFoundException.class)
     public ResponseEntity<RestResponse> handleRestNotFoundException(RestNotFoundException e) {
-        log.error("未找到相关数据 : ", e);
+        log.error("[未找到相关数据]", e);
         return response().notFound(e.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<RestResponse> handleAllExceptions(Exception e) {
-        log.error("服务调用异常，状态未知 : ", e);
+        log.error("[服务调用异常，状态未知]", e);
         return response().internalServerError(e.getMessage());
     }
 }

@@ -15,11 +15,11 @@ public class AggregateException extends EntityException {
     private static final String DEFAULT_MESSAGE = "聚合根异常";
 
     public AggregateException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public AggregateException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 
     public AggregateException(Throwable throwable) {

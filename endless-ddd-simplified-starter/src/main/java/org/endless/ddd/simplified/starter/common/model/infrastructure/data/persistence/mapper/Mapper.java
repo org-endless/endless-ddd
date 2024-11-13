@@ -96,7 +96,7 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
         try {
 
             // 查询并过滤掉已标记删除的记录
-            return Optional.ofNullable(this.selectByIds(ids))
+            return Optional.ofNullable(this.selectBatchIds(ids))
                     .orElse(new ArrayList<>())
                     .stream()
                     .filter(record -> record.getIsRemoved() == null || !record.getIsRemoved())
@@ -203,6 +203,23 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
             throw new MapperSaveException("数据库记录存入失败，ID: " + id, e);
         }
     }
+    default void save(List<R> records) {
+        try {
+            Optional.ofNullable(records)
+                    .filter(record -> !record.isEmpty())
+                    .orElseThrow(() -> new MapperModifyException("要存入的数据库记录列表不能为空"));
+            records.forEach(record -> {
+                        if (this.insert(record) == 0) {
+                            throw new MapperSaveException("数据库记录列表存入失败");
+                        }
+                    }
+            );
+        } catch (MapperException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new MapperSaveException("数据库记录列表存入失败", e);
+        }
+    }
 
     /**
      * 新增或修改数据库记录
@@ -281,6 +298,37 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
                 throw new MapperRemoveFailedException("数据库更新删除标志失败，ID: " + id + "，第 " + count + " 条记录", e);
             } catch (Exception e) {
                 throw new MapperRemoveException("数据库删除记录异常，ID: " + id + "，第 " + count + " 条记录", e);
+            }
+        }
+    }
+    @Log(message = "数据库多批次批量删除记录", value = "'记录数： ' + #records.size() ", level = "TRACE")
+    @Async
+    default void removeBatch(List<R> records) {
+        final int batchSize = 10;  // 每个批次包含的记录数
+        final int numThreads = 5;  // 线程池大小
+        if (records == null || records.isEmpty()) {
+            throw new MapperModifyException("要删除的数据库记录列表不能为空");
+        }
+        ExecutorService executor = Executors.newFixedThreadPool(numThreads);
+        try {
+            List<List<R>> recordBatches = IntStream.range(0, (records.size() + batchSize - 1) / batchSize)
+                    .mapToObj(i -> records.subList(i * batchSize, Math.min(records.size(), (i + 1) * batchSize)))
+                    .collect(Collectors.toList());
+            CompletableFuture.allOf(recordBatches.stream()
+                    .map(batch -> CompletableFuture.runAsync(() -> remove(batch), executor)).toArray(CompletableFuture[]::new)).join();
+        } catch (MapperException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new MapperRemoveException("数据库多批次批量删除记录异常，线程池异常", e);
+        } finally {
+            executor.shutdown();
+            try {
+                if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
+                    executor.shutdownNow();
+                }
+            } catch (InterruptedException e) {
+                executor.shutdownNow();
+                Thread.currentThread().interrupt();
             }
         }
     }
@@ -367,9 +415,11 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
     default String getRecordIdName() {
         Class<?> proxyClass = this.getClass();
         for (Type interfaceType : proxyClass.getGenericInterfaces()) {
-            if (interfaceType instanceof ParameterizedType paramType) {
+            if (interfaceType instanceof ParameterizedType) {
+                ParameterizedType paramType = (ParameterizedType) interfaceType;
                 Type[] typeArguments = paramType.getActualTypeArguments();
-                if (typeArguments.length > 0 && typeArguments[0] instanceof Class<?> entityClass) {
+                if (typeArguments.length > 0 && typeArguments[0] instanceof Class<?>) {
+                    Class<?> entityClass = (Class<?>) typeArguments[0];
                     Field idField = Arrays.stream(entityClass.getDeclaredFields())
                             .filter(field -> field.isAnnotationPresent(TableId.class))
                             .findFirst()
@@ -383,9 +433,11 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
     }
     default String findIdFieldInType(Type[] interfaces) {
         for (Type type : interfaces) {
-            if (type instanceof ParameterizedType paramType) {
+            if (type instanceof ParameterizedType) {
+                ParameterizedType paramType = (ParameterizedType) type;
                 Type[] typeArguments = paramType.getActualTypeArguments();
-                if (typeArguments.length > 0 && typeArguments[0] instanceof Class<?> entityClass) {
+                if (typeArguments.length > 0 && typeArguments[0] instanceof Class<?>) {
+                    Class<?> entityClass = (Class<?>) typeArguments[0];
                     for (Field field : entityClass.getDeclaredFields()) {
                         if (field.isAnnotationPresent(TableId.class)) {
                             return field.getName();

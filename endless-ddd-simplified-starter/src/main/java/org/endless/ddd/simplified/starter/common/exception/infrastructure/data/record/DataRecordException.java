@@ -16,7 +16,7 @@ public class DataRecordException extends RuntimeException {
     private static final String DEFAULT_MESSAGE = "数据库实体异常";
 
     public DataRecordException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public DataRecordException(Throwable throwable) {
@@ -24,6 +24,6 @@ public class DataRecordException extends RuntimeException {
     }
 
     public DataRecordException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 }

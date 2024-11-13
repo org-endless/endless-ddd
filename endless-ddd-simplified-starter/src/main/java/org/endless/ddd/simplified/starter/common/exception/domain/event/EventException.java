@@ -15,11 +15,11 @@ public class EventException extends RuntimeException {
     private static final String DEFAULT_MESSAGE = "领域事件异常";
 
     public EventException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public EventException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 
     public EventException(Throwable throwable) {

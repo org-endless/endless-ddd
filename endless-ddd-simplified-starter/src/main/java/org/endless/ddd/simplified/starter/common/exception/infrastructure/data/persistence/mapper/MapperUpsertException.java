@@ -16,7 +16,7 @@ public class MapperUpsertException extends MapperException {
     private static final String DEFAULT_MESSAGE = "MyBatis数据库新增或更新异常";
 
     public MapperUpsertException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public MapperUpsertException(Throwable throwable) {
@@ -24,6 +24,6 @@ public class MapperUpsertException extends MapperException {
     }
 
     public MapperUpsertException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 }

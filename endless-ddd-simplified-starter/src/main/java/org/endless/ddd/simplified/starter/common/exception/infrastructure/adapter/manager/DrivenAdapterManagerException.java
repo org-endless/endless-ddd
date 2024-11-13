@@ -16,7 +16,7 @@ public class DrivenAdapterManagerException extends RuntimeException {
     private static final String DEFAULT_MESSAGE = "被动适配管理器异常";
 
     public DrivenAdapterManagerException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public DrivenAdapterManagerException(Throwable throwable) {
@@ -24,6 +24,6 @@ public class DrivenAdapterManagerException extends RuntimeException {
     }
 
     public DrivenAdapterManagerException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 }

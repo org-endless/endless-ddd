@@ -16,7 +16,7 @@ public class SnowflakeIdException extends RuntimeException {
     private static final String DEFAULT_MESSAGE = "雪花ID生成异常";
 
     public SnowflakeIdException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public SnowflakeIdException(Throwable throwable) {
@@ -24,6 +24,6 @@ public class SnowflakeIdException extends RuntimeException {
     }
 
     public SnowflakeIdException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 }

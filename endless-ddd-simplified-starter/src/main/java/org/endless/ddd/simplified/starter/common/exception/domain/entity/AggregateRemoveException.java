@@ -15,11 +15,11 @@ public class AggregateRemoveException extends AggregateException {
     private static final String DEFAULT_MESSAGE = "聚合根删除行为异常";
 
     public AggregateRemoveException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public AggregateRemoveException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 
     public AggregateRemoveException(Throwable throwable) {

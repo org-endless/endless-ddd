@@ -15,11 +15,11 @@ public class DrivingAdapterException extends RuntimeException {
     private static final String DEFAULT_MESSAGE = "主动适配器异常";
 
     public DrivingAdapterException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public DrivingAdapterException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 
     public DrivingAdapterException(Throwable throwable) {

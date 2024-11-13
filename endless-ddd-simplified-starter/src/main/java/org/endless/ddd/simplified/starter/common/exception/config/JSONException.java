@@ -15,11 +15,11 @@ public class JSONException extends RuntimeException {
     private static final String DEFAULT_MESSAGE = "JSON解析异常";
 
     public JSONException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public JSONException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 
     public JSONException(Throwable throwable) {

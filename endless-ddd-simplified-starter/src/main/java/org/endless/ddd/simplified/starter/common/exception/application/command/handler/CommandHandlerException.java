@@ -15,11 +15,11 @@ public class CommandHandlerException extends RuntimeException {
     private static final String DEFAULT_MESSAGE = "命令处理器异常";
 
     public CommandHandlerException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public CommandHandlerException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 
     public CommandHandlerException(Throwable throwable) {

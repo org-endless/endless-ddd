@@ -16,7 +16,7 @@ public class DataManagerException extends RuntimeException {
     private static final String DEFAULT_MESSAGE = "数据管理器异常";
 
     public DataManagerException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public DataManagerException(Throwable throwable) {
@@ -24,6 +24,6 @@ public class DataManagerException extends RuntimeException {
     }
 
     public DataManagerException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 }

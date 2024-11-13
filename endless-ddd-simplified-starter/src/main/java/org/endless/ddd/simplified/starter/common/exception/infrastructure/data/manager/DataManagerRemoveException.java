@@ -16,7 +16,7 @@ public class DataManagerRemoveException extends DataManagerException {
     private static final String DEFAULT_MESSAGE = "数据管理器删除异常";
 
     public DataManagerRemoveException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public DataManagerRemoveException(Throwable throwable) {
@@ -24,6 +24,6 @@ public class DataManagerRemoveException extends DataManagerException {
     }
 
     public DataManagerRemoveException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 }

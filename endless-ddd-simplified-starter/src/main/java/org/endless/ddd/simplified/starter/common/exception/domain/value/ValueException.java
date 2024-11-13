@@ -15,11 +15,11 @@ public class ValueException extends RuntimeException {
     private static final String DEFAULT_MESSAGE = "值对象异常";
 
     public ValueException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public ValueException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 
     public ValueException(Throwable cause) {

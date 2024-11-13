@@ -16,7 +16,7 @@ public class FileSystemRetrieveException extends FileSystemException {
     private static final String DEFAULT_MESSAGE = "文件系统取回异常";
 
     public FileSystemRetrieveException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public FileSystemRetrieveException(Throwable throwable) {
@@ -24,6 +24,6 @@ public class FileSystemRetrieveException extends FileSystemException {
     }
 
     public FileSystemRetrieveException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 }

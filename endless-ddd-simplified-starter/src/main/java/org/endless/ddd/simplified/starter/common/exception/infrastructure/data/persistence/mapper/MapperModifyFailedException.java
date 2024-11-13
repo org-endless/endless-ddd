@@ -16,7 +16,7 @@ public class MapperModifyFailedException extends MapperException {
     private static final String DEFAULT_MESSAGE = "MyBatis数据库更新失败";
 
     public MapperModifyFailedException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public MapperModifyFailedException(Throwable throwable) {
@@ -24,6 +24,6 @@ public class MapperModifyFailedException extends MapperException {
     }
 
     public MapperModifyFailedException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 }

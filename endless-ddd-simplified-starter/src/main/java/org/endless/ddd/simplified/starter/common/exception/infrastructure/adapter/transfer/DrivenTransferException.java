@@ -16,7 +16,7 @@ public class DrivenTransferException extends RuntimeException {
     private static final String DEFAULT_MESSAGE = "被动适配器传输对象异常";
 
     public DrivenTransferException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public DrivenTransferException(Throwable throwable) {
@@ -24,6 +24,6 @@ public class DrivenTransferException extends RuntimeException {
     }
 
     public DrivenTransferException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 }

@@ -15,11 +15,11 @@ public class EntityException extends RuntimeException {
     private static final String DEFAULT_MESSAGE = "实体类异常";
 
     public EntityException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public EntityException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 
     public EntityException(Throwable throwable) {

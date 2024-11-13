@@ -16,7 +16,7 @@ public class MapperException extends RuntimeException {
     private static final String DEFAULT_MESSAGE = "MyBatis数据库操作异常";
 
     public MapperException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public MapperException(Throwable throwable) {
@@ -24,6 +24,6 @@ public class MapperException extends RuntimeException {
     }
 
     public MapperException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 }

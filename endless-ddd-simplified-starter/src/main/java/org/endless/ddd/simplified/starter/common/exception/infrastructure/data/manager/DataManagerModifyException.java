@@ -16,7 +16,7 @@ public class DataManagerModifyException extends DataManagerException {
     private static final String DEFAULT_MESSAGE = "数据管理器修改异常";
 
     public DataManagerModifyException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public DataManagerModifyException(Throwable throwable) {
@@ -24,6 +24,6 @@ public class DataManagerModifyException extends DataManagerException {
     }
 
     public DataManagerModifyException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 }

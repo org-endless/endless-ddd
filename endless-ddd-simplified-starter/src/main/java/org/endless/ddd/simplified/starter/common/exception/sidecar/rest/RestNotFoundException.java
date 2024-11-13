@@ -16,7 +16,7 @@ public class RestNotFoundException extends RestException {
     private static final String DEFAULT_MESSAGE = "Rest请求的资源不存在";
 
     public RestNotFoundException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public RestNotFoundException(Throwable throwable) {
@@ -24,6 +24,6 @@ public class RestNotFoundException extends RestException {
     }
 
     public RestNotFoundException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 }

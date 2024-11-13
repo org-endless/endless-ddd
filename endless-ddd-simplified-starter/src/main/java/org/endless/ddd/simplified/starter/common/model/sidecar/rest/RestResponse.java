@@ -25,16 +25,16 @@ public interface RestResponse extends Response {
 
     Logger log = LoggerFactory.getLogger(RestResponse.class);
 
-    String DEFAULT_SUCCESS_MSG = "服务调用成功";
-    String DEFAULT_PAGE_SUCCESS_MSG = "分页查询服务调用成功";
-    String DEFAULT_ERROR_MSG = "服务调用失败";
-    String DEFAULT_UNAUTHORIZED_MSG = "身份认证失败";
-    String DEFAULT_BAD_REQUEST_MSG = "请求格式或参数错误";
-    String DEFAULT_NOT_FOUND_MSG = "未找到相关数据";
-    String DEFAULT_INTERNAL_SERVER_ERROR_MSG = "服务调用异常，状态未知";
+    String DEFAULT_SUCCESS_MSG = "[服务调用成功]";
+    String DEFAULT_PAGE_SUCCESS_MSG = "[分页查询服务调用成功]";
+    String DEFAULT_ERROR_MSG = "[服务调用失败";
+    String DEFAULT_UNAUTHORIZED_MSG = "[身份认证失败]";
+    String DEFAULT_BAD_REQUEST_MSG = "[请求格式或参数错误]";
+    String DEFAULT_NOT_FOUND_MSG = "[未找到相关数据]";
+    String DEFAULT_INTERNAL_SERVER_ERROR_MSG = "[服务调用异常，状态未知]";
 
-    String DEFAULT_DATA_NULL_MSG = "返回数据为空";
-    String DEFAULT_UNKNOWN_ERROR_MSG = "未知Rest响应异常";
+    String DEFAULT_DATA_NULL_MSG = "[返回数据为空]";
+    String DEFAULT_UNKNOWN_ERROR_MSG = "[未知Rest响应异常]";
 
     RestResponse createInstance(int code, String msg, Object data);
 
@@ -52,7 +52,7 @@ public interface RestResponse extends Response {
         }
 
         if (data != null) {
-            log.debug(data.toString());
+            log.trace(data.toString());
         }
 
         return new ResponseEntity<>(createInstance(code, msg, data), HttpStatus.valueOf(code));
@@ -66,7 +66,7 @@ public interface RestResponse extends Response {
 
     default ResponseEntity<RestResponse> page(String msg, List<Object> rows, Long total) {
         msg = getServiceDescription() + msg;
-        log.debug(rows.toString());
+        log.trace(rows.toString());
         return new ResponseEntity<>(createInstance(HttpStatus.OK.value(), msg, rows, total), HttpStatus.OK);
     }
 
@@ -83,7 +83,7 @@ public interface RestResponse extends Response {
     }
 
     default ResponseEntity<RestResponse> success(String msg, Object data) {
-        return response(HttpStatus.OK.value(), RestResponse.DEFAULT_SUCCESS_MSG + " : " + msg, data);
+        return response(HttpStatus.OK.value(), RestResponse.DEFAULT_SUCCESS_MSG + msg, data);
     }
 
     default ResponseEntity<RestResponse> error() {
@@ -99,7 +99,7 @@ public interface RestResponse extends Response {
     }
 
     default ResponseEntity<RestResponse> error(String msg, Object data) {
-        return response(HttpStatus.INTERNAL_SERVER_ERROR.value(), RestResponse.DEFAULT_ERROR_MSG + " : " + msg, data);
+        return response(HttpStatus.INTERNAL_SERVER_ERROR.value(), RestResponse.DEFAULT_ERROR_MSG + msg, data);
     }
 
     default ResponseEntity<RestResponse> unauthorized() {
@@ -115,7 +115,7 @@ public interface RestResponse extends Response {
     }
 
     default ResponseEntity<RestResponse> unauthorized(String msg, Object data) {
-        return response(HttpStatus.UNAUTHORIZED.value(), RestResponse.DEFAULT_UNAUTHORIZED_MSG + " : " + msg, data);
+        return response(HttpStatus.UNAUTHORIZED.value(), RestResponse.DEFAULT_UNAUTHORIZED_MSG + msg, data);
     }
 
     default ResponseEntity<RestResponse> badRequest() {
@@ -131,7 +131,7 @@ public interface RestResponse extends Response {
     }
 
     default ResponseEntity<RestResponse> badRequest(String msg, Object data) {
-        return response(HttpStatus.BAD_REQUEST.value(), RestResponse.DEFAULT_BAD_REQUEST_MSG + " : " + msg, data);
+        return response(HttpStatus.BAD_REQUEST.value(), RestResponse.DEFAULT_BAD_REQUEST_MSG + msg, data);
     }
 
     default ResponseEntity<RestResponse> notFound() {
@@ -147,7 +147,7 @@ public interface RestResponse extends Response {
     }
 
     default ResponseEntity<RestResponse> notFound(String msg, Object data) {
-        return response(HttpStatus.NOT_FOUND.value(), RestResponse.DEFAULT_NOT_FOUND_MSG + " : " + msg, data);
+        return response(HttpStatus.NOT_FOUND.value(), RestResponse.DEFAULT_NOT_FOUND_MSG + msg, data);
     }
 
     default ResponseEntity<RestResponse> internalServerError() {
@@ -163,6 +163,6 @@ public interface RestResponse extends Response {
     }
 
     default ResponseEntity<RestResponse> internalServerError(String msg, Object data) {
-        return response(HttpStatus.INTERNAL_SERVER_ERROR.value(), RestResponse.DEFAULT_INTERNAL_SERVER_ERROR_MSG + " : " + msg, data);
+        return response(HttpStatus.INTERNAL_SERVER_ERROR.value(), RestResponse.DEFAULT_INTERNAL_SERVER_ERROR_MSG + msg, data);
     }
 }

@@ -16,7 +16,7 @@ public class RestErrorException extends RestException {
     private static final String DEFAULT_MESSAGE = "Rest请求失败";
 
     public RestErrorException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public RestErrorException(Throwable throwable) {
@@ -24,6 +24,6 @@ public class RestErrorException extends RestException {
     }
 
     public RestErrorException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 }

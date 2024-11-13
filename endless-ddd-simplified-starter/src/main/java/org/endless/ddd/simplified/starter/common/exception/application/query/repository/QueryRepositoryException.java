@@ -15,11 +15,11 @@ public class QueryRepositoryException extends RuntimeException {
     private static final String DEFAULT_MESSAGE = "查询仓储异常";
 
     public QueryRepositoryException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public QueryRepositoryException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 
     public QueryRepositoryException(Throwable throwable) {

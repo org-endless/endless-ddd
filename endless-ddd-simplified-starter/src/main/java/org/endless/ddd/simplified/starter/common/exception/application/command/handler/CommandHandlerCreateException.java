@@ -15,11 +15,11 @@ public class CommandHandlerCreateException extends CommandHandlerException {
     private static final String DEFAULT_MESSAGE = "命令处理器创建命令异常";
 
     public CommandHandlerCreateException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public CommandHandlerCreateException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 
     public CommandHandlerCreateException(Throwable throwable) {

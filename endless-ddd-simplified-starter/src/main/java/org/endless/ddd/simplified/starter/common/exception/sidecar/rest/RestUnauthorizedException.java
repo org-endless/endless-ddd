@@ -16,7 +16,7 @@ public class RestUnauthorizedException extends RestException {
     private static final String DEFAULT_MESSAGE = "Rest请求未授权访问";
 
     public RestUnauthorizedException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public RestUnauthorizedException(Throwable throwable) {
@@ -24,6 +24,6 @@ public class RestUnauthorizedException extends RestException {
     }
 
     public RestUnauthorizedException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 }

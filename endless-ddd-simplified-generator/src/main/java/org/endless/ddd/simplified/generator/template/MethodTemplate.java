@@ -130,7 +130,7 @@ public class MethodTemplate {
      * @param fields        属性列表
      * @param className     类名
      */
-    public static void add(StringBuilder stringBuilder, Set<String> entityNames, List<Field> fields, String className) {
+    public static void addItem(StringBuilder stringBuilder, Set<String> entityNames, List<Field> fields, String className) {
 
         for (Field field : fields) {
 
@@ -161,8 +161,7 @@ public class MethodTemplate {
         String singularField = removeSuffix(fieldName, "s");
         String method = "add" + StringUtils.capitalize(singularField);
 
-        stringBuilder
-                .append("    ").append(access(className, false, true)).append(" ").append(className).append(" ").append(method).append("(").append(generics).append(" ").append(singularField).append(") {\n");
+        stringBuilder.append("    ").append(access(className, false, true)).append(" ").append(className).append(" ").append(method).append("(").append(generics).append(" ").append(singularField).append(") {\n");
 
         if ("String".equals(generics)) {
             stringBuilder.append("        if (!StringUtils.hasText(").append(singularField).append(")) {\n");
@@ -210,76 +209,93 @@ public class MethodTemplate {
 
     private static void addException(StringBuilder stringBuilder, String className, String type) {
         if (className.endsWith("Aggregate")) {
-            stringBuilder.append("            throw new AggregateAddListException(\"聚合根要添加的子实体 ").append(type).append(" 不能为 null\");\n");
-        } else if (className.endsWith("Entity")) {
-            stringBuilder.append("            throw new EntityAddListException(\"实体要添加的子实体 ").append(type).append(" 不能为 null\");\n");
+            stringBuilder.append("            throw new AggregateAddItemException(\"聚合根要添加的子实体 ").append(type).append(" 不能为 null\");\n");
         } else if (className.endsWith("Record")) {
-            stringBuilder.append("            throw new DataRecordAddListException(\"数据库实体要添加的子实体 ").append(type).append(" 不能为 null\");\n");
+            stringBuilder.append("            throw new DataRecordAddItemException(\"数据库实体要添加的子实体 ").append(type).append(" 不能为 null\");\n");
         }
     }
 
     private static void addListException(StringBuilder stringBuilder, String className, String fieldName) {
         if (className.endsWith("Aggregate")) {
-            stringBuilder.append("                throw new AggregateAddListException(\"聚合根要添加的子实体列表 ").append(fieldName).append(" 不能为空\");\n");
-        } else if (className.endsWith("Entity")) {
-            stringBuilder.append("                throw new EntityAddListException(\"实体要添加的子实体列表 ").append(fieldName).append(" 不能为空\");\n");
+            stringBuilder.append("                throw new AggregateAddItemException(\"聚合根要添加的子实体列表 ").append(fieldName).append(" 不能为空\");\n");
         } else if (className.endsWith("Record")) {
-            stringBuilder.append("                throw new DataRecordAddListException(\"数据库实体要添加的子实体列表 ").append(fieldName).append(" 不能为空\");\n");
+            stringBuilder.append("                throw new DataRecordAddItemException(\"数据库实体要添加的子实体列表 ").append(fieldName).append(" 不能为空\");\n");
         }
     }
 
     private static void addStringListException(StringBuilder stringBuilder, String className, String fieldName) {
         if (className.endsWith("Aggregate")) {
-            stringBuilder.append("                throw new AggregateAddListException(\"聚合根要添加的子实体列表 ").append(fieldName).append(" 中包含空字符串或空白字符串\");\n");
-        } else if (className.endsWith("Entity")) {
-            stringBuilder.append("                throw new EntityAddListException(\"实体要添加的子实体列表 ").append(fieldName).append(" 中包含空字符串或空白字符串\");\n");
+            stringBuilder.append("                throw new AggregateAddItemException(\"聚合根要添加的子实体列表 ").append(fieldName).append(" 中包含空字符串或空白字符串\");\n");
         } else if (className.endsWith("Record")) {
-            stringBuilder.append("                throw new DataRecordAddListException(\"数据库实体要添加的子实体列表 ").append(fieldName).append(" 中包含空字符串或空白字符串\");\n");
+            stringBuilder.append("                throw new DataRecordAddItemException(\"数据库实体要添加的子实体列表 ").append(fieldName).append(" 中包含空字符串或空白字符串\");\n");
         }
     }
 
-    public static void removeList(StringBuilder stringBuilder, Set<String> entityNames, List<Field> fields, String className) {
+    public static void removeItem(StringBuilder stringBuilder, Set<String> entityNames, List<Field> fields, String className) {
         for (final Field field : fields) {
 
             String fieldType = field.getType();
             String fieldName = field.getName();
-
+            String generics = generics(fieldType);
             // 删除子实体方法
             if (entityNames.contains(fieldType) && field.getNullable()) {
                 stringBuilder
                         .append("    ").append(access(className, false, true)).append(" void remove").append(fieldType).append("() {\n")
-                        .append("        this.").append(fieldName).append(" = null;\n")
+                        .append("        this.").append(fieldName).append(".remove();\n")
                         .append("    }\n\n");
             }
 
-            if (fieldType.startsWith("List<")) {
 
                 String singularField = removeSuffix(fieldName, "s");
                 String singularMethod = "remove" + StringUtils.capitalize(singularField);
-                String generics = generics(fieldType);
+            if (fieldType.startsWith("List<") && entityNames.contains(generics)) {
+                String idGetter = getter(id(generics, 1));
                 // 列表删除子实体方法
                 stringBuilder
                         .append("    ").append(access(className, false, true)).append(" void ").append(singularMethod).append("(").append(generics).append(" ").append(singularField).append(") {\n")
-                        .append("        if (").append(singularField).append(" == null) {\n");
-                if (className.endsWith("Aggregate")) {
-                    stringBuilder.append("            throw new AggregateRemoveException(\"聚合根要删除的子实体 ").append(generics).append(" 不能为 null\");\n");
-                } else {
-                    stringBuilder.append("            throw new EntityRemoveException(\"实体要删除的子实体的 ").append(generics).append(" 不能为 null\");\n");
-                }
-                stringBuilder.append("        }\n")
+                        .append("        if (").append(singularField).append(" == null) {\n")
+                        .append("            throw new AggregateRemoveItemException(\"聚合根要删除的子实体 ").append(generics).append(" 不能为 null\");\n")
+                        .append("        }\n")
+                        .append("        this.").append(fieldName).append(".stream()\n")
+                        .append("                .filter(exist -> exist.").append(idGetter).append("().equals(").append(singularField).append(".").append(idGetter).append("()))\n")
+                        .append("                .findFirst()\n")
+                        .append("                .orElseThrow(() -> new AggregateRemoveItemException(\"未找到要删除的子实体 ").append(generics).append(" ID: \" + ").append(singularField).append(".").append(idGetter).append("()))\n")
+                        .append("                .remove();\n")
+                        .append("    }\n\n");
+                String method = "remove" + StringUtils.capitalize(fieldName);
+                stringBuilder
+                        .append("    ").append(access(className, false, true)).append(" void ").append(method).append("(").append(fieldType).append(" ").append(fieldName).append(") {\n")
+                        .append("        if (").append(fieldName).append(" == null || ").append(fieldName).append(".isEmpty()) {\n")
+                        .append("            throw new AggregateRemoveItemException(\"聚合根要删除的子实体列表 ").append(fieldType).append(" 不能为 null\");\n")
+                        .append("        }\n")
+                        .append("        Set<String> existIds = this.").append(fieldName).append(".stream()\n")
+                        .append("                .map(").append(generics).append("::").append(idGetter).append(")\n")
+                        .append("                .collect(Collectors.toSet());\n")
+                        .append("        ").append(fieldName).append(".forEach(remove -> {\n")
+                        .append("            if (!existIds.contains(remove.").append(idGetter).append("())) {\n")
+                        .append("                throw new AggregateRemoveItemException(\"要删除的子实体列表 ").append(fieldType).append(" 中包含不存在的子实体 ID: \" + remove.").append(idGetter).append("());\n")
+                        .append("            }\n")
+                        .append("            this.").append(fieldName).append(".stream()\n")
+                        .append("                    .filter(exist -> exist.").append(idGetter).append("().equals(remove.").append(idGetter).append("()))\n")
+                        .append("                    .findFirst()\n")
+                        .append("                    .ifPresent(").append(generics).append("::").append("remove);\n")
+                        .append("        });\n")
+                        .append("    }\n\n");
+            } else if ("List<String>".equals(fieldType) || "List<Long>".equals(fieldType)) {
+                stringBuilder
+                        .append("    ").append(access(className, false, true)).append(" void ").append(singularMethod).append("(").append(generics).append(" ").append(singularField).append(") {\n")
+                        .append("        if (").append(singularField).append(" == null) {\n")
+                        .append("            throw new AggregateRemoveItemException(\"聚合根要删除的子实体 ").append(generics).append(" 不能为 null\");\n")
+                        .append("        }\n")
                         .append("        this.").append(fieldName).append(".remove(").append(singularField).append(");\n")
                         .append("    }\n\n");
                 // 列表删除子实体列表方法
                 String method = "remove" + StringUtils.capitalize(fieldName);
                 stringBuilder
                         .append("    ").append(access(className, false, true)).append(" void ").append(method).append("(").append(fieldType).append(" ").append(fieldName).append(") {\n")
-                        .append("        if (").append(fieldName).append(" == null || ").append(fieldName).append(".isEmpty()) {\n");
-                if (className.endsWith("Aggregate")) {
-                    stringBuilder.append("            throw new AggregateRemoveException(\"聚合根要删除的子实体列表 ").append(fieldType).append(" 不能为 null\");\n");
-                } else {
-                    stringBuilder.append("            throw new EntityRemoveException(\"实体要删除的子实体的列表 ").append(fieldType).append(" 不能为 null\");\n");
-                }
-                stringBuilder.append("        }\n")
+                        .append("        if (").append(fieldName).append(" == null || ").append(fieldName).append(".isEmpty()) {\n")
+                        .append("            throw new AggregateRemoveItemException(\"聚合根要删除的子实体列表 ").append(fieldType).append(" 不能为 null\");\n")
+                        .append("        }\n")
                         .append("        this.").append(fieldName).append(".removeAll(").append(fieldName).append(");\n")
                         .append("    }\n\n");
             }
@@ -460,9 +476,8 @@ public class MethodTemplate {
                 .append("    @ConditionalOnMissingBean\n")
                 .append("    public @Bean ").append(adapter).append(" ").append(StringUtils.uncapitalize(springAdapter)).append("(").append(commandHandler).append(" commandHandler, ").append(queryHandler).append(" queryHandler) {\n")
                 .append("        return new ").append(springAdapter).append("(commandHandler, queryHandler);\n")
-                .append("    }\n\n");
+                .append("    }\n\n")
 
-        stringBuilder
                 .append("    @Lazy\n")
                 .append("    @ConditionalOnMissingBean\n")
                 .append("    protected @Bean ").append(commandHandler).append(" ").append(StringUtils.uncapitalize(commandHandler)).append("(").append(repository).append(" repository) {\n")

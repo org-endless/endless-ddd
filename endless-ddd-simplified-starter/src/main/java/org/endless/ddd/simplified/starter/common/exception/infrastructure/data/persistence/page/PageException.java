@@ -17,7 +17,7 @@ public class PageException extends RuntimeException {
     private static final String DEFAULT_MESSAGE = "分页异常";
 
     public PageException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public PageException(Throwable throwable) {
@@ -25,6 +25,6 @@ public class PageException extends RuntimeException {
     }
 
     public PageException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 }

@@ -16,7 +16,7 @@ public class RestBadRequestException extends RestException {
     private static final String DEFAULT_MESSAGE = "Rest请求无法处理";
 
     public RestBadRequestException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public RestBadRequestException(Throwable throwable) {
@@ -24,6 +24,6 @@ public class RestBadRequestException extends RestException {
     }
 
     public RestBadRequestException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 }

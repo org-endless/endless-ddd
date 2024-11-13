@@ -16,11 +16,11 @@ public class RepositoryException extends RuntimeException {
     private static final String DEFAULT_MESSAGE = "仓储异常";
 
     public RepositoryException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public RepositoryException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 
     public RepositoryException(Throwable throwable) {

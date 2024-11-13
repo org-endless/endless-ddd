@@ -15,7 +15,7 @@ public class MapperRemoveFailedException extends MapperRemoveException {
     private static final String DEFAULT_MESSAGE = "MyBatis数据库删除失败";
 
     public MapperRemoveFailedException(String message) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">");
     }
 
     public MapperRemoveFailedException(Throwable throwable) {
@@ -23,6 +23,6 @@ public class MapperRemoveFailedException extends MapperRemoveException {
     }
 
     public MapperRemoveFailedException(String message, Throwable throwable) {
-        super(message == null ? DEFAULT_MESSAGE + "：" : message, throwable);
+        super("[" + DEFAULT_MESSAGE + "]<" + message + ">", throwable);
     }
 }
