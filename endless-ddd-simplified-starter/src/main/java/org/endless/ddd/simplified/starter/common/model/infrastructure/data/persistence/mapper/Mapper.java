@@ -16,6 +16,7 @@ import org.endless.ddd.simplified.starter.common.utils.string.StringTools;
 import org.endless.ddd.simplified.starter.common.utils.time.TimeStamp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
@@ -24,7 +25,12 @@ import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Mapper
@@ -96,7 +102,7 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
         try {
 
             // 查询并过滤掉已标记删除的记录
-            return Optional.ofNullable(this.selectBatchIds(ids))
+            return Optional.ofNullable(this.selectByIds(ids))
                     .orElse(new ArrayList<>())
                     .stream()
                     .filter(record -> record.getIsRemoved() == null || !record.getIsRemoved())
@@ -309,26 +315,27 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
         if (records == null || records.isEmpty()) {
             throw new MapperModifyException("要删除的数据库记录列表不能为空");
         }
-        ExecutorService executor = Executors.newFixedThreadPool(numThreads);
-        try {
-            List<List<R>> recordBatches = IntStream.range(0, (records.size() + batchSize - 1) / batchSize)
-                    .mapToObj(i -> records.subList(i * batchSize, Math.min(records.size(), (i + 1) * batchSize)))
-                    .collect(Collectors.toList());
-            CompletableFuture.allOf(recordBatches.stream()
-                    .map(batch -> CompletableFuture.runAsync(() -> remove(batch), executor)).toArray(CompletableFuture[]::new)).join();
-        } catch (MapperException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new MapperRemoveException("数据库多批次批量删除记录异常，线程池异常", e);
-        } finally {
-            executor.shutdown();
+        try (ExecutorService executor = Executors.newFixedThreadPool(numThreads)) {
             try {
-                if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
+                List<List<R>> recordBatches = IntStream.range(0, (records.size() + batchSize - 1) / batchSize)
+                        .mapToObj(i -> records.subList(i * batchSize, Math.min(records.size(), (i + 1) * batchSize)))
+                        .toList();
+                CompletableFuture.allOf(recordBatches.stream()
+                        .map(batch -> CompletableFuture.runAsync(() -> remove(batch), executor)).toArray(CompletableFuture[]::new)).join();
+            } catch (MapperException e) {
+                throw e;
+            } catch (Exception e) {
+                throw new MapperRemoveException("数据库多批次批量删除记录异常，线程池异常", e);
+            } finally {
+                executor.shutdown();
+                try {
+                    if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
+                        executor.shutdownNow();
+                    }
+                } catch (InterruptedException e) {
                     executor.shutdownNow();
+                    Thread.currentThread().interrupt();
                 }
-            } catch (InterruptedException e) {
-                executor.shutdownNow();
-                Thread.currentThread().interrupt();
             }
         }
     }
@@ -415,11 +422,9 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
     default String getRecordIdName() {
         Class<?> proxyClass = this.getClass();
         for (Type interfaceType : proxyClass.getGenericInterfaces()) {
-            if (interfaceType instanceof ParameterizedType) {
-                ParameterizedType paramType = (ParameterizedType) interfaceType;
+            if (interfaceType instanceof ParameterizedType paramType) {
                 Type[] typeArguments = paramType.getActualTypeArguments();
-                if (typeArguments.length > 0 && typeArguments[0] instanceof Class<?>) {
-                    Class<?> entityClass = (Class<?>) typeArguments[0];
+                if (typeArguments.length > 0 && typeArguments[0] instanceof Class<?> entityClass) {
                     Field idField = Arrays.stream(entityClass.getDeclaredFields())
                             .filter(field -> field.isAnnotationPresent(TableId.class))
                             .findFirst()
@@ -433,11 +438,9 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
     }
     default String findIdFieldInType(Type[] interfaces) {
         for (Type type : interfaces) {
-            if (type instanceof ParameterizedType) {
-                ParameterizedType paramType = (ParameterizedType) type;
+            if (type instanceof ParameterizedType paramType) {
                 Type[] typeArguments = paramType.getActualTypeArguments();
-                if (typeArguments.length > 0 && typeArguments[0] instanceof Class<?>) {
-                    Class<?> entityClass = (Class<?>) typeArguments[0];
+                if (typeArguments.length > 0 && typeArguments[0] instanceof Class<?> entityClass) {
                     for (Field field : entityClass.getDeclaredFields()) {
                         if (field.isAnnotationPresent(TableId.class)) {
                             return field.getName();

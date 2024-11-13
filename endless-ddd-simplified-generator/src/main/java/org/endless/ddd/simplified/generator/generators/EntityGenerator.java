@@ -3,7 +3,6 @@ package org.endless.ddd.simplified.generator.generators;
 import org.endless.ddd.simplified.generator.object.entity.Aggregate;
 import org.endless.ddd.simplified.generator.object.entity.Entity;
 import org.endless.ddd.simplified.generator.object.entity.Field;
-import org.endless.ddd.simplified.generator.utils.DDDUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;

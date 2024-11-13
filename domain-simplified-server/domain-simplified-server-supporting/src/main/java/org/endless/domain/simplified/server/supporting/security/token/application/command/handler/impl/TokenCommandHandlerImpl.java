@@ -1,9 +1,8 @@
 package org.endless.domain.simplified.server.supporting.security.token.application.command.handler.impl;
 
-import org.endless.domain.simplified.server.supporting.security.token.application.command.handler.*;
-import org.endless.domain.simplified.server.supporting.security.token.domain.anticorruption.*;
-import org.endless.ddd.simplified.starter.common.exception.application.command.handler.*;
 import lombok.extern.slf4j.Slf4j;
+import org.endless.domain.simplified.server.supporting.security.token.application.command.handler.TokenCommandHandler;
+import org.endless.domain.simplified.server.supporting.security.token.domain.anticorruption.TokenRepository;
 
 /**
  * TokenCommandHandlerImpl

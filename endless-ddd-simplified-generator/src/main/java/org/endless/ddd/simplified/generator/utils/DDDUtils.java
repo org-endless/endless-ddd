@@ -1,10 +1,10 @@
 package org.endless.ddd.simplified.generator.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import org.endless.ddd.simplified.generator.object.entity.Aggregate;
 import org.endless.ddd.simplified.generator.object.entity.Entity;
 import org.endless.ddd.simplified.generator.object.entity.Enum;
 import org.endless.ddd.simplified.generator.object.entity.Value;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
 import java.io.File;
@@ -232,7 +232,7 @@ public class DDDUtils {
         }
     }
 
-    private static void deleteOldestBackupIfExceeds(String directory, String className) throws IOException {
+    private static void deleteOldestBackupIfExceeds(String directory, String className){
         File backupDirectory = new File(directory);
         File[] backupFiles = backupDirectory.listFiles((dir, name) -> name.contains(className + ".bak."));
 

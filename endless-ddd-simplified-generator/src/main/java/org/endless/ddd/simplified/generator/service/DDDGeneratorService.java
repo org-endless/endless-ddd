@@ -1,6 +1,7 @@
 package org.endless.ddd.simplified.generator.service;
 
 import com.alibaba.fastjson2.JSON;
+import lombok.extern.slf4j.Slf4j;
 import org.endless.ddd.simplified.generator.generators.*;
 import org.endless.ddd.simplified.generator.object.dto.AggregateDTO;
 import org.endless.ddd.simplified.generator.object.dto.GeneratorDTO;
@@ -9,7 +10,6 @@ import org.endless.ddd.simplified.generator.object.entity.Entity;
 import org.endless.ddd.simplified.generator.object.type.AdapterType;
 import org.endless.ddd.simplified.generator.object.type.CQRSType;
 import org.endless.ddd.simplified.generator.utils.StringTools;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
 import org.yaml.snakeyaml.DumperOptions;

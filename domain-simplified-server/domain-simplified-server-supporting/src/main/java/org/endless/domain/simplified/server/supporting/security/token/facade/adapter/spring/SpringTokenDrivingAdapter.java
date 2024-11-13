@@ -1,9 +1,8 @@
 package org.endless.domain.simplified.server.supporting.security.token.facade.adapter.spring;
 
-import org.endless.domain.simplified.server.supporting.security.token.facade.adapter.*;
-import org.endless.domain.simplified.server.supporting.security.token.application.command.handler.*;
-import org.endless.domain.simplified.server.supporting.security.token.application.query.handler.*;
-import org.endless.ddd.simplified.starter.common.exception.facade.adapter.*;
+import org.endless.domain.simplified.server.supporting.security.token.application.command.handler.TokenCommandHandler;
+import org.endless.domain.simplified.server.supporting.security.token.application.query.handler.TokenQueryHandler;
+import org.endless.domain.simplified.server.supporting.security.token.facade.adapter.TokenDrivingAdapter;
 
 /**
  * SpringTokenDrivingAdapter

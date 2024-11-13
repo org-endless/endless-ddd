@@ -1,7 +1,5 @@
 package org.endless.ddd.simplified.generator.template;
 
-import org.endless.ddd.simplified.generator.utils.StringTools;
-
 import static org.endless.ddd.simplified.generator.utils.StringTools.removeSuffix;
 
 /**

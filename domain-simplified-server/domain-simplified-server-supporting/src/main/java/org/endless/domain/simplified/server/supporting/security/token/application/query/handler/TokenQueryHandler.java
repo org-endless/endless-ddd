@@ -1,7 +1,6 @@
 package org.endless.domain.simplified.server.supporting.security.token.application.query.handler;
 
-import org.endless.domain.simplified.server.common.model.application.query.handler.*;
-import org.endless.domain.simplified.server.supporting.security.token.domain.entity.*;
+import org.endless.domain.simplified.server.common.model.application.query.handler.DomainSimplifiedServerQueryHandler;
 
 /**
  * TokenQueryHandler

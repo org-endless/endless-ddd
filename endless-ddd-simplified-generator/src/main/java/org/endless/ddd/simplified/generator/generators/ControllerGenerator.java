@@ -2,7 +2,6 @@ package org.endless.ddd.simplified.generator.generators;
 
 import org.endless.ddd.simplified.generator.object.entity.Aggregate;
 import org.endless.ddd.simplified.generator.object.entity.Field;
-import org.endless.ddd.simplified.generator.utils.DDDUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;

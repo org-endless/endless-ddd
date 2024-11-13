@@ -1,7 +1,5 @@
 package org.endless.ddd.simplified.starter.common.exception.application.command.handler;
 
-import org.endless.ddd.simplified.starter.common.exception.application.command.handler.CommandHandlerException;
-
 /**
  * CommandHandlerRemoveException
  * <p>

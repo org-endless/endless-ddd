@@ -1,8 +1,8 @@
 package org.endless.domain.simplified.server.supporting.security.token.application.query.repository;
 
-import org.endless.domain.simplified.server.common.model.application.query.repository.*;
-import org.endless.domain.simplified.server.supporting.security.token.domain.anticorruption.*;
-import org.endless.domain.simplified.server.supporting.security.token.domain.entity.*;
+import org.endless.domain.simplified.server.common.model.application.query.repository.DomainSimplifiedServerQueryRepository;
+import org.endless.domain.simplified.server.supporting.security.token.domain.anticorruption.TokenRepository;
+import org.endless.domain.simplified.server.supporting.security.token.domain.entity.TokenAggregate;
 
 /**
  * TokenQueryRepository

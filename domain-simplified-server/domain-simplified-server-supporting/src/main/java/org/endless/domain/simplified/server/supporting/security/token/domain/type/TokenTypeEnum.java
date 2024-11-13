@@ -1,10 +1,10 @@
 package org.endless.domain.simplified.server.supporting.security.token.domain.type;
 
-import org.endless.domain.simplified.server.common.model.domain.type.*;
-import org.endless.ddd.simplified.starter.common.exception.domain.type.*;
-import lombok.Getter;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.ToString;
+import org.endless.ddd.simplified.starter.common.exception.domain.type.EnumException;
+import org.endless.domain.simplified.server.common.model.domain.type.DomainSimplifiedServerEnum;
 
 /**
  * TokenTypeEnum

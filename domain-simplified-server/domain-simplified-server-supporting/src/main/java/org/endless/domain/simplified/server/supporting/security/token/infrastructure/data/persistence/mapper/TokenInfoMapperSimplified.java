@@ -2,7 +2,7 @@ package org.endless.domain.simplified.server.supporting.security.token.infrastru
 
 import org.apache.ibatis.annotations.Mapper;
 import org.endless.domain.simplified.server.common.model.infrastructure.data.persistence.mapper.DomainSimplifiedServerMapper;
-import org.endless.domain.simplified.server.supporting.security.token.infrastructure.data.record.*;
+import org.endless.domain.simplified.server.supporting.security.token.infrastructure.data.record.TokenInfoRecord;
 import org.springframework.context.annotation.Lazy;
 
 /**

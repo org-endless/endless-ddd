@@ -5,7 +5,6 @@ import org.endless.ddd.simplified.generator.object.entity.Field;
 import org.endless.ddd.simplified.generator.object.entity.Transfer;
 import org.endless.ddd.simplified.generator.object.type.AdapterType;
 import org.endless.ddd.simplified.generator.object.type.CQRSType;
-import org.endless.ddd.simplified.generator.utils.DDDUtils;
 
 import java.util.List;
 

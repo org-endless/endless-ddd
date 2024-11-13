@@ -1,5 +1,6 @@
 package org.endless.ddd.simplified.starter.common.handler.exception.rest;
 
+import lombok.extern.slf4j.Slf4j;
 import org.endless.ddd.simplified.starter.common.exception.infrastructure.data.persistence.mapper.MapperModifyFailedException;
 import org.endless.ddd.simplified.starter.common.exception.infrastructure.data.persistence.mapper.MapperRemoveFailedException;
 import org.endless.ddd.simplified.starter.common.exception.sidecar.rest.RestBadRequestException;
@@ -8,7 +9,6 @@ import org.endless.ddd.simplified.starter.common.exception.sidecar.rest.RestNotF
 import org.endless.ddd.simplified.starter.common.exception.sidecar.rest.RestUnauthorizedException;
 import org.endless.ddd.simplified.starter.common.exception.validate.ValidateException;
 import org.endless.ddd.simplified.starter.common.model.sidecar.rest.RestResponse;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 

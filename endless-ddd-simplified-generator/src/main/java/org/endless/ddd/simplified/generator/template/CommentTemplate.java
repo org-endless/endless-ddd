@@ -1,6 +1,5 @@
 package org.endless.ddd.simplified.generator.template;
 
-import org.endless.ddd.simplified.generator.utils.DDDUtils;
 import org.springframework.util.StringUtils;
 
 import static org.endless.ddd.simplified.generator.utils.DDDUtils.currentDate;

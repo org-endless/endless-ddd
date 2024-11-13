@@ -2,8 +2,6 @@ package org.endless.ddd.simplified.generator.generators;
 
 import org.endless.ddd.simplified.generator.object.entity.Aggregate;
 import org.endless.ddd.simplified.generator.object.entity.Entity;
-import org.endless.ddd.simplified.generator.utils.DDDUtils;
-import org.endless.ddd.simplified.generator.utils.StringTools;
 
 import static org.endless.ddd.simplified.generator.template.CommentTemplate.comment;
 import static org.endless.ddd.simplified.generator.template.DefineTemplate.interfaceDefine;

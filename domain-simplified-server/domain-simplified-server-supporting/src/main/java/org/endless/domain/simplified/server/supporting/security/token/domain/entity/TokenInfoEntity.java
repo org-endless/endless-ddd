@@ -1,18 +1,14 @@
 package org.endless.domain.simplified.server.supporting.security.token.domain.entity;
 
-import org.endless.domain.simplified.server.common.model.domain.entity.*;
-import org.endless.domain.simplified.server.supporting.security.token.domain.type.*;
-import org.endless.ddd.simplified.starter.common.exception.domain.entity.*;
-import org.endless.ddd.simplified.starter.common.exception.validate.*;
-import org.endless.ddd.simplified.starter.common.utils.id.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
+import org.endless.ddd.simplified.starter.common.exception.domain.entity.EntityRemoveException;
+import org.endless.ddd.simplified.starter.common.exception.validate.ValidateException;
+import org.endless.ddd.simplified.starter.common.utils.id.IdGenerator;
+import org.endless.domain.simplified.server.common.model.domain.entity.DomainSimplifiedServerEntity;
+import org.endless.domain.simplified.server.supporting.security.token.domain.type.TokenTypeEnum;
 import org.springframework.util.StringUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * TokenInfoEntity

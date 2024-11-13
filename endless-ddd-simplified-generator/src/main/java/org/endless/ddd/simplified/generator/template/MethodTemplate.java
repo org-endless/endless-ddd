@@ -2,8 +2,6 @@ package org.endless.ddd.simplified.generator.template;
 
 import org.endless.ddd.simplified.generator.object.entity.Field;
 import org.endless.ddd.simplified.generator.object.entity.Value;
-import org.endless.ddd.simplified.generator.utils.DDDUtils;
-import org.endless.ddd.simplified.generator.utils.StringTools;
 import org.springframework.util.StringUtils;
 
 import java.util.*;

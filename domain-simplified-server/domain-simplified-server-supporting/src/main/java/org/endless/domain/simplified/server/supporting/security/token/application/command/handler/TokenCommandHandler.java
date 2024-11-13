@@ -1,7 +1,7 @@
 package org.endless.domain.simplified.server.supporting.security.token.application.command.handler;
 
-import org.endless.domain.simplified.server.common.model.application.command.handler.*;
-import org.endless.domain.simplified.server.supporting.security.token.domain.entity.*;
+import org.endless.domain.simplified.server.common.model.application.command.handler.DomainSimplifiedServerCommandHandler;
+import org.endless.domain.simplified.server.supporting.security.token.domain.entity.TokenAggregate;
 
 /**
  * TokenCommandHandler

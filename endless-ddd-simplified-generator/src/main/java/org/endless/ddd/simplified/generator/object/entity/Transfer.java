@@ -1,12 +1,12 @@
 package org.endless.ddd.simplified.generator.object.entity;
 
 import com.alibaba.fastjson2.annotation.JSONType;
-import org.endless.ddd.simplified.generator.object.type.AdapterType;
-import org.endless.ddd.simplified.generator.object.type.CQRSType;
-import org.endless.ddd.simplified.generator.object.type.MessageType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
+import org.endless.ddd.simplified.generator.object.type.AdapterType;
+import org.endless.ddd.simplified.generator.object.type.CQRSType;
+import org.endless.ddd.simplified.generator.object.type.MessageType;
 import org.springframework.util.StringUtils;
 
 import java.util.List;

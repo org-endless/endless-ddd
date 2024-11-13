@@ -1,6 +1,6 @@
 package org.endless.domain.simplified.server.supporting.security.token.facade.adapter;
 
-import org.endless.domain.simplified.server.common.model.facade.adapter.*;
+import org.endless.domain.simplified.server.common.model.facade.adapter.DomainSimplifiedServerDrivingAdapter;
 
 /**
  * TokenDrivingAdapter

@@ -6,6 +6,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.endless.ddd.simplified.starter.common.config.log.annotation.Log;
+import org.endless.ddd.simplified.starter.common.exception.config.LogException;
 import org.endless.ddd.simplified.starter.common.model.common.Transfer;
 import org.endless.ddd.simplified.starter.common.model.domain.entity.Entity;
 import org.endless.ddd.simplified.starter.common.model.domain.type.BaseEnum;

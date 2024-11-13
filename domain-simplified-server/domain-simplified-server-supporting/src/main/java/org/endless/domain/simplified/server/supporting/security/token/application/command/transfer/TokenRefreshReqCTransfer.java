@@ -1,18 +1,14 @@
 package org.endless.domain.simplified.server.supporting.security.token.application.command.transfer;
 
-import org.endless.domain.simplified.server.common.model.application.command.transfer.*;
-import org.endless.ddd.simplified.starter.common.exception.application.command.transfer.*;
-import org.endless.ddd.simplified.starter.common.exception.validate.*;
-import org.endless.domain.simplified.server.supporting.security.token.domain.type.*;
 import com.alibaba.fastjson2.annotation.JSONType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
+import org.endless.ddd.simplified.starter.common.exception.validate.ValidateException;
+import org.endless.domain.simplified.server.common.model.application.command.transfer.DomainSimplifiedServerCommandTransfer;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * TokenRefreshReqCTransfer

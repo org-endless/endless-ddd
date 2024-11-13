@@ -4,18 +4,12 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import org.endless.domain.simplified.server.common.model.infrastructure.data.record.*;
-import org.endless.domain.simplified.server.supporting.security.token.domain.entity.*;
-import org.endless.domain.simplified.server.supporting.security.token.domain.type.*;
-import org.endless.ddd.simplified.starter.common.exception.infrastructure.data.record.*;
-import org.endless.ddd.simplified.starter.common.exception.validate.*;
-import org.endless.ddd.simplified.starter.common.utils.id.*;
 import lombok.*;
+import org.endless.ddd.simplified.starter.common.exception.validate.ValidateException;
+import org.endless.domain.simplified.server.common.model.infrastructure.data.record.DomainSimplifiedServerRecord;
+import org.endless.domain.simplified.server.supporting.security.token.domain.entity.TokenInfoEntity;
+import org.endless.domain.simplified.server.supporting.security.token.domain.type.TokenTypeEnum;
 import org.springframework.util.StringUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * TokenInfoRecord

@@ -1,7 +1,7 @@
 package org.endless.domain.simplified.server.supporting.security.token.domain.anticorruption;
 
-import org.endless.domain.simplified.server.common.model.domain.anticorruption.*;
-import org.endless.domain.simplified.server.supporting.security.token.domain.entity.*;
+import org.endless.domain.simplified.server.common.model.domain.anticorruption.DomainSimplifiedServerRepository;
+import org.endless.domain.simplified.server.supporting.security.token.domain.entity.TokenAggregate;
 
 /**
  * TokenRepository

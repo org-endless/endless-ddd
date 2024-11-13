@@ -4,7 +4,6 @@ import org.endless.ddd.simplified.generator.object.entity.Aggregate;
 import org.endless.ddd.simplified.generator.object.entity.Enum;
 import org.endless.ddd.simplified.generator.object.entity.Field;
 import org.endless.ddd.simplified.generator.object.type.EnumValue;
-import org.endless.ddd.simplified.generator.utils.DDDUtils;
 
 import java.io.IOException;
 import java.util.List;

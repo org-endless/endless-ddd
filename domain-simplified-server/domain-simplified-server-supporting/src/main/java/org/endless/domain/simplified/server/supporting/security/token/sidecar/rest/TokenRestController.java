@@ -1,9 +1,8 @@
 package org.endless.domain.simplified.server.supporting.security.token.sidecar.rest;
 
-import org.endless.domain.simplified.server.common.model.sidecar.rest.*;
-import org.endless.domain.simplified.server.supporting.security.token.facade.adapter.*;
-import org.endless.ddd.simplified.starter.common.exception.sidecar.rest.*;
 import lombok.extern.slf4j.Slf4j;
+import org.endless.domain.simplified.server.common.model.sidecar.rest.DomainSimplifiedServerRestController;
+import org.endless.domain.simplified.server.supporting.security.token.facade.adapter.TokenDrivingAdapter;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

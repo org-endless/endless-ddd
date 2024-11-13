@@ -1,12 +1,13 @@
 package org.endless.domain.simplified.server.supporting.security.token.infrastructure.data.manager;
 
-import org.endless.domain.simplified.server.common.model.infrastructure.data.manager.*;
-import org.endless.domain.simplified.server.supporting.security.token.application.query.repository.*;
-import org.endless.domain.simplified.server.supporting.security.token.domain.anticorruption.*;
-import org.endless.domain.simplified.server.supporting.security.token.domain.entity.*;
-import org.endless.domain.simplified.server.supporting.security.token.infrastructure.data.persistence.mapper.*;
-import org.endless.domain.simplified.server.supporting.security.token.infrastructure.data.record.*;
 import lombok.extern.slf4j.Slf4j;
+import org.endless.domain.simplified.server.common.model.infrastructure.data.manager.DomainSimplifiedServerAggregateDataManager;
+import org.endless.domain.simplified.server.supporting.security.token.application.query.repository.TokenQueryRepository;
+import org.endless.domain.simplified.server.supporting.security.token.domain.anticorruption.TokenRepository;
+import org.endless.domain.simplified.server.supporting.security.token.domain.entity.TokenAggregate;
+import org.endless.domain.simplified.server.supporting.security.token.infrastructure.data.persistence.mapper.TokenInfoMapperSimplified;
+import org.endless.domain.simplified.server.supporting.security.token.infrastructure.data.persistence.mapper.TokenMapperSimplified;
+import org.endless.domain.simplified.server.supporting.security.token.infrastructure.data.record.TokenRecord;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 

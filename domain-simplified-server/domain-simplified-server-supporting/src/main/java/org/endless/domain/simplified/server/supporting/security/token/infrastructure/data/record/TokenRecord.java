@@ -4,13 +4,11 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import org.endless.domain.simplified.server.common.model.infrastructure.data.record.*;
-import org.endless.domain.simplified.server.supporting.security.token.domain.entity.*;
-import org.endless.domain.simplified.server.supporting.security.token.domain.type.*;
-import org.endless.ddd.simplified.starter.common.exception.infrastructure.data.record.*;
-import org.endless.ddd.simplified.starter.common.exception.validate.*;
-import org.endless.ddd.simplified.starter.common.utils.id.*;
 import lombok.*;
+import org.endless.ddd.simplified.starter.common.exception.infrastructure.data.record.DataRecordAddItemException;
+import org.endless.ddd.simplified.starter.common.exception.validate.ValidateException;
+import org.endless.domain.simplified.server.common.model.infrastructure.data.record.DomainSimplifiedServerRecord;
+import org.endless.domain.simplified.server.supporting.security.token.domain.entity.TokenAggregate;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -111,7 +109,7 @@ public class TokenRecord implements DomainSimplifiedServerRecord<TokenAggregate>
 
     public TokenRecord addTokenInfo(TokenInfoRecord tokenInfo) {
         if (tokenInfo == null) {
-            throw new DataRecordAddListException("数据库实体要添加的子实体 TokenInfoRecord 不能为 null");
+            throw new DataRecordAddItemException("数据库实体要添加的子实体 TokenInfoRecord 不能为 null");
         }
         this.tokenInfos.add(tokenInfo);
         return this;
@@ -119,7 +117,7 @@ public class TokenRecord implements DomainSimplifiedServerRecord<TokenAggregate>
 
     public TokenRecord addTokenInfos(List<TokenInfoRecord> tokenInfos) {
         if (tokenInfos == null || tokenInfos.isEmpty()) {
-                throw new DataRecordAddListException("数据库实体要添加的子实体列表 List<TokenInfoRecord> 不能为空");
+                throw new DataRecordAddItemException("数据库实体要添加的子实体列表 List<TokenInfoRecord> 不能为空");
         }
         this.tokenInfos.addAll(tokenInfos);
         return this;
