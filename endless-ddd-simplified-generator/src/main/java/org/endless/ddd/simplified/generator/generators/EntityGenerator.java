@@ -67,10 +67,10 @@ public class EntityGenerator {
     /**
      * 代码生成器
      *
-     * @param aggregate
+     * @param aggregate 聚合
      * @param fields    属性列表
      * @param className 类名
-     * @throws IOException
+     * @throws IOException IO异常
      */
     private void generate(Aggregate aggregate, List<Field> fields, String className, String classDescription) throws Exception {
 

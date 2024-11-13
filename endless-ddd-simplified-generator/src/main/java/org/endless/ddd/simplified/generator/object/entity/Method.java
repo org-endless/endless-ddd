@@ -9,7 +9,7 @@ import org.springframework.util.StringUtils;
 import java.util.List;
 
 /**
- * Mehtod
+ * Method
  * <p>
  * create 2024/10/18 08:45
  * <p>

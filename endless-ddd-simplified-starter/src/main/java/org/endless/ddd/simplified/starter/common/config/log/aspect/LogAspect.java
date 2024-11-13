@@ -133,20 +133,16 @@ public class LogAspect {
         if (field == null) {
             return "null";
         }
-        if (field instanceof Map) {
-            Map<?, ?> originalMap = (Map<?, ?>) field;
+        if (field instanceof Map<?, ?> originalMap) {
             Map<String, Object> maskedMap = new HashMap<>();
-            originalMap.forEach((key, value) -> {
-                maskedMap.put(key.toString(), isSensitiveKey(key.toString()) ? "******" : maskSensitiveData(value));
-            });
+            originalMap.forEach((key, value) ->
+                    maskedMap.put(key.toString(), isSensitiveKey(key.toString()) ? "******" : maskSensitiveData(value)));
             return maskedMap.toString();
-        } else if (field instanceof List) {
-            List<?> list = (List<?>) field;
+        } else if (field instanceof List<?> list) {
             return list.stream()
                     .map(this::maskSensitiveData)  // 对每个元素进行敏感数据处理
-                    .collect(Collectors.toList()).toString();
-        } else if (field instanceof Set) {
-            Set<?> set = (Set<?>) field;
+                    .toList().toString();
+        } else if (field instanceof Set<?> set) {
             return set.stream()
                     .map(this::maskSensitiveData)  // 对每个元素进行敏感数据处理
                     .collect(Collectors.toSet()).toString();

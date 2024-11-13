@@ -444,8 +444,8 @@ public class MethodTemplate {
      * @param fields        字段列表
      */
     public static void fromCode(StringBuilder stringBuilder, List<Field> fields, String className) {
-        String codeType = fields.get(0).getType();
-        String codeName = fields.get(0).getName();
+        String codeType = fields.getFirst().getType();
+        String codeName = fields.getFirst().getName();
         stringBuilder
                 .append("    public static ").append(className).append(" fromCode(").append(codeType).append(" code) {\n")
                 .append("        for (").append(className).append(" type : values()) {\n")
