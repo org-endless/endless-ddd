@@ -13,7 +13,7 @@ package org.endless.ddd.simplified.starter.common.exception.infrastructure.data.
  */
 public class MapperException extends RuntimeException {
 
-    private static final String DEFAULT_MESSAGE = "MyBatis数据库操作异常";
+    private static final String DEFAULT_MESSAGE = " MyBatis-Plus 数据库操作异常";
 
     public MapperException(String message) {
         super("[" + DEFAULT_MESSAGE + "]<" + message + ">");

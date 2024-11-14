@@ -13,7 +13,5 @@ import org.springframework.context.annotation.Import;
  * @author Deng Haozhi
  * @since 2.0.0
  */
-@Import(LogAspect.class)
 public class LogAutoConfiguration {
-
 }

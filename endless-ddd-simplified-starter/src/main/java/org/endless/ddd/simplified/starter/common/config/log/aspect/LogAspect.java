@@ -6,6 +6,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.endless.ddd.simplified.starter.common.config.log.annotation.Log;
+import org.endless.ddd.simplified.starter.common.config.log.type.LogLevel;
 import org.endless.ddd.simplified.starter.common.exception.config.LogException;
 import org.endless.ddd.simplified.starter.common.model.common.Transfer;
 import org.endless.ddd.simplified.starter.common.model.domain.entity.Entity;
@@ -41,7 +42,7 @@ public class LogAspect {
             .collect(Collectors.collectingAndThen(Collectors.toSet(), Collections::unmodifiableSet));
 
     @Around("@annotation(annotation)")
-    public Object log(ProceedingJoinPoint joinPoint, Log annotation) throws Throwable {
+    public Object logging(ProceedingJoinPoint joinPoint, Log annotation) throws Throwable {
         long start = TimeStamp.now();
         String className = joinPoint.getTarget().getClass().getName();
         String methodName = joinPoint.getSignature().getName();
@@ -61,14 +62,14 @@ public class LogAspect {
         } else {
             String result;
             try {
-            ExpressionParser parser = new SpelExpressionParser();
-            StandardEvaluationContext context = new StandardEvaluationContext();
-            context.setVariables(fieldsMap(joinPoint));
-            Object evaluatedValue = parser.parseExpression(value).getValue(context);
-            if (evaluatedValue != null) {
-                result = evaluatedValue instanceof String ? (String) evaluatedValue : evaluatedValue.toString();
-            } else {
-                result = "";
+                ExpressionParser parser = new SpelExpressionParser();
+                StandardEvaluationContext context = new StandardEvaluationContext();
+                context.setVariables(fieldsMap(joinPoint));
+                Object evaluatedValue = parser.parseExpression(value).getValue(context);
+                if (evaluatedValue != null) {
+                    result = evaluatedValue instanceof String ? (String) evaluatedValue : evaluatedValue.toString();
+                } else {
+                    result = "";
                 }
             } catch (Exception e) {
                 throw new LogException("Spring EL表达式解析失败: " + e.getMessage(), e);
@@ -89,30 +90,30 @@ public class LogAspect {
         return result;
     }
 
-    private void logExecutionStart(String className, String message, String level) {
-        if ("TRACE".equalsIgnoreCase(level) && log.isTraceEnabled()) {
+    private void logExecutionStart(String className, String message, LogLevel level) {
+        if (level == LogLevel.TRACE && log.isTraceEnabled()) {
             log.trace("[{}] 开始执行: <{}>", className, message);
-        } else if ("DEBUG".equalsIgnoreCase(level) && log.isDebugEnabled()) {
+        } else if (level == LogLevel.DEBUG && log.isDebugEnabled()) {
             log.debug("[{}] 开始执行: <{}>", className, message);
         } else if (log.isInfoEnabled()) {
             log.info("[{}] 开始执行: <{}>", className, message);
         }
     }
 
-    private void logExecutionRequestInfo(String className, String value, String level) {
-        if ("TRACE".equalsIgnoreCase(level) && log.isTraceEnabled()) {
+    private void logExecutionRequestInfo(String className, String value, LogLevel level) {
+        if (level == LogLevel.TRACE && log.isTraceEnabled()) {
             log.trace("[{}] 请求信息: {}", className, value);
         } else if (log.isDebugEnabled()) {
             log.debug("[{}] 请求信息: {}", className, value);
         }
     }
 
-    private void logExecutionEnd(String className, String message, Object result, long duration, String level) {
-        if ("TRACE".equalsIgnoreCase(level) && log.isTraceEnabled()) {
+    private void logExecutionEnd(String className, String message, Object result, long duration, LogLevel level) {
+        if (level == LogLevel.TRACE && log.isTraceEnabled()) {
             log.trace("[{}] <{}> 执行成功，耗时: {} 毫秒", className, message, duration);
             log.trace("[{}] 响应信息: {}", className, maskSensitiveData(result));
         } else {
-            if ("DEBUG".equalsIgnoreCase(level)) {
+            if (level == LogLevel.DEBUG) {
                 log.debug("[{}] <{}> 执行成功，耗时: {} 毫秒", className, message, duration);
             } else if (log.isInfoEnabled()) {
                 log.info("[{}] <{}> 执行成功，耗时: {} 毫秒", className, message, duration);
@@ -186,7 +187,6 @@ public class LogAspect {
         // 返回一个有意义的字符串表示，而非直接调用toString()
         return object.toString();
     }
-
 
     /**
      * 判断是否为敏感信息的字段

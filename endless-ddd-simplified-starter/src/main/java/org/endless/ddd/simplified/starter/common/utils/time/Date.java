@@ -20,7 +20,10 @@ public class Date {
 
 
     public static String now() {
-        return format(Instant.now(), DEFAULT_DATE_FORMAT);
+        return TimeStamp.format(Instant.now(), DEFAULT_DATE_FORMAT);
     }
 
+    public static String format(Long timestamp) {
+        return TimeStamp.format(Instant.ofEpochMilli(timestamp), DEFAULT_DATE_FORMAT);
+    }
 }

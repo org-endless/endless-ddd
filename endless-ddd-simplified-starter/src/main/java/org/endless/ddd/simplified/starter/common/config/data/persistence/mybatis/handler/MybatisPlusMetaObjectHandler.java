@@ -16,7 +16,6 @@ import org.springframework.context.annotation.Configuration;
  * @author Deng Haozhi
  * @since 2.0.0
  */
-@Configuration
 public class MybatisPlusMetaObjectHandler implements MetaObjectHandler {
 
     @Override

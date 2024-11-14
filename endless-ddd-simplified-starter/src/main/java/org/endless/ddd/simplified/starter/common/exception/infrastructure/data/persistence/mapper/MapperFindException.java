@@ -13,7 +13,7 @@ package org.endless.ddd.simplified.starter.common.exception.infrastructure.data.
  */
 public class MapperFindException extends MapperException {
 
-    private static final String DEFAULT_MESSAGE = "MyBatis数据库查询异常";
+    private static final String DEFAULT_MESSAGE = " MyBatis-Plus 数据库查询异常";
 
     public MapperFindException(String message) {
         super("[" + DEFAULT_MESSAGE + "]<" + message + ">");

@@ -25,9 +25,9 @@ public class TimeStamp {
     public static Long between(Long start, Long end) {
         return Duration.between(Instant.ofEpochMilli(start), Instant.ofEpochMilli(end)).toMillis();
     }
-    protected static String format(Instant timestamp, String datePattern) {
+    protected static String format(Instant timestamp, String pattern) {
         ZonedDateTime zonedDateTime = timestamp.atZone(ZoneId.systemDefault());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(datePattern);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
         return zonedDateTime.format(formatter);
     }
 }

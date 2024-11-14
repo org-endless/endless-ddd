@@ -18,9 +18,7 @@ import java.util.List;
  * @author Deng Haozhi
  * @since 2.0.0
  */
-@Import(FastJson2HttpMessageConverter.class)
 public class RestServerConfiguration implements WebMvcConfigurer {
-
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {

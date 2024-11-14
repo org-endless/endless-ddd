@@ -7,12 +7,12 @@ import com.alibaba.fastjson2.filter.Filter;
 import lombok.extern.slf4j.Slf4j;
 import org.endless.ddd.simplified.starter.common.config.endless.EndlessAutoConfiguration;
 import org.endless.ddd.simplified.starter.common.exception.sidecar.rest.RestErrorException;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.AbstractHttpMessageConverter;
+import org.springframework.lang.NonNull;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -39,12 +39,12 @@ public class FastJson2HttpMessageConverter<T> extends AbstractHttpMessageConvert
     }
 
     @Override
-    protected boolean supports(@NotNull Class<?> clazz) {
+    protected boolean supports(@NonNull Class<?> clazz) {
         return true;
     }
 
     @Override
-    protected @NotNull T readInternal(@NotNull Class<? extends T> clazz, @NotNull HttpInputMessage inputMessage) {
+    protected @NonNull T readInternal(@NonNull Class<? extends T> clazz, @NonNull HttpInputMessage inputMessage) {
         try (InputStream inputStream = inputMessage.getBody()) {
             // 使用缓冲区读取 InputStream 内容
             byte[] bytes = new byte[1024];
@@ -63,7 +63,7 @@ public class FastJson2HttpMessageConverter<T> extends AbstractHttpMessageConvert
     }
 
     @Override
-    protected void writeInternal(@NotNull T t, @NotNull HttpOutputMessage outputMessage) {
+    protected void writeInternal(@NonNull T t, @NonNull HttpOutputMessage outputMessage) {
         try {
             String json = JSON.toJSONString(t, filter(), JSONWriter.Feature.PrettyFormat);
             log.trace("Rest 序列化对象: {}", json);

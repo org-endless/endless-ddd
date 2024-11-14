@@ -1,10 +1,12 @@
 package org.endless.ddd.simplified.starter.common.config.minio;
 
 import io.minio.MinioClient;
-import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
+import org.endless.ddd.simplified.starter.common.config.minio.okhttp.OkHttpClientConfiguration;
 import org.endless.ddd.simplified.starter.common.config.minio.properties.MinioProperties;
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
@@ -19,10 +21,10 @@ import org.springframework.context.annotation.Import;
  * @author Deng Haozhi
  * @since 2.0.0
  */
-@Slf4j
-@EnableConfigurationProperties(MinioProperties.class)
+@AutoConfiguration
+@ConditionalOnClass(MinioClient.class)
 @Import(OkHttpClientConfiguration.class)
-@AutoConfigureBefore(io.minio.MinioClient.class)
+@EnableConfigurationProperties(MinioProperties.class)
 public class MinioAutoConfiguration {
 
     private final MinioProperties properties;
@@ -34,6 +36,7 @@ public class MinioAutoConfiguration {
         this.okHttpClient = okHttpClient;
     }
 
+    @ConditionalOnMissingBean
     public @Bean MinioClient minioClient() {
         return MinioClient.builder()
                 .endpoint(properties.getEndpoint())

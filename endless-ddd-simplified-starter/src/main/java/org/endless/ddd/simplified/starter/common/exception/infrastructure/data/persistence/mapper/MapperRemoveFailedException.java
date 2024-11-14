@@ -12,7 +12,7 @@ package org.endless.ddd.simplified.starter.common.exception.infrastructure.data.
  */
 public class MapperRemoveFailedException extends MapperRemoveException {
 
-    private static final String DEFAULT_MESSAGE = "MyBatis数据库删除失败";
+    private static final String DEFAULT_MESSAGE = " MyBatis-Plus 数据库删除失败";
 
     public MapperRemoveFailedException(String message) {
         super("[" + DEFAULT_MESSAGE + "]<" + message + ">");

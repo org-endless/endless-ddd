@@ -1,5 +1,7 @@
 package org.endless.ddd.simplified.starter.common.config.log.annotation;
 
+import org.endless.ddd.simplified.starter.common.config.log.type.LogLevel;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -36,7 +38,7 @@ public @interface Log {
     /**
      * 日志级别
      *
-     * @return {@link String }
+     * @return {@link LogLevel }
      */
-    String level() default "INFO";
+    LogLevel level() default LogLevel.INFO;
 }

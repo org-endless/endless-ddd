@@ -1,6 +1,7 @@
-package org.endless.ddd.simplified.starter.common.config.thread.common;
+package org.endless.ddd.simplified.starter.common.config.thread.mapper;
 
 import org.endless.ddd.simplified.starter.common.config.thread.model.AbstractThreadConfiguration;
+import org.endless.ddd.simplified.starter.common.config.thread.model.AbstractThreadProperties;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -10,25 +11,25 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.concurrent.Executor;
 
 /**
- * CommonThreadConfiguration
+ * MapperThreadConfiguration
  * <p>
- * create 2024/11/10 15:23
+ * create 2024/11/14 23:03
  * <p>
- * update 2024/11/10 15:23
+ * update 2024/11/14 23:03
  *
  * @author Deng Haozhi
  * @since 2.0.0
  */
 @EnableAsync
-@EnableConfigurationProperties(CommonThreadProperties.class)
-public class CommonThreadConfiguration extends AbstractThreadConfiguration {
+@EnableConfigurationProperties(MapperThreadProperties.class)
+public class MapperThreadConfiguration extends AbstractThreadConfiguration {
 
-    public CommonThreadConfiguration(CommonThreadProperties threadProperties) {
+    public MapperThreadConfiguration(MapperThreadProperties threadProperties) {
         super(threadProperties);
     }
 
-    @Bean("commonTaskExecutor")
     @Override
+    @Bean("mapperTaskExecutor")
     public Executor getAsyncExecutor() {
         return super.getAsyncExecutor();
     }

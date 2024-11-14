@@ -22,17 +22,15 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 public class AbstractThreadConfiguration implements AsyncConfigurer {
 
-    private final ThreadPoolTaskExecutor threadPoolTaskExecutor;
-
     private final AbstractThreadProperties threadProperties;
 
-    public AbstractThreadConfiguration(ThreadPoolTaskExecutor threadPoolTaskExecutor, AbstractThreadProperties threadProperties) {
-        this.threadPoolTaskExecutor = threadPoolTaskExecutor;
+    public AbstractThreadConfiguration(AbstractThreadProperties threadProperties) {
         this.threadProperties = threadProperties;
     }
 
     @Override
     public Executor getAsyncExecutor() {
+        ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
         threadPoolTaskExecutor.setCorePoolSize(threadProperties.getCorePoolSize());
         threadPoolTaskExecutor.setMaxPoolSize(threadProperties.getMaxPoolSize());
         threadPoolTaskExecutor.setQueueCapacity(threadProperties.getQueueCapacity());
@@ -75,7 +73,6 @@ public class AbstractThreadConfiguration implements AsyncConfigurer {
     }
 
     public Integer getCorePoolSize() {
-        return threadPoolTaskExecutor.getCorePoolSize();
+        return threadProperties.getCorePoolSize();
     }
-
 }

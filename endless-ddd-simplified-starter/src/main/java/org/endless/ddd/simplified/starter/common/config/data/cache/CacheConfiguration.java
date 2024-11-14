@@ -2,6 +2,8 @@ package org.endless.ddd.simplified.starter.common.config.data.cache;
 
 import org.endless.ddd.simplified.starter.common.config.data.cache.redis.RedisConfiguration;
 import org.endless.ddd.simplified.starter.common.config.data.cache.redis.serializer.FastJson2JsonRedisSerializer;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
@@ -27,6 +29,8 @@ import java.time.Duration;
 public class CacheConfiguration {
 
     @Bean
+    @ConditionalOnClass(RedisCacheManager.class)
+    @ConditionalOnProperty(name = "spring.cache.type", havingValue = "redis")
     public RedisCacheManager cacheManager(RedisConnectionFactory redisConnectionFactory, FastJson2JsonRedisSerializer<Object> redisSerializer) {
         return RedisCacheManager.builder(redisConnectionFactory)
                 .cacheDefaults(

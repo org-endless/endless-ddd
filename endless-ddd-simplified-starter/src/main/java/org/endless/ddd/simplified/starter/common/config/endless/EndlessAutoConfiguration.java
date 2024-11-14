@@ -16,7 +16,6 @@ import java.nio.charset.Charset;
  * @author Deng Haozhi
  * @since 2.0.0
  */
-@Slf4j
 @EnableConfigurationProperties(EndlessProperties.class)
 public class EndlessAutoConfiguration {
 

@@ -20,7 +20,6 @@
         <module>domain-simplified-server-components</module>
         <module>domain-simplified-server-core</module>
     </modules>
-
     <dependencyManagement>
         <dependencies>
             <dependency>

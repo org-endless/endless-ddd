@@ -1,20 +1,20 @@
-package org.endless.ddd.simplified.starter.common.config.thread.common;
+package org.endless.ddd.simplified.starter.common.config.thread.mapper;
 
 import org.endless.ddd.simplified.starter.common.config.thread.model.AbstractThreadProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * CommonThreadProperties
+ * MapperThreadProperties
  * <p>
- * create 2024/11/10 15:24
+ * create 2024/11/14 23:04
  * <p>
- * update 2024/11/10 15:24
+ * update 2024/11/14 23:04
  *
  * @author Deng Haozhi
  * @since 2.0.0
  */
-@ConfigurationProperties(prefix = "spring.task.common.pool")
-public class CommonThreadProperties extends AbstractThreadProperties {
+@ConfigurationProperties(prefix = "spring.task.mapper.pool")
+public class MapperThreadProperties extends AbstractThreadProperties {
 
     @Override
     public Integer getCorePoolSize() {

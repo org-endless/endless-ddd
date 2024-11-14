@@ -13,7 +13,7 @@ package org.endless.ddd.simplified.starter.common.exception.infrastructure.data.
  */
 public class MapperModifyFailedException extends MapperException {
 
-    private static final String DEFAULT_MESSAGE = "MyBatis数据库更新失败";
+    private static final String DEFAULT_MESSAGE = " MyBatis-Plus 数据库修改失败";
 
     public MapperModifyFailedException(String message) {
         super("[" + DEFAULT_MESSAGE + "]<" + message + ">");

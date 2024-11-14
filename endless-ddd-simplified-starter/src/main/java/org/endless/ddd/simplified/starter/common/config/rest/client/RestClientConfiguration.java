@@ -1,6 +1,7 @@
 package org.endless.ddd.simplified.starter.common.config.rest.client;
 
 import org.endless.ddd.simplified.starter.common.config.rest.converter.FastJson2HttpMessageConverter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
@@ -17,8 +18,8 @@ import org.springframework.web.client.RestTemplate;
  */
 public class RestClientConfiguration {
 
-    @Bean
-    public RestTemplate restTemplate() {
+    @ConditionalOnMissingBean
+    public @Bean RestTemplate restTemplate() {
         RestTemplate restTemplate = new RestTemplate();
         // 清除默认的 Jackson 转换器
         restTemplate.getMessageConverters().removeIf(converter ->
