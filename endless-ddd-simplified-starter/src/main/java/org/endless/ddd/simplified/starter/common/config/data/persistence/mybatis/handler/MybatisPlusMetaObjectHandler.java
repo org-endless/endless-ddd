@@ -3,7 +3,6 @@ package org.endless.ddd.simplified.starter.common.config.data.persistence.mybati
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
 import org.endless.ddd.simplified.starter.common.utils.time.TimeStamp;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * MybatisPlusMetaObjectHandler
@@ -11,10 +10,11 @@ import org.springframework.context.annotation.Configuration;
  * <p>
  * create 2024/09/20 15:04
  * <p>
- * update 2024/09/20 15:04
+ * update 2024/11/17 16:01
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @see MetaObjectHandler
+ * @since 1.0.0
  */
 public class MybatisPlusMetaObjectHandler implements MetaObjectHandler {
 

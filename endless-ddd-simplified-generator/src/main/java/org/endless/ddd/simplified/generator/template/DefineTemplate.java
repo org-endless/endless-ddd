@@ -13,7 +13,7 @@ import java.util.List;
  * update 2024/09/18 21:57
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class DefineTemplate {
 
@@ -32,16 +32,13 @@ public class DefineTemplate {
                     .append("@ToString\n")
                     .append("@Builder(buildMethodName = \"innerBuild\")\n");
         } else if (className.endsWith("HandlerImpl")) {
-            stringBuilder
-                    .append("@Slf4j\n");
+
         } else if (className.endsWith("DataManager")) {
             stringBuilder
-                    .append("@Slf4j\n")
                     .append("@Lazy\n")
                     .append("@Component\n");
         } else if (className.endsWith("ServiceImpl")) {
             stringBuilder
-                    .append("@Slf4j\n")
                     .append("@Lazy\n")
                     .append("@Service\n");
         } else if (className.endsWith("Configuration")) {
@@ -68,7 +65,6 @@ public class DefineTemplate {
     public static void controllerDefine(StringBuilder stringBuilder, String className, String superClassName, String domainName, String contextName) {
         if (className.endsWith("Controller")) {
             stringBuilder
-                    .append("@Slf4j\n")
                     .append("@Lazy\n")
                     .append("@RestController\n")
                     .append("@RequestMapping(\"/").append(contextName).append("/").append(domainName.toLowerCase()).append("\")\n");

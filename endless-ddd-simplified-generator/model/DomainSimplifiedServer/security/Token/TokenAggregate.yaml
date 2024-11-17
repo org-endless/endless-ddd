@@ -13,25 +13,33 @@ fields:
     type: String
     description: 令牌ID
     nullable: false
-  - name: userId
-    type: String
-    description: 用户ID
+  - name: type
+    type: TokenTypeEnum
+    description: 令牌类型
     nullable: false
-  - name: tokenInfos
-    type: List<TokenInfoEntity>
-    description: 令牌信息列表
+  - name: info
+    type: TokenInfoValue
+    description: 令牌信息
     nullable: false
-entities:
-  - name: TokenInfoEntity
+values:
+  - name: TokenInfoValue
     description: 令牌信息
     fields:
-      - name: tokenInfoId
+      - name: userId
         type: String
-        description: 令牌信息ID
+        description: 用户ID
         nullable: false
       - name: value
         type: String
         description: 令牌值
+        nullable: false
+      - name: ipAddress
+        type: String
+        description: 客户端IP地址
+        nullable: false
+      - name: userAgent
+        type: String
+        description: HTTP指纹
         nullable: false
       - name: issuedAt
         type: Long
@@ -40,10 +48,6 @@ entities:
       - name: expiresAt
         type: Long
         description: 令牌过期时间
-        nullable: false
-      - name: type
-        type: TokenTypeEnum
-        description: 令牌类型
         nullable: false
 enums:
   - name: TokenTypeEnum
@@ -79,73 +83,4 @@ methods:
       - name: tokenId
         type: String
         description: Token ID
-        nullable: false
-transfers:
-  - name: TokenCreateReqCTransfer
-    adapterType: DRIVING
-    cqrsType: COMMAND
-    messageType: REQUEST
-    description: 创建令牌请求传输对象
-    fields:
-      - name: userId
-        type: String
-        description: 用户ID
-        nullable: false
-  - name: TokenRespCTransfer
-    adapterType: DRIVING
-    cqrsType: COMMAND
-    messageType: RESPONSE
-    description: 创建令牌响应传输对象
-    fields:
-      - name: tokenId
-        type: String
-        description: 令牌ID
-        nullable: false
-      - name: userId
-        type: String
-        description: 用户ID
-        nullable: false
-      - name: tokenInfos
-        type: List<TokenInfoRespCTransfer>
-        description: 令牌信息列表
-        nullable: false
-  - name: TokenInfoRespCTransfer
-    adapterType: DRIVING
-    cqrsType: COMMAND
-    messageType: RESPONSE
-    description: 令牌信息命令响应传输对象
-    fields:
-      - name: tokenInfoId
-        type: String
-        description: 令牌信息ID
-        nullable: false
-      - name: value
-        type: String
-        description: 令牌值
-        nullable: false
-      - name: issuedAt
-        type: Long
-        description: 令牌生成时间
-        nullable: false
-      - name: expiresAt
-        type: Long
-        description: 令牌过期时间
-        nullable: false
-      - name: type
-        type: TokenTypeEnum
-        description: 令牌类型
-        nullable: false
-  - name: TokenRefreshReqCTransfer
-    adapterType: DRIVING
-    cqrsType: COMMAND
-    messageType: REQUEST
-    description: 刷新令牌请求传输对象
-    fields:
-      - name: tokenId
-        type: String
-        description: 令牌ID
-        nullable: false
-      - name: tokenInfos
-        type: List<TokenInfoRespCTransfer>
-        description: 令牌信息列表
         nullable: false

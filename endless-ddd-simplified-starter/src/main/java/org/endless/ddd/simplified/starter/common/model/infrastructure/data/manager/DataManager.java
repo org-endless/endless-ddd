@@ -15,7 +15,7 @@ import org.endless.ddd.simplified.starter.common.model.infrastructure.data.recor
  *
  * @author Deng Haozhi
  * @see Repository
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface DataManager<R extends DataRecord<? extends Entity>> {
 

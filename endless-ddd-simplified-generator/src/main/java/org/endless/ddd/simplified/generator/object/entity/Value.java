@@ -16,7 +16,7 @@ import java.util.List;
  * update 2024/09/18 00:02
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 @Getter
 @Builder
@@ -38,16 +38,16 @@ public class Value {
 
     private void validateName() {
         if (!StringUtils.hasText(name)) {
-            throw new IllegalArgumentException("值对象名称不能为空，当前值为：" + name);
+            throw new IllegalArgumentException("值对象名称不能为空，当前值为: " + name);
         }
         if (!name.endsWith("Value")) {
-            throw new IllegalArgumentException("值对象名称必须以Value结尾，请修改： " + name);
+            throw new IllegalArgumentException("值对象名称必须以Value结尾，请修改:  " + name);
         }
     }
 
     private void validateDescription() {
         if (!StringUtils.hasText(description)) {
-            throw new IllegalArgumentException("值对象描述不能为空，当前值为：" + description);
+            throw new IllegalArgumentException("值对象描述不能为空，当前值为: " + description);
         }
     }
 

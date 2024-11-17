@@ -8,8 +8,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.endless.ddd.simplified.starter.common.config.log.annotation.Log;
 import org.endless.ddd.simplified.starter.common.config.log.type.LogLevel;
-import org.endless.ddd.simplified.starter.common.exception.infrastructure.data.persistence.mapper.*;
-import org.endless.ddd.simplified.starter.common.exception.infrastructure.data.persistence.page.PageFindException;
+import org.endless.ddd.simplified.starter.common.exception.model.infrastructure.data.persistence.mapper.*;
+import org.endless.ddd.simplified.starter.common.exception.model.infrastructure.data.persistence.page.PageFindException;
 import org.endless.ddd.simplified.starter.common.model.domain.entity.Entity;
 import org.endless.ddd.simplified.starter.common.model.infrastructure.data.persistence.page.PageCallback;
 import org.endless.ddd.simplified.starter.common.model.infrastructure.data.record.DataRecord;
@@ -17,7 +17,6 @@ import org.endless.ddd.simplified.starter.common.utils.string.StringTools;
 import org.endless.ddd.simplified.starter.common.utils.time.TimeStamp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
@@ -26,12 +25,7 @@ import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * Mapper
@@ -43,7 +37,7 @@ import java.util.stream.IntStream;
  *
  * @author Deng Haozhi
  * @see BaseMapper
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapper<R> {
 
@@ -68,7 +62,7 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
      * @param id 主键ID
      * @return {@link Optional }<{@link R }>
      */
-    @Log(message = "数据库根据ID查询记录", value = "' ID：' + #id", level = LogLevel.TRACE)
+    @Log(message = "数据库根据ID查询记录", value = "' ID: ' + #id", level = LogLevel.TRACE)
     default Optional<R> findById(String id) {
         Optional.ofNullable(id)
                 .filter(StringUtils::hasText)
@@ -83,7 +77,7 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
         }
     }
 
-    @Log(message = "数据库根据ID查询记录", value = "' ID：' + #id", level = LogLevel.TRACE)
+    @Log(message = "数据库根据ID查询记录", value = "' ID: ' + #id", level = LogLevel.TRACE)
     default Optional<R> findByIdNew(String id) {
         try {
             QueryWrapper<R> queryWrapper = new QueryWrapper<>();
@@ -98,7 +92,7 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
         }
     }
 
-    @Log(message = "数据库根据ID列表查询记录", value = "' ID：' + #ids.toString()", level = LogLevel.TRACE)
+    @Log(message = "数据库根据ID列表查询记录", value = "' ID: ' + #ids.toString()", level = LogLevel.TRACE)
     default List<R> findByIds(List<String> ids) {
         Optional.ofNullable(ids)
                 .filter(l -> !l.isEmpty())
@@ -118,7 +112,7 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
         }
     }
 
-    @Log(message = "数据库根据ID列表查询记录", value = "' ID：' + #ids.toString()", level = LogLevel.TRACE)
+    @Log(message = "数据库根据ID列表查询记录", value = "' ID: ' + #ids.toString()", level = LogLevel.TRACE)
     default List<R> findByIdsNew(List<String> ids) {
         try {
             QueryWrapper<R> queryWrapper = new QueryWrapper<>();
@@ -165,7 +159,7 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
      * @param callback 回调函数
      * @return {@link PageInfo }<{@link R }>
      */
-    @Log(message = "数据库分页查询记录", value = "' 开始页：' + #pageNum + ', 每页记录数：' + #pageSize", level = LogLevel.TRACE)
+    @Log(message = "数据库分页查询记录", value = "' 开始页: ' + #pageNum + ', 每页记录数: ' + #pageSize", level = LogLevel.TRACE)
     default PageInfo<R> findPages(int pageNum, int pageSize, PageCallback<R> callback) {
         try {
             PageHelper.startPage(pageNum, pageSize);
@@ -188,7 +182,7 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
      * @param queryWrapper 查询条件
      * @return {@link PageInfo }<{@link R }>
      */
-    @Log(message = "数据库分页查询记录", value = "' 开始页：' + #pageNum + ', 每页记录数：' + #pageSize", level = LogLevel.TRACE)
+    @Log(message = "数据库分页查询记录", value = "' 开始页: ' + #pageNum + ', 每页记录数: ' + #pageSize", level = LogLevel.TRACE)
     default PageInfo<R> findPages(int pageNum, int pageSize, QueryWrapper<R> queryWrapper) {
         try {
             PageHelper.startPage(pageNum, pageSize);
@@ -302,9 +296,9 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
             throw new MapperRemoveFailedException("要删除的数据库记录列表不能为空");
         }
 
-        if (records.size() > 10) {
-            throw new MapperRemoveFailedException("每批次删除的数据库记录数量不能超过 10，当前数量：" + records.size());
-        }
+        // if (records.size() > 10) {
+        //     throw new MapperRemoveFailedException("每批次删除的数据库记录数量不能超过 10，当前数量: " + records.size());
+        // }
 
         int count = 0;  // 计数器
         for (R record : records) {
@@ -316,7 +310,7 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
                 remove(record);  // 调用单条删除方法
 
 
-                log.trace("数据库删除记录成功，第 {} 条记录，ID: {}，耗时：{} 毫秒", count, id, TimeStamp.between(start, TimeStamp.now()));
+                log.trace("数据库删除记录成功，第 {} 条记录，ID: {}，耗时: {} 毫秒", count, id, TimeStamp.between(start, TimeStamp.now()));
             } catch (MapperException e) {
                 throw new MapperRemoveFailedException("数据库修改删除标志失败，ID: " + id + "，第 " + count + " 条记录", e);
             } catch (Exception e) {
@@ -325,38 +319,6 @@ public interface Mapper<R extends DataRecord<? extends Entity>> extends BaseMapp
         }
     }
 
-    @Log(message = "数据库多批次批量删除记录", value = "'记录数： ' + #records.size() ", level = LogLevel.TRACE)
-    @Async
-    default void removeBatch(List<R> records) {
-        final int batchSize = 10;  // 每个批次包含的记录数
-        final int numThreads = 5;  // 线程池大小
-        if (records == null || records.isEmpty()) {
-            throw new MapperModifyException("要删除的数据库记录列表不能为空");
-        }
-        try (ExecutorService executor = Executors.newFixedThreadPool(numThreads)) {
-            try {
-                List<List<R>> recordBatches = IntStream.range(0, (records.size() + batchSize - 1) / batchSize)
-                        .mapToObj(i -> records.subList(i * batchSize, Math.min(records.size(), (i + 1) * batchSize)))
-                        .toList();
-                CompletableFuture.allOf(recordBatches.stream()
-                        .map(batch -> CompletableFuture.runAsync(() -> remove(batch), executor)).toArray(CompletableFuture[]::new)).join();
-            } catch (MapperException e) {
-                throw e;
-            } catch (Exception e) {
-                throw new MapperRemoveException("数据库多批次批量删除记录异常，线程池异常", e);
-            } finally {
-                executor.shutdown();
-                try {
-                    if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
-                        executor.shutdownNow();
-                    }
-                } catch (InterruptedException e) {
-                    executor.shutdownNow();
-                    Thread.currentThread().interrupt();
-                }
-            }
-        }
-    }
 
     /**
      * 修改数据库记录

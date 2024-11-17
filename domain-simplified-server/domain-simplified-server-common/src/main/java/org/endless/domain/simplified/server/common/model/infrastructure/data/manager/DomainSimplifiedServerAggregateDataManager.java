@@ -18,7 +18,7 @@ import org.endless.domain.simplified.server.common.model.infrastructure.data.rec
  * @see DomainSimplifiedServerRepository
  * @see DomainSimplifiedServerQueryRepository
  * @see AggregateDataManager
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface DomainSimplifiedServerAggregateDataManager<R extends DomainSimplifiedServerRecord<A>, A extends DomainSimplifiedServerAggregate>
         extends DomainSimplifiedServerRepository<A>, DomainSimplifiedServerQueryRepository<A>, AggregateDataManager<R, A> {

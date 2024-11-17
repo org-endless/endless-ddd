@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Import;
  * update 2024/11/10 05:13
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 @Import(MybatisPlusMetaObjectHandler.class)
 @ConditionalOnClass(MetaObjectHandler.class)

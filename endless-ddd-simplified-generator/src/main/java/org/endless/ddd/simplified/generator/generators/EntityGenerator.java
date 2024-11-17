@@ -29,7 +29,7 @@ import static org.endless.ddd.simplified.generator.utils.DDDUtils.*;
  * update 2024/09/16 20:49
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class EntityGenerator {
 
@@ -91,7 +91,7 @@ public class EntityGenerator {
         classDefine(stringBuilder, className, superClassName);
         fields(stringBuilder, entityNames, valueNames, newFields, className);
         create(stringBuilder, newFields, className);
-        remove(stringBuilder, entityNames, newFields, className);
+        remove(stringBuilder, entityNames, newFields, className, classDescription);
         addItem(stringBuilder, entityNames, newFields, className);
         removeItem(stringBuilder, entityNames, newFields, className);
         validate(stringBuilder, newFields, className);

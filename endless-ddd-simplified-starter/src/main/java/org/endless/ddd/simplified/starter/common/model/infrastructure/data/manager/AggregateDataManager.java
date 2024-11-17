@@ -18,7 +18,7 @@ import org.endless.ddd.simplified.starter.common.model.infrastructure.data.recor
  * @see Repository
  * @see QueryRepository
  * @see DataManager
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface AggregateDataManager<R extends DataRecord<A>, A extends Aggregate>
         extends Repository<A>, QueryRepository<A>, DataManager<R> {

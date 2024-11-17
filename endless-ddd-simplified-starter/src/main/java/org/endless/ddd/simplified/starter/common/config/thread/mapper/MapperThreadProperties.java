@@ -8,10 +8,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * <p>
  * create 2024/11/14 23:04
  * <p>
- * update 2024/11/14 23:04
+ * update 2024/11/17 16:30
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @see AbstractThreadProperties
+ * @since 1.0.0
  */
 @ConfigurationProperties(prefix = "spring.task.mapper.pool")
 public class MapperThreadProperties extends AbstractThreadProperties {

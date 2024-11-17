@@ -9,9 +9,10 @@ package org.endless.domain.simplified.server.common.exception.attchment;
  *
  * @author Deng Haozhi
  * @see AttachmentException
- * @since 2.0.0
+ * @since 1.0.0
  */
-public class AttachmentCreationException extends AttachmentException{
+public class AttachmentCreationException extends AttachmentException {
+
     public AttachmentCreationException(String message) {
         super(message);
     }

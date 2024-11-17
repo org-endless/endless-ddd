@@ -18,7 +18,7 @@ import java.util.List;
  * update 2024/10/18 15:16
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 @Getter
 @Builder
@@ -80,64 +80,64 @@ public class Aggregate {
 
     private void validateAuthor() {
         if (!StringUtils.hasText(author)) {
-            throw new IllegalArgumentException("作者不能为空，当前值为：" + author);
+            throw new IllegalArgumentException("作者不能为空，当前值为: " + author);
         }
     }
 
     private void validateVersion() {
         if (!StringUtils.hasText(version)) {
-            throw new IllegalArgumentException("版本号不能为空，当前值为：" + version);
+            throw new IllegalArgumentException("版本号不能为空，当前值为: " + version);
         }
     }
 
     private void validateGroupId() {
         if (!StringUtils.hasText(groupId)) {
-            throw new IllegalArgumentException("groupId不能为空，当前值为：" + groupId);
+            throw new IllegalArgumentException("groupId不能为空，当前值为: " + groupId);
         }
     }
 
     private void validateServiceName() {
         if (!StringUtils.hasText(serviceName)) {
-            throw new IllegalArgumentException("服务名称不能为空，当前值为：" + serviceName);
+            throw new IllegalArgumentException("服务名称不能为空，当前值为: " + serviceName);
         }
     }
 
     private void validateRootPath() {
         if (!StringUtils.hasText(rootPath)) {
-            throw new IllegalArgumentException("根路径不能为空，当前值为：" + rootPath);
+            throw new IllegalArgumentException("根路径不能为空，当前值为: " + rootPath);
         }
     }
 
     private void validateServiceSubPackage() {
         if (!StringUtils.hasText(serviceSubPackage)) {
-            throw new IllegalArgumentException("服务业务子包不能为空，当前值为：" + serviceSubPackage);
+            throw new IllegalArgumentException("服务业务子包不能为空，当前值为: " + serviceSubPackage);
         }
     }
 
     private void validateContextName() {
         if (!StringUtils.hasText(contextName)) {
-            throw new IllegalArgumentException("上下文名称不能为空，当前值为：" + contextName);
+            throw new IllegalArgumentException("上下文名称不能为空，当前值为: " + contextName);
         }
     }
 
     private void validateDomainName() {
         if (!StringUtils.hasText(domainName)) {
-            throw new IllegalArgumentException("领域名称不能为空，当前值为：" + domainName);
+            throw new IllegalArgumentException("领域名称不能为空，当前值为: " + domainName);
         }
     }
 
     private void validateAggregateName() {
         if (!StringUtils.hasText(aggregateName)) {
-            throw new IllegalArgumentException("聚合名称不能为空，当前值为：" + aggregateName);
+            throw new IllegalArgumentException("聚合名称不能为空，当前值为: " + aggregateName);
         }
         if (!aggregateName.endsWith("Aggregate")) {
-            throw new IllegalArgumentException("聚合名称必须以Aggregate结尾，当前值为：" + aggregateName);
+            throw new IllegalArgumentException("聚合名称必须以Aggregate结尾，当前值为: " + aggregateName);
         }
     }
 
     private void validateDescription() {
         if (!StringUtils.hasText(description)) {
-            throw new IllegalArgumentException("描述不能为空，当前值为：" + description);
+            throw new IllegalArgumentException("描述不能为空，当前值为: " + description);
         }
     }
 

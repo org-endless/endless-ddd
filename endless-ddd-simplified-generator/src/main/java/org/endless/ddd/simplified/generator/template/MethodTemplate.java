@@ -18,7 +18,7 @@ import static org.endless.ddd.simplified.generator.utils.StringTools.*;
  * update 2024/09/29 17:13
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class MethodTemplate {
 
@@ -68,7 +68,7 @@ public class MethodTemplate {
      * @param fields        属性列表
      * @param className     类名
      */
-    public static void remove(StringBuilder stringBuilder, Set<String> entityNames, List<Field> fields, String className) {
+    public static void remove(StringBuilder stringBuilder, Set<String> entityNames, List<Field> fields, String className, String classDescription) {
 
 
         stringBuilder.append("    ").append(access(className, false, true)).append(" ").append(className).append(" remove() {\n");
@@ -77,18 +77,22 @@ public class MethodTemplate {
         // 判断是否已经被删除
         stringBuilder.append("        if (this.isRemoved) {\n");
         if (className.endsWith("Aggregate")) {
-            stringBuilder.append("            throw new AggregateRemoveException(\"已经被删除的聚合根<").append(className).append(">不能再次删除, ID：\" + ").append(id(className, 1)).append(");\n");
-        } else {
-            stringBuilder.append("            throw new EntityRemoveException(\"已经被删除的实体<").append(className).append(">不能再次删除, ID：\" + ").append(id(className, 1)).append(");\n");
+            stringBuilder.append("            throw new AggregateRemoveException(\"已经被删除的聚合根<").append(classDescription).append(">不能再次删除, ID: \" + ").append(id(className, 1)).append(");\n");
+        } else if (className.endsWith("Entity")) {
+            stringBuilder.append("            throw new EntityRemoveException(\"已经被删除的实体<").append(classDescription).append(">不能再次删除, ID: \" + ").append(id(className, 1)).append(");\n");
+        } else if (className.endsWith("Record")) {
+            stringBuilder.append("            throw new DataRecordRemoveException(\"已经被删除的数据库记录<").append(classDescription).append(">不能再次删除, ID: \" + ").append("associationId").append(");\n");
         }
         stringBuilder.append("        }\n");
 
         // canRemove方法判断是否可以删除
         stringBuilder.append("        if (!canRemove()) {\n");
         if (className.endsWith("Aggregate")) {
-            stringBuilder.append("            throw new AggregateRemoveException(\"聚合根<").append(className).append(">处于不可删除状态, ID：\" + ").append(id(className, 1)).append(");\n");
-        } else {
-            stringBuilder.append("            throw new EntityRemoveException(\"实体<").append(className).append(">处于不可删除状态, ID：\" + ").append(id(className, 1)).append(");\n");
+            stringBuilder.append("            throw new AggregateRemoveException(\"聚合根<").append(classDescription).append(">处于不可删除状态, ID: \" + ").append(id(className, 1)).append(");\n");
+        } else if (className.endsWith("Entity")) {
+            stringBuilder.append("            throw new EntityRemoveException(\"实体<").append(classDescription).append(">处于不可删除状态, ID: \" + ").append(id(className, 1)).append(");\n");
+        } else if (className.endsWith("Record")) {
+            stringBuilder.append("            throw new DataRecordRemoveException(\"数据库记录<").append(classDescription).append(">处于不可删除状态, ID: \" + ").append("associationId").append(");\n");
         }
         stringBuilder.append("        }\n");
 
@@ -102,7 +106,7 @@ public class MethodTemplate {
             }
             if (fieldType.startsWith("List<")) {
                 if (entityNames.contains(generics)) {
-                stringBuilder.append("        this.").append(field.getName()).append(".forEach(").append(generics).append("::remove);\n");
+                    stringBuilder.append("        this.").append(field.getName()).append(".forEach(").append(generics).append("::remove);\n");
                 } else {
                     stringBuilder.append("        this.").append(field.getName()).append(".clear();\n");
                 }
@@ -243,8 +247,8 @@ public class MethodTemplate {
             }
 
 
-                String singularField = removeSuffix(fieldName, "s");
-                String singularMethod = "remove" + StringUtils.capitalize(singularField);
+            String singularField = removeSuffix(fieldName, "s");
+            String singularMethod = "remove" + StringUtils.capitalize(singularField);
             if (fieldType.startsWith("List<") && entityNames.contains(generics)) {
                 String idGetter = getter(id(generics, 1));
                 // 列表删除子实体方法
@@ -387,7 +391,7 @@ public class MethodTemplate {
 
         if (className.endsWith("AssociationRecord")) {
             String associationParam = StringUtils.uncapitalize(removeSuffix(removePrefix(className, removeSuffix(generics, "Aggregate")), "AssociationRecord")) + "Id";
-        stringBuilder
+            stringBuilder
                     .append("    ").append(access(generics, false, true)).append(" ").append("String to").append("() {\n")
                     .append("        validate();\n")
                     .append("        return ").append(associationParam).append(";\n")
@@ -395,9 +399,9 @@ public class MethodTemplate {
             return;
         } else {
             stringBuilder
-                .append("    ").append(access(generics, false, true)).append(" ").append(generics).append(" to").append("() {\n")
-                .append("        validate();\n")
-                .append("        return ").append(generics).append(".builder()\n");
+                    .append("    ").append(access(generics, false, true)).append(" ").append(generics).append(" to").append("() {\n")
+                    .append("        validate();\n")
+                    .append("        return ").append(generics).append(".builder()\n");
         }
         for (Field field : fields) {
             String fieldName = field.getName();
@@ -443,7 +447,7 @@ public class MethodTemplate {
      * @param stringBuilder 字符串构建器
      * @param fields        字段列表
      */
-    public static void fromCode(StringBuilder stringBuilder, List<Field> fields, String className) {
+    public static void fromCode(StringBuilder stringBuilder, List<Field> fields, String className, String classDescription) {
         String codeType = fields.getFirst().getType();
         String codeName = fields.getFirst().getName();
         stringBuilder
@@ -453,7 +457,7 @@ public class MethodTemplate {
                 .append("                return type;\n")
                 .append("            }\n")
                 .append("        }\n")
-                .append("        throw new EnumException(\"未知的").append(className).append(": \" + code);\n")
+                .append("        throw new EnumException(\"未知的").append(classDescription).append(": \" + code);\n")
                 .append("    }\n\n");
     }
 

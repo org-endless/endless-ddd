@@ -32,7 +32,7 @@ import java.util.stream.Stream;
  * update 2024/11/10 07:28
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 @Slf4j
 @Aspect
@@ -81,45 +81,48 @@ public class LogAspect {
         logExecutionRequestInfo(className, value, annotation.level());
 
         Object result = null;
+        boolean isSuccess = false;
         try {
             result = joinPoint.proceed();
+            isSuccess = true;
         } finally {
             long duration = TimeStamp.between(start, TimeStamp.now());
-            logExecutionEnd(className, message, result, duration, annotation.level());
+            logExecutionEnd(isSuccess, className, message, result, duration, annotation.level());
         }
         return result;
     }
 
     private void logExecutionStart(String className, String message, LogLevel level) {
         if (level == LogLevel.TRACE && log.isTraceEnabled()) {
-            log.trace("[{}] 开始执行: <{}>", className, message);
+            log.trace("[{}][开始执行]<{}>", className, message);
         } else if (level == LogLevel.DEBUG && log.isDebugEnabled()) {
-            log.debug("[{}] 开始执行: <{}>", className, message);
+            log.debug("[{}][开始执行]<{}>", className, message);
         } else if (log.isInfoEnabled()) {
-            log.info("[{}] 开始执行: <{}>", className, message);
+            log.info("[{}][开始执行]<{}>", className, message);
         }
     }
 
     private void logExecutionRequestInfo(String className, String value, LogLevel level) {
         if (level == LogLevel.TRACE && log.isTraceEnabled()) {
-            log.trace("[{}] 请求信息: {}", className, value);
+            log.trace("[{}]<请求信息> {}", className, value);
         } else if (log.isDebugEnabled()) {
-            log.debug("[{}] 请求信息: {}", className, value);
+            log.debug("[{}]<请求信息> {}", className, value);
         }
     }
 
-    private void logExecutionEnd(String className, String message, Object result, long duration, LogLevel level) {
+    private void logExecutionEnd(Boolean isSuccess, String className, String message, Object result, long duration, LogLevel level) {
+        String resultMessage = isSuccess ? "成功" : "失败";
         if (level == LogLevel.TRACE && log.isTraceEnabled()) {
-            log.trace("[{}] <{}> 执行成功，耗时: {} 毫秒", className, message, duration);
-            log.trace("[{}] 响应信息: {}", className, maskSensitiveData(result));
+            log.trace("[{}]<{}>[执行{}，耗时: {} 毫秒]", className, message, resultMessage, duration);
+            log.trace("[{}]<响应信息> {}", className, maskSensitiveData(result));
         } else {
             if (level == LogLevel.DEBUG) {
-                log.debug("[{}] <{}> 执行成功，耗时: {} 毫秒", className, message, duration);
+                log.debug("[{}]<{}>[执行{}，耗时: {} 毫秒]", className, message, resultMessage, duration);
             } else if (log.isInfoEnabled()) {
-                log.info("[{}] <{}> 执行成功，耗时: {} 毫秒", className, message, duration);
+                log.info("[{}]<{}>[执行{}，耗时: {} 毫秒]", className, message, resultMessage, duration);
             }
             if (log.isDebugEnabled()) {
-                log.debug("[{}] 响应信息: {}", className, maskSensitiveData(result));
+                log.debug("[{}]<响应信息> {}", className, maskSensitiveData(result));
             }
         }
     }

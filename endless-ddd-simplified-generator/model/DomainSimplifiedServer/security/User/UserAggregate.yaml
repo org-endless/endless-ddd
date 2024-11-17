@@ -1,0 +1,80 @@
+author: Deng Haozhi
+version: 2.0.0
+groupId: org.endless
+serviceName: DomainSimplifiedServer
+rootPath: domain-simplified-server/domain-simplified-server-supporting
+serviceSubPackage: supporting
+contextName: security
+domainName: User
+aggregateName: UserAggregate
+description: 用户聚合
+fields:
+  - name: userId
+    type: String
+    description: 用户id
+    nullable: false
+  - name: username
+    type: String
+    description: 用户名称
+    nullable: false
+  - name: email
+    type: String
+    description: 用户邮箱
+    nullable: false
+  - name: password
+    type: PasswordValue
+    description: 密码
+    nullable: false
+  - name: roleIds
+    type: List<String>
+    description: 用户角色ID列表
+    nullable: false
+values:
+  - name: PasswordValue
+    description: 密码信息
+    fields:
+      - name: hashed
+        type: String
+        description: 加密的密码
+        nullable: false
+      - name: salt
+        type: String
+        description: 加盐值
+        nullable: false
+      - name: expiresAt
+        type: String
+        description: 密码过期时间
+        nullable: false
+      - name: lastHashed
+        type: String
+        description: 上次加密的密码
+        nullable: false
+      - name: attemptsLeft
+        type: Integer
+        description: 剩余尝试次数
+        nullable: false
+      - name: lockedUntil
+        type: Long
+        description: 锁定到期时间
+        nullable: false
+transfers:
+  - name: UserFindByIdReqQTransfer
+    adapterType: DRIVING
+    cqrsType: QUERY
+    messageType: REQUEST
+    description: 根据ID查询用户请求传输对象
+    fields:
+      - name: userId
+        type: String
+        description: 用户ID
+        nullable: false
+  - name: UserFindByIdRespQTransfer
+    adapterType: DRIVING
+    cqrsType: QUERY
+    messageType: RESPONSE
+    description: 根据ID查询用户响应传输对象
+    fields:
+      - name: userId
+        type: String
+        description: 用户ID
+        nullable: false

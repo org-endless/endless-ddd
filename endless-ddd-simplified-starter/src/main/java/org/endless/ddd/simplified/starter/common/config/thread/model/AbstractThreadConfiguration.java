@@ -15,10 +15,11 @@ import java.util.concurrent.ThreadPoolExecutor;
  * <p>
  * create 2024/11/10 14:56
  * <p>
- * update 2024/11/10 14:56
+ * update 2024/11/17 16:30
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @see AsyncConfigurer
+ * @since 1.0.0
  */
 public class AbstractThreadConfiguration implements AsyncConfigurer {
 
@@ -51,7 +52,7 @@ public class AbstractThreadConfiguration implements AsyncConfigurer {
     @Override
     public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
         return (throwable, method, objects) -> {
-            throw new ThreadException(method.getName() + "，参数：" + Arrays.toString(objects) + "，异常：" + throwable.getMessage(), throwable);
+            throw new ThreadException(method.getName() + "，参数: " + Arrays.toString(objects) + "，异常: " + throwable.getMessage(), throwable);
         };
     }
 

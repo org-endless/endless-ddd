@@ -1,18 +1,18 @@
 package org.endless.domain.simplified.server.supporting.security.token.domain.type;
 
-import lombok.AllArgsConstructor;
+import org.endless.domain.simplified.server.common.model.domain.type.*;
+import org.endless.ddd.simplified.starter.common.exception.model.domain.type.*;
 import lombok.Getter;
+import lombok.AllArgsConstructor;
 import lombok.ToString;
-import org.endless.ddd.simplified.starter.common.exception.domain.type.EnumException;
-import org.endless.domain.simplified.server.common.model.domain.type.DomainSimplifiedServerEnum;
 
 /**
  * TokenTypeEnum
  * <p>令牌类型枚举
  * <p>
- * create 2024/11/11 23:38
+ * create 2024/11/17 16:54
  * <p>
- * update 2024/11/11 23:38
+ * update 2024/11/17 16:54
  *
  * @author Deng Haozhi
  * @see DomainSimplifiedServerEnum
@@ -36,6 +36,6 @@ public enum TokenTypeEnum implements DomainSimplifiedServerEnum {
                 return type;
             }
         }
-        throw new EnumException("未知的TokenTypeEnum: " + code);
+        throw new EnumException("未知的令牌类型枚举: " + code);
     }
 }

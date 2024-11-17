@@ -13,7 +13,7 @@ import org.endless.ddd.simplified.starter.common.model.common.Transfer;
  *
  * @author Deng Haozhi
  * @see Transfer
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface DrivenTransfer extends Transfer {
 

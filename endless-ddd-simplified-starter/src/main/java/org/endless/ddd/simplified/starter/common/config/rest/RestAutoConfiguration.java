@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * update 2024/11/09 19:48
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 @AutoConfiguration
 @ConditionalOnClass(WebMvcConfigurer.class)

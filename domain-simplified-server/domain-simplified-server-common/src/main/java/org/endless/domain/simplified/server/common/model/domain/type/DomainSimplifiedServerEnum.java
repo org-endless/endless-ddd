@@ -1,6 +1,5 @@
 package org.endless.domain.simplified.server.common.model.domain.type;
 
-
 import org.endless.ddd.simplified.starter.common.model.domain.type.BaseEnum;
 
 /**
@@ -12,7 +11,8 @@ import org.endless.ddd.simplified.starter.common.model.domain.type.BaseEnum;
  *
  * @author Deng Haozhi
  * @see BaseEnum
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface DomainSimplifiedServerEnum extends BaseEnum {
+
 }

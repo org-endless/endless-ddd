@@ -15,18 +15,19 @@ import java.util.Optional;
  * update 2024/11/03 19:15
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface Repository<A extends Aggregate> {
 
     A save(A aggregate);
+
     void remove(A aggregate);
+
     A modify(A aggregate);
+
     Optional<A> findById(String id);
 
     Optional<A> findByIdForUpdate(String id);
-
-
 
 
 }

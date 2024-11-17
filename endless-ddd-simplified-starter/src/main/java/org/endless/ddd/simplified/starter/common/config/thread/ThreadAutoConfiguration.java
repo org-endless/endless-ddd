@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Import;
  * update 2024/11/10 14:55
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 @Import({CommonThreadConfiguration.class})
 public class ThreadAutoConfiguration {

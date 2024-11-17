@@ -20,7 +20,7 @@ import static org.endless.ddd.simplified.generator.utils.StringTools.getLastCame
  * update 2024/10/11 10:17
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class FieldTemplate {
 

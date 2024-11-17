@@ -2,8 +2,6 @@ package org.endless.ddd.simplified.starter.common.utils.time;
 
 import java.time.Instant;
 
-import static org.endless.ddd.simplified.starter.common.utils.time.TimeStamp.format;
-
 /**
  * Date
  * <p>
@@ -12,7 +10,7 @@ import static org.endless.ddd.simplified.starter.common.utils.time.TimeStamp.for
  * update 2024/10/30 11:17
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class Date {
 

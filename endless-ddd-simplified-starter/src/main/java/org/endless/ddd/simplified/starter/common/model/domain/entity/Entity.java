@@ -1,6 +1,6 @@
 package org.endless.ddd.simplified.starter.common.model.domain.entity;
 
-import org.endless.ddd.simplified.starter.common.exception.domain.entity.EntityException;
+import org.endless.ddd.simplified.starter.common.exception.model.domain.entity.EntityException;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -19,7 +19,7 @@ import java.lang.reflect.Field;
  *
  * @author Deng Haozhi
  * @see Serializable
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface Entity extends Serializable {
 

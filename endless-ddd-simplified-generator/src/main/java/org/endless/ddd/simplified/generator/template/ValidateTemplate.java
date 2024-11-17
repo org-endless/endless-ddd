@@ -14,7 +14,7 @@ import java.util.List;
  * update 2024/09/19 01:18
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class ValidateTemplate {
 
@@ -60,13 +60,13 @@ public class ValidateTemplate {
 
                 // 针对不同类型进行校验逻辑生成
                 if ("String".equals(fieldType)) {
-                    appendStringValidation(stringBuilder, fieldName, fieldDescription);
+                    appendStringValidation(stringBuilder, className, fieldName, fieldDescription);
                 } else if (isNumericType(fieldType)) {
-                    appendNumericValidation(stringBuilder, fieldName, fieldDescription);
+                    appendNumericValidation(stringBuilder, className, fieldName, fieldDescription);
                 } else if (fieldType.startsWith("List<")) {
-                    appendListValidation(stringBuilder, fieldName, fieldDescription);
+                    appendListValidation(stringBuilder, className, fieldName, fieldDescription);
                 } else {
-                    appendDefaultValidation(stringBuilder, fieldName, fieldDescription);
+                    appendDefaultValidation(stringBuilder, className, fieldName, fieldDescription);
                 }
 
                 stringBuilder.append("    }\n\n");
@@ -74,32 +74,44 @@ public class ValidateTemplate {
         }
     }
 
-    private static void appendStringValidation(StringBuilder stringBuilder, String fieldName, String fieldDescription) {
-        stringBuilder
-                .append("        if (!StringUtils.hasText(").append(fieldName).append(")) {\n")
-                .append("            throw new ValidateException(\"").append(fieldDescription).append("不能为空\");\n")
-                .append("        }\n");
+    private static void appendStringValidation(StringBuilder stringBuilder, String className, String fieldName, String fieldDescription) {
+        stringBuilder.append("        if (!StringUtils.hasText(").append(fieldName).append(")) {\n");
+        validateException(stringBuilder, className, "不能为空\"", fieldDescription);
+        stringBuilder.append("        }\n");
     }
 
-    private static void appendNumericValidation(StringBuilder stringBuilder, String fieldName, String fieldDescription) {
-        stringBuilder
-                .append("        if (").append(fieldName).append(" == null || ").append(fieldName).append(" < 0) {\n")
-                .append("            throw new ValidateException(\"").append(fieldDescription).append("不能为 null 或小于 0，当前值为：\" + ").append(fieldName).append(");\n")
-                .append("        }\n");
+    private static void appendNumericValidation(StringBuilder stringBuilder, String className, String fieldName, String fieldDescription) {
+        stringBuilder.append("        if (").append(fieldName).append(" == null || ").append(fieldName).append(" < 0) {\n");
+        validateException(stringBuilder, className, "不能为 null 或小于 0，当前值为: \" + " + fieldName, fieldDescription);
+        stringBuilder.append("        }\n");
     }
 
-    private static void appendListValidation(StringBuilder stringBuilder, String fieldName, String fieldDescription) {
-        stringBuilder
-                .append("        if (").append(fieldName).append(" == null || ").append(fieldName).append(".isEmpty()) {\n")
-                .append("            throw new ValidateException(\"").append(fieldDescription).append("不能为 null 或空\");\n")
-                .append("        }\n");
+    private static void appendListValidation(StringBuilder stringBuilder, String className, String fieldName, String fieldDescription) {
+        stringBuilder.append("        if (CollectionUtils.isEmpty(").append(fieldName).append(")) {\n");
+        validateException(stringBuilder, className, "不能为空\"", fieldDescription);
+        stringBuilder.append("        }\n");
     }
 
-    private static void appendDefaultValidation(StringBuilder stringBuilder, String fieldName, String fieldDescription) {
-        stringBuilder
-                .append("        if (").append(fieldName).append(" == null) {\n")
-                .append("            throw new ValidateException(\"").append(fieldDescription).append("不能为 null\");\n")
-                .append("        }\n");
+    private static void appendDefaultValidation(StringBuilder stringBuilder, String className, String fieldName, String fieldDescription) {
+        stringBuilder.append("        if (").append(fieldName).append(" == null) {\n");
+        validateException(stringBuilder, className, "不能为 null \"", fieldDescription);
+        stringBuilder.append("        }\n");
+    }
+
+    private static void validateException(StringBuilder stringBuilder, String className, String message, String fieldDescription) {
+        if (className.endsWith("Aggregate")) {
+            stringBuilder.append("            throw new AggregateValidateException(\"").append(fieldDescription).append(message).append(");\n");
+        } else if (className.endsWith("Entity")) {
+            stringBuilder.append("            throw new EntityValidateException(\"").append(fieldDescription).append(message).append(");\n");
+        } else if (className.endsWith("Value")) {
+            stringBuilder.append("            throw new ValueValidateException(\"").append(fieldDescription).append(message).append(");\n");
+        } else if (className.endsWith("CTransfer")) {
+            stringBuilder.append("            throw new CommandTransferValidateException(\"").append(fieldDescription).append(message).append(");\n");
+        } else if (className.endsWith("QTransfer")) {
+            stringBuilder.append("            throw new QueryTransferValidateException(\"").append(fieldDescription).append(message).append(");\n");
+        } else if (className.endsWith("Record")) {
+            stringBuilder.append("            throw new DataRecordValidateException(\"").append(fieldDescription).append(message).append(");\n");
+        }
     }
 
     private static boolean isNumericType(String fieldType) {

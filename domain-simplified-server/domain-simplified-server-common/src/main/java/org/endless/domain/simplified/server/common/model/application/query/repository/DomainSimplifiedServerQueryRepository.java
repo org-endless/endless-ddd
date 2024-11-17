@@ -12,7 +12,7 @@ import org.endless.domain.simplified.server.common.model.domain.entity.DomainSim
  *
  * @author Deng Haozhi
  * @see QueryRepository
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface DomainSimplifiedServerQueryRepository<E extends DomainSimplifiedServerEntity> extends QueryRepository<E> {
 

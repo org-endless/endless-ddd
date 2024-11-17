@@ -16,7 +16,7 @@ import java.util.List;
  * update 2024/10/18 08:45
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 @Getter
 @Builder
@@ -42,19 +42,19 @@ public class Method {
 
     private void validateName() {
         if (!StringUtils.hasText(name)) {
-            throw new IllegalArgumentException("行为方法名称不能为空，当前值为：" + name);
+            throw new IllegalArgumentException("行为方法名称不能为空，当前值为: " + name);
         }
     }
 
     private void validateReturnType() {
         if (!StringUtils.hasText(returnType)) {
-            throw new IllegalArgumentException("行为方法返回类型不能为空，当前值为：" + returnType);
+            throw new IllegalArgumentException("行为方法返回类型不能为空，当前值为: " + returnType);
         }
     }
 
     private void validateDescription() {
         if (!StringUtils.hasText(description)) {
-            throw new IllegalArgumentException("行为方法描述不能为空，当前值为：" + description);
+            throw new IllegalArgumentException("行为方法描述不能为空，当前值为: " + description);
         }
     }
 

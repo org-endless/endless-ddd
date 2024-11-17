@@ -3,6 +3,7 @@ package org.endless.ddd.simplified.generator.generators;
 import org.endless.ddd.simplified.generator.object.entity.Aggregate;
 import org.endless.ddd.simplified.generator.object.entity.Entity;
 import org.endless.ddd.simplified.generator.object.entity.Field;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ import static org.endless.ddd.simplified.generator.utils.StringTools.removeSuffi
  * <p>
  * update 2024/09/16 12:51
  *
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class DataManagerGenerator {
 
@@ -70,19 +71,22 @@ public class DataManagerGenerator {
         String aggregateName = exchangeSuffix(className, "Aggregate", 2);
         List<Field> fields = new ArrayList<>();
         fields.add(Field.builder().name(StringUtils.uncapitalize(mapperName)).type(mapperName).description(description + " Mybatis-Plus 数据访问对象").nullable(false).build());
-        if (aggregateName.equals(aggregate.getAggregateName()) && aggregate.getEntities() != null && !aggregate.getEntities().isEmpty()) {
-            for (Entity entity : aggregate.getEntities()) {
-                String entityMapper = exchangeSuffix(entity.getName(), "Mapper", 1);
-                fields.add(Field.builder().name(StringUtils.uncapitalize(entityMapper)).type(entityMapper).description(entity.getDescription() + "实体 Mybatis-Plus 数据访问对象").nullable(false).build());
+        if (aggregateName.equals(aggregate.getAggregateName())) {
+            List<Entity> entities = aggregate.getEntities();
+            if (!CollectionUtils.isEmpty(entities)) {
+                for (Entity entity : entities) {
+                    String entityMapper = exchangeSuffix(entity.getName(), "Mapper", 1);
+                    fields.add(Field.builder().name(StringUtils.uncapitalize(entityMapper)).type(entityMapper).description(entity.getDescription() + "实体 Mybatis-Plus 数据访问对象").nullable(false).build());
+                }
             }
-        }
-        for (Field aggregateField : aggregate.getFields()) {
-            String aggregateFieldType = aggregateField.getType();
-            if (("List<String>".equals(aggregateFieldType) || "List<Long>".equals(aggregateFieldType)) && description.endsWith("聚合")) {
-                String associationClassName = StringUtils.capitalize(removeSuffix(aggregateField.getName(), "Ids"));
-                String associationMapper = removeSuffix(aggregateName, "Aggregate") + associationClassName + "AssociationMapper";
-                String associationDescription = aggregate.getDescription() + "-" + removeSuffix(aggregateField.getDescription(), "ID列表");
-                fields.add(Field.builder().name(StringUtils.uncapitalize(associationMapper)).type(associationMapper).description(associationDescription + "关系 Mybatis-Plus 数据访问对象").nullable(false).build());
+            for (Field aggregateField : aggregate.getFields()) {
+                String aggregateFieldType = aggregateField.getType();
+                if (("List<String>".equals(aggregateFieldType) || "List<Long>".equals(aggregateFieldType))) {
+                    String associationClassName = StringUtils.capitalize(removeSuffix(aggregateField.getName(), "Ids"));
+                    String associationMapper = removeSuffix(aggregateName, "Aggregate") + associationClassName + "AssociationMapper";
+                    String associationDescription = aggregate.getDescription() + "-" + removeSuffix(aggregateField.getDescription(), "ID列表");
+                    fields.add(Field.builder().name(StringUtils.uncapitalize(associationMapper)).type(associationMapper).description(associationDescription + "关系 Mybatis-Plus 数据访问对象").nullable(false).build());
+                }
             }
         }
         packageHeader(stringBuilder, packageName);
@@ -95,5 +99,21 @@ public class DataManagerGenerator {
 
         deleteFileIfExists(rootPath, packageName, className);
         writeFile(rootPath, packageName, className, stringBuilder.toString());
+    }
+
+    private void save(StringBuilder stringBuilder, List<String> entityMappers, String className, String recordName, String mapperName, String aggregateName, String aggregateDescription) {
+        stringBuilder
+                .append("    @Override\n")
+                .append("    @Log(message = \"").append(aggregateDescription).append("聚合保存数据\", value = \"#aggregate\", level = LogLevel.TRACE)\n")
+                .append("    public ").append(aggregateName).append(" save(").append(aggregateName).append(" aggregate) {\n")
+                .append("        Optional.ofNullable(aggregate)\n")
+                .append("               .orElseThrow(() -> new DataManagerSaveException(\"要保存的").append(aggregateDescription).append("聚合不能为空\"));\n")
+                .append("        ").append(recordName).append(" record = ").append(className).append(".from(aggregate);\n");
+        for (String entityMapper : entityMappers) {
+            stringBuilder.append("        ").append(StringUtils.uncapitalize(entityMapper)).append(".save(record.get").append(exchangeSuffix(entityMapper, "Mapper", "")).append("());\n");
+        }
+        stringBuilder.append("        ").append(StringUtils.uncapitalize(mapperName)).append(".save(record);\n")
+                .append("        return aggregate;\n")
+                .append("    }\n");
     }
 }

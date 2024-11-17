@@ -1,6 +1,5 @@
 package org.endless.domain.simplified.server.common.model.facade.adapter;
 
-
 import org.endless.ddd.simplified.starter.common.model.facade.adapter.DrivingAdapter;
 
 /**
@@ -12,7 +11,7 @@ import org.endless.ddd.simplified.starter.common.model.facade.adapter.DrivingAda
  *
  * @author Deng Haozhi
  * @see DrivingAdapter
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface DomainSimplifiedServerDrivingAdapter extends DrivingAdapter {
 

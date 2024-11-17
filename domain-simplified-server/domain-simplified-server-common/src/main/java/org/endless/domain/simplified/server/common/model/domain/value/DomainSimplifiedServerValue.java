@@ -1,6 +1,5 @@
 package org.endless.domain.simplified.server.common.model.domain.value;
 
-
 import org.endless.ddd.simplified.starter.common.model.domain.value.Value;
 
 /**
@@ -12,7 +11,8 @@ import org.endless.ddd.simplified.starter.common.model.domain.value.Value;
  *
  * @author Deng Haozhi
  * @see Value
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface DomainSimplifiedServerValue extends Value {
+
 }

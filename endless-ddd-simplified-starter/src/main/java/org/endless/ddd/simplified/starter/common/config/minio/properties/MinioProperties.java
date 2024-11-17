@@ -13,7 +13,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * update 2024/11/07 13:31
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 @Getter
 @Setter
@@ -27,6 +27,7 @@ public class MinioProperties {
 
     private String secretKey;
 
-    private String bucket;
+    private String bucket = "default-bucket";
 
+    private String retentionDays = "180";
 }

@@ -1,6 +1,5 @@
 package org.endless.domain.simplified.server.common.model.application.query.transfer;
 
-
 import org.endless.ddd.simplified.starter.common.model.application.query.transfer.QueryTransfer;
 
 /**
@@ -12,7 +11,7 @@ import org.endless.ddd.simplified.starter.common.model.application.query.transfe
  *
  * @author Deng Haozhi
  * @see QueryTransfer
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface DomainSimplifiedServerQueryTransfer extends QueryTransfer {
 

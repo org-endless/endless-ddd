@@ -1,6 +1,6 @@
 package org.endless.ddd.simplified.starter.common.utils.id;
 
-import org.endless.ddd.simplified.starter.common.exception.domain.entity.EntityException;
+import org.endless.ddd.simplified.starter.common.exception.model.domain.entity.EntityException;
 import org.endless.ddd.simplified.starter.common.utils.id.snowflake.SnowflakeIdGenerator;
 import org.springframework.util.StringUtils;
 
@@ -12,7 +12,7 @@ import org.springframework.util.StringUtils;
  * update 2024/11/06 17:06
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class IdGenerator {
 

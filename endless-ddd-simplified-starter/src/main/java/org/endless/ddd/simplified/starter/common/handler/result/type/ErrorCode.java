@@ -3,7 +3,8 @@ package org.endless.ddd.simplified.starter.common.handler.result.type;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
-import org.endless.ddd.simplified.starter.common.exception.domain.type.EnumException;
+import org.endless.ddd.simplified.starter.common.exception.model.domain.type.EnumException;
+import org.endless.ddd.simplified.starter.common.model.domain.type.BaseEnum;
 
 /**
  * ErrorCode
@@ -13,12 +14,12 @@ import org.endless.ddd.simplified.starter.common.exception.domain.type.EnumExcep
  * update 2024/11/15 00:31
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 @Getter
 @ToString
 @AllArgsConstructor
-public enum ErrorCode {
+public enum ErrorCode implements BaseEnum {
 
 
     // 业务错误码

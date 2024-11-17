@@ -20,7 +20,7 @@ import java.util.List;
  * update 2024/10/16 19:26
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 @Controller
 public class DDDGeneratorController {

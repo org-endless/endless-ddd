@@ -26,7 +26,7 @@ import static org.endless.ddd.simplified.generator.utils.DDDUtils.*;
  * update 2024/09/19 17:24
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class EnumGenerator {
 
@@ -67,7 +67,7 @@ public class EnumGenerator {
         enumDefine(stringBuilder, className, superClassName);
         enumValues(stringBuilder, values, fields, className);
         enumFields(stringBuilder, fields);
-        fromCode(stringBuilder, fields, className);
+        fromCode(stringBuilder, fields, className, classDescription);
         end(stringBuilder);
 
         deleteFileIfExists(rootPath, packageName, className);

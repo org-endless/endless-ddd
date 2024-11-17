@@ -13,7 +13,7 @@ import org.endless.domain.simplified.server.common.model.infrastructure.data.rec
  *
  * @author Deng Haozhi
  * @see Mapper
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface DomainSimplifiedServerMapper<R extends DomainSimplifiedServerRecord<? extends DomainSimplifiedServerEntity>>
         extends Mapper<R> {

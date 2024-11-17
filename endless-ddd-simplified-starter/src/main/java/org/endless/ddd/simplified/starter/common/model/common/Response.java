@@ -12,7 +12,7 @@ import java.io.Serializable;
  *
  * @author Deng Haozhi
  * @see Serializable
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface Response extends Serializable {
 

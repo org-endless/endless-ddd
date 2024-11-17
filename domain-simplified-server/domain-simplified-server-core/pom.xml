@@ -11,7 +11,7 @@
 
     <artifactId>domain-simplified-server-core</artifactId>
     <packaging>jar</packaging>
-    <name>endless-ddd-simplified-server-core</name>
+    <name>domain-simplified-server-core</name>
     <description>简易DDD框架-服务端-核心启动模块</description>
 
     <dependencies>

@@ -13,7 +13,7 @@ import org.endless.ddd.simplified.starter.common.model.domain.entity.Entity;
  * update 2024/11/03 18:35
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface QueryRepository<E extends Entity> {
 

@@ -13,7 +13,7 @@ import org.endless.ddd.simplified.starter.common.model.application.query.transfe
  *
  * @author Deng Haozhi
  * @see AbstractPageTransfer
- * @since 2.0.0
+ * @since 1.0.0
  */
 @Getter
 @SuperBuilder

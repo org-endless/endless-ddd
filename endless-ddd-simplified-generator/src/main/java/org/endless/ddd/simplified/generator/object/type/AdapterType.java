@@ -10,7 +10,7 @@ import lombok.Getter;
  * update 2024/10/23 09:35
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 @Getter
 public enum AdapterType {

@@ -8,10 +8,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * <p>
  * create 2024/11/10 15:24
  * <p>
- * update 2024/11/10 15:24
+ * update 2024/11/17 16:28
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @see AbstractThreadProperties
+ * @since 1.0.0
  */
 @ConfigurationProperties(prefix = "spring.task.common.pool")
 public class CommonThreadProperties extends AbstractThreadProperties {

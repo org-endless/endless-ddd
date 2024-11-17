@@ -12,7 +12,7 @@ import org.endless.domain.simplified.server.common.model.domain.entity.DomainSim
  *
  * @author Deng Haozhi
  * @see DataRecord
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface DomainSimplifiedServerRecord<E extends DomainSimplifiedServerEntity>
         extends DataRecord<E> {

@@ -4,11 +4,14 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import org.endless.domain.simplified.server.common.model.infrastructure.data.record.*;
+import org.endless.domain.simplified.server.supporting.security.token.domain.entity.*;
+import org.endless.domain.simplified.server.supporting.security.token.domain.value.*;
+import org.endless.domain.simplified.server.supporting.security.token.domain.type.*;
+import org.endless.ddd.simplified.starter.common.exception.model.infrastructure.data.record.*;
+import org.endless.ddd.simplified.starter.common.utils.id.*;
 import lombok.*;
-import org.endless.ddd.simplified.starter.common.exception.infrastructure.data.record.DataRecordAddItemException;
-import org.endless.ddd.simplified.starter.common.exception.validate.ValidateException;
-import org.endless.domain.simplified.server.common.model.infrastructure.data.record.DomainSimplifiedServerRecord;
-import org.endless.domain.simplified.server.supporting.security.token.domain.entity.TokenAggregate;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -19,9 +22,9 @@ import java.util.stream.Collectors;
  * TokenRecord
  * <p>令牌数据库记录实体
  * <p>
- * create 2024/11/11 23:38
+ * create 2024/11/17 16:54
  * <p>
- * update 2024/11/11 23:38
+ * update 2024/11/17 16:54
  *
  * @author Deng Haozhi
  * @see DomainSimplifiedServerRecord
@@ -42,16 +45,39 @@ public class TokenRecord implements DomainSimplifiedServerRecord<TokenAggregate>
     private String tokenId;
 
     /**
-     * 用户ID
+     * 令牌类型
      */
-    private String userId;
+    private TokenTypeEnum type;
 
     /**
-     * 令牌信息列表
+     * 用户ID
      */
-    @TableField(exist = false)
-    @Builder.Default
-    private final List<TokenInfoRecord> tokenInfos = new ArrayList<>();
+    private String infoUserId;
+
+    /**
+     * 令牌值
+     */
+    private String infoValue;
+
+    /**
+     * 客户端IP地址
+     */
+    private String infoIpAddress;
+
+    /**
+     * HTTP指纹
+     */
+    private String infoUserAgent;
+
+    /**
+     * 令牌生成时间
+     */
+    private Long infoIssuedAt;
+
+    /**
+     * 令牌过期时间
+     */
+    private Long infoExpiresAt;
 
     /**
      * 创建者ID
@@ -83,51 +109,49 @@ public class TokenRecord implements DomainSimplifiedServerRecord<TokenAggregate>
     public static TokenRecord from(TokenAggregate aggregate) {
         String tokenId = aggregate.getTokenId();
         return TokenRecord.builder()
-                 .tokenId(tokenId)
-                .userId(aggregate.getUserId())
-                .tokenInfos(aggregate.getTokenInfos() == null ? new ArrayList<>() : aggregate.getTokenInfos().stream()
-                        .map(record -> TokenInfoRecord.from(record, tokenId)).collect(Collectors.toList()))
+                .tokenId(tokenId)
+                .type(aggregate.getType())
+                .infoUserId(aggregate.getInfo().getUserId())
+                .infoValue(aggregate.getInfo().getValue())
+                .infoIpAddress(aggregate.getInfo().getIpAddress())
+                .infoUserAgent(aggregate.getInfo().getUserAgent())
+                .infoIssuedAt(aggregate.getInfo().getIssuedAt())
+                .infoExpiresAt(aggregate.getInfo().getExpiresAt())
                 .createUserId(aggregate.getCreateUserId())
                 .modifyUserId(aggregate.getModifyUserId())
                 .isRemoved(aggregate.getIsRemoved())
-                .build()
-                .validate();
+                .build();
     }
 
     public TokenAggregate to() {
         validate();
         return TokenAggregate.builder()
                 .tokenId(tokenId)
-                .userId(userId)
-                .tokenInfos(tokenInfos== null? new ArrayList<>() : tokenInfos.stream()
-                        .map(TokenInfoRecord::to).collect(Collectors.toList()))
+                .type(type)
+                .info(TokenInfoValue.builder()
+                        .userId(infoUserId)
+                        .value(infoValue)
+                        .ipAddress(infoIpAddress)
+                        .userAgent(infoUserAgent)
+                        .issuedAt(infoIssuedAt)
+                        .expiresAt(infoExpiresAt)
+                        .innerBuild())
                 .createUserId(createUserId)
                 .modifyUserId(modifyUserId)
                 .isRemoved(isRemoved)
                 .innerBuild();
     }
 
-    public TokenRecord addTokenInfo(TokenInfoRecord tokenInfo) {
-        if (tokenInfo == null) {
-            throw new DataRecordAddItemException("数据库实体要添加的子实体 TokenInfoRecord 不能为 null");
-        }
-        this.tokenInfos.add(tokenInfo);
-        return this;
-    }
-
-    public TokenRecord addTokenInfos(List<TokenInfoRecord> tokenInfos) {
-        if (tokenInfos == null || tokenInfos.isEmpty()) {
-                throw new DataRecordAddItemException("数据库实体要添加的子实体列表 List<TokenInfoRecord> 不能为空");
-        }
-        this.tokenInfos.addAll(tokenInfos);
-        return this;
-    }
-
     @Override
     public TokenRecord validate() {
         validateTokenId();
-        validateUserId();
-        validateTokenInfos();
+        validateType();
+        validateInfoUserId();
+        validateInfoValue();
+        validateInfoIpAddress();
+        validateInfoUserAgent();
+        validateInfoIssuedAt();
+        validateInfoExpiresAt();
         validateCreateUserId();
         validateModifyUserId();
         validateIsRemoved();
@@ -136,37 +160,67 @@ public class TokenRecord implements DomainSimplifiedServerRecord<TokenAggregate>
 
     private void validateTokenId() {
         if (!StringUtils.hasText(tokenId)) {
-            throw new ValidateException("令牌ID不能为空");
+            throw new DataRecordValidateException("令牌ID不能为空");
         }
     }
 
-    private void validateUserId() {
-        if (!StringUtils.hasText(userId)) {
-            throw new ValidateException("用户ID不能为空");
+    private void validateType() {
+        if (type == null) {
+            throw new DataRecordValidateException("令牌类型不能为 null ");
         }
     }
 
-    private void validateTokenInfos() {
-        if (tokenInfos == null || tokenInfos.isEmpty()) {
-            throw new ValidateException("令牌信息列表不能为 null 或空");
+    private void validateInfoUserId() {
+        if (!StringUtils.hasText(infoUserId)) {
+            throw new DataRecordValidateException("用户ID不能为空");
+        }
+    }
+
+    private void validateInfoValue() {
+        if (!StringUtils.hasText(infoValue)) {
+            throw new DataRecordValidateException("令牌值不能为空");
+        }
+    }
+
+    private void validateInfoIpAddress() {
+        if (!StringUtils.hasText(infoIpAddress)) {
+            throw new DataRecordValidateException("客户端IP地址不能为空");
+        }
+    }
+
+    private void validateInfoUserAgent() {
+        if (!StringUtils.hasText(infoUserAgent)) {
+            throw new DataRecordValidateException("HTTP指纹不能为空");
+        }
+    }
+
+    private void validateInfoIssuedAt() {
+        if (infoIssuedAt == null || infoIssuedAt < 0) {
+            throw new DataRecordValidateException("令牌生成时间不能为 null 或小于 0，当前值为: " + infoIssuedAt);
+        }
+    }
+
+    private void validateInfoExpiresAt() {
+        if (infoExpiresAt == null || infoExpiresAt < 0) {
+            throw new DataRecordValidateException("令牌过期时间不能为 null 或小于 0，当前值为: " + infoExpiresAt);
         }
     }
 
     private void validateCreateUserId() {
         if (!StringUtils.hasText(createUserId)) {
-            throw new ValidateException("创建者ID不能为空");
+            throw new DataRecordValidateException("创建者ID不能为空");
         }
     }
 
     private void validateModifyUserId() {
         if (!StringUtils.hasText(modifyUserId)) {
-            throw new ValidateException("修改者ID不能为空");
+            throw new DataRecordValidateException("修改者ID不能为空");
         }
     }
 
     private void validateIsRemoved() {
         if (isRemoved == null) {
-            throw new ValidateException("是否已删除不能为 null");
+            throw new DataRecordValidateException("是否已删除不能为 null ");
         }
     }
 }

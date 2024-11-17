@@ -26,7 +26,7 @@ import static org.endless.ddd.simplified.generator.utils.DDDUtils.*;
  * update 2024/09/18 00:02
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class ValueGenerator {
 

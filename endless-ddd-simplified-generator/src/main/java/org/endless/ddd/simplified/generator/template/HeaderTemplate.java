@@ -10,7 +10,7 @@ import static org.endless.ddd.simplified.generator.utils.StringTools.removeSuffi
  * update 2024/10/11 10:15
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class HeaderTemplate {
 
@@ -35,12 +35,12 @@ public class HeaderTemplate {
                 .append("import ").append(servicePackage).append(".common.model.").append(subPackage).append(".*;\n")
                 .append(hasValue ? "import " + domainPackage + ".domain.value.*;\n" : "")
                 .append(hasEnum ? "import " + domainPackage + ".domain.type.*;\n" : "")
-                .append("import ").append(groupId).append(".ddd.simplified.starter.common.exception.").append(subPackage).append(".*;\n")
-                .append("import ").append(groupId).append(".ddd.simplified.starter.common.exception.validate.*;\n")
+                .append("import ").append(groupId).append(".ddd.simplified.starter.common.exception.model.").append(subPackage).append(".*;\n")
                 .append("import ").append(groupId).append(".ddd.simplified.starter.common.utils.id.*;\n")
                 .append("import lombok.Builder;\n")
                 .append("import lombok.Getter;\n")
                 .append("import lombok.ToString;\n")
+                .append("import org.springframework.util.CollectionUtils;\n")
                 .append("import org.springframework.util.StringUtils;\n\n")
                 .append("import java.util.ArrayList;\n")
                 .append("import java.util.List;\n")
@@ -63,10 +63,10 @@ public class HeaderTemplate {
                 .append("import ").append(domainPackage).append(".domain.entity.*;\n")
                 .append(hasValue ? "import " + domainPackage + ".domain.value.*;\n" : "")
                 .append(hasEnum ? "import " + domainPackage + ".domain.type.*;\n" : "")
-                .append("import ").append(groupId).append(".ddd.simplified.starter.common.exception.").append(subPackage).append(".*;\n")
-                .append("import ").append(groupId).append(".ddd.simplified.starter.common.exception.validate.*;\n")
+                .append("import ").append(groupId).append(".ddd.simplified.starter.common.exception.model.").append(subPackage).append(".*;\n")
                 .append("import ").append(groupId).append(".ddd.simplified.starter.common.utils.id.*;\n")
                 .append("import lombok.*;\n")
+                .append("import org.springframework.util.CollectionUtils;\n")
                 .append("import org.springframework.util.StringUtils;\n\n")
                 .append("import java.util.ArrayList;\n")
                 .append("import java.util.List;\n")
@@ -82,11 +82,11 @@ public class HeaderTemplate {
         stringBuilder
                 .append("import ").append(servicePackage).append(".common.model.").append(subPackage).append(".*;\n")
                 .append(hasEnum ? "import " + domainPackage + ".domain.type.*;\n" : "")
-                .append("import ").append(groupId).append(".ddd.simplified.starter.common.exception.").append(subPackage).append(".*;\n")
-                .append("import ").append(groupId).append(".ddd.simplified.starter.common.exception.validate.*;\n")
+                .append("import ").append(groupId).append(".ddd.simplified.starter.common.exception.model.").append(subPackage).append(".*;\n")
                 .append("import lombok.Builder;\n")
                 .append("import lombok.Getter;\n")
                 .append("import lombok.ToString;\n")
+                .append("import org.springframework.util.CollectionUtils;\n")
                 .append("import org.springframework.util.StringUtils;\n\n");
     }
 
@@ -98,7 +98,7 @@ public class HeaderTemplate {
     public static void importHeaderEnum(StringBuilder stringBuilder, String groupId, String servicePackage, String subPackage) {
         stringBuilder
                 .append("import ").append(servicePackage).append(".common.model.").append(subPackage).append(".*;\n")
-                .append("import ").append(groupId).append(".ddd.simplified.starter.common.exception.").append(subPackage).append(".*;\n")
+                .append("import ").append(groupId).append(".ddd.simplified.starter.common.exception.model.").append(subPackage).append(".*;\n")
                 .append("import lombok.Getter;\n")
                 .append("import lombok.AllArgsConstructor;\n")
                 .append("import lombok.ToString;\n\n");
@@ -128,8 +128,7 @@ public class HeaderTemplate {
         stringBuilder
                 .append("import ").append(domainPackage).append(".").append(superSubPackage).append(".*;\n")
                 .append("import ").append(domainPackage).append(".domain.anticorruption.*;\n")
-                .append("import ").append(groupId).append(".ddd.simplified.starter.common.exception.").append(superSubPackage).append(".*;\n")
-                .append("import lombok.extern.slf4j.Slf4j;\n\n");
+                .append("import ").append(groupId).append(".ddd.simplified.starter.common.exception.model.").append(superSubPackage).append(".*;\n\n");
     }
 
     public static void importHeaderQueryHandler(StringBuilder stringBuilder, String servicePackage, String domainPackage, String subPackage) {
@@ -144,21 +143,20 @@ public class HeaderTemplate {
                 .append("import ").append(domainPackage).append(".").append(superSubPackage).append(".*;\n")
                 .append("import ").append(domainPackage).append(".application.query.repository.*;\n")
                 .append("import ").append(domainPackage).append(".domain.anticorruption.*;\n")
-                .append("import ").append(groupId).append(".ddd.simplified.starter.common.exception.").append(superSubPackage).append(".*;\n")
-                .append("import lombok.extern.slf4j.Slf4j;\n\n");
+                .append("import ").append(groupId).append(".ddd.simplified.starter.common.exception.model.").append(superSubPackage).append(".*;\n\n");
     }
 
     public static void importHeaderTransfer(StringBuilder stringBuilder, String groupId, String servicePackage, String domainPackage, String subPackage, Boolean hasValue, Boolean hasEnum) {
         stringBuilder
                 .append("import ").append(servicePackage).append(".common.model.").append(subPackage).append(".*;\n")
-                .append("import ").append(groupId).append(".ddd.simplified.starter.common.exception.").append(subPackage).append(".*;\n")
-                .append("import ").append(groupId).append(".ddd.simplified.starter.common.exception.validate.*;\n")
+                .append("import ").append(groupId).append(".ddd.simplified.starter.common.exception.model.").append(subPackage).append(".*;\n")
                 .append(hasValue ? "import " + domainPackage + ".domain.value.*;\n" : "")
                 .append(hasEnum ? "import " + domainPackage + ".domain.type.*;\n" : "")
                 .append("import com.alibaba.fastjson2.annotation.JSONType;\n")
                 .append("import lombok.Builder;\n")
                 .append("import lombok.Getter;\n")
                 .append("import lombok.ToString;\n")
+                .append("import org.springframework.util.CollectionUtils;\n")
                 .append("import org.springframework.util.StringUtils;\n\n")
                 .append("import java.util.ArrayList;\n")
                 .append("import java.util.List;\n")
@@ -173,8 +171,7 @@ public class HeaderTemplate {
                 .append("import ").append(domainPackage).append(".domain.entity.*;\n")
                 .append("import ").append(domainPackage).append(".infrastructure.data.persistence.mapper.*;\n")
                 .append("import ").append(domainPackage).append(".infrastructure.data.record.*;\n")
-                .append("import ").append(groupId).append(".ddd.simplified.starter.common.exception.").append(subPackage).append(".*;\n")
-                .append("import lombok.extern.slf4j.Slf4j;\n")
+                .append("import ").append(groupId).append(".ddd.simplified.starter.common.exception.model.").append(subPackage).append(".*;\n")
                 .append("import org.springframework.context.annotation.Lazy;\n")
                 .append("import org.springframework.stereotype.Component;\n\n")
                 .append("import java.util.List;\n")
@@ -185,7 +182,7 @@ public class HeaderTemplate {
         stringBuilder
                 .append("import ").append(servicePackage).append(".common.model.").append(subPackage).append(".*;\n")
                 .append("import ").append(domainPackage).append(".infrastructure.data.record.*;\n")
-                .append("import ").append(groupId).append(".ddd.simplified.starter.common.exception.").append(subPackage).append(".*;\n")
+                .append("import ").append(groupId).append(".ddd.simplified.starter.common.exception.model.").append(subPackage).append(".*;\n")
                 .append("import org.apache.ibatis.annotations.Mapper;\n")
                 .append("import org.springframework.context.annotation.Lazy;\n\n");
     }
@@ -201,7 +198,7 @@ public class HeaderTemplate {
                 .append("import ").append(domainPackage).append(".").append(superSubPackage).append(".*;\n")
                 .append("import ").append(domainPackage).append(".application.command.handler.*;\n")
                 .append("import ").append(domainPackage).append(".application.query.handler.*;\n")
-                .append("import ").append(groupId).append(".ddd.simplified.starter.common.exception.").append(superSubPackage).append(".*;\n\n");
+                .append("import ").append(groupId).append(".ddd.simplified.starter.common.exception.model.").append(superSubPackage).append(".*;\n\n");
     }
 
     public static void importHeaderDrivingConfiguration(StringBuilder stringBuilder, String groupId, String domainPackage, String subPackage) {
@@ -225,8 +222,7 @@ public class HeaderTemplate {
         stringBuilder
                 .append("import ").append(servicePackage).append(".common.model.").append(subPackage).append(".*;\n")
                 .append("import ").append(domainPackage).append(".facade.adapter.*;\n")
-                .append("import ").append(groupId).append(".ddd.simplified.starter.common.exception.").append(subPackage).append(".*;\n")
-                .append("import lombok.extern.slf4j.Slf4j;\n")
+                .append("import ").append(groupId).append(".ddd.simplified.starter.common.exception.model.").append(subPackage).append(".*;\n")
                 .append("import org.springframework.context.annotation.Lazy;\n")
                 .append("import org.springframework.web.bind.annotation.RequestMapping;\n")
                 .append("import org.springframework.web.bind.annotation.RestController;\n\n");

@@ -1,6 +1,5 @@
 package org.endless.domain.simplified.server.common.model.application.command.transfer;
 
-
 import org.endless.ddd.simplified.starter.common.model.application.command.transfer.CommandTransfer;
 
 /**
@@ -12,7 +11,7 @@ import org.endless.ddd.simplified.starter.common.model.application.command.trans
  *
  * @author Deng Haozhi
  * @see CommandTransfer
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface DomainSimplifiedServerCommandTransfer extends CommandTransfer {
 

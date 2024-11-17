@@ -3,7 +3,7 @@ package org.endless.ddd.simplified.starter.common.config.log.type;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
-import org.endless.ddd.simplified.starter.common.exception.domain.type.EnumException;
+import org.endless.ddd.simplified.starter.common.exception.model.domain.type.EnumException;
 
 /**
  * LogLevel
@@ -13,7 +13,7 @@ import org.endless.ddd.simplified.starter.common.exception.domain.type.EnumExcep
  * update 2024/11/15 00:54
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 @Getter
 @ToString

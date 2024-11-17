@@ -9,9 +9,9 @@ package org.endless.domain.simplified.server.common.exception.attchment;
  *
  * @author Deng Haozhi
  * @see RuntimeException
- * @since 2.0.0
+ * @since 1.0.0
  */
-public class AttachmentException extends RuntimeException{
+public class AttachmentException extends RuntimeException {
 
     public AttachmentException(String message) {
         super(message);

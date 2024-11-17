@@ -19,7 +19,7 @@ import org.endless.ddd.simplified.starter.common.model.common.Adapter;
  * update 2024/08/30 17:36
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface DrivingAdapter extends Adapter {
 

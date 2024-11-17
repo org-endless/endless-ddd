@@ -1,6 +1,5 @@
 package org.endless.domain.simplified.server.common.model.domain.anticorruption;
 
-
 import org.endless.ddd.simplified.starter.common.model.domain.anticorruption.DrivenAdapter;
 
 /**
@@ -12,7 +11,7 @@ import org.endless.ddd.simplified.starter.common.model.domain.anticorruption.Dri
  *
  * @author Deng Haozhi
  * @see DrivenAdapter
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface DomainSimplifiedServerDrivenAdapter extends DrivenAdapter {
 

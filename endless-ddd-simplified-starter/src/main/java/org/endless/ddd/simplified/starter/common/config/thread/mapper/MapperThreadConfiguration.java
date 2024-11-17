@@ -1,12 +1,10 @@
 package org.endless.ddd.simplified.starter.common.config.thread.mapper;
 
 import org.endless.ddd.simplified.starter.common.config.thread.model.AbstractThreadConfiguration;
-import org.endless.ddd.simplified.starter.common.config.thread.model.AbstractThreadProperties;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.Executor;
 
@@ -15,10 +13,11 @@ import java.util.concurrent.Executor;
  * <p>
  * create 2024/11/14 23:03
  * <p>
- * update 2024/11/14 23:03
+ * update 2024/11/17 16:29
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @see AbstractThreadConfiguration
+ * @since 1.0.0
  */
 @EnableAsync
 @EnableConfigurationProperties(MapperThreadProperties.class)

@@ -13,7 +13,7 @@ import java.util.List;
  * update 2024/09/12 08:51
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 @FunctionalInterface
 public interface PageCallback<R extends DataRecord<? extends Entity>> {

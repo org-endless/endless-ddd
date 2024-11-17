@@ -3,7 +3,7 @@ package org.endless.ddd.simplified.starter.common.handler.result.type;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
-import org.endless.ddd.simplified.starter.common.exception.domain.type.EnumException;
+import org.endless.ddd.simplified.starter.common.exception.model.domain.type.EnumException;
 import org.endless.ddd.simplified.starter.common.model.domain.type.BaseEnum;
 
 /**
@@ -17,7 +17,7 @@ import org.endless.ddd.simplified.starter.common.model.domain.type.BaseEnum;
  * @author Deng Haozhi
  * @see Enum
  * @see BaseEnum
- * @since 2.0.0
+ * @since 1.0.0
  */
 @Getter
 @ToString
@@ -38,6 +38,6 @@ public enum ServiceStatus implements BaseEnum {
                 return type;
             }
         }
-        throw new EnumException("未知的 ResultEnum : " + code);
+        throw new EnumException("未知的服务处理状态: " + code);
     }
 }

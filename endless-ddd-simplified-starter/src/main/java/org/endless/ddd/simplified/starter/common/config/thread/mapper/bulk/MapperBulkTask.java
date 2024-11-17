@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
  * update 2024/11/10 14:28
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface MapperBulkTask<R extends DataRecord<? extends Entity>> {
 

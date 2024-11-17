@@ -15,7 +15,7 @@ import java.io.Serializable;
  *
  * @author Deng Haozhi
  * @see Entity
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface Aggregate extends Serializable, Entity {
 

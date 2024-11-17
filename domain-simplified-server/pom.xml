@@ -11,7 +11,7 @@
 
     <artifactId>domain-simplified-server</artifactId>
     <packaging>pom</packaging>
-    <name>endless-ddd-simplified-server</name>
+    <name>domain-simplified-server</name>
     <description>Endless DDD Simplified Server</description>
 
     <modules>

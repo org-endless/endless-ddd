@@ -12,7 +12,7 @@ import org.endless.domain.simplified.server.common.model.domain.entity.DomainSim
  *
  * @author Deng Haozhi
  * @see CommandHandler
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface DomainSimplifiedServerCommandHandler<A extends DomainSimplifiedServerAggregate>
         extends CommandHandler<A> {

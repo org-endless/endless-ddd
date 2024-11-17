@@ -6,7 +6,7 @@ import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.filter.Filter;
 import lombok.extern.slf4j.Slf4j;
 import org.endless.ddd.simplified.starter.common.config.endless.EndlessAutoConfiguration;
-import org.endless.ddd.simplified.starter.common.exception.sidecar.rest.RestErrorException;
+import org.endless.ddd.simplified.starter.common.exception.model.sidecar.rest.RestErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
@@ -23,10 +23,11 @@ import java.nio.charset.Charset;
  * <p>
  * create 2024/11/09 19:28
  * <p>
- * update 2024/11/09 19:28
+ * update 2024/11/17 16:28
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @see AbstractHttpMessageConverter
+ * @since 1.0.0
  */
 @Slf4j
 public class FastJson2HttpMessageConverter<T> extends AbstractHttpMessageConverter<T> {
@@ -55,10 +56,10 @@ public class FastJson2HttpMessageConverter<T> extends AbstractHttpMessageConvert
             }
             // 转换为字符串
             String string = byteArrayOutputStream.toString(charset());
-            log.trace("Rest 反序列化对象: {}", string);
+            log.trace("[Rest反序列化对象]: {}", string.replaceAll("[\\r\\n\\s]", ""));
             return JSON.parseObject(string, clazz, filter());
         } catch (Exception e) {
-            throw new RestErrorException(" Rest 反序列化对象异常: " + e.getMessage(), e);
+            throw new RestErrorException("Rest反序列化对象异常: " + e.getMessage(), e);
         }
     }
 
@@ -66,10 +67,10 @@ public class FastJson2HttpMessageConverter<T> extends AbstractHttpMessageConvert
     protected void writeInternal(@NonNull T t, @NonNull HttpOutputMessage outputMessage) {
         try {
             String json = JSON.toJSONString(t, filter(), JSONWriter.Feature.PrettyFormat);
-            log.trace("Rest 序列化对象: {}", json);
+            log.trace("[Rest序列化对象]: {}", json.replaceAll("[\\r\\n\\s]", ""));
             outputMessage.getBody().write(json.getBytes(charset()));
         } catch (Exception e) {
-            throw new RestErrorException(" Rest 序列化对象异常: " + e.getMessage(), e);
+            throw new RestErrorException("Rest序列化对象异常: " + e.getMessage(), e);
         }
     }
 

@@ -14,7 +14,7 @@ import org.springframework.util.StringUtils;
  * update 2024/09/16 17:42
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 @Getter
 @Builder
@@ -47,16 +47,24 @@ public class Field {
 
     private void validateName() {
         if (!StringUtils.hasText(name)) {
-            throw new IllegalArgumentException("字段名称不能为空，当前值为：" + name);
+            throw new IllegalArgumentException("字段名称不能为空，当前值为: " + name);
         }
         if (name.endsWith("Value") || name.endsWith("Entity")) {
-            throw new IllegalArgumentException("字段名称不能以Value或Entity结尾，请修改： " + name);
+            throw new IllegalArgumentException("字段名称不能以Value或Entity结尾，请修改:  " + name);
         }
     }
 
     private void validateType() {
         if (!StringUtils.hasText(type)) {
-            throw new IllegalArgumentException("字段类型不能为空，当前值为：" + type);
+            throw new IllegalArgumentException("字段类型不能为空: " + name);
+        }
+        switch (type) {
+            case "int":
+                throw new IllegalArgumentException("字段类型不能为int，请使用Integer替代: " + name);
+            case "long":
+                throw new IllegalArgumentException("字段类型不能为long，请使用Long替代: " + name);
+            case "double":
+                throw new IllegalArgumentException("字段类型不能为double，请使用Double替代: " + name);
         }
         if (type.startsWith("List<")) {
             if (!name.endsWith("s") || !description.endsWith("列表")) {
@@ -67,7 +75,7 @@ public class Field {
 
     private void validateDescription() {
         if (!StringUtils.hasText(description)) {
-            throw new IllegalArgumentException("字段描述不能为空，当前值为：" + description);
+            throw new IllegalArgumentException("字段描述不能为空，当前值为: " + description);
         }
     }
 

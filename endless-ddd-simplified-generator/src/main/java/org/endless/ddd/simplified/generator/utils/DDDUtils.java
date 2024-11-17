@@ -29,7 +29,7 @@ import static org.endless.ddd.simplified.generator.utils.StringTools.*;
  * update 2024/09/16 12:45
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 @Slf4j
 public class DDDUtils {
@@ -64,6 +64,7 @@ public class DDDUtils {
     public static String getter(String fieldName) {
         return "get" + StringUtils.capitalize(fieldName);
     }
+
     /**
      * 工具方法：获取类的类型
      *
@@ -232,7 +233,7 @@ public class DDDUtils {
         }
     }
 
-    private static void deleteOldestBackupIfExceeds(String directory, String className){
+    private static void deleteOldestBackupIfExceeds(String directory, String className) {
         File backupDirectory = new File(directory);
         File[] backupFiles = backupDirectory.listFiles((dir, name) -> name.contains(className + ".bak."));
 

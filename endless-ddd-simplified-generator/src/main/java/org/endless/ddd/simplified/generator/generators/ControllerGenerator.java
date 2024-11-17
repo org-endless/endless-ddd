@@ -25,7 +25,7 @@ import static org.endless.ddd.simplified.generator.utils.DDDUtils.*;
  * update 2024/09/20 17:50
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class ControllerGenerator {
 
@@ -59,7 +59,7 @@ public class ControllerGenerator {
 
         packageHeader(stringBuilder, packageName);
         importHeaderController(stringBuilder, aggregate.getGroupId(), servicePackage(aggregate), domainPackage(aggregate), "sidecar.rest");
-        comment(stringBuilder, className, superClassName, aggregate.getDescription() + "领域 Rest 控制器", aggregate.getAuthor(), aggregate.getVersion());
+        comment(stringBuilder, className, superClassName, aggregate.getDescription() + "领域Rest控制器", aggregate.getAuthor(), aggregate.getVersion());
         controllerDefine(stringBuilder, className, superClassName, aggregate.getDomainName(), aggregate.getContextName());
         fields(stringBuilder, entityNames(aggregate), valueNames(aggregate), fields, className);
         allArgsConstructor(stringBuilder, fields, className);

@@ -10,7 +10,7 @@ import org.springframework.util.StringUtils;
  * update 2024/11/01 23:14
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class StringTools {
 
@@ -23,6 +23,19 @@ public class StringTools {
     public static String toSnake(String string) {
         if (StringUtils.hasText(string)) {
             return string.replaceAll("([a-z])([A-Z]+)", "$1_$2").toLowerCase();
+        }
+        return string;
+    }
+
+    public static String addBrackets(String string) {
+        if (StringUtils.hasText(string)) {
+            if (string.startsWith("[") && string.endsWith("]")) {
+                return string;
+            } else if (string.startsWith("[") && string.endsWith(">")) {
+                return string;
+            } else {
+                return "<" + string + ">";
+            }
         }
         return string;
     }

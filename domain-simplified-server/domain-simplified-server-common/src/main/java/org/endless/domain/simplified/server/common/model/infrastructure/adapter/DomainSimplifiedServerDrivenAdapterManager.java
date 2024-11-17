@@ -13,7 +13,7 @@ import org.endless.domain.simplified.server.common.model.domain.anticorruption.D
  * @author Deng Haozhi
  * @see DomainSimplifiedServerDrivenAdapter
  * @see DrivenAdapterManager
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface DomainSimplifiedServerDrivenAdapterManager extends DomainSimplifiedServerDrivenAdapter, DrivenAdapterManager {
 

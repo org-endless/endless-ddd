@@ -14,7 +14,7 @@ import org.springframework.util.StringUtils;
  * update 2024/09/19 18:06
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 @Getter
 @Builder
@@ -34,13 +34,13 @@ public class EnumValue {
 
     private void validateCode() {
         if (!StringUtils.hasText(code)) {
-            throw new IllegalArgumentException("枚举值代码不能为空，当前值为：" + code);
+            throw new IllegalArgumentException("枚举值代码不能为空，当前值为: " + code);
         }
     }
 
     private void validateDescription() {
         if (!StringUtils.hasText(description)) {
-            throw new IllegalArgumentException("枚举值描述不能为空，当前值为：" + description);
+            throw new IllegalArgumentException("枚举值描述不能为空，当前值为: " + description);
         }
     }
 }

@@ -12,8 +12,9 @@ import org.endless.domain.simplified.server.common.model.domain.entity.DomainSim
  *
  * @author Deng Haozhi
  * @see Service
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface DomainSimplifiedServerService<A extends DomainSimplifiedServerAggregate>
         extends Service<A> {
+
 }

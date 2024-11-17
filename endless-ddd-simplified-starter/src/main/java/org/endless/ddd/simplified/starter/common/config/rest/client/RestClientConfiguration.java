@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
  * update 2024/11/09 19:47
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class RestClientConfiguration {
 

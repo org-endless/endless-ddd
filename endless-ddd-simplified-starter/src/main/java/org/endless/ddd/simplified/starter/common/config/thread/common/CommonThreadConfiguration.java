@@ -5,7 +5,6 @@ import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.Executor;
 
@@ -14,10 +13,11 @@ import java.util.concurrent.Executor;
  * <p>
  * create 2024/11/10 15:23
  * <p>
- * update 2024/11/10 15:23
+ * update 2024/11/17 16:28
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @see AbstractThreadConfiguration
+ * @since 1.0.0
  */
 @EnableAsync
 @EnableConfigurationProperties(CommonThreadProperties.class)

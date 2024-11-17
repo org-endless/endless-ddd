@@ -28,7 +28,7 @@ import static org.endless.ddd.simplified.generator.utils.StringTools.*;
  * update 2024/09/18 11:42
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class DataRecordGenerator {
 
@@ -47,8 +47,6 @@ public class DataRecordGenerator {
 
         generate(aggregate, entity.getFields(), className, tableName, entity.getName(), aggregate.getAggregateName(), classDescription);
     }
-
-
 
 
     protected void generate(Aggregate aggregate, List<Field> fields, String className, String tableName, String generics, String genericDescription, String classDescription) throws Exception {
@@ -75,6 +73,9 @@ public class DataRecordGenerator {
         fields(stringBuilder, entityNames, valueNames, newFields, className);
         from(stringBuilder, entityNames, values, defaultFields, aggregateName, className, generics);
         to(stringBuilder, entityNames, values, defaultFields, className, generics);
+        if (className.endsWith("AssociationRecord")) {
+            remove(stringBuilder, entityNames, fields, className, classDescription);
+        }
         addItem(stringBuilder, entityNames, newFields, className);
         validate(stringBuilder, newFields, className);
         validateMethods(stringBuilder, newFields, className);

@@ -11,7 +11,7 @@
 
     <artifactId>domain-simplified-server-supporting</artifactId>
     <packaging>jar</packaging>
-    <name>endless-ddd-simplified-server-supporting</name>
+    <name>domain-simplified-server-supporting</name>
     <description>简易DDD框架-服务端-支撑域组件</description>
 
     <dependencies>

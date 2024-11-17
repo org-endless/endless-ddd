@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author Deng Haozhi
  * @see AbstractRestResponse
- * @since 2.0.0
+ * @since 1.0.0
  */
 @Getter
 @SuperBuilder

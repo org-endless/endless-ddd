@@ -1,7 +1,7 @@
 package org.endless.ddd.simplified.starter.common.model.infrastructure.data.record;
 
 import com.baomidou.mybatisplus.annotation.TableId;
-import org.endless.ddd.simplified.starter.common.exception.infrastructure.data.record.DataRecordException;
+import org.endless.ddd.simplified.starter.common.exception.model.infrastructure.data.record.DataRecordException;
 import org.endless.ddd.simplified.starter.common.model.domain.entity.Entity;
 
 import java.lang.reflect.Field;
@@ -17,7 +17,7 @@ import java.lang.reflect.Field;
  * update 2024/11/03 13:48
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface DataRecord<E extends Entity> {
 
@@ -68,7 +68,7 @@ public interface DataRecord<E extends Entity> {
     default Field idField() {
         for (Field field : this.getClass().getDeclaredFields()) {
             if (field.getName().endsWith("Id") && field.isAnnotationPresent(TableId.class)) {
-                    return field;
+                return field;
             }
         }
         throw new DataRecordException("未找到数据库实体的 ID 字段");

@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
  * update 2024/10/30 11:24
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class TimeStamp {
 
@@ -25,6 +25,7 @@ public class TimeStamp {
     public static Long between(Long start, Long end) {
         return Duration.between(Instant.ofEpochMilli(start), Instant.ofEpochMilli(end)).toMillis();
     }
+
     protected static String format(Instant timestamp, String pattern) {
         ZonedDateTime zonedDateTime = timestamp.atZone(ZoneId.systemDefault());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);

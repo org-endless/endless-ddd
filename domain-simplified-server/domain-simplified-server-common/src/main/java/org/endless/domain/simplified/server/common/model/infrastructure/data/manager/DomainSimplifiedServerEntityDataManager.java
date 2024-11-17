@@ -15,7 +15,7 @@ import org.endless.domain.simplified.server.common.model.infrastructure.data.rec
  * @author Deng Haozhi
  * @see DomainSimplifiedServerQueryRepository
  * @see EntityDataManager
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface DomainSimplifiedServerEntityDataManager<R extends DomainSimplifiedServerRecord<E>, E extends DomainSimplifiedServerEntity>
         extends DomainSimplifiedServerQueryRepository<E>, EntityDataManager<R, E> {

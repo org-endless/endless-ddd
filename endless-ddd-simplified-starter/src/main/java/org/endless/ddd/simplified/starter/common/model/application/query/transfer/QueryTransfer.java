@@ -11,7 +11,7 @@ import org.endless.ddd.simplified.starter.common.model.application.common.Drivin
  *
  * @author Deng Haozhi
  * @see DrivingTransfer
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface QueryTransfer extends DrivingTransfer {
 

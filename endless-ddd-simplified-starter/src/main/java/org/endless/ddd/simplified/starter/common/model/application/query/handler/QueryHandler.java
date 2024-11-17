@@ -10,7 +10,7 @@ package org.endless.ddd.simplified.starter.common.model.application.query.handle
  * update 2024/08/30 17:19
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface QueryHandler {
 

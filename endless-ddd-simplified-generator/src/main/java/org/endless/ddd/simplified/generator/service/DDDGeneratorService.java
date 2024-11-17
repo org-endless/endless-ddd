@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  * update 2024/10/16 19:29
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 @Slf4j
 @Service
@@ -122,7 +122,7 @@ public class DDDGeneratorService {
                         try {
                             new ValueGenerator().generateValue(aggregate, value);
                         } catch (Exception e) {
-                            throw new RuntimeException("生成值对象 " + value.getName() + " 失败：" + e.getMessage());
+                            throw new RuntimeException("生成值对象 " + value.getName() + " 失败: " + e.getMessage());
                         }
                     }));
             // 处理枚举类
@@ -132,7 +132,7 @@ public class DDDGeneratorService {
                         try {
                             new EnumGenerator().generateEnum(aggregate, enumObject);
                         } catch (Exception e) {
-                            throw new RuntimeException("生成枚举类 " + enumObject.getName() + " 失败：" + e.getMessage());
+                            throw new RuntimeException("生成枚举类 " + enumObject.getName() + " 失败: " + e.getMessage());
                         }
                     }));
             // 处理仓储
@@ -176,7 +176,7 @@ public class DDDGeneratorService {
                                 new TransferGenerator().generate(aggregate, transfer);
                             }
                         } catch (Exception e) {
-                            throw new RuntimeException("生成传输对象 " + transfer.getName() + " 失败：" + e.getMessage());
+                            throw new RuntimeException("生成传输对象 " + transfer.getName() + " 失败: " + e.getMessage());
                         }
                     }));
             // 处理其他实体类
@@ -202,7 +202,7 @@ public class DDDGeneratorService {
                                 new MapperGenerator().generateEntity(aggregate, entity);
                             }
                         } catch (Exception e) {
-                            throw new RuntimeException("生成实体 " + entity.getName() + " 失败：" + e.getMessage());
+                            throw new RuntimeException("生成实体 " + entity.getName() + " 失败: " + e.getMessage());
                         }
                     }));
         } catch (Exception e) {

@@ -2,10 +2,7 @@ package org.endless.ddd.simplified.starter.common.config.log.annotation;
 
 import org.endless.ddd.simplified.starter.common.config.log.type.LogLevel;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * Log
@@ -15,8 +12,9 @@ import java.lang.annotation.Target;
  * update 2024/11/10 07:27
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
+@Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Log {

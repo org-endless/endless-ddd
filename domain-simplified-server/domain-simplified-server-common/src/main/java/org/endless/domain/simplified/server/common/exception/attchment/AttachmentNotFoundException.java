@@ -9,9 +9,9 @@ package org.endless.domain.simplified.server.common.exception.attchment;
  *
  * @author Deng Haozhi
  * @see AttachmentException
- * @since 2.0.0
+ * @since 1.0.0
  */
-public class AttachmentNotFoundException extends AttachmentException{
+public class AttachmentNotFoundException extends AttachmentException {
 
     public AttachmentNotFoundException(String message) {
         super(message);

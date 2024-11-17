@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
  * update 2024/09/08 22:30
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface RestClient<T extends DrivenTransfer> {
 

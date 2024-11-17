@@ -74,7 +74,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>org.endless.ddd.simplified.generator.DomainSimplifiedGeneratorApplication</mainClass>
+                    <mainClass>org.endless.ddd.simplified.generator.DDDSimplifiedGeneratorApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

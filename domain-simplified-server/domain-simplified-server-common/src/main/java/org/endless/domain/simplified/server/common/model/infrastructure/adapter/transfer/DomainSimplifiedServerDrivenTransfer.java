@@ -1,6 +1,5 @@
 package org.endless.domain.simplified.server.common.model.infrastructure.adapter.transfer;
 
-
 import org.endless.ddd.simplified.starter.common.model.infrastructure.adapter.transfer.DrivenTransfer;
 
 /**
@@ -12,7 +11,7 @@ import org.endless.ddd.simplified.starter.common.model.infrastructure.adapter.tr
  *
  * @author Deng Haozhi
  * @see DrivenTransfer
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface DomainSimplifiedServerDrivenTransfer extends DrivenTransfer {
 

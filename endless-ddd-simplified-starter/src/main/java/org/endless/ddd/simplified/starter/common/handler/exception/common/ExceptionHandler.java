@@ -10,7 +10,7 @@ import org.endless.ddd.simplified.starter.common.model.common.Response;
  * update 2024/11/02 05:30
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface ExceptionHandler {
 

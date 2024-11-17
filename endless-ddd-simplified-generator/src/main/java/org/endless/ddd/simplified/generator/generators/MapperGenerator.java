@@ -18,7 +18,7 @@ import static org.endless.ddd.simplified.generator.utils.StringTools.exchangeSuf
  * <p>
  * update 2024/09/16 12:50
  *
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class MapperGenerator {
 

@@ -1,6 +1,5 @@
 package org.endless.domain.simplified.server.common.model.domain.entity;
 
-
 import org.endless.ddd.simplified.starter.common.model.domain.entity.Entity;
 
 /**
@@ -12,7 +11,8 @@ import org.endless.ddd.simplified.starter.common.model.domain.entity.Entity;
  *
  * @author Deng Haozhi
  * @see Entity
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface DomainSimplifiedServerEntity extends Entity {
+
 }

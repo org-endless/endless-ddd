@@ -1,6 +1,5 @@
 package org.endless.domain.simplified.server.common.model.sidecar.rest;
 
-
 import org.endless.ddd.simplified.starter.common.model.sidecar.rest.RestController;
 
 /**
@@ -12,7 +11,7 @@ import org.endless.ddd.simplified.starter.common.model.sidecar.rest.RestControll
  *
  * @author Deng Haozhi
  * @see RestController
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface DomainSimplifiedServerRestController extends RestController {
 

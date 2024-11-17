@@ -1,6 +1,5 @@
 package org.endless.domain.simplified.server.common.model.application.query.handler;
 
-
 import org.endless.ddd.simplified.starter.common.model.application.query.handler.QueryHandler;
 
 /**
@@ -12,7 +11,7 @@ import org.endless.ddd.simplified.starter.common.model.application.query.handler
  *
  * @author Deng Haozhi
  * @see QueryHandler
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface DomainSimplifiedServerQueryHandler extends QueryHandler {
 

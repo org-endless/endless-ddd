@@ -17,7 +17,7 @@ import java.util.List;
  * update 2024/09/18 00:33
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 @Getter
 @Builder
@@ -46,19 +46,19 @@ public class Enum {
 
     private void validateName() {
         if (!StringUtils.hasText(name)) {
-            throw new IllegalArgumentException("枚举名称不能为空，当前值为：" + name);
+            throw new IllegalArgumentException("枚举名称不能为空，当前值为: " + name);
         }
     }
 
     private void validateValueType() {
         if (!StringUtils.hasText(valueType)) {
-            throw new IllegalArgumentException("枚举值类型不能为空，当前值为：" + valueType);
+            throw new IllegalArgumentException("枚举值类型不能为空，当前值为: " + valueType);
         }
     }
 
     private void validateDescription() {
         if (!StringUtils.hasText(description)) {
-            throw new IllegalArgumentException("枚举描述不能为空，当前值为：" + description);
+            throw new IllegalArgumentException("枚举描述不能为空，当前值为: " + description);
         }
     }
 

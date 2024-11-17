@@ -1,6 +1,6 @@
 package org.endless.ddd.simplified.starter.common.utils.id.snowflake;
 
-import org.endless.ddd.simplified.starter.common.exception.utils.id.snowflake.SnowflakeIdException;
+import org.endless.ddd.simplified.starter.common.exception.utils.id.SnowflakeIdException;
 import org.endless.ddd.simplified.starter.common.utils.time.TimeStamp;
 
 import java.net.InetAddress;
@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  * update 2024/10/30 10:23
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class SnowflakeIdGenerator {
 
@@ -65,12 +65,12 @@ public class SnowflakeIdGenerator {
         try {
             hostName = InetAddress.getLocalHost().getHostName();
         } catch (UnknownHostException e) {
-            throw new SnowflakeIdException("获取主机名失败: " + e);
+            throw new SnowflakeIdException("获取主机名失败: " + e.getMessage(), e);
         }
         String[] parts = hostName.split("-");
 
         if (parts.length < 2) {
-            throw new SnowflakeIdException("错误的主机名格式：" + hostName + " 请修改主机名格式为: DataCenterXXXX-ServerXXXX，数据中心和服务器名称可修改");
+            throw new SnowflakeIdException("错误的主机名格式: " + hostName + " 请修改主机名格式为: DataCenterXXXX-ServerXXXX，数据中心和服务器名称可修改");
         }
 
         this.dataCenterId = parseIdFromPart(parts[0]);

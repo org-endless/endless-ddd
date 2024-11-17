@@ -16,7 +16,7 @@ import org.endless.ddd.simplified.starter.common.model.infrastructure.data.recor
  * @author Deng Haozhi
  * @see QueryRepository
  * @see DataManager
- * @since 2.0.0
+ * @since 1.0.0
  */
 public interface EntityDataManager<R extends DataRecord<E>, E extends Entity>
         extends QueryRepository<E>, DataManager<R> {
