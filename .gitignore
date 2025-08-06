@@ -1,0 +1,31 @@
+### Build Tools ####
+.ddd
+.gradle
+/build/
+build/*
+!gradle/wrapper/gradle-wrapper.jar
+target/
+endless-ddd-generator.jar
+!.mvn/wrapper/maven-wrapper.jar
+ci/*/lib/*.jar
+### IDE ###
+.history/
+.DS_Store
+.vscode
+.idea
+*.iws
+*.iml
+*.ipr
+logs/*
+### Others ###
+dist/
+*.log
+*.xml.versionsBackup
+*.swp
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+*.db

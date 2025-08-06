@@ -1,0 +1,26 @@
+[package]
+name = "endless-ddd-generator-ui"
+version = "1.0.0"
+edition = "2021"
+authors = ["Deng Haozhi"]
+description = "Tauri UI for Endless DDD Generator"
+license = "Apache-2.0"
+build = "build.rs"
+
+[[bin]]
+name = "endless-ddd-generator-ui"
+path = "src-tauri/main.rs"  # 明确告诉 Cargo 用哪个文件作为 main
+
+[dependencies]
+tauri = { version = "2.7.0", features = ["config-json5"] }
+tokio = { version = "1.47.1", features = ["full", "signal"] }
+anyhow = "1.0.98"
+reqwest = { version = "0.12.22", features = ["json", "rustls-tls"] }
+ureq = "3.0.12"
+chrono = { version = "0.4", features = ["serde"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+ctrlc = "3.4"
+
+[build-dependencies]
+tauri-build = { version = "2.3.1", features = [] }

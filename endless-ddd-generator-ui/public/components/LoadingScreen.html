@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EndlessDDD - 正在启动</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/bootstrap-icons.css" rel="stylesheet" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .loading-container {
+        text-align: center;
+        color: white;
+        max-width: 500px;
+        padding: 2rem;
+      }
+
+      .loading-logo {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 2rem;
+        animation: pulse 2s infinite;
+      }
+
+      .loading-title {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .loading-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+      }
+
+      .loading-progress {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        height: 8px;
+        margin-bottom: 1rem;
+        overflow: hidden;
+      }
+
+      .loading-progress-bar {
+        background: linear-gradient(90deg, #4ade80, #22c55e);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.3s ease;
+        animation: progress-animation 2s infinite;
+      }
+
+      .loading-status {
+        font-size: 0.9rem;
+        opacity: 0.8;
+        margin-bottom: 1rem;
+      }
+
+      .loading-steps {
+        text-align: left;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 1rem;
+        margin-top: 1rem;
+      }
+
+      .loading-step {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      .loading-step-icon {
+        margin-right: 0.5rem;
+        width: 16px;
+        text-align: center;
+      }
+
+      .loading-step.completed .loading-step-icon {
+        color: #4ade80;
+      }
+
+      .loading-step.pending .loading-step-icon {
+        color: #6b7280;
+      }
+
+      .loading-step.active .loading-step-icon {
+        color: #fbbf24;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      @keyframes progress-animation {
+        0% {
+          width: 0%;
+        }
+        50% {
+          width: 70%;
+        }
+        100% {
+          width: 100%;
+        }
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .error-container {
+        display: none;
+        background: rgba(239, 68, 68, 0.9);
+        border-radius: 10px;
+        padding: 1rem;
+        margin-top: 1rem;
+      }
+
+      .retry-button {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .retry-button:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loading-container">
+      <img
+        src="../image/endless-favicon-16.svg"
+        alt="EndlessDDD"
+        class="loading-logo" />
+      <h1 class="loading-title">EndlessDDD</h1>
+      <p class="loading-subtitle">正在启动 Spring Boot 服务...</p>
+
+      <div class="loading-progress">
+        <div class="loading-progress-bar" id="progressBar"></div>
+      </div>
+
+      <div class="loading-status" id="statusText">正在初始化...</div>
+
+      <div class="loading-steps">
+        <div class="loading-step pending" id="step1">
+          <div class="loading-step-icon">⏳</div>
+          <div>检查环境配置</div>
+        </div>
+        <div class="loading-step pending" id="step2">
+          <div class="loading-step-icon">⏳</div>
+          <div>启动 Spring Boot 服务</div>
+        </div>
+        <div class="loading-step pending" id="step3">
+          <div class="loading-step-icon">⏳</div>
+          <div>等待服务就绪</div>
+        </div>
+        <div class="loading-step pending" id="step4">
+          <div class="loading-step-icon">⏳</div>
+          <div>加载应用界面</div>
+        </div>
+      </div>
+
+      <div class="error-container" id="errorContainer">
+        <div id="errorMessage"></div>
+        <button class="retry-button" onclick="retryConnection()">
+          重试连接
+        </button>
+      </div>
+    </div>
+
+    <script src="../js/core/LoadingManager.js"></script>
+    <script>
+      // 页面加载完成后开始加载流程
+      document.addEventListener("DOMContentLoaded", function () {
+        if (window.loadingManager) {
+          window.loadingManager.startLoading();
+        } else {
+          console.error("LoadingManager 未加载");
+        }
+      });
+    </script>
+  </body>
+</html>

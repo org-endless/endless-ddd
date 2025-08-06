@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>EndlessDDD - 正在启动</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .loading-container {
+        text-align: center;
+        color: white;
+        max-width: 450px;
+        padding: 2rem;
+      }
+
+      .loading-logo {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 2rem;
+        animation: pulse 2s infinite;
+      }
+
+      .loading-title {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .loading-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+      }
+
+      .loading-progress {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        height: 8px;
+        margin-bottom: 1rem;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .loading-progress-bar {
+        background: linear-gradient(90deg, #4ade80, #22c55e);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+        position: relative;
+      }
+
+      .loading-progress-bar::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        animation: shimmer 2s infinite;
+      }
+
+      .loading-status {
+        font-size: 0.9rem;
+        opacity: 0.8;
+        margin-bottom: 1rem;
+        min-height: 1.2em;
+      }
+
+      .loading-steps {
+        text-align: left;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 1rem;
+        margin-top: 1rem;
+        max-height: 200px;
+        overflow-y: auto;
+      }
+
+      .loading-step {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.8rem;
+        font-size: 0.9rem;
+        padding: 0.5rem;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+      }
+
+      .loading-step-icon {
+        margin-right: 0.8rem;
+        width: 20px;
+        text-align: center;
+        font-size: 1.1rem;
+      }
+
+      .loading-step.completed {
+        background: rgba(74, 222, 128, 0.1);
+        border-left: 3px solid #4ade80;
+      }
+
+      .loading-step.completed .loading-step-icon {
+        color: #4ade80;
+      }
+
+      .loading-step.pending {
+        opacity: 0.6;
+      }
+
+      .loading-step.pending .loading-step-icon {
+        color: #6b7280;
+      }
+
+      .loading-step.active {
+        background: rgba(251, 191, 36, 0.1);
+        border-left: 3px solid #fbbf24;
+      }
+
+      .loading-step.active .loading-step-icon {
+        color: #fbbf24;
+        animation: spin 1s linear infinite;
+      }
+
+      .loading-step.error {
+        background: rgba(239, 68, 68, 0.1);
+        border-left: 3px solid #ef4444;
+      }
+
+      .loading-step.error .loading-step-icon {
+        color: #ef4444;
+      }
+
+      .step-details {
+        font-size: 0.8rem;
+        opacity: 0.7;
+        margin-top: 0.2rem;
+        margin-left: 2.8rem;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .error-container {
+        display: none;
+        background: rgba(239, 68, 68, 0.9);
+        border-radius: 10px;
+        padding: 1rem;
+        margin-top: 1rem;
+      }
+
+      .retry-button {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .retry-button:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      .loading-time {
+        font-size: 0.8rem;
+        opacity: 0.6;
+        margin-top: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loading-container">
+      <img
+        alt="EndlessDDD"
+        class="loading-logo"
+        src="image/endless-favicon-16.svg" />
+      <h1 class="loading-title">EndlessDDD</h1>
+      <p class="loading-subtitle">正在启动 Spring Boot 服务...</p>
+
+      <div class="loading-progress">
+        <div class="loading-progress-bar" id="progressBar"></div>
+      </div>
+
+      <div class="loading-status" id="statusText">正在初始化...</div>
+
+      <div class="loading-steps">
+        <div class="loading-step pending" id="step1">
+          <div class="loading-step-icon">⏳</div>
+          <div>
+            <div>检查环境配置</div>
+            <div class="step-details" id="step1-details">
+              验证Java环境、检查JAR文件
+            </div>
+          </div>
+        </div>
+        <div class="loading-step pending" id="step2">
+          <div class="loading-step-icon">⏳</div>
+          <div>
+            <div>启动 Spring Boot 进程</div>
+            <div class="step-details" id="step2-details">
+              启动Java进程，加载Spring Boot应用
+            </div>
+          </div>
+        </div>
+        <div class="loading-step pending" id="step3">
+          <div class="loading-step-icon">⏳</div>
+          <div>
+            <div>等待服务就绪</div>
+            <div class="step-details" id="step3-details">
+              健康检查，等待端口开放
+            </div>
+          </div>
+        </div>
+        <div class="loading-step pending" id="step4">
+          <div class="loading-step-icon">⏳</div>
+          <div>
+            <div>加载应用界面</div>
+            <div class="step-details" id="step4-details">
+              切换到主窗口，完成启动
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="loading-time" id="loadingTime">启动时间: 0秒</div>
+
+      <div class="error-container" id="errorContainer">
+        <div id="errorMessage"></div>
+        <button class="retry-button" onclick="retryConnection()">
+          重试连接
+        </button>
+      </div>
+    </div>
+
+    <script>
+      let currentStep = 0;
+      let retryCount = 0;
+      const maxRetries = 3;
+      let startTime = Date.now();
+      let loadingCompleted = false;
+      let tauriEventsReceived = false;
+
+      const steps = [
+        {
+          id: "step1",
+          text: "检查环境配置",
+          details: "验证Java环境、检查JAR文件",
+          progress: 10,
+        },
+        {
+          id: "step2",
+          text: "启动 Spring Boot 进程",
+          details: "启动Java进程，加载Spring Boot应用",
+          progress: 30,
+        },
+        {
+          id: "step3",
+          text: "等待服务就绪",
+          details: "健康检查，等待端口开放",
+          progress: 60,
+        },
+        {
+          id: "step4",
+          text: "加载应用界面",
+          details: "切换到主窗口，完成启动",
+          progress: 90,
+        },
+      ];
+
+      function updateStep(stepIndex, status = "active") {
+        // 重置所有步骤状态
+        steps.forEach((step, index) => {
+          const stepElement = document.getElementById(step.id);
+          if (index < stepIndex) {
+            stepElement.className = "loading-step completed";
+            stepElement.querySelector(".loading-step-icon").textContent = "✅";
+          } else if (index === stepIndex) {
+            stepElement.className = `loading-step ${status}`;
+            stepElement.querySelector(".loading-step-icon").textContent =
+              status === "error" ? "❌" : "🔄";
+          } else {
+            stepElement.className = "loading-step pending";
+            stepElement.querySelector(".loading-step-icon").textContent = "⏳";
+          }
+        });
+
+        if (stepIndex < steps.length) {
+          document.getElementById("statusText").textContent =
+            steps[stepIndex].text;
+          document.getElementById(
+            `${steps[stepIndex].id}-details`,
+          ).textContent = steps[stepIndex].details;
+        }
+      }
+
+      function updateProgress(percentage) {
+        document.getElementById("progressBar").style.width = percentage + "%";
+      }
+
+      function updateLoadingTime() {
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        document.getElementById(
+          "loadingTime",
+        ).textContent = `启动时间: ${elapsed}秒`;
+      }
+
+      function showError(message) {
+        document.getElementById("errorMessage").textContent = message;
+        document.getElementById("errorContainer").style.display = "block";
+        document.getElementById("statusText").textContent = "启动失败";
+        updateStep(currentStep, "error");
+      }
+
+      function hideError() {
+        document.getElementById("errorContainer").style.display = "none";
+      }
+
+      async function checkSpringBootStatus() {
+        try {
+          const response = await fetch("/actuator/health", {
+            method: "GET",
+            headers: {
+              "Cache-Control": "no-cache",
+            },
+          });
+          return response.ok;
+        } catch (error) {
+          console.log("Spring Boot 服务检查失败:", error.message);
+          return false;
+        }
+      }
+
+      async function waitForSpringBoot() {
+        const maxAttempts = 60;
+        let attempts = 0;
+
+        while (attempts < maxAttempts) {
+          if (await checkSpringBootStatus()) {
+            return true;
+          }
+          attempts++;
+          await new Promise((resolve) => setTimeout(resolve, 500));
+        }
+        return false;
+      }
+
+      async function retryConnection() {
+        hideError();
+        retryCount++;
+
+        if (retryCount > maxRetries) {
+          showError("连接失败次数过多，请检查 Spring Boot 服务是否正常运行。");
+          return;
+        }
+
+        document.getElementById(
+          "statusText",
+        ).textContent = `重试连接 (${retryCount}/${maxRetries})...`;
+
+        if (await waitForSpringBoot()) {
+          completeLoading();
+        } else {
+          showError("无法连接到 Spring Boot 服务，请检查服务状态。");
+        }
+      }
+
+      function completeLoading() {
+        if (loadingCompleted) return;
+
+        loadingCompleted = true;
+        updateStep(3);
+        updateProgress(100);
+        document.getElementById("statusText").textContent = "启动完成！";
+
+        setTimeout(() => {
+          window.location.href = "../index.html";
+        }, 1000);
+      }
+
+      function setupTauriEventListeners() {
+        if (!window.__TAURI__) {
+          console.log("⚠️ 未检测到Tauri，使用传统方式等待");
+          return false;
+        }
+
+        console.log("📡 设置Tauri事件监听器...");
+
+        // 监听Spring Boot启动开始事件
+        window.__TAURI__.event.listen("spring-boot-starting", (event) => {
+          console.log("🚀 Spring Boot开始启动:", event.payload);
+          tauriEventsReceived = true;
+          currentStep = 1;
+          updateStep(currentStep);
+          updateProgress(steps[currentStep].progress);
+          document.getElementById("step1-details").textContent = event.payload;
+        });
+
+        // 监听Spring Boot进程启动事件
+        window.__TAURI__.event.listen("spring-boot-started", (event) => {
+          console.log("📦 Spring Boot进程已启动:", event.payload);
+          tauriEventsReceived = true;
+          currentStep = 2;
+          updateStep(currentStep);
+          updateProgress(steps[currentStep].progress);
+          document.getElementById("step2-details").textContent = event.payload;
+        });
+
+        // 监听健康检查事件
+        window.__TAURI__.event.listen("spring-boot-health-check", (event) => {
+          console.log("🔍 健康检查:", event.payload);
+          document.getElementById("step3-details").textContent = event.payload;
+        });
+
+        // 监听健康检查进度事件
+        window.__TAURI__.event.listen(
+          "spring-boot-health-progress",
+          (event) => {
+            console.log("⏳ 健康检查进度:", event.payload);
+            document.getElementById("step3-details").textContent =
+              event.payload;
+            // 更新进度条显示等待状态
+            updateProgress(60 + (currentStep === 2 ? 10 : 0));
+          },
+        );
+
+        // 监听健康检查成功事件
+        window.__TAURI__.event.listen("spring-boot-health-success", (event) => {
+          console.log("✅ 健康检查成功:", event.payload);
+          document.getElementById("step3-details").textContent = event.payload;
+        });
+
+        // 监听Spring Boot服务就绪事件
+        window.__TAURI__.event.listen("spring-boot-ready", (event) => {
+          console.log("✅ Spring Boot服务已就绪:", event.payload);
+          tauriEventsReceived = true;
+          if (!loadingCompleted) {
+            currentStep = 3;
+            updateStep(currentStep);
+            updateProgress(steps[currentStep].progress);
+            document.getElementById("step3-details").textContent =
+              "健康检查通过，服务已就绪";
+            console.log("🎉 收到ready事件，准备跳转...");
+            completeLoading();
+          }
+        });
+
+        // 监听窗口切换事件
+        window.__TAURI__.event.listen("spring-boot-switching", (event) => {
+          console.log("🔄 窗口切换:", event.payload);
+          document.getElementById("step4-details").textContent = event.payload;
+        });
+
+        // 监听Spring Boot启动错误事件
+        window.__TAURI__.event.listen("spring-boot-error", (event) => {
+          console.error("❌ Spring Boot启动失败:", event.payload);
+          tauriEventsReceived = true;
+          if (!loadingCompleted) {
+            loadingCompleted = true;
+            updateStep(currentStep, "error");
+            showError(event.payload);
+          }
+        });
+
+        return true;
+      }
+
+      async function startLoading() {
+        try {
+          console.log("🚀 开始加载流程...");
+          startTime = Date.now();
+
+          // 启动时间更新定时器
+          const timeInterval = setInterval(() => {
+            if (!loadingCompleted) {
+              updateLoadingTime();
+            } else {
+              clearInterval(timeInterval);
+            }
+          }, 1000);
+
+          // 步骤1: 检查环境配置
+          currentStep = 0;
+          updateStep(currentStep);
+          updateProgress(steps[currentStep].progress);
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+
+          // 设置Tauri事件监听器
+          const tauriAvailable = setupTauriEventListeners();
+
+          if (tauriAvailable) {
+            // 使用Tauri事件驱动的方式
+            console.log("🔍 等待Tauri事件...");
+
+            // 同时进行健康检查作为备用方案
+            let healthCheckAttempts = 0;
+            const maxHealthCheckAttempts = 60; // 30秒
+            let healthCheckCompleted = false;
+
+            const healthCheckInterval = setInterval(async () => {
+              if (loadingCompleted) {
+                console.log("🛑 加载已完成，停止健康检查");
+                clearInterval(healthCheckInterval);
+                return;
+              }
+
+              healthCheckAttempts++;
+              console.log(
+                `🔍 健康检查尝试 ${healthCheckAttempts}/${maxHealthCheckAttempts}`,
+              );
+
+              if (await checkSpringBootStatus()) {
+                console.log("✅ 健康检查成功，服务已就绪");
+                clearInterval(healthCheckInterval);
+                healthCheckCompleted = true;
+
+                if (!loadingCompleted && !tauriEventsReceived) {
+                  // 如果Tauri事件没有触发，但健康检查成功，直接完成
+                  console.log("🎉 健康检查成功，准备跳转...");
+                  currentStep = 3;
+                  updateStep(currentStep);
+                  updateProgress(steps[currentStep].progress);
+                  completeLoading();
+                }
+              } else if (healthCheckAttempts >= maxHealthCheckAttempts) {
+                console.log("⏰ 健康检查超时，但继续等待Tauri事件");
+                clearInterval(healthCheckInterval);
+              }
+            }, 500);
+
+            // 设置一个最终超时，如果60秒后还没有跳转，强制跳转
+            setTimeout(() => {
+              if (!loadingCompleted) {
+                console.log("⏰ 最终超时，强制跳转到主界面");
+                loadingCompleted = true;
+                completeLoading();
+              }
+            }, 60000);
+          } else {
+            // 传统方式：模拟步骤进度
+            console.log("📋 使用传统加载方式...");
+
+            for (let i = 1; i < steps.length; i++) {
+              currentStep = i;
+              updateStep(currentStep);
+              updateProgress(steps[currentStep].progress);
+
+              if (i === 2) {
+                // 等待Spring Boot服务就绪
+                if (await waitForSpringBoot()) {
+                  document.getElementById("step3-details").textContent =
+                    "健康检查通过，服务已就绪";
+                } else {
+                  showError("Spring Boot 服务启动超时，请检查服务状态。");
+                  return;
+                }
+              }
+
+              await new Promise((resolve) => setTimeout(resolve, 1000));
+            }
+
+            completeLoading();
+          }
+        } catch (error) {
+          console.error("加载过程出错:", error);
+          showError("启动过程中发生错误: " + error.message);
+        }
+      }
+
+      // 页面加载完成后立即开始加载流程
+      document.addEventListener("DOMContentLoaded", startLoading);
+    </script>
+  </body>
+</html>

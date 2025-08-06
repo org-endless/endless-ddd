@@ -1,0 +1,66 @@
+{
+  productName: "EndlessDDD Generator",
+  version: "1.0.0",
+  identifier: "org.endless.ddd.generator",
+  build: {
+    beforeBuildCommand: "",
+    beforeDevCommand: "",
+    frontendDist: "public",
+  },
+  bundle: {
+    active: true,
+    icon: [
+      "public/favicon.ico"
+    ],
+    resources: [
+      "lib",
+      "config",
+      "public",
+      "data"
+    ],
+    targets: [
+      "msi",
+      "deb",
+      "dmg"
+    ],
+    windows: {
+      certificateThumbprint: null,
+      digestAlgorithm: "sha256",
+      timestampUrl: "",
+      wix: {
+        language: [
+          "zh-CN"
+        ],
+        template: "public/installer.html",
+        componentRefs: [
+          "MyApp"
+        ],
+      },
+    },
+  },
+  app: {
+    windows: [
+      {
+        label: "splash",
+        title: "EndlessDDD Generator - 启动中",
+        width: 400,
+        height: 300,
+        visible: false,
+        decorations: false,
+        transparent: true,
+        center: true,
+        url: "splash/splash.html",
+        alwaysOnTop: true,
+      },
+      {
+        label: "main",
+        title: "EndlessDDD Generator",
+        width: 1024,
+        height: 768,
+        center: true,
+        url: "index.html",
+        visible: false,
+      },
+    ],
+  },
+}

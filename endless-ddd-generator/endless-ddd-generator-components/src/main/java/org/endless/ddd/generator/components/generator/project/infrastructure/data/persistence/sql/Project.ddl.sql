@@ -1,0 +1,25 @@
+DROP TABLE IF EXISTS generator_project;
+CREATE TABLE generator_project
+(
+    project_id            VARCHAR(255) NOT NULL PRIMARY KEY, -- '项目ID'
+    project_artifact_id   VARCHAR(255) NOT NULL,             -- '项目构件ID'
+    group_id              VARCHAR(255) NOT NULL,             -- '项目组织ID'
+    name                  VARCHAR(255) NOT NULL,             -- '项目名称'
+    description           VARCHAR(255) NOT NULL,             -- '项目描述'
+    version               VARCHAR(255) NOT NULL,             -- '项目版本号'
+    author                VARCHAR(255) NOT NULL,             -- '项目作者'
+    root_path             VARCHAR(255) NOT NULL,             -- '项目根路径'
+    base_package          VARCHAR(255) NOT NULL,             -- '项目基础包名'
+    enable_spring_doc     BOOLEAN      NOT NULL,             -- '是否启用Spring Doc'
+    java_version          VARCHAR(255) NOT NULL,             -- '项目Java版本'
+    logging_framework     VARCHAR(255) NOT NULL,             -- '项目日志框架'
+    persistence_framework VARCHAR(255) NOT NULL,             -- '项目持久化框架'
+    database_type         VARCHAR(255) NOT NULL,             -- '项目数据库类型'
+    create_at             BIGINT       NOT NULL,             -- '项目创建时间'
+    modify_at             BIGINT       NOT NULL,             -- '项目修改时间'
+    create_user_id        VARCHAR(255) NOT NULL,             -- '创建者ID'
+    modify_user_id        VARCHAR(255) NOT NULL,             -- '修改者ID'
+    is_removed            BOOLEAN      NOT NULL,             -- '是否已删除'
+    remove_at             BIGINT       NULL DEFAULT 0,       -- '删除时间'
+    UNIQUE (project_artifact_id, remove_at)
+);

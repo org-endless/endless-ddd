@@ -1,0 +1,46 @@
+package org.endless.ddd.generator.components.generator.project.application.query.handler.impl;
+
+import org.endless.ddd.generator.components.generator.project.application.query.anticorruption.ProjectQueryRepository;
+import org.endless.ddd.generator.components.generator.project.application.query.handler.ProjectQueryHandler;
+import org.endless.ddd.generator.components.generator.project.application.query.transfer.ProjectFindByIdsReqQTransfer;
+import org.endless.ddd.generator.components.generator.project.application.query.transfer.ProjectFindSimpleProfilesRespQTransfer;
+import org.endless.ddd.starter.common.config.log.annotation.Log;
+import org.endless.ddd.starter.common.config.log.type.LogLevel;
+import org.endless.ddd.starter.common.exception.model.application.query.transfer.QueryReqTransferNullException;
+
+import java.util.Optional;
+
+/**
+ * ProjectQueryHandlerImpl
+ * <p>项目领域查询处理器
+ * <p>
+ * create 2025/07/29 16:16
+ * <p>
+ * update 2025/07/29 16:16
+ *
+ * @author Deng Haozhi
+ * @see ProjectQueryHandler
+ * @since 0.0.1
+ */
+public class ProjectQueryHandlerImpl implements ProjectQueryHandler {
+
+    /**
+     * 项目查询仓储接口
+     */
+    private final ProjectQueryRepository projectQueryRepository;
+
+    public ProjectQueryHandlerImpl(ProjectQueryRepository projectQueryRepository) {
+        this.projectQueryRepository = projectQueryRepository;
+    }
+
+    @Override
+    @Log(message = "根据ID列表查询项目基本信息列表", value = "#query", level = LogLevel.TRACE)
+    public ProjectFindSimpleProfilesRespQTransfer findSimpleProfilesByIds(ProjectFindByIdsReqQTransfer query) {
+        Optional.ofNullable(query)
+                .map(ProjectFindByIdsReqQTransfer::validate)
+                .orElseThrow(() -> new QueryReqTransferNullException("根据ID列表查询项目基本信息列表参数不能为空"));
+        return ProjectFindSimpleProfilesRespQTransfer.builder()
+                .simpleProfiles(projectQueryRepository.findSimpleProfilesByIds(query.projectIds()))
+                .build().validate();
+    }
+}
