@@ -22,4 +22,4 @@ CREATE TABLE generator_project
     is_removed            BOOLEAN      NOT NULL,             -- '是否已删除'
     remove_at             BIGINT       NULL DEFAULT 0,       -- '删除时间'
     UNIQUE (project_artifact_id, remove_at)
-);
+); -- '项目表'

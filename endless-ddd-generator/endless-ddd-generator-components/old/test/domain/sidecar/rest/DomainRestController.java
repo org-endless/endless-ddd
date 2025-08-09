@@ -5,9 +5,9 @@ import org.endless.ddd.generator.common.model.sidecar.rest.DDDGeneratorRestContr
 import org.endless.ddd.generator.components.generator.domain.application.command.transfer.DomainCreateReqCTransfer;
 import org.endless.ddd.generator.components.generator.domain.facade.adapter.DomainDrivingAdapter;
 import org.endless.ddd.starter.common.config.log.annotation.Log;
-import org.endless.ddd.starter.common.exception.model.application.command.transfer.CommandReqTransferNullException;
-import org.endless.ddd.starter.common.exception.model.sidecar.rest.RestErrorException;
-import org.endless.ddd.starter.common.model.sidecar.rest.RestResponse;
+import org.endless.ddd.starter.common.exception.ddd.application.command.transfer.CommandReqTransferNullException;
+import org.endless.ddd.starter.common.exception.ddd.sidecar.rest.RestErrorException;
+import org.endless.ddd.starter.common.ddd.sidecar.rest.RestResponse;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +28,7 @@ import java.util.Optional;
  *
  * @author Deng Haozhi
  * @see DDDGeneratorRestController
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Lazy
 @RestController

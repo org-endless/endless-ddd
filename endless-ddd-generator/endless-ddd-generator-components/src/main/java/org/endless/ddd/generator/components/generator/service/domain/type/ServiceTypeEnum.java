@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 import org.endless.ddd.generator.common.model.domain.type.DDDGeneratorEnum;
-import org.endless.ddd.starter.common.exception.model.domain.type.EnumException;
+import org.endless.ddd.starter.common.exception.ddd.domain.type.EnumException;
 
 /**
  * ServiceTypeEnum
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.model.domain.type.EnumException;
  *
  * @author Deng Haozhi
  * @see DDDGeneratorEnum
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Getter
 @AllArgsConstructor

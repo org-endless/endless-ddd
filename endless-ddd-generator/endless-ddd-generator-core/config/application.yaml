@@ -1,7 +1,12 @@
 endless:
-  version: 1.0.0-SNAPSHOT
   charset: UTF-8
-  springdoc-path: /springdoc
+  date-pattern: yyyy-MM-dd
+  date-time-pattern: yyyy-MM-dd HH:mm:ss:SSS
+  data-center-id: 1
+  worker-id: 1
+  sidecar:
+    host: localhost
+    prot: 60005
 #------------------------Server-------------------------
 server:
   port: ${server-port} # 服务端口

@@ -2,11 +2,14 @@ package org.endless.ddd.generator.components.generator.project.application.query
 
 import org.endless.ddd.generator.components.generator.project.application.query.anticorruption.ProjectQueryRepository;
 import org.endless.ddd.generator.components.generator.project.application.query.handler.ProjectQueryHandler;
+import org.endless.ddd.generator.components.generator.project.application.query.transfer.ProjectFindByIdReqQTransfer;
 import org.endless.ddd.generator.components.generator.project.application.query.transfer.ProjectFindByIdsReqQTransfer;
 import org.endless.ddd.generator.components.generator.project.application.query.transfer.ProjectFindSimpleProfilesRespQTransfer;
-import org.endless.ddd.starter.common.config.log.annotation.Log;
-import org.endless.ddd.starter.common.config.log.type.LogLevel;
-import org.endless.ddd.starter.common.exception.model.application.query.transfer.QueryReqTransferNullException;
+import org.endless.ddd.starter.common.annotation.log.Log;
+import org.endless.ddd.starter.common.config.aspect.log.type.LogLevel;
+import org.endless.ddd.starter.common.exception.ddd.application.query.handler.QueryHandlerNotFoundException;
+import org.endless.ddd.starter.common.exception.ddd.application.query.transfer.QueryReqTransferNullException;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
@@ -20,8 +23,9 @@ import java.util.Optional;
  *
  * @author Deng Haozhi
  * @see ProjectQueryHandler
- * @since 0.0.1
+ * @since 1.0.0
  */
+@Service
 public class ProjectQueryHandlerImpl implements ProjectQueryHandler {
 
     /**
@@ -42,5 +46,16 @@ public class ProjectQueryHandlerImpl implements ProjectQueryHandler {
         return ProjectFindSimpleProfilesRespQTransfer.builder()
                 .simpleProfiles(projectQueryRepository.findSimpleProfilesByIds(query.projectIds()))
                 .build().validate();
+    }
+
+    @Override
+    @Log(message = "根据ID查询项目是否存在", value = "#query", level = LogLevel.TRACE)
+    public void existsById(ProjectFindByIdReqQTransfer query) {
+        Optional.ofNullable(query)
+                .map(ProjectFindByIdReqQTransfer::validate)
+                .orElseThrow(() -> new QueryReqTransferNullException("根据ID查询项目是否存在参数不能为空"));
+        if (!projectQueryRepository.existsById(query.projectId())) {
+            throw new QueryHandlerNotFoundException("根据ID查询项目不存在");
+        }
     }
 }

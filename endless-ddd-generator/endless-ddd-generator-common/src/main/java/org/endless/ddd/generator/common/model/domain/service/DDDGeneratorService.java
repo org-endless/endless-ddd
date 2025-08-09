@@ -1,7 +1,7 @@
 package org.endless.ddd.generator.common.model.domain.service;
 
 import org.endless.ddd.generator.common.model.domain.entity.DDDGeneratorAggregate;
-import org.endless.ddd.starter.common.model.domain.service.Service;
+import org.endless.ddd.starter.common.ddd.domain.service.Service;
 
 /**
  * DDDGeneratorService

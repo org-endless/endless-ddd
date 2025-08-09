@@ -28,7 +28,7 @@
         </RollingRandomAccessFile>
     </Appenders>
     <Loggers>
-        <Logger name="org.endless.ddd.starter.common.config.log.aspect.LogAspect"
+        <Logger name="org.endless.ddd.starter.common.config.aspect.aspect.log.LogAspect"
                 level="ERROR"
                 additivity="false">
             <AppenderRef ref="Console_aspect"/>

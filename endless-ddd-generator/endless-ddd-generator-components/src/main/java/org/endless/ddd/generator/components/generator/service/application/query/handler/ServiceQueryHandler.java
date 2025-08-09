@@ -1,5 +1,7 @@
 package org.endless.ddd.generator.components.generator.service.application.query.handler;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.endless.ddd.generator.common.model.application.query.handler.DDDGeneratorQueryHandler;
 import org.endless.ddd.generator.components.generator.service.application.query.transfer.ServiceFindByProjectIdReqQTransfer;
 import org.endless.ddd.generator.components.generator.service.application.query.transfer.ServiceFindSimpleProfilesRespQTransfer;
@@ -15,10 +17,12 @@ import org.endless.ddd.generator.components.generator.service.application.query.
  *
  * @author Deng Haozhi
  * @see DDDGeneratorQueryHandler
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface ServiceQueryHandler extends DDDGeneratorQueryHandler {
 
-    ServiceFindSimpleProfilesRespQTransfer findSimpleProfilesByProjectId(ServiceFindByProjectIdReqQTransfer query);
-
+    ServiceFindSimpleProfilesRespQTransfer findSimpleProfilesByProjectId(
+            @NotNull(message = "根据项目ID查询项目基本信息列表请求对象不能为空")
+            @Valid ServiceFindByProjectIdReqQTransfer query
+    );
 }

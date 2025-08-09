@@ -100,26 +100,26 @@ public class ValidateTemplate {
 
     private static void appendBigDecimalValidation(StringBuilder stringBuilder, String className, String fieldName, String fieldDescription) {
         if (fieldName.endsWith("Amount") || fieldName.equals("amount")) {
-            stringBuilder.append("        Decimal.validateAmount(").append(fieldName).append(");\n");
+            stringBuilder.append("        DecimalTools.validateAmount(").append(fieldName).append(");\n");
         }
         if (fieldName.endsWith("Rate") || fieldName.equals("rate")) {
-            stringBuilder.append("        Decimal.validateRate(").append(fieldName).append(");\n");
+            stringBuilder.append("        DecimalTools.validateRate(").append(fieldName).append(");\n");
         }
         if (fieldName.endsWith("Percentage") || fieldName.equals("percentage")) {
-            stringBuilder.append("        Decimal.validatePercentage(").append(fieldName).append(");\n");
+            stringBuilder.append("        DecimalTools.validatePercentage(").append(fieldName).append(");\n");
         }
     }
 
     private static void appendBigDecimalNullableValidation(StringBuilder stringBuilder, String className, String fieldName, String fieldDescription) {
         stringBuilder.append("        if (").append(fieldName).append(" != null) {\n");
         if (fieldName.endsWith("Amount") || fieldName.equals("amount")) {
-            stringBuilder.append("            Decimal.validateAmount(").append(fieldName).append(");\n");
+            stringBuilder.append("            DecimalTools.validateAmount(").append(fieldName).append(");\n");
         }
         if (fieldName.endsWith("Rate") || fieldName.equals("rate")) {
-            stringBuilder.append("            Decimal.validateRate(").append(fieldName).append(");\n");
+            stringBuilder.append("            DecimalTools.validateRate(").append(fieldName).append(");\n");
         }
         if (fieldName.endsWith("Percentage") || fieldName.equals("percentage")) {
-            stringBuilder.append("            Decimal.validatePercentage(").append(fieldName).append(");\n");
+            stringBuilder.append("            DecimalTools.validatePercentage(").append(fieldName).append(");\n");
         }
         stringBuilder.append("        }\n");
     }

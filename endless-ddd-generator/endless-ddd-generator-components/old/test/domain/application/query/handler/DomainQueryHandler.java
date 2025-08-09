@@ -13,7 +13,7 @@ import org.endless.ddd.generator.common.model.application.query.handler.DDDGener
  *
  * @author Deng Haozhi
  * @see DDDGeneratorQueryHandler
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface DomainQueryHandler extends DDDGeneratorQueryHandler {
 

@@ -7,9 +7,9 @@ import org.endless.ddd.generator.components.generator.project.domain.anticorrupt
 import org.endless.ddd.generator.components.generator.project.domain.entity.ProjectAggregate;
 import org.endless.ddd.generator.components.generator.project.infrastructure.data.persistence.mapper.ProjectMapper;
 import org.endless.ddd.generator.components.generator.project.infrastructure.data.record.ProjectRecord;
-import org.endless.ddd.starter.common.config.log.annotation.Log;
-import org.endless.ddd.starter.common.config.log.type.LogLevel;
-import org.endless.ddd.starter.common.exception.model.infrastructure.data.manager.DataManagerRequestNullException;
+import org.endless.ddd.starter.common.annotation.log.Log;
+import org.endless.ddd.starter.common.config.aspect.log.type.LogLevel;
+import org.endless.ddd.starter.common.exception.ddd.infrastructure.data.manager.DataManagerRequestNullException;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -29,7 +29,7 @@ import java.util.Optional;
  * @see ProjectRepository
  * @see ProjectQueryRepository
  * @see DDDGeneratorAggregateDataManager
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Lazy
 @Component
@@ -95,5 +95,14 @@ public class ProjectDataManager implements ProjectRepository, ProjectQueryReposi
                         .name(record.getName())
                         .build().validate())
                 .toList();
+    }
+
+    @Override
+    @Log(message = "根据ID列表查询项目基本信息列表数据", value = "#projectId", level = LogLevel.TRACE)
+    public Boolean existsById(String projectId) {
+        Optional.ofNullable(projectId)
+                .filter(StringUtils::hasText)
+                .orElseThrow(() -> new DataManagerRequestNullException("项目聚合ID不能为空"));
+        return projectMapper.existsById(projectId);
     }
 }

@@ -1,6 +1,6 @@
 package org.endless.ddd.generator.common.model.domain.type;
 
-import org.endless.ddd.starter.common.model.domain.type.BaseEnum;
+import org.endless.ddd.starter.common.ddd.domain.type.BaseEnum;
 
 /**
  * DDDGeneratorEnum

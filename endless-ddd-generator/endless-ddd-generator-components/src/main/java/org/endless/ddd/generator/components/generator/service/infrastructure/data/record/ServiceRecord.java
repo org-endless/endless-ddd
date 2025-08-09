@@ -6,7 +6,7 @@ import lombok.*;
 import org.endless.ddd.generator.common.model.infrastructure.data.record.DDDGeneratorRecord;
 import org.endless.ddd.generator.components.generator.service.domain.entity.ServiceAggregate;
 import org.endless.ddd.generator.components.generator.service.domain.type.ServiceTypeEnum;
-import org.endless.ddd.starter.common.exception.model.infrastructure.data.record.DataRecordValidateException;
+import org.endless.ddd.starter.common.exception.ddd.infrastructure.data.record.DataRecordValidateException;
 import org.springframework.util.StringUtils;
 
 /**
@@ -19,7 +19,7 @@ import org.springframework.util.StringUtils;
  *
  * @author Deng Haozhi
  * @see DDDGeneratorRecord
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Getter
 @ToString
@@ -44,11 +44,6 @@ public class ServiceRecord implements DDDGeneratorRecord<ServiceAggregate> {
      * 服务构件ID
      */
     private String serviceArtifactId;
-
-    /**
-     * 服务组织ID
-     */
-    private String groupId;
 
     /**
      * 服务名称
@@ -126,7 +121,6 @@ public class ServiceRecord implements DDDGeneratorRecord<ServiceAggregate> {
                 .serviceId(serviceId)
                 .projectId(aggregate.getProjectId())
                 .serviceArtifactId(aggregate.getServiceArtifactId())
-                .groupId(aggregate.getGroupId())
                 .name(aggregate.getName())
                 .description(aggregate.getDescription())
                 .author(aggregate.getAuthor())
@@ -135,6 +129,8 @@ public class ServiceRecord implements DDDGeneratorRecord<ServiceAggregate> {
                 .classNamePrefix(aggregate.getClassNamePrefix())
                 .type(aggregate.getType())
                 .port(aggregate.getPort())
+                .createAt(aggregate.getCreateAt())
+                .modifyAt(aggregate.getModifyAt())
                 .createUserId(aggregate.getCreateUserId())
                 .modifyUserId(aggregate.getModifyUserId())
                 .isRemoved(aggregate.getIsRemoved())
@@ -148,7 +144,6 @@ public class ServiceRecord implements DDDGeneratorRecord<ServiceAggregate> {
                 .serviceId(serviceId)
                 .projectId(projectId)
                 .serviceArtifactId(serviceArtifactId)
-                .groupId(groupId)
                 .name(name)
                 .description(description)
                 .author(author)
@@ -157,6 +152,8 @@ public class ServiceRecord implements DDDGeneratorRecord<ServiceAggregate> {
                 .classNamePrefix(classNamePrefix)
                 .type(type)
                 .port(port)
+                .createAt(createAt)
+                .modifyAt(modifyAt)
                 .createUserId(createUserId)
                 .modifyUserId(modifyUserId)
                 .isRemoved(isRemoved)
@@ -168,7 +165,6 @@ public class ServiceRecord implements DDDGeneratorRecord<ServiceAggregate> {
         validateServiceId();
         validateProjectId();
         validateServiceArtifactId();
-        validateGroupId();
         validateName();
         validateDescription();
         validateAuthor();
@@ -200,12 +196,6 @@ public class ServiceRecord implements DDDGeneratorRecord<ServiceAggregate> {
     private void validateServiceArtifactId() {
         if (!StringUtils.hasText(serviceArtifactId)) {
             throw new DataRecordValidateException("服务构件ID不能为空");
-        }
-    }
-
-    private void validateGroupId() {
-        if (!StringUtils.hasText(groupId)) {
-            throw new DataRecordValidateException("服务组织ID不能为空");
         }
     }
 

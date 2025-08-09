@@ -1,7 +1,7 @@
 package org.endless.ddd.generator.common.model.domain.event;
 
 import org.endless.ddd.generator.common.model.domain.entity.DDDGeneratorAggregate;
-import org.endless.ddd.starter.common.model.domain.event.Event;
+import org.endless.ddd.starter.common.ddd.domain.event.Event;
 
 /**
  * DDDGeneratorEvent

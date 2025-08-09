@@ -1,6 +1,6 @@
 package org.endless.ddd.generator.common.model.domain.value;
 
-import org.endless.ddd.starter.common.model.domain.value.Value;
+import org.endless.ddd.starter.common.ddd.domain.value.Value;
 
 /**
  * DDDGeneratorValue

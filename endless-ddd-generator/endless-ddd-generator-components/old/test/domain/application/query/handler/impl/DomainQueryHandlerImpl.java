@@ -12,7 +12,7 @@ import org.endless.ddd.generator.components.generator.domain.application.query.h
  *
  * @author Deng Haozhi
  * @see DomainQueryHandler
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class DomainQueryHandlerImpl implements DomainQueryHandler {
 

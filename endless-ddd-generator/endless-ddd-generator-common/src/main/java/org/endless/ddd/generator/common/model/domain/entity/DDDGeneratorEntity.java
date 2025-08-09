@@ -1,6 +1,6 @@
 package org.endless.ddd.generator.common.model.domain.entity;
 
-import org.endless.ddd.starter.common.model.domain.entity.Entity;
+import org.endless.ddd.starter.common.ddd.domain.entity.Entity;
 
 /**
  * DDDGeneratorEntity

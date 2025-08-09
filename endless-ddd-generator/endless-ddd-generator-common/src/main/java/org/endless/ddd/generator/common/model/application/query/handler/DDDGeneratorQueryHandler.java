@@ -1,6 +1,6 @@
 package org.endless.ddd.generator.common.model.application.query.handler;
 
-import org.endless.ddd.starter.common.model.application.query.handler.QueryHandler;
+import org.endless.ddd.starter.common.ddd.application.query.handler.QueryHandler;
 
 /**
  * DDDGeneratorQueryHandler

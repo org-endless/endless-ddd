@@ -1,7 +1,7 @@
 package org.endless.ddd.generator.common.model.application.command.handler;
 
 import org.endless.ddd.generator.common.model.domain.entity.DDDGeneratorAggregate;
-import org.endless.ddd.starter.common.model.application.command.handler.CommandHandler;
+import org.endless.ddd.starter.common.ddd.application.command.handler.CommandHandler;
 
 /**
  * DDDGeneratorCommandHandler

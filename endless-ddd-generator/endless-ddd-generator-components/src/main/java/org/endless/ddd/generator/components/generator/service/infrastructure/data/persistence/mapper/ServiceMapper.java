@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author Deng Haozhi
  * @see DDDGeneratorMapper
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Lazy
 @Mapper
@@ -27,7 +27,7 @@ public interface ServiceMapper extends DDDGeneratorMapper<ServiceRecord> {
     default List<ServiceRecord> findSimpleProfilesByProjectId(String projectId) {
         QueryWrapper<ServiceRecord> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda()
-                .select(ServiceRecord::getServiceId, ServiceRecord::getName)
+                .select(ServiceRecord::getServiceId, ServiceRecord::getServiceArtifactId, ServiceRecord::getName)
                 .eq(ServiceRecord::getProjectId, projectId)
                 .orderByAsc(ServiceRecord::getServiceId);
         return findAllByWrapper(queryWrapper);

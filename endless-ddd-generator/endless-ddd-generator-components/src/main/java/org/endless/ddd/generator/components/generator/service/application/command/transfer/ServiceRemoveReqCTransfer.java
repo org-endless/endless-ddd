@@ -1,10 +1,10 @@
 package org.endless.ddd.generator.components.generator.service.application.command.transfer;
 
 import com.alibaba.fastjson2.annotation.JSONType;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import org.endless.ddd.generator.common.model.application.command.transfer.DDDGeneratorCommandTransfer;
-import org.endless.ddd.starter.common.exception.model.application.command.transfer.CommandTransferValidateException;
-import org.springframework.util.StringUtils;
+import org.endless.ddd.starter.common.annotation.validate.ddd.transfer.Transfer;
 
 /**
  * ServiceRemoveReqCTransfer
@@ -17,21 +17,17 @@ import org.springframework.util.StringUtils;
  * @param serviceId 服务ID
  * @author Deng Haozhi
  * @see DDDGeneratorCommandTransfer
- * @since 0.0.1
+ * @since 1.0.0
  */
+@Transfer
 @Builder
 @JSONType(orders = {"serviceId"})
-public record ServiceRemoveReqCTransfer(String serviceId) implements DDDGeneratorCommandTransfer {
+public record ServiceRemoveReqCTransfer(
+        @NotBlank(message = "服务ID不能为空") String serviceId
+) implements DDDGeneratorCommandTransfer {
 
     @Override
     public ServiceRemoveReqCTransfer validate() {
-        validateServiceId();
         return this;
-    }
-
-    private void validateServiceId() {
-        if (!StringUtils.hasText(serviceId)) {
-            throw new CommandTransferValidateException("服务ID不能为空");
-        }
     }
 }

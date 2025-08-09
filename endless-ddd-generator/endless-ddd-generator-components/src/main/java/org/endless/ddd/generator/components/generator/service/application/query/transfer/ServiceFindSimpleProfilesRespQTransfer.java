@@ -1,9 +1,11 @@
 package org.endless.ddd.generator.components.generator.service.application.query.transfer;
 
 import com.alibaba.fastjson2.annotation.JSONType;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import org.endless.ddd.generator.common.model.application.query.transfer.DDDGeneratorQueryTransfer;
-import org.springframework.util.CollectionUtils;
+import org.endless.ddd.starter.common.annotation.validate.ddd.transfer.Transfer;
 
 import java.util.List;
 
@@ -18,22 +20,18 @@ import java.util.List;
  * @param simpleProfiles 服务基本信息列表
  * @author Deng Haozhi
  * @see DDDGeneratorQueryTransfer
- * @since 0.0.1
+ * @since 1.0.0
  */
+@Transfer
 @Builder
 @JSONType(orders = {"simpleProfiles"})
 public record ServiceFindSimpleProfilesRespQTransfer(
-        List<ServiceFindSimpleProfileRespQTransfer> simpleProfiles) implements DDDGeneratorQueryTransfer {
+        @NotEmpty(message = "服务基本信息列表不能为空")
+        List<@Valid ServiceFindSimpleProfileRespQTransfer> simpleProfiles
+) implements DDDGeneratorQueryTransfer {
 
     @Override
     public ServiceFindSimpleProfilesRespQTransfer validate() {
-        validateSimpleProfiles();
         return this;
-    }
-
-    private void validateSimpleProfiles() {
-        if (!CollectionUtils.isEmpty(simpleProfiles)) {
-            simpleProfiles.forEach(ServiceFindSimpleProfileRespQTransfer::validate);
-        }
     }
 }

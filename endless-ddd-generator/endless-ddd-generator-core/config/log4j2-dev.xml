@@ -49,7 +49,7 @@
         <Logger name="org.springdoc" level="INFO"/>
         <Logger name="druid" level="TRACE"/>
         <Logger name="java.io.serialization" level="INFO"/>
-        <Logger name="org.endless.ddd.starter.common.config.log.aspect.LogAspect"
+        <Logger name="org.endless.ddd.starter.common.config.aspect.log.LogAspect"
                 level="TRACE"
                 additivity="false">
             <AppenderRef ref="Console_aspect"/>

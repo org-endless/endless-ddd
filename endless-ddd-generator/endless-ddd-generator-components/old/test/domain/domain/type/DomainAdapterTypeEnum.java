@@ -2,7 +2,7 @@ package org.endless.ddd.generator.components.generator.domain.domain.type;
 
 import lombok.Getter;
 import lombok.ToString;
-import org.endless.ddd.starter.common.exception.model.domain.type.EnumException;
+import org.endless.ddd.starter.common.exception.ddd.domain.type.EnumException;
 
 /**
  * DomainAdapterTypeEnum

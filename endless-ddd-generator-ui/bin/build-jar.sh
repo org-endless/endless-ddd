@@ -10,27 +10,8 @@ echo "========================================"
 echo "EndlessDDD Generator - JAR Build Script"
 echo "========================================"
 echo
-echo "Build JAR [1/3] Building JAR file..."
-echo "Using Maven wrapper to build Spring Boot application..."
-cd "../"
-
-# Detect OS and use appropriate Maven wrapper
-if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" || "$OSTYPE" == "win32" ]]; then
-    # Windows
-    if ! ./mvnw.cmd clean package -DskipTests; then
-        echo "Error: Maven build failed"
-        exit 1
-    fi
-else
-    # Unix-like systems
-    if ! ./mvnw clean package -DskipTests; then
-        echo "Error: Maven build failed"
-        exit 1
-    fi
-fi
-
 echo
-echo "Build JAR [2/3] Copying JAR file and configuration..."
+echo "Build JAR [1/2] Copying JAR file and configuration..."
 cd "endless-ddd-generator/endless-ddd-generator-core/target"
 if [ ! -f "endless-ddd-generator.jar" ]; then
     echo "Error: JAR file not generated"
@@ -72,7 +53,7 @@ if ! cp "../endless-ddd-generator/endless-ddd-generator-core/config/application-
 fi
 
 echo
-echo "[3/3] Modifying Spring Boot configuration for production..."
+echo "[2/2] Modifying Spring Boot configuration for production..."
 CONFIG_FILE="config/application.yaml"
 
 if [ -f "$CONFIG_FILE" ]; then

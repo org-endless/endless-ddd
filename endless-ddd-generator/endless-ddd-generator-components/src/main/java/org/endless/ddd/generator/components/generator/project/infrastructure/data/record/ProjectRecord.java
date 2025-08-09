@@ -9,7 +9,7 @@ import org.endless.ddd.generator.components.generator.project.domain.type.Projec
 import org.endless.ddd.generator.components.generator.project.domain.type.ProjectJavaVersionEnum;
 import org.endless.ddd.generator.components.generator.project.domain.type.ProjectLoggingFrameworkEnum;
 import org.endless.ddd.generator.components.generator.project.domain.type.ProjectPersistenceFrameworkEnum;
-import org.endless.ddd.starter.common.exception.model.infrastructure.data.record.DataRecordValidateException;
+import org.endless.ddd.starter.common.exception.ddd.infrastructure.data.record.DataRecordValidateException;
 import org.springframework.util.StringUtils;
 
 /**
@@ -23,7 +23,7 @@ import org.springframework.util.StringUtils;
  *
  * @author Deng Haozhi
  * @see DDDGeneratorRecord
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Getter
 @ToString
@@ -134,11 +134,6 @@ public class ProjectRecord implements DDDGeneratorRecord<ProjectAggregate> {
      */
     private Long removeAt;
 
-    @Override
-    public Long getRemoveAt() {
-        return removeAt;
-    }
-
     public static ProjectRecord from(ProjectAggregate aggregate) {
         String projectId = aggregate.getProjectId();
         return ProjectRecord.builder()
@@ -163,6 +158,11 @@ public class ProjectRecord implements DDDGeneratorRecord<ProjectAggregate> {
                 .isRemoved(aggregate.getIsRemoved())
                 .build()
                 .validate();
+    }
+
+    @Override
+    public Long getRemoveAt() {
+        return removeAt;
     }
 
     public ProjectAggregate to() {

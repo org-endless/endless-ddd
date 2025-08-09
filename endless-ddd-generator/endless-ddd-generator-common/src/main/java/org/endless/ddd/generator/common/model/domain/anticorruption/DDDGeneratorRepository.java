@@ -1,7 +1,7 @@
 package org.endless.ddd.generator.common.model.domain.anticorruption;
 
 import org.endless.ddd.generator.common.model.domain.entity.DDDGeneratorAggregate;
-import org.endless.ddd.starter.common.model.domain.anticorruption.Repository;
+import org.endless.ddd.starter.common.ddd.domain.anticorruption.Repository;
 
 /**
  * DDDGeneratorRepository

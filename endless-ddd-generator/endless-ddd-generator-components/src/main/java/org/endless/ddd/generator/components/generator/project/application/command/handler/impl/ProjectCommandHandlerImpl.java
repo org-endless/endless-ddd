@@ -12,10 +12,11 @@ import org.endless.ddd.generator.components.generator.project.domain.type.Projec
 import org.endless.ddd.generator.components.generator.project.domain.type.ProjectJavaVersionEnum;
 import org.endless.ddd.generator.components.generator.project.domain.type.ProjectLoggingFrameworkEnum;
 import org.endless.ddd.generator.components.generator.project.domain.type.ProjectPersistenceFrameworkEnum;
-import org.endless.ddd.starter.common.config.log.annotation.Log;
-import org.endless.ddd.starter.common.config.log.type.LogLevel;
-import org.endless.ddd.starter.common.exception.model.application.command.handler.CommandHandlerNotFoundException;
-import org.endless.ddd.starter.common.exception.model.application.command.transfer.CommandReqTransferNullException;
+import org.endless.ddd.starter.common.annotation.log.Log;
+import org.endless.ddd.starter.common.config.aspect.log.type.LogLevel;
+import org.endless.ddd.starter.common.exception.ddd.application.command.handler.CommandHandlerNotFoundException;
+import org.endless.ddd.starter.common.exception.ddd.application.command.transfer.CommandReqTransferNullException;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
@@ -30,8 +31,9 @@ import java.util.Optional;
  *
  * @author Deng Haozhi
  * @see ProjectCommandHandler
- * @since 0.0.1
+ * @since 1.0.0
  */
+@Service
 public class ProjectCommandHandlerImpl implements ProjectCommandHandler {
 
     /**

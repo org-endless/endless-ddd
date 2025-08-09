@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Primary;
  * update 2025/07/29 16:16
  *
  * @author Deng Haozhi
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Lazy
 @Configuration

@@ -1,0 +1,17 @@
+DROP TABLE IF EXISTS generator_aggregate_field;
+CREATE TABLE generator_aggregate_field (
+    aggregate_field_id VARCHAR(255) NOT NULL PRIMARY KEY, -- '聚合根字段ID'
+    domain_id          VARCHAR(255) NOT NULL,             -- '领域ID'
+    name               VARCHAR(255) NOT NULL,             -- '聚合根字段名称'
+    type               VARCHAR(255) NOT NULL,             -- '聚合根字段类型'
+    type_object_name   VARCHAR(255) NULL,                 -- '聚合根字段类型对象名称'
+    description        VARCHAR(255) NOT NULL,             -- '聚合根字段描述'
+    is_required        BOOLEAN      NOT NULL,             -- '聚合根字段是否必填'
+    field_order        INT          NOT NULL,             -- '聚合根字段顺序'
+    create_user_id     VARCHAR(255) NOT NULL,             -- '创建者ID'
+    modify_user_id     VARCHAR(255) NOT NULL,             -- '修改者ID'
+    is_removed         BOOLEAN      NOT NULL,             -- '是否已删除'
+    create_at          BIGINT       NOT NULL,             -- '创建时间'
+    modify_at          BIGINT       NOT NULL,             -- '修改时间'
+    remove_at          BIGINT       NULL DEFAULT 0        -- '删除时间'
+); -- '聚合根字段表'

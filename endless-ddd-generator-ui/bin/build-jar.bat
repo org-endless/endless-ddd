@@ -13,17 +13,7 @@ echo ========================================
 echo EndlessDDD - JAR Build Script
 echo ========================================
 echo.
-echo Build JAR [1/3] Building JAR file...
-echo Using Maven wrapper to build Spring Boot application...
-cd /d "%~dp0..\.."
-call mvnw.cmd clean package -DskipTests
-if not "%errorlevel%"=="0" (
-    echo Error: Maven build failed
-    pause
-    exit /b 1
-)
-echo.
-echo Build JAR [2/3] Copying JAR file and configuration...
+echo Build JAR [1/2] Copying JAR file and configuration...
 cd /d "%~dp0..\..\endless-ddd-generator\endless-ddd-generator-core\target"
 if not exist "endless-ddd-generator.jar" (
     echo Error: JAR file not generated
@@ -68,7 +58,7 @@ if not "%errorlevel%"=="0" (
     echo Warning: application-prod.yaml copy failed
 )
 echo.
-echo [3/3] Modifying Spring Boot configuration for production...
+echo [2/2] Modifying Spring Boot configuration for production...
 set "CONFIG_FILE=config\application.yaml"
 set "TEMP_FILE=%TEMP%\application.yaml.tmp"
 set "OLD_STRING=active: dev"

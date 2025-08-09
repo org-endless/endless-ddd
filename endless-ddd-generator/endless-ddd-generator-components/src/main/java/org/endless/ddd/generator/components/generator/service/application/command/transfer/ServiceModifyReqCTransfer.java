@@ -1,10 +1,11 @@
 package org.endless.ddd.generator.components.generator.service.application.command.transfer;
 
 import com.alibaba.fastjson2.annotation.JSONType;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import org.endless.ddd.generator.common.model.application.command.transfer.DDDGeneratorCommandTransfer;
-import org.endless.ddd.starter.common.exception.model.application.command.transfer.CommandTransferValidateException;
-import org.springframework.util.StringUtils;
+import org.endless.ddd.starter.common.annotation.validate.ddd.transfer.Transfer;
+import org.endless.ddd.starter.common.annotation.validate.number.port.Port;
 
 /**
  * ServiceModifyReqCTransfer
@@ -17,7 +18,6 @@ import org.springframework.util.StringUtils;
  * @param serviceId         服务ID
  * @param projectId         项目ID
  * @param serviceArtifactId 服务构件ID
- * @param groupId           服务组织ID
  * @param name              服务名称
  * @param description       服务描述
  * @param author            服务作者
@@ -28,25 +28,29 @@ import org.springframework.util.StringUtils;
  * @param port              服务端口
  * @author Deng Haozhi
  * @see DDDGeneratorCommandTransfer
- * @since 0.0.1
+ * @since 1.0.0
  */
+@Transfer
 @Builder
-@JSONType(orders = {"serviceId", "projectId", "serviceArtifactId", "groupId", "name", "description", "version", "author", "rootPath", "basePackage", "classNamePrefix", "type", "port"})
+@JSONType(orders = {"serviceId", "projectId", "serviceArtifactId", "name",
+        "description", "version", "author", "rootPath", "basePackage",
+        "classNamePrefix", "type", "port"})
 public record ServiceModifyReqCTransfer(
-        String serviceId, String projectId, String serviceArtifactId, String groupId,
-        String name, String description, String author, String rootPath,
-        String basePackage, String classNamePrefix, String type, Integer port)
-        implements DDDGeneratorCommandTransfer {
+        @NotBlank(message = "服务ID不能为空") String serviceId,
+        String projectId,
+        String serviceArtifactId,
+        String name,
+        String description,
+        String author,
+        String rootPath,
+        String basePackage,
+        String classNamePrefix,
+        String type,
+        @Port Integer port
+) implements DDDGeneratorCommandTransfer {
 
     @Override
     public ServiceModifyReqCTransfer validate() {
-        validateServiceId();
         return this;
-    }
-
-    private void validateServiceId() {
-        if (!StringUtils.hasText(serviceId)) {
-            throw new CommandTransferValidateException("服务ID不能为空");
-        }
     }
 }

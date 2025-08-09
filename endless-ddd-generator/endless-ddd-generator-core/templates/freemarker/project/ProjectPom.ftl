@@ -1,5 +1,5 @@
 <#-- @ftlvariable name="project" type="org.endless.ddd.generator.components.generator.project.domain.entity.ProjectAggregate" -->
-<#-- @ftlvariable name="services" type="java.util.List<org.endless.ddd.generator.components.generator.service.domain.entity.ServiceAggregate>" -->
+<#-- @ftlvariable name="serviceArtifactIds" type="java.util.List<String>" -->
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
@@ -60,10 +60,10 @@
     </properties>
 
     <!-- 服务声明 -->
-    <#if services?? && services?size gt 0>
+    <#if services?? && serviceArtifactIds?size gt 0>
         <modules>
-            <#list services as service>
-                <module>${service.getServiceArtifactId()}</module>
+            <#list serviceArtifactIds as serviceArtifactId>
+                <module>${serviceArtifactId}</module>
             </#list>
         </modules>
     </#if>

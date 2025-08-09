@@ -2,10 +2,10 @@ package org.endless.ddd.generator.common.model.infrastructure.adapter;
 
 import org.endless.ddd.generator.common.model.domain.anticorruption.DDDGeneratorDrivenAdapter;
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.exception.model.infrastructure.adapter.filesystem.FileSystemRemoveFailedException;
-import org.endless.ddd.starter.common.exception.model.infrastructure.adapter.filesystem.FileSystemStoreFailedException;
-import org.endless.ddd.starter.common.utils.model.time.DateTime;
-import org.endless.ddd.starter.common.utils.model.time.TimeStamp;
+import org.endless.ddd.starter.common.exception.ddd.infrastructure.adapter.filesystem.FileSystemRemoveFailedException;
+import org.endless.ddd.starter.common.exception.ddd.infrastructure.adapter.filesystem.FileSystemStoreFailedException;
+import org.endless.ddd.starter.common.utils.model.time.DateTimeTools;
+import org.endless.ddd.starter.common.utils.model.time.TimeStampTools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +35,7 @@ public interface DDDGeneratorFileDrivenAdapter extends DDDGeneratorDrivenAdapter
     String SERVICE_SUPPORT_PACKAGE = "support";
 
     String DEFAULT_DESIGN_DIRECTORY = "design";
-    String DEFAULT_MODEL_DIRECTORY = "model";
+    String DEFAULT_MODEL_DIRECTORY = "ddd";
     String DEFAULT_DRAWING_DIRECTORY = "drawing";
     String DEFAULT_BACKUP_DIRECTORY = ".ddd";
     Integer MAX_BACKUP_COUNTS = 10;
@@ -96,7 +96,7 @@ public interface DDDGeneratorFileDrivenAdapter extends DDDGeneratorDrivenAdapter
                 }
             }
             File backupFile = Paths.get(backupPath,
-                            fileName + "." + DateTime.from(TimeStamp.now(), "yyyyMMddHHmmssSSS"))
+                            fileName + "." + DateTimeTools.from(TimeStampTools.now(), "yyyyMMddHHmmssSSS"))
                     .toFile();
             Files.copy(file.toPath(), backupFile.toPath());
             log.trace("文件 {} 已备份", fileName);

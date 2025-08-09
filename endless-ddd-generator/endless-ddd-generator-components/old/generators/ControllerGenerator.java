@@ -46,7 +46,7 @@ public class ControllerGenerator {
     }
 
     private String getPackageName(Aggregate aggregate) {
-        return domainPackage(aggregate) + ".sidecar.rest";
+        return domainPackage(aggregate) + ".sidecar.exception";
     }
 
     private String getClassName(Aggregate aggregate) {
@@ -60,7 +60,7 @@ public class ControllerGenerator {
         String uri = uri(aggregate.getContextName(), aggregate.getDomainName());
 
         packageHeader(stringBuilder, packageName);
-        importHeaderController(stringBuilder, aggregate.getGroupId(), servicePackage(aggregate), domainPackage(aggregate), "sidecar.rest");
+        importHeaderController(stringBuilder, aggregate.getGroupId(), servicePackage(aggregate), domainPackage(aggregate), "sidecar.exception");
         comment(stringBuilder, className, superClassName, aggregate.getDescription() + "领域Rest控制器", aggregate.getAuthor(), aggregate.getVersion());
         controllerDefine(stringBuilder, uri, className, superClassName);
         fields(stringBuilder, entityNames(aggregate), valueNames(aggregate), fields, className);

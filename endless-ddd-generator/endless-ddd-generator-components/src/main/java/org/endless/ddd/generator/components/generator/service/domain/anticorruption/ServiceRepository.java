@@ -13,7 +13,7 @@ import org.endless.ddd.generator.components.generator.service.domain.entity.Serv
  *
  * @author Deng Haozhi
  * @see DDDGeneratorRepository
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface ServiceRepository extends DDDGeneratorRepository<ServiceAggregate> {
 

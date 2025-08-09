@@ -17,7 +17,7 @@ import java.util.List;
  * @param projectIds 项目ID列表
  * @author Deng Haozhi
  * @see DDDGeneratorQueryTransfer
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Builder
 @JSONType(orders = {"projectIds"})

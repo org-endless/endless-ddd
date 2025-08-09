@@ -3,7 +3,7 @@ package org.endless.ddd.generator.components.generator.project.application.comma
 import com.alibaba.fastjson2.annotation.JSONType;
 import lombok.Builder;
 import org.endless.ddd.generator.common.model.application.command.transfer.DDDGeneratorCommandTransfer;
-import org.endless.ddd.starter.common.exception.model.application.command.transfer.CommandTransferValidateException;
+import org.endless.ddd.starter.common.exception.ddd.application.command.transfer.CommandTransferValidateException;
 import org.springframework.util.StringUtils;
 
 /**
@@ -30,7 +30,7 @@ import org.springframework.util.StringUtils;
  * @param databaseType         项目数据库类型
  * @author Deng Haozhi
  * @see DDDGeneratorCommandTransfer
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Builder
 @JSONType(orders = {"projectId", "projectArtifactId", "groupId", "name", "description", "version", "author", "rootPath", "basePackage", "enableSpringDoc", "javaVersion", "loggingFramework", "persistenceFramework", "databaseType"})

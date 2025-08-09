@@ -1,5 +1,7 @@
 package org.endless.ddd.generator.components.generator.project.application.command.handler;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.endless.ddd.generator.common.model.application.command.handler.DDDGeneratorCommandHandler;
 import org.endless.ddd.generator.components.generator.project.application.command.transfer.ProjectCreateReqCTransfer;
 import org.endless.ddd.generator.components.generator.project.application.command.transfer.ProjectGenerateReqCTransfer;
@@ -17,15 +19,27 @@ import org.endless.ddd.generator.components.generator.project.domain.entity.Proj
  *
  * @author Deng Haozhi
  * @see DDDGeneratorCommandHandler
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface ProjectCommandHandler extends DDDGeneratorCommandHandler<ProjectAggregate> {
 
-    void create(ProjectCreateReqCTransfer command);
+    void create(
+            @NotNull(message = "项目创建命令请求对象不能为空")
+            @Valid ProjectCreateReqCTransfer command
+    );
 
-    void remove(ProjectRemoveReqCTransfer command);
+    void remove(
+            @NotNull(message = "项目删除命令请求对象不能为空")
+            @Valid ProjectRemoveReqCTransfer command
+    );
 
-    void modify(ProjectModifyReqCTransfer command);
+    void modify(
+            @NotNull(message = "项目修改命令请求对象不能为空")
+            @Valid ProjectModifyReqCTransfer command
+    );
 
-    void generate(ProjectGenerateReqCTransfer command);
+    void generate(
+            @NotNull(message = "项目生成命令请求对象不能为空")
+            @Valid ProjectGenerateReqCTransfer command
+    );
 }

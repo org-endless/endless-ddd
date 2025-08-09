@@ -1,10 +1,10 @@
 package org.endless.ddd.generator.components.generator.service.application.query.transfer;
 
 import com.alibaba.fastjson2.annotation.JSONType;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import org.endless.ddd.generator.common.model.application.query.transfer.DDDGeneratorQueryTransfer;
-import org.endless.ddd.starter.common.exception.model.application.query.transfer.QueryTransferValidateException;
-import org.springframework.util.StringUtils;
+import org.endless.ddd.starter.common.annotation.validate.ddd.transfer.Transfer;
 
 /**
  * ServiceFindByProjectIdReqQTransfer
@@ -17,21 +17,17 @@ import org.springframework.util.StringUtils;
  * @param projectId 项目ID
  * @author Deng Haozhi
  * @see DDDGeneratorQueryTransfer
- * @since 0.0.1
+ * @since 1.0.0
  */
+@Transfer
 @Builder
 @JSONType(orders = {"projectId"})
-public record ServiceFindByProjectIdReqQTransfer(String projectId) implements DDDGeneratorQueryTransfer {
+public record ServiceFindByProjectIdReqQTransfer(
+        @NotNull(message = "项目ID不能为空") String projectId
+) implements DDDGeneratorQueryTransfer {
 
     @Override
     public ServiceFindByProjectIdReqQTransfer validate() {
-        validateProjectId();
         return this;
-    }
-
-    private void validateProjectId() {
-        if (!StringUtils.hasText(projectId)) {
-            throw new QueryTransferValidateException("项目ID不能为空");
-        }
     }
 }

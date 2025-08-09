@@ -4,9 +4,12 @@ import org.endless.ddd.generator.components.generator.service.application.query.
 import org.endless.ddd.generator.components.generator.service.application.query.handler.ServiceQueryHandler;
 import org.endless.ddd.generator.components.generator.service.application.query.transfer.ServiceFindByProjectIdReqQTransfer;
 import org.endless.ddd.generator.components.generator.service.application.query.transfer.ServiceFindSimpleProfilesRespQTransfer;
-import org.endless.ddd.starter.common.config.log.annotation.Log;
-import org.endless.ddd.starter.common.config.log.type.LogLevel;
-import org.endless.ddd.starter.common.exception.model.application.query.transfer.QueryReqTransferNullException;
+import org.endless.ddd.starter.common.annotation.log.Log;
+import org.endless.ddd.starter.common.config.aspect.log.type.LogLevel;
+import org.endless.ddd.starter.common.exception.ddd.application.query.transfer.QueryReqTransferNullException;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.Optional;
 
@@ -21,8 +24,11 @@ import java.util.Optional;
  *
  * @author Deng Haozhi
  * @see ServiceQueryHandler
- * @since 0.0.1
+ * @since 1.0.0
  */
+@Lazy
+@Service
+@Validated
 public class ServiceQueryHandlerImpl implements ServiceQueryHandler {
 
     /**
@@ -35,7 +41,7 @@ public class ServiceQueryHandlerImpl implements ServiceQueryHandler {
     }
 
     @Override
-    @Log(message = "根据项目ID查询项目基本信息列表", value = "#query", level = LogLevel.TRACE)
+    @Log(message = "根据项目ID查询服务基本信息列表", value = "#query", level = LogLevel.TRACE)
     public ServiceFindSimpleProfilesRespQTransfer findSimpleProfilesByProjectId(ServiceFindByProjectIdReqQTransfer query) {
         Optional.ofNullable(query)
                 .map(ServiceFindByProjectIdReqQTransfer::validate)

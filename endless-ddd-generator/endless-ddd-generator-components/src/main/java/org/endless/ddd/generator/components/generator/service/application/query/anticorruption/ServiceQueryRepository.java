@@ -1,5 +1,6 @@
 package org.endless.ddd.generator.components.generator.service.application.query.anticorruption;
 
+import jakarta.validation.constraints.NotBlank;
 import org.endless.ddd.generator.common.model.application.query.anticorruption.DDDGeneratorQueryRepository;
 import org.endless.ddd.generator.components.generator.service.application.query.transfer.ServiceFindSimpleProfileRespQTransfer;
 import org.endless.ddd.generator.components.generator.service.domain.anticorruption.ServiceRepository;
@@ -18,10 +19,12 @@ import java.util.List;
  * @author Deng Haozhi
  * @see ServiceRepository
  * @see DDDGeneratorQueryRepository
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface ServiceQueryRepository extends ServiceRepository, DDDGeneratorQueryRepository<ServiceAggregate> {
 
-    List<ServiceFindSimpleProfileRespQTransfer> findSimpleProfilesByProjectId(String projectId);
+    List<ServiceFindSimpleProfileRespQTransfer> findSimpleProfilesByProjectId(
+            @NotBlank(message = "项目ID不能为空") String projectId
+    );
 
 }

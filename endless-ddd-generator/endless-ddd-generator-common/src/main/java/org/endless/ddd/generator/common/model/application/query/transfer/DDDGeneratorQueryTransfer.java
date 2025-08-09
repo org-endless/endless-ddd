@@ -1,6 +1,6 @@
 package org.endless.ddd.generator.common.model.application.query.transfer;
 
-import org.endless.ddd.starter.common.model.application.query.transfer.QueryTransfer;
+import org.endless.ddd.starter.common.ddd.application.query.transfer.QueryTransfer;
 
 /**
  * DDDGeneratorQueryTransfer

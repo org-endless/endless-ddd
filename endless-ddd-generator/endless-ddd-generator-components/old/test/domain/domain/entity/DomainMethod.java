@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.ToString;
 import org.endless.ddd.generator.components.generator.domain.domain.type.DomainFieldTypeEnum;
 import org.endless.ddd.generator.components.generator.domain.domain.type.DomainOperationTypeEnum;
-import org.endless.ddd.starter.common.exception.model.domain.entity.AggregateRemoveException;
-import org.endless.ddd.starter.common.exception.model.domain.entity.AggregateValidateException;
+import org.endless.ddd.starter.common.exception.ddd.domain.entity.AggregateRemoveException;
+import org.endless.ddd.starter.common.exception.ddd.domain.entity.AggregateValidateException;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
  * update 2025/07/29 16:16
  *
  * @author Deng Haozhi
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Getter
 @ToString

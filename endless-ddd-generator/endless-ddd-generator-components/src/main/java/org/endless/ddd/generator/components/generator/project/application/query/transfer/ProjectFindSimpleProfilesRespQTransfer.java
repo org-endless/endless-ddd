@@ -18,7 +18,7 @@ import java.util.List;
  * @param simpleProfiles 项目基本信息列表
  * @author Deng Haozhi
  * @see DDDGeneratorQueryTransfer
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Builder
 @JSONType(orders = {"simpleProfiles"})

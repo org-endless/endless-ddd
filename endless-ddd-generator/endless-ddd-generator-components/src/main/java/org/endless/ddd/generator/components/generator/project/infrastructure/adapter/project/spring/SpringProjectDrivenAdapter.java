@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,13 +37,18 @@ public class SpringProjectDrivenAdapter implements ProjectDrivenAdapter, DDDGene
 
     @Override
     public void generate(ProjectAggregate aggregate) {
-        pom(aggregate);
-        // serviceDrivingAdapter.findAllByProjectId();
+        // List<String> serviceArtifactIds = serviceDrivingAdapter.findSimpleProfilesByProjectId(ServiceFindByProjectIdReqQTransfer.builder()
+        //                 .projectId(aggregate.getProjectId())
+        //                 .build().validate())
+        //         .validate().simpleProfiles().stream()
+        //         .map(ServiceFindSimpleProfileRespQTransfer::serviceId).toList();
+        // pom(aggregate, serviceArtifactIds);
     }
 
-    private void pom(ProjectAggregate aggregate) {
+    private void pom(ProjectAggregate aggregate, List<String> serviceArtifactIds) {
         Map<String, Object> model = new HashMap<>();
         model.put("project", aggregate);
+        model.put("serviceArtifactIds", serviceArtifactIds);
         String content = DDDGeneratorContentDrivenAdapter.super.freemarker(freemarkerConfig, model, "project/ProjectPom.ftl");
         if (StringUtils.hasText(content)) {
             write(aggregate.getRootPath(), "pom.xml", content);

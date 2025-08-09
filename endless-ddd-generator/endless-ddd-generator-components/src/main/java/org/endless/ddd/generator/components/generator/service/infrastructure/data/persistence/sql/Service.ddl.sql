@@ -4,7 +4,6 @@ CREATE TABLE generator_service
     service_id          VARCHAR(255) NOT NULL PRIMARY KEY, -- '服务ID'
     project_id          VARCHAR(255) NOT NULL,             -- '项目ID'
     service_artifact_id VARCHAR(255) NOT NULL,             -- '服务构件ID'
-    group_id            VARCHAR(255) NOT NULL,             -- '服务组织ID'
     name                VARCHAR(255) NOT NULL,             -- '服务名称'
     description         VARCHAR(255) NOT NULL,             -- '服务描述'
     author              VARCHAR(255) NOT NULL,             -- '服务作者'
@@ -19,6 +18,5 @@ CREATE TABLE generator_service
     modify_user_id      VARCHAR(255) NOT NULL,             -- '修改者ID'
     is_removed          BOOLEAN      NOT NULL,             -- '是否已删除'
     remove_at           BIGINT       NULL DEFAULT 0,       -- '删除时间'
-    UNIQUE (project_id, remove_at),
     UNIQUE (service_artifact_id, remove_at)
-);
+); -- '服务表'

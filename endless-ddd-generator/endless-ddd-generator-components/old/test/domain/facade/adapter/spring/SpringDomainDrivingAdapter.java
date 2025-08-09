@@ -16,7 +16,7 @@ import org.endless.ddd.generator.components.generator.domain.facade.adapter.Doma
  *
  * @author Deng Haozhi
  * @see DomainDrivingAdapter
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class SpringDomainDrivingAdapter implements DomainDrivingAdapter {
 

@@ -32,12 +32,12 @@ public class HeaderTemplate {
      */
     public static void importHeaderEntity(StringBuilder stringBuilder, String groupId, String servicePackage, String domainPackage, String subPackage, Boolean hasValue, Boolean hasEnum) {
         stringBuilder
-                .append("import ").append(servicePackage).append(".common.model.").append(subPackage).append(".*;\n")
+                .append("import ").append(servicePackage).append(".common.ddd.").append(subPackage).append(".*;\n")
                 .append(hasValue ? "import " + domainPackage + ".domain.value.*;\n" : "")
                 .append(hasEnum ? "import " + domainPackage + ".domain.type.*;\n" : "")
-                .append("import ").append(groupId).append(".atp.common.exception.model.").append(subPackage).append(".*;\n")
+                .append("import ").append(groupId).append(".atp.common.exception.ddd.").append(subPackage).append(".*;\n")
                 .append("import ").append(groupId).append(".atp.common.config.utils.id.*;\n")
-                .append("import ").append(groupId).append(".atp.common.utils.model.decimal.Decimal;\n")
+                .append("import ").append(groupId).append(".atp.common.utils.ddd.decimal.DecimalTools;\n")
                 .append("import lombok.Builder;\n")
                 .append("import lombok.Getter;\n")
                 .append("import lombok.ToString;\n")
@@ -61,13 +61,13 @@ public class HeaderTemplate {
                 .append("import com.baomidou.mybatisplus.annotation.TableField;\n")
                 .append("import com.baomidou.mybatisplus.annotation.TableId;\n")
                 .append("import com.baomidou.mybatisplus.annotation.TableName;\n")
-                .append("import ").append(servicePackage).append(".common.model.").append(subPackage).append(".*;\n")
+                .append("import ").append(servicePackage).append(".common.ddd.").append(subPackage).append(".*;\n")
                 .append("import ").append(domainPackage).append(".domain.entity.*;\n")
                 .append(hasValue ? "import " + domainPackage + ".domain.value.*;\n" : "")
                 .append(hasEnum ? "import " + domainPackage + ".domain.type.*;\n" : "")
-                .append("import ").append(groupId).append(".atp.common.exception.model.").append(subPackage).append(".*;\n")
+                .append("import ").append(groupId).append(".atp.common.exception.ddd.").append(subPackage).append(".*;\n")
                 .append("import ").append(groupId).append(".atp.common.config.utils.id.*;\n")
-                .append("import ").append(groupId).append(".atp.common.utils.model.decimal.Decimal;\n")
+                .append("import ").append(groupId).append(".atp.common.utils.ddd.decimal.DecimalTools;\n")
                 .append("import lombok.*;\n")
                 .append("import org.springframework.util.CollectionUtils;\n")
                 .append("import org.springframework.util.StringUtils;\n\n")
@@ -85,10 +85,10 @@ public class HeaderTemplate {
      */
     public static void importHeaderValue(StringBuilder stringBuilder, String groupId, String servicePackage, String domainPackage, String subPackage, Boolean hasEnum) {
         stringBuilder
-                .append("import ").append(servicePackage).append(".common.model.").append(subPackage).append(".*;\n")
+                .append("import ").append(servicePackage).append(".common.ddd.").append(subPackage).append(".*;\n")
                 .append(hasEnum ? "import " + domainPackage + ".domain.type.*;\n" : "")
-                .append("import ").append(groupId).append(".atp.common.exception.model.").append(subPackage).append(".*;\n")
-                .append("import ").append(groupId).append(".atp.common.utils.model.decimal.Decimal;\n")
+                .append("import ").append(groupId).append(".atp.common.exception.ddd.").append(subPackage).append(".*;\n")
+                .append("import ").append(groupId).append(".atp.common.utils.ddd.decimal.DecimalTools;\n")
                 .append("import lombok.Builder;\n")
                 .append("import lombok.Getter;\n")
                 .append("import lombok.ToString;\n")
@@ -104,8 +104,8 @@ public class HeaderTemplate {
      */
     public static void importHeaderEnum(StringBuilder stringBuilder, String groupId, String servicePackage, String subPackage) {
         stringBuilder
-                .append("import ").append(servicePackage).append(".common.model.").append(subPackage).append(".*;\n")
-                .append("import ").append(groupId).append(".atp.common.exception.model.").append(subPackage).append(".*;\n")
+                .append("import ").append(servicePackage).append(".common.ddd.").append(subPackage).append(".*;\n")
+                .append("import ").append(groupId).append(".atp.common.exception.ddd.").append(subPackage).append(".*;\n")
                 .append("import lombok.Getter;\n")
                 .append("import lombok.AllArgsConstructor;\n")
                 .append("import lombok.ToString;\n\n");
@@ -113,20 +113,20 @@ public class HeaderTemplate {
 
     public static void importHeaderRepository(StringBuilder stringBuilder, String groupId, String servicePackage, String domainPackage, String subPackage) {
         stringBuilder
-                .append("import ").append(servicePackage).append(".common.model.").append(subPackage).append(".*;\n")
+                .append("import ").append(servicePackage).append(".common.ddd.").append(subPackage).append(".*;\n")
                 .append("import ").append(domainPackage).append(".domain.entity.*;\n\n");
     }
 
     public static void importHeaderQueryRepository(StringBuilder stringBuilder, String servicePackage, String domainPackage, String subPackage) {
         stringBuilder
-                .append("import ").append(servicePackage).append(".common.model.").append(subPackage).append(".*;\n")
+                .append("import ").append(servicePackage).append(".common.ddd.").append(subPackage).append(".*;\n")
                 .append("import ").append(domainPackage).append(".domain.anticorruption.*;\n")
                 .append("import ").append(domainPackage).append(".domain.entity.*;\n\n");
     }
 
     public static void importHeaderCommandHandler(StringBuilder stringBuilder, String servicePackage, String domainPackage, String subPackage) {
         stringBuilder
-                .append("import ").append(servicePackage).append(".common.model.").append(subPackage).append(".*;\n")
+                .append("import ").append(servicePackage).append(".common.ddd.").append(subPackage).append(".*;\n")
                 .append("import ").append(domainPackage).append(".domain.entity.*;\n\n");
     }
 
@@ -135,12 +135,12 @@ public class HeaderTemplate {
         stringBuilder
                 .append("import ").append(domainPackage).append(".").append(superSubPackage).append(".*;\n")
                 .append("import ").append(domainPackage).append(".domain.anticorruption.*;\n")
-                .append("import ").append(groupId).append(".atp.common.exception.model.").append(superSubPackage).append(".*;\n\n");
+                .append("import ").append(groupId).append(".atp.common.exception.ddd.").append(superSubPackage).append(".*;\n\n");
     }
 
     public static void importHeaderQueryHandler(StringBuilder stringBuilder, String servicePackage, String domainPackage, String subPackage) {
         stringBuilder
-                .append("import ").append(servicePackage).append(".common.model.").append(subPackage).append(".*;\n")
+                .append("import ").append(servicePackage).append(".common.ddd.").append(subPackage).append(".*;\n")
                 .append("import ").append(domainPackage).append(".domain.entity.*;\n\n");
     }
 
@@ -150,14 +150,14 @@ public class HeaderTemplate {
                 .append("import ").append(domainPackage).append(".").append(superSubPackage).append(".*;\n")
                 .append("import ").append(domainPackage).append(".application.query.anticorruption.*;\n")
                 .append("import ").append(domainPackage).append(".domain.anticorruption.*;\n")
-                .append("import ").append(groupId).append(".atp.common.exception.model.").append(superSubPackage).append(".*;\n\n");
+                .append("import ").append(groupId).append(".atp.common.exception.ddd.").append(superSubPackage).append(".*;\n\n");
     }
 
     public static void importHeaderTransfer(StringBuilder stringBuilder, String groupId, String servicePackage, String domainPackage, String subPackage, Boolean hasValue, Boolean hasEnum) {
         stringBuilder
-                .append("import ").append(servicePackage).append(".common.model.").append(subPackage).append(".*;\n")
-                .append("import ").append(groupId).append(".atp.common.exception.model.").append(subPackage).append(".*;\n")
-                .append("import ").append(groupId).append(".atp.common.utils.model.decimal.Decimal;\n")
+                .append("import ").append(servicePackage).append(".common.ddd.").append(subPackage).append(".*;\n")
+                .append("import ").append(groupId).append(".atp.common.exception.ddd.").append(subPackage).append(".*;\n")
+                .append("import ").append(groupId).append(".atp.common.utils.ddd.decimal.DecimalTools;\n")
                 .append(hasValue ? "import " + domainPackage + ".domain.value.*;\n" : "")
                 .append(hasEnum ? "import " + domainPackage + ".domain.type.*;\n" : "")
                 .append("import com.alibaba.fastjson2.annotation.JSONType;\n")
@@ -174,13 +174,13 @@ public class HeaderTemplate {
 
     public static void importHeaderDataManager(StringBuilder stringBuilder, String groupId, String servicePackage, String domainPackage, String subPackage) {
         stringBuilder
-                .append("import ").append(servicePackage).append(".common.model.").append(subPackage).append(".*;\n")
+                .append("import ").append(servicePackage).append(".common.ddd.").append(subPackage).append(".*;\n")
                 .append("import ").append(domainPackage).append(".application.query.anticorruption.*;\n")
                 .append("import ").append(domainPackage).append(".domain.anticorruption.*;\n")
                 .append("import ").append(domainPackage).append(".domain.entity.*;\n")
                 .append("import ").append(domainPackage).append(".infrastructure.data.persistence.mapper.*;\n")
                 .append("import ").append(domainPackage).append(".infrastructure.data.record.*;\n")
-                .append("import ").append(groupId).append(".atp.common.exception.model.").append(subPackage).append(".*;\n")
+                .append("import ").append(groupId).append(".atp.common.exception.ddd.").append(subPackage).append(".*;\n")
                 .append("import org.springframework.context.annotation.Lazy;\n")
                 .append("import org.springframework.stereotype.Component;\n\n")
                 .append("import java.util.List;\n")
@@ -189,16 +189,16 @@ public class HeaderTemplate {
 
     public static void importHeaderMapper(StringBuilder stringBuilder, String groupId, String servicePackage, String domainPackage, String subPackage) {
         stringBuilder
-                .append("import ").append(servicePackage).append(".common.model.").append(subPackage).append(".*;\n")
+                .append("import ").append(servicePackage).append(".common.ddd.").append(subPackage).append(".*;\n")
                 .append("import ").append(domainPackage).append(".infrastructure.data.record.*;\n")
-                .append("import ").append(groupId).append(".atp.common.exception.model.").append(subPackage).append(".*;\n")
+                .append("import ").append(groupId).append(".atp.common.exception.ddd.").append(subPackage).append(".*;\n")
                 .append("import org.apache.ibatis.annotations.Mapper;\n")
                 .append("import org.springframework.context.annotation.Lazy;\n\n");
     }
 
     public static void importHeaderDrivingAdapter(StringBuilder stringBuilder, String servicePackage, String subPackage) {
         stringBuilder
-                .append("import ").append(servicePackage).append(".common.model.").append(subPackage).append(".*;\n\n");
+                .append("import ").append(servicePackage).append(".common.ddd.").append(subPackage).append(".*;\n\n");
     }
 
     public static void importHeaderSpringDrivingAdapter(StringBuilder stringBuilder, String groupId, String domainPackage, String subPackage) {
@@ -207,7 +207,7 @@ public class HeaderTemplate {
                 .append("import ").append(domainPackage).append(".").append(superSubPackage).append(".*;\n")
                 .append("import ").append(domainPackage).append(".application.command.handler.*;\n")
                 .append("import ").append(domainPackage).append(".application.query.handler.*;\n")
-                .append("import ").append(groupId).append(".atp.common.exception.model.").append(superSubPackage).append(".*;\n\n");
+                .append("import ").append(groupId).append(".atp.common.exception.ddd.").append(superSubPackage).append(".*;\n\n");
     }
 
     public static void importHeaderDrivingConfiguration(StringBuilder stringBuilder, String groupId, String domainPackage, String subPackage) {
@@ -229,9 +229,9 @@ public class HeaderTemplate {
 
     public static void importHeaderController(StringBuilder stringBuilder, String groupId, String servicePackage, String domainPackage, String subPackage) {
         stringBuilder
-                .append("import ").append(servicePackage).append(".common.model.").append(subPackage).append(".*;\n")
+                .append("import ").append(servicePackage).append(".common.ddd.").append(subPackage).append(".*;\n")
                 .append("import ").append(domainPackage).append(".facade.adapter.*;\n")
-                .append("import ").append(groupId).append(".atp.common.exception.model.").append(subPackage).append(".*;\n")
+                .append("import ").append(groupId).append(".atp.common.exception.ddd.").append(subPackage).append(".*;\n")
                 .append("import org.springframework.context.annotation.Lazy;\n")
                 .append("import org.springframework.web.bind.annotation.RequestMapping;\n")
                 .append("import org.springframework.web.bind.annotation.RestController;\n\n");

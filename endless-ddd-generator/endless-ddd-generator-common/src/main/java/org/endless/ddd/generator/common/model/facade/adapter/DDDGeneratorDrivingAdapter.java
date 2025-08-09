@@ -1,6 +1,6 @@
 package org.endless.ddd.generator.common.model.facade.adapter;
 
-import org.endless.ddd.starter.common.model.facade.adapter.DrivingAdapter;
+import org.endless.ddd.starter.common.ddd.facade.adapter.DrivingAdapter;
 
 /**
  * DDDGeneratorDrivingAdapter

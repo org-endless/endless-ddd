@@ -1,6 +1,5 @@
 package org.endless.ddd.generator.components.generator.project.application.query.anticorruption;
 
-
 import org.endless.ddd.generator.common.model.application.query.anticorruption.DDDGeneratorQueryRepository;
 import org.endless.ddd.generator.components.generator.project.application.query.transfer.ProjectFindSimpleProfileRespQTransfer;
 import org.endless.ddd.generator.components.generator.project.domain.anticorruption.ProjectRepository;
@@ -19,10 +18,12 @@ import java.util.List;
  * @author Deng Haozhi
  * @see ProjectRepository
  * @see ProjectRepository
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface ProjectQueryRepository extends ProjectRepository, DDDGeneratorQueryRepository<ProjectAggregate> {
 
     List<ProjectFindSimpleProfileRespQTransfer> findSimpleProfilesByIds(List<String> projectIds);
+
+    Boolean existsById(String projectId);
 
 }

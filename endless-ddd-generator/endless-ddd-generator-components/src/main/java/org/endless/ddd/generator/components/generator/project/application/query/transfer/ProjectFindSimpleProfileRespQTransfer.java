@@ -3,7 +3,7 @@ package org.endless.ddd.generator.components.generator.project.application.query
 import com.alibaba.fastjson2.annotation.JSONType;
 import lombok.Builder;
 import org.endless.ddd.generator.common.model.application.query.transfer.DDDGeneratorQueryTransfer;
-import org.endless.ddd.starter.common.exception.model.application.query.transfer.QueryTransferValidateException;
+import org.endless.ddd.starter.common.exception.ddd.application.query.transfer.QueryTransferValidateException;
 import org.springframework.util.StringUtils;
 
 /**
@@ -18,7 +18,7 @@ import org.springframework.util.StringUtils;
  * @param name      项目名称
  * @author Deng Haozhi
  * @see DDDGeneratorQueryTransfer
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Builder
 @JSONType(orders = {"projectId", "name"})

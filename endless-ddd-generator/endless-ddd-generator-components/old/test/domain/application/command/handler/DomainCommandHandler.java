@@ -15,7 +15,7 @@ import org.endless.ddd.generator.components.generator.domain.domain.entity.Domai
  *
  * @author Deng Haozhi
  * @see DDDGeneratorCommandHandler
- * @since 0.0.1
+ * @since 1.0.0
  */
 public interface DomainCommandHandler extends DDDGeneratorCommandHandler<DomainAggregate> {
 

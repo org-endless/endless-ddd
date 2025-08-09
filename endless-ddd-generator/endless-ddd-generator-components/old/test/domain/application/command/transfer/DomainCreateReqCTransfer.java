@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 import org.endless.ddd.generator.common.model.application.command.transfer.DDDGeneratorCommandTransfer;
-import org.endless.ddd.starter.common.exception.model.application.command.transfer.CommandTransferValidateException;
+import org.endless.ddd.starter.common.exception.ddd.application.command.transfer.CommandTransferValidateException;
 import org.springframework.util.StringUtils;
 
 /**
@@ -19,7 +19,7 @@ import org.springframework.util.StringUtils;
  *
  * @author Deng Haozhi
  * @see DDDGeneratorCommandTransfer
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Getter
 @ToString

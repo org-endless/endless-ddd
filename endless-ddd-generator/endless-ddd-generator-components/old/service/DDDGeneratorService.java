@@ -1,10 +1,10 @@
-// package org.endless.ddd.generator.components.service;
+// package org.endless.ddd.generator.components.generator;
 //
 // import com.alibaba.fastjson2.JSON;
 // import lombok.extern.slf4j.Slf4j;
 // import org.endless.ddd.generator.components.generators.*;
 // import StringTools;
-// import entity.domain.model.org.endless.ddd.starter.common.Aggregate;
+// import entity.domain.ddd.org.endless.ddd.starter.common.Aggregate;
 // import org.springframework.core.io.FileSystemResource;
 // import org.springframework.stereotype.Service;
 // import org.yaml.snakeyaml.Yaml;
@@ -27,7 +27,7 @@
 // @Service
 // public class DDDGeneratorService {
 //
-//     private static final String MODEL_DIR = "model";
+//     private static final String MODEL_DIR = "ddd";
 //
 //     public List<String> services() {
 //         File directory = new FileSystemResource(MODEL_DIR).getFile();
@@ -198,7 +198,7 @@
 //                         }
 //                     }));
 //         } catch (Exception e) {
-//             log.error("代码生成失败!", e);
+//             log.failure("代码生成失败!", e);
 //             throw new IllegalArgumentException(e.getMessage());
 //         }
 //     }
@@ -215,7 +215,7 @@
 //             String jsonString = JSON.toJSONString(yamlMap);
 //             return JSON.parseObject(jsonString, Aggregate.class);
 //         } catch (Exception e) {
-//             log.error("读取聚合信息失败!", e);
+//             log.failure("读取聚合信息失败!", e);
 //             throw new RuntimeException("读取聚合信息失败", e);
 //         }
 //     }
