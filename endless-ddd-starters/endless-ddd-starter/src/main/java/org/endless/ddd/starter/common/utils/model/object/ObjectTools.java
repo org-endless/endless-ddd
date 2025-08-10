@@ -1,6 +1,7 @@
 package org.endless.ddd.starter.common.utils.model.object;
 
 import com.alibaba.fastjson2.util.TypeUtils;
+import jakarta.validation.*;
 import org.endless.ddd.starter.common.exception.utils.model.ObjectToolsException;
 import org.endless.ddd.starter.common.utils.model.string.StringTools;
 
@@ -8,6 +9,7 @@ import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static org.endless.ddd.starter.common.config.endless.constant.EndlessConstant.SENSITIVE_KEYS;
 
@@ -22,6 +24,28 @@ import static org.endless.ddd.starter.common.config.endless.constant.EndlessCons
  * @since 1.0.0
  */
 public class ObjectTools {
+
+    private static final Validator validator = buildValidator();
+
+    private static Validator buildValidator() {
+        try (ValidatorFactory factory = Validation.buildDefaultValidatorFactory()) {
+            return factory.getValidator();
+        }
+    }
+
+    /**
+     * JSR380 验证对象
+     *
+     * @param object 要验证的对象
+     * @return {@link T }
+     */
+    public static <T> T JSRValidate(T object) {
+        Set<ConstraintViolation<T>> violations = validator.validate(object);
+        if (!violations.isEmpty()) {
+            throw new ConstraintViolationException(violations);
+        }
+        return object;
+    }
 
     /**
      * 将对象转换为指定类型

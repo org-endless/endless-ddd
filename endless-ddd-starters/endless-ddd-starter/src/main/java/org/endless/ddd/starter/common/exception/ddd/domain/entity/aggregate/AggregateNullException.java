@@ -1,6 +1,5 @@
-package org.endless.ddd.starter.common.exception.ddd.domain.entity;
+package org.endless.ddd.starter.common.exception.ddd.domain.entity.aggregate;
 
-import org.endless.ddd.starter.common.exception.common.FailedException;
 import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
 
 /**
@@ -11,12 +10,12 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  * update 2025/08/07 23:57
  *
  * @author Deng Haozhi
- * @see FailedException
+ * @see AggregateException
  * @since 1.0.0
  */
-public class AggregateNullException extends FailedException {
+public class AggregateNullException extends AggregateException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.DAG0000;
+    private static final ErrorCode ERROR_CODE = ErrorCode.DAG0001;
 
     public AggregateNullException() {
         super(ERROR_CODE);

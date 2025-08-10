@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.config.rest.client;
 
-import jakarta.validation.Validator;
-import org.endless.ddd.starter.common.config.endless.EndlessAutoConfiguration;
+import lombok.extern.slf4j.Slf4j;
+import org.endless.ddd.starter.common.config.endless.properties.EndlessProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
@@ -20,16 +20,9 @@ import org.springframework.web.client.RestTemplate;
  * @author Deng Haozhi
  * @since 1.0.0
  */
+@Slf4j
 public class RestClientConfiguration {
 
-    private final EndlessAutoConfiguration configuration;
-
-    private final Validator validator;
-
-    public RestClientConfiguration(EndlessAutoConfiguration configuration, Validator validator) {
-        this.configuration = configuration;
-        this.validator = validator;
-    }
 
     @ConditionalOnMissingBean
     public @Bean RestClient restClient() {
@@ -45,10 +38,10 @@ public class RestClientConfiguration {
     }
 
     @ConditionalOnMissingBean(name = "sidecarRestClient")
-    public @Bean RestClient sidecarRestClient(RestClient restClient) {
+    public @Bean RestClient sidecarRestClient(RestClient restClient, EndlessProperties properties) {
         return restClient.mutate()
-                .baseUrl("http://" + configuration.sidecar().getHost() + ":" + configuration.sidecar().getPort())
-                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE + ";charset=" + configuration.charset().getCode())
+                .baseUrl("http://" + properties.getSidecar().getHost() + ":" + properties.getSidecar().getPort())
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE + ";charset=" + properties.getCharset())
                 .defaultHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
                 .build();
     }

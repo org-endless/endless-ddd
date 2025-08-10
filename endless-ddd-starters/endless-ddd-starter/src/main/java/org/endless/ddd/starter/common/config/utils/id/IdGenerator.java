@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.config.utils.id;
 
-import org.endless.ddd.starter.common.config.endless.EndlessAutoConfiguration;
+import org.endless.ddd.starter.common.config.endless.properties.EndlessProperties;
 import org.endless.ddd.starter.common.exception.utils.id.IdException;
 import org.endless.ddd.starter.common.utils.id.snowflake.SnowflakeIdGenerator;
 import org.springframework.util.StringUtils;
@@ -23,9 +23,9 @@ public class IdGenerator {
 
     private static Long workerId;
 
-    public IdGenerator(EndlessAutoConfiguration configuration) {
-        IdGenerator.dataCenterId = configuration.dataCenterId();
-        IdGenerator.workerId = configuration.workerId();
+    public IdGenerator(EndlessProperties properties) {
+        IdGenerator.dataCenterId = properties.getDataCenterId();
+        IdGenerator.workerId = properties.getWorkerId();
     }
 
     private static synchronized void init() {

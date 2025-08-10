@@ -1,7 +1,5 @@
 package org.endless.ddd.starter.common.ddd.domain.entity;
 
-import java.io.Serializable;
-
 /**
  * Aggregate
  * <p>聚合
@@ -18,6 +16,6 @@ import java.io.Serializable;
  * @see Entity
  * @since 1.0.0
  */
-public interface Aggregate extends Serializable, Entity {
+public interface Aggregate extends Entity {
 
 }

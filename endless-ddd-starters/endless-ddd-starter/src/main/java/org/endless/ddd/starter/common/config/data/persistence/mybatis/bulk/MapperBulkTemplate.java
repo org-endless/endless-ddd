@@ -2,10 +2,10 @@ package org.endless.ddd.starter.common.config.data.persistence.mybatis.bulk;
 
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
-import org.endless.ddd.starter.common.exception.ddd.infrastructure.data.persistence.mapper.MapperBulkException;
 import org.endless.ddd.starter.common.ddd.domain.entity.Entity;
 import org.endless.ddd.starter.common.ddd.infrastructure.data.persistence.mapper.DataMapper;
 import org.endless.ddd.starter.common.ddd.infrastructure.data.record.DataRecord;
+import org.endless.ddd.starter.common.exception.ddd.infrastructure.data.persistence.mapper.MapperBulkException;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.util.CollectionUtils;
 

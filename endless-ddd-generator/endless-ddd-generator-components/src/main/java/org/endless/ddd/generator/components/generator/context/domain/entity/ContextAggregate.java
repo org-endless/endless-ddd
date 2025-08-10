@@ -6,8 +6,8 @@ import lombok.ToString;
 import org.endless.ddd.generator.common.model.domain.entity.DDDGeneratorAggregate;
 import org.endless.ddd.generator.components.generator.context.domain.type.ContextTypeEnum;
 import org.endless.ddd.starter.common.config.utils.id.IdGenerator;
-import org.endless.ddd.starter.common.exception.ddd.domain.entity.AggregateRemoveException;
-import org.endless.ddd.starter.common.exception.ddd.domain.entity.AggregateValidateException;
+import org.endless.ddd.starter.common.exception.ddd.domain.entity.aggregate.AggregateRemoveException;
+import org.endless.ddd.starter.common.exception.ddd.domain.entity.aggregate.AggregateValidateException;
 import org.endless.ddd.starter.common.utils.model.time.TimeStampTools;
 import org.springframework.util.StringUtils;
 

@@ -2,7 +2,7 @@ package org.endless.ddd.starter.common.config.utils.freemarker;
 
 import freemarker.template.Configuration;
 import freemarker.template.TemplateExceptionHandler;
-import org.endless.ddd.starter.common.config.endless.EndlessAutoConfiguration;
+import org.endless.ddd.starter.common.config.endless.properties.EndlessProperties;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.env.Environment;
 import org.springframework.lang.NonNull;
+
+import java.nio.charset.Charset;
 
 /**
  * FreemarkerConfiguration
@@ -27,11 +29,11 @@ public class FreemarkerConfiguration {
 
     private final Environment environment;
 
-    private final EndlessAutoConfiguration configuration;
+    private final Charset charset;
 
-    public FreemarkerConfiguration(Environment environment, EndlessAutoConfiguration configuration) {
+    public FreemarkerConfiguration(Environment environment, EndlessProperties properties) {
         this.environment = environment;
-        this.configuration = configuration;
+        this.charset = properties.charset().getCharset();
     }
 
     @Lazy
@@ -43,7 +45,7 @@ public class FreemarkerConfiguration {
                 if (bean instanceof Configuration && "freeMarkerConfiguration".equals(beanName)) {
                     ((Configuration) bean).setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
                     ((Configuration) bean).setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-                    ((Configuration) bean).setDefaultEncoding(environment.getProperty("spring.freemarker.charset", configuration.charset().name()));
+                    ((Configuration) bean).setDefaultEncoding(environment.getProperty("spring.freemarker.charset", charset.name()));
                     ((Configuration) bean).setClassForTemplateLoading(this.getClass(),
                             environment.getProperty("spring.freemarker.template-loader-path", "classpath:/templates/freemarker"));
                 }

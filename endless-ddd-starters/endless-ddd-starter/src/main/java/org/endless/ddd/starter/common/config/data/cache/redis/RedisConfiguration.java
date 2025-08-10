@@ -2,7 +2,7 @@ package org.endless.ddd.starter.common.config.data.cache.redis;
 
 import org.endless.ddd.starter.common.config.data.cache.redis.serializer.FastJson2JsonRedisSerializer;
 import org.endless.ddd.starter.common.config.data.cache.redis.stream.RedisStreamConfiguration;
-import org.endless.ddd.starter.common.config.endless.EndlessAutoConfiguration;
+import org.endless.ddd.starter.common.config.endless.properties.EndlessProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -39,8 +39,8 @@ public class RedisConfiguration {
         return template;
     }
 
-    public @Bean FastJson2JsonRedisSerializer<Object> fastJson2JsonRedisSerializer(EndlessAutoConfiguration configuration) {
-        return new FastJson2JsonRedisSerializer<>(configuration, Object.class);
+    public @Bean FastJson2JsonRedisSerializer<Object> fastJson2JsonRedisSerializer(EndlessProperties properties) {
+        return new FastJson2JsonRedisSerializer<>(properties, Object.class);
     }
 
     @Lazy

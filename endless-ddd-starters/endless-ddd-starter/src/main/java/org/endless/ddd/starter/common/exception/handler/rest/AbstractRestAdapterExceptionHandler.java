@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.method.annotation.HandlerMethodValidationException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import java.util.List;
+
 import static org.endless.ddd.starter.common.utils.model.string.StringTools.addBrackets;
 
 /**
@@ -40,7 +42,7 @@ public abstract class AbstractRestAdapterExceptionHandler implements RestAdapter
     public ResponseEntity<RestResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
         String message = addBrackets(e.getMessage());
         log.error("[{}][{}]{}", ErrorCode.BAD_REQ.getCode(), ErrorCode.BAD_REQ.getDescription(), message, e);
-        return response().badRequest(ErrorCode.BAD_REQ.getDescription(), ErrorCode.BAD_REQ, message);
+        return response().badRequest(ErrorCode.BAD_REQ.getDescription(), ErrorCode.BAD_REQ);
     }
 
     @ExceptionHandler(RestBadRequestException.class)
@@ -60,17 +62,24 @@ public abstract class AbstractRestAdapterExceptionHandler implements RestAdapter
     }
 
     @ExceptionHandler(HandlerMethodValidationException.class)
-    public ResponseEntity<RestResponse> handleHandlerMethodValidation(HandlerMethodValidationException ex) {
-        String errorMessage = "参数校验失败";
-        if (ex.getCause() instanceof ConstraintViolationException cve) {
-            errorMessage = cve.getConstraintViolations().stream()
-                    .map(ConstraintViolation::getMessage)
-                    .findFirst()
-                    .orElse(errorMessage);
+    public ResponseEntity<RestResponse> handleHandlerMethodValidation(HandlerMethodValidationException e) {
+        List<String> errorMessages = e.getParameterValidationResults().stream()
+                .flatMap(paramResult -> paramResult.getResolvableErrors().stream()
+                        .map(error -> {
+                            String className = paramResult.getMethodParameter().getContainingClass().getSimpleName();
+                            String fieldName = paramResult.getMethodParameter().getParameterName();
+                            String message = error.getDefaultMessage();
+                            return String.format("%s.%s: %s", className, fieldName, message);
+                        })
+                ).toList();
+        String errorMessage;
+        if (errorMessages.isEmpty()) {
+            errorMessage = "参数校验失败";
+        } else {
+            errorMessage = String.join("; ", errorMessages);
         }
-        String message = addBrackets(errorMessage.trim());
-        log.error("[{}][{}]{}", ErrorCode.DTO0001.getCode(), ErrorCode.DTO0001.getDescription(), message, ex);
-        return response().failure(ErrorCode.DTO0001.getDescription(), ErrorCode.DTO0001, message);
+        log.error("[{}][{}]{}", ErrorCode.DTS0000.getCode(), ErrorCode.DTS0000.getDescription(), errorMessage, e);
+        return response().failure(ErrorCode.DTS0000.getDescription(), ErrorCode.DTS0000, errorMessages.getFirst());
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
@@ -85,6 +94,8 @@ public abstract class AbstractRestAdapterExceptionHandler implements RestAdapter
             log.error("[{}][{}]{}", ErrorCode.DTO0001.getCode(), ErrorCode.DTO0001.getDescription(), message, ex);
             // 你可以基于这些信息做日志、定制响应等
         }
+        log.error("[{}][{}]{}", ErrorCode.DTO0001.getCode(), ErrorCode.DTO0001.getDescription(), ex);
+
         return response().failure(ErrorCode.DTO0001.getDescription(), ErrorCode.DTO0001);
     }
 

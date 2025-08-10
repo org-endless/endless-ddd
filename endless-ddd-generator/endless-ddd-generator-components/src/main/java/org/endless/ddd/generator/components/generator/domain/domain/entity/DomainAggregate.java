@@ -5,10 +5,10 @@ import lombok.Getter;
 import lombok.ToString;
 import org.endless.ddd.generator.common.model.domain.entity.DDDGeneratorAggregate;
 import org.endless.ddd.starter.common.config.utils.id.IdGenerator;
-import org.endless.ddd.starter.common.exception.ddd.domain.entity.AggregateAddItemException;
-import org.endless.ddd.starter.common.exception.ddd.domain.entity.AggregateRemoveException;
-import org.endless.ddd.starter.common.exception.ddd.domain.entity.AggregateRemoveItemException;
-import org.endless.ddd.starter.common.exception.ddd.domain.entity.AggregateValidateException;
+import org.endless.ddd.starter.common.exception.ddd.domain.entity.aggregate.AggregateAddItemException;
+import org.endless.ddd.starter.common.exception.ddd.domain.entity.aggregate.AggregateRemoveException;
+import org.endless.ddd.starter.common.exception.ddd.domain.entity.aggregate.AggregateRemoveItemException;
+import org.endless.ddd.starter.common.exception.ddd.domain.entity.aggregate.AggregateValidateException;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 

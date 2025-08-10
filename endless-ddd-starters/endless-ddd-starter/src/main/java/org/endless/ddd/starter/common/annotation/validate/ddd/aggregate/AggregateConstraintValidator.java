@@ -2,9 +2,7 @@ package org.endless.ddd.starter.common.annotation.validate.ddd.aggregate;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.endless.ddd.starter.common.annotation.validate.ddd.entity.Entity;
-import org.endless.ddd.starter.common.ddd.domain.entity.Aggregate;
-import org.endless.ddd.starter.common.exception.ddd.domain.entity.AggregateValidateException;
+import org.endless.ddd.starter.common.exception.ddd.domain.entity.aggregate.AggregateValidateException;
 
 /**
  * AggregateConstraintValidator
@@ -17,11 +15,11 @@ import org.endless.ddd.starter.common.exception.ddd.domain.entity.AggregateValid
  * @see ConstraintValidator
  * @since 1.0.0
  */
-public class AggregateConstraintValidator implements ConstraintValidator<Entity, Object> {
+public class AggregateConstraintValidator implements ConstraintValidator<Aggregate, Object> {
 
     @Override
     public boolean isValid(Object object, ConstraintValidatorContext constraintValidatorContext) {
-        if (object instanceof Aggregate aggregate) {
+        if (object instanceof org.endless.ddd.starter.common.ddd.domain.entity.Aggregate aggregate) {
             aggregate.validate();
             return true;
         } else {

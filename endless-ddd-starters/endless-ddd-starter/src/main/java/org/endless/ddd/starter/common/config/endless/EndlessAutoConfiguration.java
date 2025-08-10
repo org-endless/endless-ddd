@@ -1,7 +1,6 @@
 package org.endless.ddd.starter.common.config.endless;
 
 import org.endless.ddd.starter.common.config.endless.properties.EndlessProperties;
-import org.endless.ddd.starter.common.ddd.domain.type.CharsetTypeEnum;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 /**
@@ -17,38 +16,4 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @EnableConfigurationProperties(EndlessProperties.class)
 public class EndlessAutoConfiguration {
 
-    private final EndlessProperties properties;
-
-
-    public EndlessAutoConfiguration(EndlessProperties properties) {
-        this.properties = properties;
-    }
-
-    public EndlessProperties.Sidecar sidecar() {
-        return properties.getSidecar();
-    }
-
-    public CharsetTypeEnum charset() {
-        return CharsetTypeEnum.fromCode(properties.getCharset());
-    }
-
-    public String datePattern() {
-        return properties.getDatePattern();
-    }
-
-    public String dateTimePattern() {
-        return properties.getDateTimePattern();
-    }
-
-    public String[] jsonAllowedTypes() {
-        return properties.getJsonAllowedTypes().toArray(new String[0]);
-    }
-
-    public Long dataCenterId() {
-        return properties.getDataCenterId();
-    }
-
-    public Long workerId() {
-        return properties.getWorkerId();
-    }
 }

@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.security.token;
 
-import org.endless.ddd.starter.common.exception.security.common.SecurityFailedException;
 import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.exception.security.common.SecurityFailedException;
 
 /**
  * TokenBadRequestException

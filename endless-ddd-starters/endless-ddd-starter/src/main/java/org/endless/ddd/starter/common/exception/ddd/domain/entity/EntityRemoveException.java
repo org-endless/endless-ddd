@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.domain.entity;
 
-import org.endless.ddd.starter.common.utils.model.string.StringTools;
+import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
 
 /**
  * EntityRemoveException
@@ -15,17 +15,21 @@ import org.endless.ddd.starter.common.utils.model.string.StringTools;
  */
 public class EntityRemoveException extends EntityException {
 
-    private static final String DEFAULT_MESSAGE = "删除行为异常";
+    private static final ErrorCode ERROR_CODE = ErrorCode.DEN0101;
 
-    public EntityRemoveException(String message) {
-        super("[" + DEFAULT_MESSAGE + "]" + StringTools.addBrackets(message));
+    public EntityRemoveException() {
+        super(ERROR_CODE);
     }
 
-    public EntityRemoveException(String message, Throwable throwable) {
-        super("[" + DEFAULT_MESSAGE + "]" + StringTools.addBrackets(message), throwable);
+    public EntityRemoveException(String message) {
+        super(ERROR_CODE, message);
     }
 
     public EntityRemoveException(Throwable throwable) {
-        super("[" + DEFAULT_MESSAGE + "]" + StringTools.addBrackets(throwable.getMessage()), throwable);
+        super(ERROR_CODE, throwable);
+    }
+
+    public EntityRemoveException(String message, Throwable throwable) {
+        super(ERROR_CODE, message, throwable);
     }
 }

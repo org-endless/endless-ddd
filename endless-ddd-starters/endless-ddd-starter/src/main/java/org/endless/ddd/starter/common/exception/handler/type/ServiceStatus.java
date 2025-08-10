@@ -3,8 +3,8 @@ package org.endless.ddd.starter.common.exception.handler.type;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
-import org.endless.ddd.starter.common.exception.ddd.domain.type.EnumException;
 import org.endless.ddd.starter.common.ddd.domain.type.BaseEnum;
+import org.endless.ddd.starter.common.exception.ddd.domain.type.EnumException;
 
 /**
  * BulkResultEnum

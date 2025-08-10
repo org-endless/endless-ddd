@@ -3,7 +3,7 @@ package org.endless.ddd.starter.common.config.data.cache.redis.stream.listener;
 import io.lettuce.core.RedisBusyException;
 import lombok.extern.slf4j.Slf4j;
 import org.endless.ddd.starter.common.config.data.cache.redis.stream.listener.task.RedisStreamListenerTask;
-import org.endless.ddd.starter.common.config.endless.EndlessAutoConfiguration;
+import org.endless.ddd.starter.common.config.endless.properties.EndlessProperties;
 import org.endless.ddd.starter.common.exception.config.redis.RedisStreamInitException;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -41,7 +41,7 @@ public class RedisStreamListenerRegistrar {
 
     private final RedisStreamListenerTask redisStreamListenerTask;
 
-    private final EndlessAutoConfiguration configuration;
+    private final EndlessProperties properties;
 
     private final String applicationName;
 
@@ -50,13 +50,13 @@ public class RedisStreamListenerRegistrar {
             RedisTemplate<String, Object> redisTemplate,
             List<RedisStreamListener<?>> redisStreamListeners,
             RedisStreamListenerTask redisStreamListenerTask,
-            EndlessAutoConfiguration configuration,
+            EndlessProperties properties,
             Environment environment) {
         this.connectionFactory = connectionFactory;
         this.redisTemplate = redisTemplate;
         this.redisStreamListeners = redisStreamListeners;
         this.redisStreamListenerTask = redisStreamListenerTask;
-        this.configuration = configuration;
+        this.properties = properties;
         this.applicationName = environment.getProperty("spring.application.name");
     }
 
@@ -130,6 +130,6 @@ public class RedisStreamListenerRegistrar {
     }
 
     private String consumer(String consumer) {
-        return StringUtils.hasText(consumer) ? consumer : applicationName + "-common-consumer-" + configuration.dataCenterId() + "-" + configuration.workerId();
+        return StringUtils.hasText(consumer) ? consumer : applicationName + "-common-consumer-" + properties.getDataCenterId() + "-" + properties.getWorkerId();
     }
 }

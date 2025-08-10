@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.security;
 
-import org.endless.ddd.starter.common.exception.security.common.SecurityUnknownException;
 import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.exception.security.common.SecurityUnknownException;
 
 /**
  * LogoutUnknownException

@@ -5,7 +5,7 @@ import com.alibaba.fastjson2.JSONReader;
 import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.filter.Filter;
 import lombok.extern.slf4j.Slf4j;
-import org.endless.ddd.starter.common.config.endless.EndlessAutoConfiguration;
+import org.endless.ddd.starter.common.config.endless.properties.EndlessProperties;
 import org.endless.ddd.starter.common.exception.ddd.sidecar.rest.RestErrorException;
 import org.endless.ddd.starter.common.utils.model.json.JsonTools;
 import org.springframework.http.HttpInputMessage;
@@ -22,6 +22,8 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 
+import static org.endless.ddd.starter.common.config.endless.constant.EndlessConstant.JSON_ALLOWED_TYPES;
+
 /**
  * FastJson2HttpMessageConverter
  * <p>
@@ -36,14 +38,11 @@ import java.nio.charset.Charset;
 @Slf4j
 public class FastJson2HttpMessageConverter<T> extends AbstractGenericHttpMessageConverter<T> {
 
-    private final String[] jsonAllowedTypes;
-
     private final Charset charset;
 
-    public FastJson2HttpMessageConverter(EndlessAutoConfiguration configuration) {
+    public FastJson2HttpMessageConverter(EndlessProperties properties) {
         super(MediaType.APPLICATION_JSON);
-        this.jsonAllowedTypes = configuration.jsonAllowedTypes();
-        this.charset = configuration.charset().getCharset();
+        this.charset = properties.charset().getCharset();
     }
 
     @Override
@@ -94,6 +93,6 @@ public class FastJson2HttpMessageConverter<T> extends AbstractGenericHttpMessage
     }
 
     private Filter filter() {
-        return JSONReader.autoTypeFilter(jsonAllowedTypes);
+        return JSONReader.autoTypeFilter(JSON_ALLOWED_TYPES);
     }
 }

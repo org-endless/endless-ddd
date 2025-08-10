@@ -34,6 +34,7 @@
         <Logger name="org.apache" level="INFO"/>
         <Logger name="org.springframework" level="INFO"/>
         <Logger name="org.springframework.security" level="INFO"/>
+        <Logger name="org.springframework.boot.context.properties" level="TRACE"/>
         <Logger name="_org.springframework" level="INFO"/>
         <Logger name="org.jboss" level="INFO"/>
         <Logger name="org.thymeleaf" level="INFO"/>

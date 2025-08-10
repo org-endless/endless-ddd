@@ -2,7 +2,7 @@ package org.endless.ddd.starter.common.config.data.cache.redis.stream.listener.t
 
 import org.endless.ddd.starter.common.config.data.cache.redis.serializer.FastJson2JsonRedisSerializer;
 import org.endless.ddd.starter.common.config.data.cache.redis.stream.listener.RedisStreamListener;
-import org.endless.ddd.starter.common.config.endless.EndlessAutoConfiguration;
+import org.endless.ddd.starter.common.config.endless.properties.EndlessProperties;
 import org.springframework.data.redis.connection.stream.MapRecord;
 import org.springframework.data.redis.core.RedisTemplate;
 
@@ -22,16 +22,16 @@ public class RedisStreamListenerTaskImpl implements RedisStreamListenerTask {
 
     private final RedisTemplate<String, Object> redisTemplate;
 
-    private final EndlessAutoConfiguration configuration;
+    private final EndlessProperties properties;
 
-    public RedisStreamListenerTaskImpl(RedisTemplate<String, Object> redisTemplate, EndlessAutoConfiguration configuration) {
+    public RedisStreamListenerTaskImpl(RedisTemplate<String, Object> redisTemplate, EndlessProperties properties) {
         this.redisTemplate = redisTemplate;
-        this.configuration = configuration;
+        this.properties = properties;
     }
 
     @Override
     public <T> void execute(RedisStreamListener<T> redisStreamListener, MapRecord<String, String, String> record, String streamKey, String group) {
-        FastJson2JsonRedisSerializer<T> serializer = new FastJson2JsonRedisSerializer<>(configuration, redisStreamListener.getPayloadClass());
+        FastJson2JsonRedisSerializer<T> serializer = new FastJson2JsonRedisSerializer<>(properties, redisStreamListener.getPayloadClass());
         T payload = serializer.deserialize(record.getValue().get("payload").getBytes());
         redisStreamListener.execute(payload);
         redisTemplate.opsForStream().acknowledge(streamKey, group, record.getId());

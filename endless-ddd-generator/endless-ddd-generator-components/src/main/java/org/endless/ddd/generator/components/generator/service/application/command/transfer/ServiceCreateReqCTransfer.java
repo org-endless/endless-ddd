@@ -7,6 +7,10 @@ import lombok.Builder;
 import org.endless.ddd.generator.common.model.application.command.transfer.DDDGeneratorCommandTransfer;
 import org.endless.ddd.starter.common.annotation.validate.ddd.transfer.Transfer;
 import org.endless.ddd.starter.common.annotation.validate.number.port.Port;
+import org.endless.ddd.starter.common.annotation.validate.string.cases.ArtifactId;
+import org.endless.ddd.starter.common.annotation.validate.string.cases.PackageName;
+import org.endless.ddd.starter.common.annotation.validate.string.cases.TransferPath;
+import org.endless.ddd.starter.common.annotation.validate.string.cases.UpperCamelCase;
 
 /**
  * ServiceCreateReqCTransfer
@@ -37,13 +41,13 @@ import org.endless.ddd.starter.common.annotation.validate.number.port.Port;
         "type", "port"})
 public record ServiceCreateReqCTransfer(
         @NotBlank(message = "项目ID不能为空") String projectId,
-        @NotBlank(message = "服务构件ID不能为空") String serviceArtifactId,
+        @NotBlank(message = "服务构件ID不能为空") @ArtifactId String serviceArtifactId,
         @NotBlank(message = "服务名称不能为空") String name,
         @NotBlank(message = "服务描述不能为空") String description,
         @NotBlank(message = "服务作者不能为空") String author,
-        @NotBlank(message = "服务根路径不能为空") String rootPath,
-        @NotBlank(message = "服务基础包名不能为空") String basePackage,
-        @NotBlank(message = "服务类名前缀不能为空") String classNamePrefix,
+        @NotBlank(message = "服务根路径不能为空") @TransferPath String rootPath,
+        @NotBlank(message = "服务基础包名不能为空") @PackageName String basePackage,
+        @NotBlank(message = "服务类名前缀不能为空") @UpperCamelCase String classNamePrefix,
         @NotBlank(message = "服务类型不能为空") String type,
         @NotNull(message = "服务端口不能为空") @Port Integer port
 ) implements DDDGeneratorCommandTransfer {

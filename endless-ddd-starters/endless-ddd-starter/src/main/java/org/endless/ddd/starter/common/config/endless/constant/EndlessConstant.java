@@ -1,9 +1,6 @@
 package org.endless.ddd.starter.common.config.endless.constant;
 
-import java.util.Collections;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * EndlessConstant
@@ -17,7 +14,10 @@ import java.util.stream.Stream;
  */
 public class EndlessConstant {
 
-    public static final Set<String> SENSITIVE_KEYS = Stream
-            .of("password", "passcode", "pwd", "secret", "key", "salt", "token", "verification")
-            .collect(Collectors.collectingAndThen(Collectors.toSet(), Collections::unmodifiableSet));
+    public static final Set<String> SENSITIVE_KEYS = Set.of(
+            "password", "passcode", "pwd", "secret", "key", "salt", "token", "verification");
+
+    public static final String[] JSON_ALLOWED_TYPES = new String[]{
+            "java.lang.String", "java.lang.Integer", "java.lang.Boolean", "java.util.List", "java.util.Map"
+    };
 }

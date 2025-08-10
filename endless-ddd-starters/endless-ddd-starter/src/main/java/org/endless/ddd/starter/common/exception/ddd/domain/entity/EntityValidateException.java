@@ -1,6 +1,5 @@
 package org.endless.ddd.starter.common.exception.ddd.domain.entity;
 
-import org.endless.ddd.starter.common.exception.common.FailedException;
 import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
 
 /**
@@ -11,12 +10,12 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  * update 2025/08/07 23:56
  *
  * @author Deng Haozhi
- * @see FailedException
+ * @see EntityException
  * @since 1.0.0
  */
-public class EntityValidateException extends FailedException {
+public class EntityValidateException extends EntityException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.DEN0001;
+    private static final ErrorCode ERROR_CODE = ErrorCode.DEN0002;
 
     public EntityValidateException() {
         super(ERROR_CODE);

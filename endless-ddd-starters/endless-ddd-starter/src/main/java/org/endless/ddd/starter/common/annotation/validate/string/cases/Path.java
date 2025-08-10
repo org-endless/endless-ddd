@@ -20,8 +20,16 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = {})
-@Pattern(regexp = "^([A-Za-z]:/([a-zA-Z0-9._\\u4e00-\\u9fa5 -]+(/)?)+)|(/([a-zA-Z0-9._\\u4e00-\\u9fa5 -]+(/)?)+)$",
-        message = "路径格式错误，支持 Windows 盘符或 Unix 绝对路径，路径段仅允许汉字、字母、数字、._-和空格，使用正斜杠分隔")
+@Pattern(
+        regexp = "^(" +
+                "([A-Za-z]:/([a-zA-Z0-9._\\u4e00-\\u9fa5 -]+/)*([a-zA-Z0-9._\\u4e00-\\u9fa5 -]+)?/?)" +
+                "|" +
+                "(/([a-zA-Z0-9._\\u4e00-\\u9fa5 -]+/)*([a-zA-Z0-9._\\u4e00-\\u9fa5 -]+)?/?)" +
+                "|" +
+                "(([a-zA-Z0-9._\\u4e00-\\u9fa5 -]+/)*([a-zA-Z0-9._\\u4e00-\\u9fa5 -]+)?/?)" +
+                ")$",
+        message = "路径格式错误，支持绝对或相对路径，Windows 盘符或 Unix 根路径，路径段允许汉字、字母、数字、._-和空格，路径用正斜杠分隔"
+)
 public @interface Path {
 
     String message() default "路径格式校验失败";

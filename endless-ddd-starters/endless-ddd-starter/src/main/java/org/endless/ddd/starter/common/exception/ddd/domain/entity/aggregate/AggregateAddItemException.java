@@ -1,31 +1,31 @@
-package org.endless.ddd.starter.common.exception.ddd.domain.entity;
+package org.endless.ddd.starter.common.exception.ddd.domain.entity.aggregate;
 
 import org.endless.ddd.starter.common.utils.model.string.StringTools;
 
 /**
- * AggregateCreateException
+ * AggregateAddItemException
  * <p>
- * create 2024/11/19 16:37
+ * create 2024/10/12 11:02
  * <p>
- * update 2024/11/19 16:37
+ * update 2024/11/13 13:49
  *
  * @author Deng Haozhi
  * @see AggregateException
  * @since 1.0.0
  */
-public class AggregateCreateException extends AggregateException {
+public class AggregateAddItemException extends AggregateException {
 
     private static final String DEFAULT_MESSAGE = "添加子实体行为异常";
 
-    public AggregateCreateException(String message) {
+    public AggregateAddItemException(String message) {
         super("[" + DEFAULT_MESSAGE + "]" + StringTools.addBrackets(message));
     }
 
-    public AggregateCreateException(String message, Throwable throwable) {
+    public AggregateAddItemException(String message, Throwable throwable) {
         super("[" + DEFAULT_MESSAGE + "]" + StringTools.addBrackets(message), throwable);
     }
 
-    public AggregateCreateException(Throwable throwable) {
+    public AggregateAddItemException(Throwable throwable) {
         super("[" + DEFAULT_MESSAGE + "]" + StringTools.addBrackets(throwable.getMessage()), throwable);
     }
 }

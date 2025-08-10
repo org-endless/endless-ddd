@@ -1,4 +1,4 @@
-package org.endless.ddd.starter.common.exception.ddd.domain.entity;
+package org.endless.ddd.starter.common.exception.ddd.domain.entity.aggregate;
 
 import org.endless.ddd.starter.common.utils.model.string.StringTools;
 

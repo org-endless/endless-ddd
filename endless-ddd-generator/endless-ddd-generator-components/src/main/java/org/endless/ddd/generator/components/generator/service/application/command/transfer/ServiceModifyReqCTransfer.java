@@ -6,6 +6,10 @@ import lombok.Builder;
 import org.endless.ddd.generator.common.model.application.command.transfer.DDDGeneratorCommandTransfer;
 import org.endless.ddd.starter.common.annotation.validate.ddd.transfer.Transfer;
 import org.endless.ddd.starter.common.annotation.validate.number.port.Port;
+import org.endless.ddd.starter.common.annotation.validate.string.cases.ArtifactId;
+import org.endless.ddd.starter.common.annotation.validate.string.cases.PackageName;
+import org.endless.ddd.starter.common.annotation.validate.string.cases.TransferPath;
+import org.endless.ddd.starter.common.annotation.validate.string.cases.UpperCamelCase;
 
 /**
  * ServiceModifyReqCTransfer
@@ -38,13 +42,13 @@ import org.endless.ddd.starter.common.annotation.validate.number.port.Port;
 public record ServiceModifyReqCTransfer(
         @NotBlank(message = "服务ID不能为空") String serviceId,
         String projectId,
-        String serviceArtifactId,
+        @ArtifactId String serviceArtifactId,
         String name,
         String description,
         String author,
-        String rootPath,
-        String basePackage,
-        String classNamePrefix,
+        @TransferPath String rootPath,
+        @PackageName String basePackage,
+        @UpperCamelCase String classNamePrefix,
         String type,
         @Port Integer port
 ) implements DDDGeneratorCommandTransfer {

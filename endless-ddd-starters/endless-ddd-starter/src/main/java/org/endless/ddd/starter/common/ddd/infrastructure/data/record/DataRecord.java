@@ -1,8 +1,8 @@
 package org.endless.ddd.starter.common.ddd.infrastructure.data.record;
 
 import com.baomidou.mybatisplus.annotation.TableId;
-import org.endless.ddd.starter.common.exception.ddd.infrastructure.data.record.DataRecordValidateException;
 import org.endless.ddd.starter.common.ddd.domain.entity.Entity;
+import org.endless.ddd.starter.common.exception.ddd.infrastructure.data.record.DataRecordValidateException;
 
 import java.lang.reflect.Field;
 

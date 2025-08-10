@@ -2,12 +2,8 @@ package org.endless.ddd.starter.common.config.endless.properties;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
-import org.springframework.beans.factory.annotation.Value;
+import org.endless.ddd.starter.common.ddd.domain.type.CharsetTypeEnum;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * EndlessProperties
@@ -20,45 +16,37 @@ import java.util.List;
  * @since 1.0.0
  */
 @Getter
-@Setter
-@ToString
 @ConfigurationProperties(prefix = "endless")
 public class EndlessProperties {
 
-    @Value("${charset:UTF-8}")
-    private String charset;
+    @Setter
+    private String charset = "UTF-8";
 
-    @Value("${date.pattern:yyyy-MM-dd}")
-    private String datePattern;
+    @Setter
+    private String datePattern = "yyyy-MM-dd";
 
-    @Value("${datetime.pattern:yyyy-MM-dd HH:mm:ss:SSS}")
-    private String dateTimePattern;
+    @Setter
+    private String dateTimePattern = "yyyy-MM-dd HH:mm:ss:SSS";
 
-    @Value("${server.data-center-id:1}")
-    private Long dataCenterId;
+    @Setter
+    private Long dataCenterId = 1L;
 
-    @Value("${server.worker-id:1}")
-    private Long workerId;
+    @Setter
+    private Long workerId = 1L;
 
-    private Sidecar sidecar;
+    private final Sidecar sidecar = new Sidecar();
 
-    private List<String> jsonAllowedTypes = Arrays.asList(
-            "java.lang.String",
-            "java.lang.Integer",
-            "java.lang.Boolean",
-            "java.util.List",
-            "java.util.Map"
-    );
+    public CharsetTypeEnum charset() {
+        return CharsetTypeEnum.fromCode(this.charset);
+    }
 
     @Getter
-    @Setter
-    @ToString
     public static class Sidecar {
 
-        @Value("${sidecar.host:localhost}")
-        private String host;
+        @Setter
+        private String host = "localhost";
 
-        @Value("${sidecar.port:60500}")
-        private Integer port;
+        @Setter
+        private Integer port = 60500;
     }
 }

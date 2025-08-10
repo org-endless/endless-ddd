@@ -6,7 +6,7 @@ import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.TypeReference;
 import com.alibaba.fastjson2.filter.Filter;
 import lombok.extern.slf4j.Slf4j;
-import org.endless.ddd.starter.common.config.endless.EndlessAutoConfiguration;
+import org.endless.ddd.starter.common.config.endless.properties.EndlessProperties;
 import org.endless.ddd.starter.common.exception.ddd.sidecar.rest.RestErrorException;
 import org.endless.ddd.starter.common.utils.model.json.JsonTools;
 import org.springframework.http.HttpInputMessage;
@@ -22,6 +22,8 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.endless.ddd.starter.common.config.endless.constant.EndlessConstant.JSON_ALLOWED_TYPES;
+
 /**
  * FormHttpMessageConverter
  * <p>
@@ -36,14 +38,11 @@ import java.util.Map;
 @Slf4j
 public class FormHttpMessageConverter<T> extends AbstractHttpMessageConverter<T> {
 
-    private final EndlessAutoConfiguration configuration;
-
     private final Charset charset;
 
-    public FormHttpMessageConverter(EndlessAutoConfiguration configuration) {
+    public FormHttpMessageConverter(EndlessProperties properties) {
         super(MediaType.APPLICATION_FORM_URLENCODED);
-        this.configuration = configuration;
-        this.charset = configuration.charset().getCharset();
+        this.charset = properties.charset().getCharset();
     }
 
     @Override
@@ -100,6 +99,6 @@ public class FormHttpMessageConverter<T> extends AbstractHttpMessageConverter<T>
     }
 
     private Filter filter() {
-        return JSONReader.autoTypeFilter(configuration.jsonAllowedTypes());
+        return JSONReader.autoTypeFilter(JSON_ALLOWED_TYPES);
     }
 }

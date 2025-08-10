@@ -10,9 +10,11 @@ import org.endless.ddd.generator.components.generator.service.domain.type.Servic
 import org.endless.ddd.starter.common.annotation.validate.ddd.aggregate.Aggregate;
 import org.endless.ddd.starter.common.annotation.validate.number.port.Port;
 import org.endless.ddd.starter.common.annotation.validate.number.time.TimeStamp;
-import org.endless.ddd.starter.common.annotation.validate.string.cases.LowerCamelCase;
-import org.endless.ddd.starter.common.config.utils.id.IdGenerator;
-import org.endless.ddd.starter.common.exception.ddd.domain.entity.AggregateRemoveException;
+import org.endless.ddd.starter.common.annotation.validate.string.cases.Path;
+import org.endless.ddd.starter.common.annotation.validate.string.cases.UpperCamelCase;
+import org.endless.ddd.starter.common.ddd.domain.entity.Entity;
+import org.endless.ddd.starter.common.exception.ddd.domain.entity.aggregate.AggregateRemoveException;
+import org.endless.ddd.starter.common.utils.model.object.ObjectTools;
 import org.endless.ddd.starter.common.utils.model.time.TimeStampTools;
 import org.springframework.validation.annotation.Validated;
 
@@ -74,6 +76,7 @@ public class ServiceAggregate implements DDDGeneratorAggregate {
     /**
      * 服务根路径
      */
+    @Path
     @NotBlank(message = "服务根路径不能为空")
     private String rootPath;
 
@@ -86,14 +89,14 @@ public class ServiceAggregate implements DDDGeneratorAggregate {
     /**
      * 服务类名前缀
      */
-    @LowerCamelCase
+    @UpperCamelCase
     @NotBlank(message = "服务类名前缀不能为空")
     private String classNamePrefix;
 
     /**
      * 服务类型
      */
-    @NotBlank(message = "服务类型不能为空")
+    @NotNull(message = "服务类型不能为空")
     private ServiceTypeEnum type;
 
     /**
@@ -136,22 +139,14 @@ public class ServiceAggregate implements DDDGeneratorAggregate {
     private Boolean isRemoved;
 
     public static ServiceAggregate create(
-            @NotNull(message = "服务聚合创建对象不能为空") ServiceAggregateBuilder builder
-    ) {
+            @NotNull(message = "服务聚合创建对象不能为空") ServiceAggregateBuilder builder) {
         Long now = TimeStampTools.now();
-        return builder
-                .serviceId(IdGenerator.of())
-                .createAt(now)
-                .modifyAt(now)
-                .modifyUserId(builder.createUserId)
-                .isRemoved(false)
-                .innerBuild()
-                .validate();
+        builder.createAt(now).modifyAt(now);
+        return (ServiceAggregate) Entity.create(builder, ServiceAggregateBuilder::innerBuild);
     }
 
     public ServiceAggregate remove(
-            @NotNull(message = "修改用户ID不能为空") String modifyUserId
-    ) {
+            @NotNull(message = "修改用户ID不能为空") String modifyUserId) {
         if (this.isRemoved) {
             throw new AggregateRemoveException("已经被删除的聚合根<服务聚合根>不能再次删除, ID: " + serviceId);
         }
@@ -161,8 +156,7 @@ public class ServiceAggregate implements DDDGeneratorAggregate {
     }
 
     public ServiceAggregate modify(
-            @NotNull(message = "服务聚合修改对象不能为空") ServiceAggregateBuilder builder
-    ) {
+            @NotNull(message = "服务聚合修改对象不能为空") ServiceAggregateBuilder builder) {
         this.projectId = builder.projectId == null ? this.projectId : builder.projectId;
         this.serviceArtifactId = builder.serviceArtifactId == null ? this.serviceArtifactId : builder.serviceArtifactId;
         this.name = builder.name == null ? this.name : builder.name;
@@ -175,7 +169,7 @@ public class ServiceAggregate implements DDDGeneratorAggregate {
         this.port = builder.port == null ? this.port : builder.port;
         this.modifyAt = TimeStampTools.now();
         this.modifyUserId = builder.modifyUserId;
-        return this.validate();
+        return ObjectTools.JSRValidate(this).validate();
     }
 
     @Override

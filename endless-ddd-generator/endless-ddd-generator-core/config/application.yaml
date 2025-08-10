@@ -5,8 +5,8 @@ endless:
   data-center-id: 1
   worker-id: 1
   sidecar:
-    host: localhost
-    prot: 60005
+    host: 127.0.0.1
+    port: 60005
 #------------------------Server-------------------------
 server:
   port: ${server-port} # 服务端口

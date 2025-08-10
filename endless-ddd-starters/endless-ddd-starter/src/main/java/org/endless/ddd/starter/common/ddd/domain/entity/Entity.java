@@ -1,9 +1,17 @@
 package org.endless.ddd.starter.common.ddd.domain.entity;
 
+import org.endless.ddd.starter.common.config.utils.id.IdGenerator;
+import org.endless.ddd.starter.common.exception.ddd.domain.entity.EntityCreateException;
 import org.endless.ddd.starter.common.exception.ddd.domain.entity.EntityException;
+import org.endless.ddd.starter.common.exception.ddd.domain.entity.aggregate.AggregateCreateException;
+import org.endless.ddd.starter.common.utils.model.object.ObjectTools;
 
 import java.io.Serializable;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
 import java.lang.reflect.Field;
+import java.util.function.Function;
 
 /**
  * Entity
@@ -22,41 +30,43 @@ import java.lang.reflect.Field;
  */
 public interface Entity extends Serializable {
 
+    @SuppressWarnings("unchecked")
+    static <B, E extends Entity> Entity create(B builder, Function<B, E> buildFunction) {
+        String className = builder.getClass().getSimpleName();
+        try {
+            MethodHandles.Lookup lookup = MethodHandles.lookup();
+            Field field = builder.getClass().getDeclaredField("createUserId");
+            field.setAccessible(true);
+            MethodHandle idHandle = lookup.findVirtual(builder.getClass(), id(className), MethodType.methodType(builder.getClass(), String.class));
+            MethodHandle createUserIdGetter = lookup.unreflectGetter(field);
+            MethodHandle modifyUserIdHandle = lookup.findVirtual(builder.getClass(), "modifyUserId", MethodType.methodType(builder.getClass(), String.class));
+            MethodHandle isRemovedHandle = lookup.findVirtual(builder.getClass(), "isRemoved", MethodType.methodType(builder.getClass(), Boolean.class));
+            builder = (B) idHandle.invoke(builder, IdGenerator.of());
+            builder = (B) modifyUserIdHandle.invoke(builder, createUserIdGetter.invoke(builder));
+            builder = (B) isRemovedHandle.invoke(builder, false);
+            E entity = buildFunction.apply(builder);
+            return ObjectTools.JSRValidate(entity).validate();
+        } catch (Throwable e) {
+            if (className.endsWith("AggregateBuilder")) {
+                throw new AggregateCreateException(e.getMessage(), e);
+            } else if (className.endsWith("EntityModifyException")) {
+                throw new EntityCreateException(e.getMessage(), e);
+            } else {
+                throw new EntityException(e.getMessage(), e);
+            }
+        }
+    }
+
+    static String id(String className) {
+        if (className.endsWith("AggregateBuilder")) {
+            className = className.substring(0, className.length() - "AggregateBuilder".length());
+        } else if (className.endsWith("EntityBuilder")) {
+            className = className.substring(0, className.length() - "EntityBuilder".length());
+        } else {
+            throw new EntityException("领域实体类名必须以Entity或Aggregate结尾");
+        }
+        return className.substring(0, 1).toLowerCase() + className.substring(1) + "Id";
+    }
+
     Entity validate();
-
-    default String getIdField(Entity entity) {
-        try {
-            Class<?> entityClass = entity.getClass();
-            // 查找以 "Id" 结尾的字段
-            for (Field field : entityClass.getDeclaredFields()) {
-                if (field.getName().endsWith("Id")) {
-                    return field.getName();
-                }
-            }
-            throw new IllegalArgumentException("实体类中没有找到以 'Id' 结尾的字段");
-        } catch (Exception e) {
-            throw new EntityException("获取聚合或实体 ID 属性名异常: " + e.getMessage(), e);
-        }
-    }
-
-    default String getIdFieldValue(Entity entity) {
-        try {
-            Class<?> entityClass = entity.getClass();
-            Field idField = null;
-            for (Field field : entityClass.getDeclaredFields()) {
-                if (field.getName().endsWith("Id")) {
-                    idField = field;
-                    break;
-                }
-            }
-            if (idField == null) {
-                throw new IllegalArgumentException("聚合或实体类中没有找到以 'Id' 结尾的字段");
-            }
-            idField.setAccessible(true);
-            // 获取实体的 ID 值
-            return (String) idField.get(entity);
-        } catch (Exception e) {
-            throw new EntityException("获取聚合或实体 ID 属性值异常: " + e.getMessage(), e);
-        }
-    }
 }

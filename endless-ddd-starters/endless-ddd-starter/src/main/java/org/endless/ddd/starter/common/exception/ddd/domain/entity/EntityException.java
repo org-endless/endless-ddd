@@ -1,31 +1,52 @@
 package org.endless.ddd.starter.common.exception.ddd.domain.entity;
 
-import org.endless.ddd.starter.common.utils.model.string.StringTools;
+import org.endless.ddd.starter.common.exception.common.FailedException;
+import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
 
 /**
  * EntityException
  * <p>
  * create 2024/09/29 11:29
  * <p>
- * update 2024/11/17 16:12
+ * update 2025/08/10 08:31
  *
  * @author Deng Haozhi
- * @see RuntimeException
+ * @see FailedException
  * @since 1.0.0
  */
-public class EntityException extends RuntimeException {
+public class EntityException extends FailedException {
 
-    private static final String DEFAULT_MESSAGE = "实体类异常";
+    private static final ErrorCode ERROR_CODE = ErrorCode.DEN0000;
 
-    public EntityException(String message) {
-        super("[" + DEFAULT_MESSAGE + "]" + StringTools.addBrackets(message));
+    public EntityException() {
+        super(ERROR_CODE);
     }
 
-    public EntityException(String message, Throwable throwable) {
-        super("[" + DEFAULT_MESSAGE + "]" + StringTools.addBrackets(message), throwable);
+    public EntityException(String message) {
+        super(ERROR_CODE, message);
     }
 
     public EntityException(Throwable throwable) {
-        super("[" + DEFAULT_MESSAGE + "]" + StringTools.addBrackets(throwable.getMessage()), throwable);
+        super(ERROR_CODE, throwable);
+    }
+
+    public EntityException(String message, Throwable throwable) {
+        super(ERROR_CODE, message, throwable);
+    }
+
+    public EntityException(ErrorCode errorCode) {
+        super(errorCode);
+    }
+
+    public EntityException(ErrorCode errorCode, String message) {
+        super(errorCode, message);
+    }
+
+    public EntityException(ErrorCode errorCode, Throwable throwable) {
+        super(errorCode, throwable);
+    }
+
+    public EntityException(ErrorCode errorCode, String message, Throwable throwable) {
+        super(errorCode, message, throwable);
     }
 }
