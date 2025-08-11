@@ -14,7 +14,7 @@ import org.endless.ddd.generator.components.generator.project.domain.type.Projec
 import org.endless.ddd.generator.components.generator.project.domain.type.ProjectPersistenceFrameworkEnum;
 import org.endless.ddd.starter.common.annotation.log.Log;
 import org.endless.ddd.starter.common.config.aspect.log.type.LogLevel;
-import org.endless.ddd.starter.common.exception.ddd.application.command.handler.CommandHandlerNotFoundException;
+import org.endless.ddd.starter.common.exception.ddd.application.command.handler.CommandNotFoundException;
 import org.endless.ddd.starter.common.exception.ddd.application.command.transfer.CommandReqTransferNullException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -84,7 +84,7 @@ public class ProjectCommandHandlerImpl implements ProjectCommandHandler {
                 .map(ProjectRemoveReqCTransfer::validate)
                 .orElseThrow(() -> new CommandReqTransferNullException("项目删除命令参数不能为空"));
         ProjectAggregate aggregate = projectRepository.findById(command.projectId())
-                .orElseThrow(() -> new CommandHandlerNotFoundException("项目不存在"));
+                .orElseThrow(() -> new CommandNotFoundException("项目不存在"));
         projectRepository.remove(aggregate.remove(DDD_SIMPLIFIED_GENERATOR_USER_ID));
         //     删除项目下所有类型
     }
@@ -97,7 +97,7 @@ public class ProjectCommandHandlerImpl implements ProjectCommandHandler {
                 .map(ProjectModifyReqCTransfer::validate)
                 .orElseThrow(() -> new CommandReqTransferNullException("项目修改命令参数不能为空"));
         ProjectAggregate aggregate = projectRepository.findById(command.projectId())
-                .orElseThrow(() -> new CommandHandlerNotFoundException("项目不存在"));
+                .orElseThrow(() -> new CommandNotFoundException("项目不存在"));
         projectRepository.modify(aggregate.modify(ProjectAggregate.builder()
                 .projectArtifactId(command.projectArtifactId())
                 .groupId(command.groupId())
@@ -123,7 +123,7 @@ public class ProjectCommandHandlerImpl implements ProjectCommandHandler {
                 .map(ProjectGenerateReqCTransfer::validate)
                 .orElseThrow(() -> new CommandReqTransferNullException("项目删除命令参数不能为空"));
         ProjectAggregate aggregate = projectRepository.findById(command.projectId())
-                .orElseThrow(() -> new CommandHandlerNotFoundException("项目不存在"));
+                .orElseThrow(() -> new CommandNotFoundException("项目不存在"));
         projectDrivenAdapter.generate(aggregate);
     }
 }

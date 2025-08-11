@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.utils.crypto;
 
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * SM4CryptoException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
  */
 public class SM4CryptoException extends FailedException {
 
-    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.UTL0120;
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("UTL0120");
 
     public SM4CryptoException() {
         super(ERROR_CODE);

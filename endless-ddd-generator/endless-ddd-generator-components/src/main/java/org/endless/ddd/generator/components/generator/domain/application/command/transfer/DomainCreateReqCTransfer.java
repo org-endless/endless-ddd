@@ -3,7 +3,7 @@ package org.endless.ddd.generator.components.generator.domain.application.comman
 import com.alibaba.fastjson2.annotation.JSONType;
 import lombok.Builder;
 import org.endless.ddd.generator.common.model.application.command.transfer.DDDGeneratorCommandTransfer;
-import org.endless.ddd.starter.common.exception.ddd.application.command.transfer.CommandTransferValidateException;
+import org.endless.ddd.starter.common.exception.ddd.application.command.transfer.CommandReqTransferValidateException;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -46,37 +46,37 @@ public record DomainCreateReqCTransfer(
 
     private void validateContextId() {
         if (!StringUtils.hasText(contextId)) {
-            throw new CommandTransferValidateException("限界上下文ID不能为空");
+            throw new CommandReqTransferValidateException("限界上下文ID不能为空");
         }
     }
 
     private void validateName() {
         if (!StringUtils.hasText(name)) {
-            throw new CommandTransferValidateException("领域名称不能为空");
+            throw new CommandReqTransferValidateException("领域名称不能为空");
         }
     }
 
     private void validateDescription() {
         if (!StringUtils.hasText(description)) {
-            throw new CommandTransferValidateException("领域描述不能为空");
+            throw new CommandReqTransferValidateException("领域描述不能为空");
         }
     }
 
     private void validateVersion() {
         if (!StringUtils.hasText(version)) {
-            throw new CommandTransferValidateException("领域版本不能为空");
+            throw new CommandReqTransferValidateException("领域版本不能为空");
         }
     }
 
     private void validateAuthor() {
         if (!StringUtils.hasText(author)) {
-            throw new CommandTransferValidateException("领域作者不能为空");
+            throw new CommandReqTransferValidateException("领域作者不能为空");
         }
     }
 
     private void validateFields() {
         if (CollectionUtils.isEmpty(fields)) {
-            throw new CommandTransferValidateException("聚合根字段列表不能为空");
+            throw new CommandReqTransferValidateException("聚合根字段列表不能为空");
         }
     }
 }

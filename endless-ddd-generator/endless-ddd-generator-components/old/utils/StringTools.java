@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  * update 2024/09/18 02:00
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class StringTools {
 

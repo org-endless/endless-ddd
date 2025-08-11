@@ -10,7 +10,7 @@ import org.endless.ddd.starter.common.ddd.domain.entity.Entity;
 import org.endless.ddd.starter.common.ddd.infrastructure.data.persistence.page.PageCallback;
 import org.endless.ddd.starter.common.ddd.infrastructure.data.record.DataRecord;
 import org.endless.ddd.starter.common.exception.ddd.infrastructure.data.persistence.mapper.*;
-import org.endless.ddd.starter.common.utils.exception.database.DatabaseErrorParser;
+import org.endless.ddd.starter.common.utils.error.message.database.DatabaseErrorParser;
 import org.endless.ddd.starter.common.utils.model.string.StringTools;
 import org.endless.ddd.starter.common.utils.model.time.TimeStampTools;
 import org.slf4j.Logger;

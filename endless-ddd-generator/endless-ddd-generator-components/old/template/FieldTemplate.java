@@ -20,7 +20,7 @@ import static com.tansun.ddd.generator.utils.StringTools.getLastCamelCase;
  * update 2024/10/11 10:17
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class FieldTemplate {
 

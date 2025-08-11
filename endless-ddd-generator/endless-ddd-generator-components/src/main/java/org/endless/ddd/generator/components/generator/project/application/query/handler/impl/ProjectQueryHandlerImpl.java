@@ -7,7 +7,7 @@ import org.endless.ddd.generator.components.generator.project.application.query.
 import org.endless.ddd.generator.components.generator.project.application.query.transfer.ProjectFindSimpleProfilesRespQTransfer;
 import org.endless.ddd.starter.common.annotation.log.Log;
 import org.endless.ddd.starter.common.config.aspect.log.type.LogLevel;
-import org.endless.ddd.starter.common.exception.ddd.application.query.handler.QueryHandlerNotFoundException;
+import org.endless.ddd.starter.common.exception.ddd.application.query.handler.QueryNotFoundException;
 import org.endless.ddd.starter.common.exception.ddd.application.query.transfer.QueryReqTransferNullException;
 import org.springframework.stereotype.Service;
 
@@ -55,7 +55,7 @@ public class ProjectQueryHandlerImpl implements ProjectQueryHandler {
                 .map(ProjectFindByIdReqQTransfer::validate)
                 .orElseThrow(() -> new QueryReqTransferNullException("根据ID查询项目是否存在参数不能为空"));
         if (!projectQueryRepository.existsById(query.projectId())) {
-            throw new QueryHandlerNotFoundException("根据ID查询项目不存在");
+            throw new QueryNotFoundException("根据ID查询项目不存在");
         }
     }
 }

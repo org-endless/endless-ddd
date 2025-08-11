@@ -9,7 +9,7 @@ import org.endless.ddd.generator.components.generator.context.domain.entity.Cont
 import org.endless.ddd.generator.components.generator.context.domain.type.ContextTypeEnum;
 import org.endless.ddd.starter.common.annotation.log.Log;
 import org.endless.ddd.starter.common.config.aspect.log.type.LogLevel;
-import org.endless.ddd.starter.common.exception.ddd.application.command.handler.CommandHandlerNotFoundException;
+import org.endless.ddd.starter.common.exception.ddd.application.command.handler.CommandNotFoundException;
 import org.endless.ddd.starter.common.exception.ddd.application.command.transfer.CommandReqTransferNullException;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -64,7 +64,7 @@ public class ContextCommandHandlerImpl implements ContextCommandHandler {
                 .map(ContextRemoveReqCTransfer::validate)
                 .orElseThrow(() -> new CommandReqTransferNullException("限界上下文修改命令参数不能为空"));
         ContextAggregate aggregate = contextRepository.findById(command.contextId())
-                .orElseThrow(() -> new CommandHandlerNotFoundException("限界上下文不存在"));
+                .orElseThrow(() -> new CommandNotFoundException("限界上下文不存在"));
         contextRepository.remove(aggregate.remove(DDD_SIMPLIFIED_GENERATOR_USER_ID));
     }
 
@@ -76,7 +76,7 @@ public class ContextCommandHandlerImpl implements ContextCommandHandler {
                 .map(ContextModifyReqCTransfer::validate)
                 .orElseThrow(() -> new CommandReqTransferNullException("限界上下文修改命令参数不能为空"));
         ContextAggregate aggregate = contextRepository.findById(command.contextId())
-                .orElseThrow(() -> new CommandHandlerNotFoundException("限界上下文不存在"));
+                .orElseThrow(() -> new CommandNotFoundException("限界上下文不存在"));
         contextRepository.modify(aggregate.modify(ContextAggregate.builder()
                 .serviceId(command.serviceId())
                 .name(command.name())

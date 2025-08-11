@@ -15,7 +15,7 @@ import java.util.List;
  * update 2024/09/19 01:18
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class ValidateTemplate {
 
@@ -132,11 +132,11 @@ public class ValidateTemplate {
         } else if (className.endsWith("Value")) {
             stringBuilder.append("            throw new ValueValidateException(\"").append(fieldDescription).append(message).append(");\n");
         } else if (className.endsWith("CTransfer")) {
-            stringBuilder.append("            throw new CommandTransferValidateException(\"").append(fieldDescription).append(message).append(");\n");
+            stringBuilder.append("            throw new CommandReqTransferValidateException(\"").append(fieldDescription).append(message).append(");\n");
         } else if (className.endsWith("QTransfer")) {
-            stringBuilder.append("            throw new QueryTransferValidateException(\"").append(fieldDescription).append(message).append(");\n");
+            stringBuilder.append("            throw new QueryReqTransferValidateException(\"").append(fieldDescription).append(message).append(");\n");
         } else if (className.endsWith("DTransfer")) {
-            stringBuilder.append("            throw new DrivenTransferValidateException(\"").append(fieldDescription).append(message).append(");\n");
+            stringBuilder.append("            throw new DrivenReqTransferValidateException(\"").append(fieldDescription).append(message).append(");\n");
         } else if (className.endsWith("Record")) {
             stringBuilder.append("            throw new DataRecordValidateException(\"").append(fieldDescription).append(message).append(");\n");
         }

@@ -2,8 +2,8 @@ package org.endless.ddd.generator.common.model.infrastructure.adapter;
 
 import org.endless.ddd.generator.common.model.domain.anticorruption.DDDGeneratorDrivenAdapter;
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.exception.ddd.infrastructure.adapter.filesystem.FileSystemRemoveFailedException;
-import org.endless.ddd.starter.common.exception.ddd.infrastructure.adapter.filesystem.FileSystemStoreFailedException;
+import org.endless.ddd.starter.common.exception.config.minio.FileSystemRemoveFailedException;
+import org.endless.ddd.starter.common.exception.config.minio.FileSystemStoreFailedException;
 import org.endless.ddd.starter.common.utils.model.time.DateTimeTools;
 import org.endless.ddd.starter.common.utils.model.time.TimeStampTools;
 import org.slf4j.Logger;

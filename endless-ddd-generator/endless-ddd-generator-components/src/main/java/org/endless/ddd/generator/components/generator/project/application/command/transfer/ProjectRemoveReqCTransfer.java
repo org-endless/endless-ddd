@@ -3,7 +3,7 @@ package org.endless.ddd.generator.components.generator.project.application.comma
 import com.alibaba.fastjson2.annotation.JSONType;
 import lombok.Builder;
 import org.endless.ddd.generator.common.model.application.command.transfer.DDDGeneratorCommandTransfer;
-import org.endless.ddd.starter.common.exception.ddd.application.command.transfer.CommandTransferValidateException;
+import org.endless.ddd.starter.common.exception.ddd.application.command.transfer.CommandReqTransferValidateException;
 import org.springframework.util.StringUtils;
 
 /**
@@ -31,7 +31,7 @@ public record ProjectRemoveReqCTransfer(String projectId) implements DDDGenerato
 
     private void validateProjectId() {
         if (!StringUtils.hasText(projectId)) {
-            throw new CommandTransferValidateException("项目ID不能为空");
+            throw new CommandReqTransferValidateException("项目ID不能为空");
         }
     }
 }

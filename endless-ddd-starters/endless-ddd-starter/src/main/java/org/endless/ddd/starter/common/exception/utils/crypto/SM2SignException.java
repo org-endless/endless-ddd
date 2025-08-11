@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.utils.crypto;
 
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * SM2SignException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
  */
 public class SM2SignException extends FailedException {
 
-    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.UTL0103;
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("UTL0103");
 
     public SM2SignException() {
         super(ERROR_CODE);

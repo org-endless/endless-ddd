@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.config.rest;
 
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * RestException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
  */
 public class RestException extends FailedException {
 
-    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.RES0000;
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("RES0000");
 
     public RestException() {
         super(ERROR_CODE);
@@ -34,19 +34,19 @@ public class RestException extends FailedException {
         super(ERROR_CODE, message, throwable);
     }
 
-    public RestException(ErrorCommonCode errorCode) {
+    public RestException(ErrorCode errorCode) {
         super(errorCode);
     }
 
-    public RestException(ErrorCommonCode errorCode, String message) {
+    public RestException(ErrorCode errorCode, String message) {
         super(errorCode, message);
     }
 
-    public RestException(ErrorCommonCode errorCode, Throwable throwable) {
+    public RestException(ErrorCode errorCode, Throwable throwable) {
         super(errorCode, throwable);
     }
 
-    public RestException(ErrorCommonCode errorCode, String message, Throwable throwable) {
+    public RestException(ErrorCode errorCode, String message, Throwable throwable) {
         super(errorCode, message, throwable);
     }
 }

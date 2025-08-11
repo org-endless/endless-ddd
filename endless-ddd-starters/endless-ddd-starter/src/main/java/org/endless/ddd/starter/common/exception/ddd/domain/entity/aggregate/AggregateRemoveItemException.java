@@ -1,13 +1,13 @@
 package org.endless.ddd.starter.common.exception.ddd.domain.entity.aggregate;
 
-import org.endless.ddd.starter.common.utils.model.string.StringTools;
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 
 /**
  * AggregateRemoveItemException
  * <p>
- * create 2024/11/13 13:48
+ * create 2025/08/12 00:16
  * <p>
- * update 2024/11/13 13:49
+ * update 2025/08/12 00:19
  *
  * @author Deng Haozhi
  * @see AggregateException
@@ -15,17 +15,21 @@ import org.endless.ddd.starter.common.utils.model.string.StringTools;
  */
 public class AggregateRemoveItemException extends AggregateException {
 
-    private static final String DEFAULT_MESSAGE = "删除子实体行为异常";
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("DAG0202");
 
-    public AggregateRemoveItemException(String message) {
-        super("[" + DEFAULT_MESSAGE + "]" + StringTools.addBrackets(message));
+    public AggregateRemoveItemException() {
+        super(ERROR_CODE);
     }
 
-    public AggregateRemoveItemException(String message, Throwable throwable) {
-        super("[" + DEFAULT_MESSAGE + "]" + StringTools.addBrackets(message), throwable);
+    public AggregateRemoveItemException(String message) {
+        super(ERROR_CODE, message);
     }
 
     public AggregateRemoveItemException(Throwable throwable) {
-        super("[" + DEFAULT_MESSAGE + "]" + StringTools.addBrackets(throwable.getMessage()), throwable);
+        super(ERROR_CODE, throwable);
+    }
+
+    public AggregateRemoveItemException(String message, Throwable throwable) {
+        super(ERROR_CODE, message, throwable);
     }
 }

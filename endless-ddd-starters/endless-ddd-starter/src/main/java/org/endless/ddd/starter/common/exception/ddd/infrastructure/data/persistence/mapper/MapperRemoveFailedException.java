@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.data.persistence.mapper;
 
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * MapperRemoveFieldException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
  */
 public class MapperRemoveFailedException extends MapperFailedException {
 
-    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.DDP0120;
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("DDP0120");
 
     public MapperRemoveFailedException() {
         super(ERROR_CODE);

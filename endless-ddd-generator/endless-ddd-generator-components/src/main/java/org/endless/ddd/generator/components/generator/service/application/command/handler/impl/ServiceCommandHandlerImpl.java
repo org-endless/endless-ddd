@@ -12,7 +12,7 @@ import org.endless.ddd.generator.components.generator.service.domain.entity.Serv
 import org.endless.ddd.generator.components.generator.service.domain.type.ServiceTypeEnum;
 import org.endless.ddd.starter.common.annotation.log.Log;
 import org.endless.ddd.starter.common.config.aspect.log.type.LogLevel;
-import org.endless.ddd.starter.common.exception.ddd.application.command.handler.CommandHandlerNotFoundException;
+import org.endless.ddd.starter.common.exception.ddd.application.command.handler.CommandNotFoundException;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -82,7 +82,7 @@ public class ServiceCommandHandlerImpl implements ServiceCommandHandler {
     @Log(message = "服务删除命令", value = "#command", level = LogLevel.TRACE)
     public void remove(ServiceRemoveReqCTransfer command) {
         ServiceAggregate aggregate = serviceRepository.findById(command.serviceId())
-                .orElseThrow(() -> new CommandHandlerNotFoundException("服务不存在"));
+                .orElseThrow(() -> new CommandNotFoundException("服务不存在"));
         serviceRepository.remove(aggregate.remove(DDD_SIMPLIFIED_GENERATOR_USER_ID));
     }
 
@@ -91,7 +91,7 @@ public class ServiceCommandHandlerImpl implements ServiceCommandHandler {
     @Log(message = "服务创建命令", value = "#command", level = LogLevel.TRACE)
     public void modify(ServiceModifyReqCTransfer command) {
         ServiceAggregate aggregate = serviceRepository.findById(command.serviceId())
-                .orElseThrow(() -> new CommandHandlerNotFoundException("服务不存在"));
+                .orElseThrow(() -> new CommandNotFoundException("服务不存在"));
         serviceRepository.modify(aggregate.modify(ServiceAggregate.builder()
                 .projectId(command.projectId())
                 .serviceArtifactId(command.serviceArtifactId())
@@ -111,7 +111,7 @@ public class ServiceCommandHandlerImpl implements ServiceCommandHandler {
     @Log(message = "服务生成命令", value = "#command", level = LogLevel.TRACE)
     public void generate(ServiceGenerateReqCTransfer command) {
         ServiceAggregate aggregate = serviceRepository.findById(command.serviceId())
-                .orElseThrow(() -> new CommandHandlerNotFoundException("服务不存在"));
+                .orElseThrow(() -> new CommandNotFoundException("服务不存在"));
         serviceGeneratorDrivenAdapter.generate(aggregate);
     }
 }

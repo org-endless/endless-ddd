@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.domain.value;
 
-import org.endless.ddd.starter.common.utils.model.string.StringTools;
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 
 /**
  * ValueValidateException
@@ -15,17 +15,21 @@ import org.endless.ddd.starter.common.utils.model.string.StringTools;
  */
 public class ValueValidateException extends ValueException {
 
-    private static final String DEFAULT_MESSAGE = "校验异常";
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("DVO0002");
+
+    public ValueValidateException() {
+        super(ERROR_CODE);
+    }
 
     public ValueValidateException(String message) {
-        super("[" + DEFAULT_MESSAGE + "]" + StringTools.addBrackets(message));
+        super(ERROR_CODE, message);
     }
 
     public ValueValidateException(Throwable throwable) {
-        super("[" + DEFAULT_MESSAGE + "]" + StringTools.addBrackets(throwable.getMessage()), throwable);
+        super(ERROR_CODE, throwable);
     }
 
     public ValueValidateException(String message, Throwable throwable) {
-        super("[" + DEFAULT_MESSAGE + "]" + StringTools.addBrackets(message), throwable);
+        super(ERROR_CODE, message, throwable);
     }
 }

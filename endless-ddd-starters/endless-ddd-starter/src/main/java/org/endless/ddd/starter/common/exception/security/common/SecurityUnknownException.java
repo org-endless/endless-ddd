@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.security.common;
 
 
-import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 
 /**
  * SecurityUnknownException
@@ -16,19 +16,19 @@ import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
  */
 public class SecurityUnknownException extends AbstractSecurityException {
 
-    public SecurityUnknownException(ErrorCommonCode errorCode) {
+    public SecurityUnknownException(ErrorCode errorCode) {
         super(errorCode);
     }
 
-    public SecurityUnknownException(ErrorCommonCode errorCode, String message) {
+    public SecurityUnknownException(ErrorCode errorCode, String message) {
         super(errorCode, message);
     }
 
-    public SecurityUnknownException(ErrorCommonCode errorCode, Throwable throwable) {
+    public SecurityUnknownException(ErrorCode errorCode, Throwable throwable) {
         super(errorCode, throwable);
     }
 
-    public SecurityUnknownException(ErrorCommonCode errorCode, String message, Throwable throwable) {
+    public SecurityUnknownException(ErrorCode errorCode, String message, Throwable throwable) {
         super(errorCode, message, throwable);
     }
 }

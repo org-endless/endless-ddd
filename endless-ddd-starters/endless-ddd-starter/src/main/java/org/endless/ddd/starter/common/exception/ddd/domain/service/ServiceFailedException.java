@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.ddd.domain.service;
 
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * ServiceFailedException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
  */
 public class ServiceFailedException extends FailedException {
 
-    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.DSV0000;
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("DSV0000");
 
     public ServiceFailedException() {
         super(ERROR_CODE);
@@ -32,5 +32,21 @@ public class ServiceFailedException extends FailedException {
 
     public ServiceFailedException(String message, Throwable throwable) {
         super(ERROR_CODE, message, throwable);
+    }
+
+    public ServiceFailedException(ErrorCode errorCode) {
+        super(errorCode);
+    }
+
+    public ServiceFailedException(ErrorCode errorCode, String message) {
+        super(errorCode, message);
+    }
+
+    public ServiceFailedException(ErrorCode errorCode, Throwable throwable) {
+        super(errorCode, throwable);
+    }
+
+    public ServiceFailedException(ErrorCode errorCode, String message, Throwable throwable) {
+        super(errorCode, message, throwable);
     }
 }

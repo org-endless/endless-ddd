@@ -15,7 +15,7 @@ import static com.tansun.ddd.generator.utils.StringTools.convertToSlash;
  * update 2024/09/18 21:57
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class DefineTemplate {
 

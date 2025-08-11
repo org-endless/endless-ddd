@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.common;
 
 import lombok.Getter;
-import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 import org.endless.ddd.starter.common.utils.model.string.StringTools;
 
 /**
@@ -18,26 +18,26 @@ import org.endless.ddd.starter.common.utils.model.string.StringTools;
 @Getter
 public class AbstractException extends RuntimeException {
 
-    private final ErrorCommonCode errorCode;
+    private final ErrorCode errorCode;
 
     private String method;
 
-    public AbstractException(ErrorCommonCode errorCode) {
+    public AbstractException(ErrorCode errorCode) {
         super("[" + errorCode.getDescription() + "]");
         this.errorCode = errorCode;
     }
 
-    public AbstractException(ErrorCommonCode errorCode, String message) {
+    public AbstractException(ErrorCode errorCode, String message) {
         super(StringTools.addBrackets(message));
         this.errorCode = errorCode;
     }
 
-    public AbstractException(ErrorCommonCode errorCode, Throwable throwable) {
+    public AbstractException(ErrorCode errorCode, Throwable throwable) {
         super(StringTools.addBrackets(throwable.getMessage()), throwable);
         this.errorCode = errorCode;
     }
 
-    public AbstractException(ErrorCommonCode errorCode, String message, Throwable throwable) {
+    public AbstractException(ErrorCode errorCode, String message, Throwable throwable) {
         super(StringTools.addBrackets(message), throwable);
         this.errorCode = errorCode;
     }

@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.utils.crypto;
 
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * SM2DecryptException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
  */
 public class PKCS1PaddingException extends FailedException {
 
-    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.UTL8000;
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("UTL8000");
 
     public PKCS1PaddingException() {
         super(ERROR_CODE);

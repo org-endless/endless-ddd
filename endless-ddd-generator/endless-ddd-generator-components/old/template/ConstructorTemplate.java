@@ -17,7 +17,7 @@ import static com.tansun.ddd.generator.utils.StringTools.*;
  * update 2024/09/19 01:19
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class ConstructorTemplate {
 

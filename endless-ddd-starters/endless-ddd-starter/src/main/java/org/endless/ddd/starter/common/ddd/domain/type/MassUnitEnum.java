@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.ddd.domain.type.EnumException;
  * @author Deng Haozhi
  * @see Enum
  * @see BaseEnum
- * @since 0.0.1
+ * @since 1.0.0
  */
 @Getter
 @AllArgsConstructor

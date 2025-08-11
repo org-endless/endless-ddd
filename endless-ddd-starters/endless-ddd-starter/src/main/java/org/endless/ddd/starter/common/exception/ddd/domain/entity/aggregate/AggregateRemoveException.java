@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.domain.entity.aggregate;
 
-import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 
 /**
  * AggregateRemoveException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
  */
 public class AggregateRemoveException extends AggregateException {
 
-    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.DAG0101;
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("DAG0111");
 
     public AggregateRemoveException() {
         super(ERROR_CODE);

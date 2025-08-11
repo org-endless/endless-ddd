@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.utils.model;
 
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * DecimalFormatException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
  */
 public class DecimalOutOfRangeException extends FailedException {
 
-    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.UTL0014;
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("UTL0014");
 
     public DecimalOutOfRangeException() {
         super(ERROR_CODE);

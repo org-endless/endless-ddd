@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.data.persistence.mapper;
 
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * MapperFailedException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
  */
 public class MapperFailedException extends FailedException {
 
-    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.DDP0100;
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("DDP0100");
 
     public MapperFailedException() {
         super(ERROR_CODE);
@@ -34,19 +34,19 @@ public class MapperFailedException extends FailedException {
         super(ERROR_CODE, message, throwable);
     }
 
-    public MapperFailedException(ErrorCommonCode errorCode) {
+    public MapperFailedException(ErrorCode errorCode) {
         super(errorCode);
     }
 
-    public MapperFailedException(ErrorCommonCode errorCode, String message) {
+    public MapperFailedException(ErrorCode errorCode, String message) {
         super(errorCode, message);
     }
 
-    public MapperFailedException(ErrorCommonCode errorCode, Throwable throwable) {
+    public MapperFailedException(ErrorCode errorCode, Throwable throwable) {
         super(errorCode, throwable);
     }
 
-    public MapperFailedException(ErrorCommonCode errorCode, String message, Throwable throwable) {
+    public MapperFailedException(ErrorCode errorCode, String message, Throwable throwable) {
         super(errorCode, message, throwable);
     }
 }

@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.data.manager;
 
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * DataManagerRemoveFailedException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
  */
 public class DataManagerRemoveFailedException extends FailedException {
 
-    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.DDM0002;
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("DDM0002");
 
     public DataManagerRemoveFailedException() {
         super(ERROR_CODE);

@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.utils.crypto;
 
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * SM2KeyPairException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
  */
 public class PEMCertException extends FailedException {
 
-    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.UTL7000;
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("UTL7000");
 
     public PEMCertException() {
         super(ERROR_CODE);

@@ -1,13 +1,13 @@
 package org.endless.ddd.starter.common.exception.ddd.domain.entity.aggregate;
 
-import org.endless.ddd.starter.common.utils.model.string.StringTools;
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 
 /**
  * AggregateAddItemException
  * <p>
- * create 2024/10/12 11:02
+ * create 2025/08/12 00:16
  * <p>
- * update 2024/11/13 13:49
+ * update 2025/08/12 00:19
  *
  * @author Deng Haozhi
  * @see AggregateException
@@ -15,17 +15,21 @@ import org.endless.ddd.starter.common.utils.model.string.StringTools;
  */
 public class AggregateAddItemException extends AggregateException {
 
-    private static final String DEFAULT_MESSAGE = "添加子实体行为异常";
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("DAG0200");
 
-    public AggregateAddItemException(String message) {
-        super("[" + DEFAULT_MESSAGE + "]" + StringTools.addBrackets(message));
+    public AggregateAddItemException() {
+        super(ERROR_CODE);
     }
 
-    public AggregateAddItemException(String message, Throwable throwable) {
-        super("[" + DEFAULT_MESSAGE + "]" + StringTools.addBrackets(message), throwable);
+    public AggregateAddItemException(String message) {
+        super(ERROR_CODE, message);
     }
 
     public AggregateAddItemException(Throwable throwable) {
-        super("[" + DEFAULT_MESSAGE + "]" + StringTools.addBrackets(throwable.getMessage()), throwable);
+        super(ERROR_CODE, throwable);
+    }
+
+    public AggregateAddItemException(String message, Throwable throwable) {
+        super(ERROR_CODE, message, throwable);
     }
 }

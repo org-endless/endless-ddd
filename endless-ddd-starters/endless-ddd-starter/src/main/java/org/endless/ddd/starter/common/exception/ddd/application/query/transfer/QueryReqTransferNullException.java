@@ -1,22 +1,22 @@
 package org.endless.ddd.starter.common.exception.ddd.application.query.transfer;
 
-import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.ddd.common.ReqTransferNullException;
 
 /**
  * QueryReqTransferNullException
  * <p>
  * create 2024/09/29 11:19
  * <p>
- * update 2025/01/09 18:01
+ * update 2025/08/11 19:35
  *
  * @author Deng Haozhi
- * @see FailedException
+ * @see ReqTransferNullException
  * @since 1.0.0
  */
-public class QueryReqTransferNullException extends FailedException {
+public class QueryReqTransferNullException extends ReqTransferNullException {
 
-    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.DTS0200;
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("DTO1200");
 
     public QueryReqTransferNullException() {
         super(ERROR_CODE);

@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.common;
 
-import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 
 /**
  * UnknownException
@@ -9,6 +9,7 @@ import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
  * <p>
  * update 2024/12/05 02:07
  * update 2025/07/19 02:56
+ * update 2025/08/11 19:49
  *
  * @author Deng Haozhi
  * @see AbstractException
@@ -16,7 +17,7 @@ import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
  */
 public class UnknownException extends AbstractException {
 
-    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.UNKNOWN;
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("UNKNOWN");
 
     public UnknownException() {
         super(ERROR_CODE);
@@ -34,19 +35,19 @@ public class UnknownException extends AbstractException {
         super(ERROR_CODE, message, throwable);
     }
 
-    public UnknownException(ErrorCommonCode errorCode) {
+    public UnknownException(ErrorCode errorCode) {
         super(errorCode);
     }
 
-    public UnknownException(ErrorCommonCode errorCode, String message) {
+    public UnknownException(ErrorCode errorCode, String message) {
         super(errorCode, message);
     }
 
-    public UnknownException(ErrorCommonCode errorCode, Throwable throwable) {
+    public UnknownException(ErrorCode errorCode, Throwable throwable) {
         super(errorCode, throwable);
     }
 
-    public UnknownException(ErrorCommonCode errorCode, String message, Throwable throwable) {
+    public UnknownException(ErrorCode errorCode, String message, Throwable throwable) {
         super(errorCode, message, throwable);
     }
 }

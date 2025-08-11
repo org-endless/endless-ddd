@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.ddd.common;
 
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * TransferValidateException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
  */
 public class TransferValidateException extends FailedException {
 
-    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.DTO0001;
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("DTO0001");
 
     public TransferValidateException() {
         super(ERROR_CODE);
@@ -32,5 +32,21 @@ public class TransferValidateException extends FailedException {
 
     public TransferValidateException(String message, Throwable throwable) {
         super(ERROR_CODE, message, throwable);
+    }
+
+    public TransferValidateException(ErrorCode errorCode) {
+        super(errorCode);
+    }
+
+    public TransferValidateException(ErrorCode errorCode, String message) {
+        super(errorCode, message);
+    }
+
+    public TransferValidateException(ErrorCode errorCode, Throwable throwable) {
+        super(errorCode, throwable);
+    }
+
+    public TransferValidateException(ErrorCode errorCode, String message, Throwable throwable) {
+        super(errorCode, message, throwable);
     }
 }

@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.common;
 
-import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 
 /**
  * FailedException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
  */
 public class NotFoundException extends AbstractException {
 
-    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.NOT_FND;
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("NOT_FND");
 
     public NotFoundException() {
         super(ERROR_CODE);
@@ -33,19 +33,19 @@ public class NotFoundException extends AbstractException {
         super(ERROR_CODE, message, throwable);
     }
 
-    public NotFoundException(ErrorCommonCode errorCode) {
+    public NotFoundException(ErrorCode errorCode) {
         super(errorCode);
     }
 
-    public NotFoundException(ErrorCommonCode errorCode, String message) {
+    public NotFoundException(ErrorCode errorCode, String message) {
         super(errorCode, message);
     }
 
-    public NotFoundException(ErrorCommonCode errorCode, Throwable throwable) {
+    public NotFoundException(ErrorCode errorCode, Throwable throwable) {
         super(errorCode, throwable);
     }
 
-    public NotFoundException(ErrorCommonCode errorCode, String message, Throwable throwable) {
+    public NotFoundException(ErrorCode errorCode, String message, Throwable throwable) {
         super(errorCode, message, throwable);
     }
 }

@@ -3,7 +3,7 @@ package org.endless.ddd.generator.components.generator.context.application.query
 import com.alibaba.fastjson2.annotation.JSONType;
 import lombok.Builder;
 import org.endless.ddd.generator.common.model.application.query.transfer.DDDGeneratorQueryTransfer;
-import org.endless.ddd.starter.common.exception.ddd.application.query.transfer.QueryTransferValidateException;
+import org.endless.ddd.starter.common.exception.ddd.application.query.transfer.QueryReqTransferValidateException;
 import org.springframework.util.StringUtils;
 
 /**
@@ -34,13 +34,13 @@ public record ContextFindSimpleProfileRespQTransfer(
 
     private void validateContextId() {
         if (!StringUtils.hasText(contextId)) {
-            throw new QueryTransferValidateException("限界上下文ID不能为空");
+            throw new QueryReqTransferValidateException("限界上下文ID不能为空");
         }
     }
 
     private void validateName() {
         if (!StringUtils.hasText(name)) {
-            throw new QueryTransferValidateException("限界上下文名称不能为空");
+            throw new QueryReqTransferValidateException("限界上下文名称不能为空");
         }
     }
 }

@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.security;
 
-import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.security.common.SecurityFailedException;
 
 /**
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.security.common.SecurityFailedEx
  */
 public class SecurityBadRequestException extends SecurityFailedException {
 
-    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.SEC0040;
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("SEC0040");
 
     public SecurityBadRequestException() {
         super(ERROR_CODE);

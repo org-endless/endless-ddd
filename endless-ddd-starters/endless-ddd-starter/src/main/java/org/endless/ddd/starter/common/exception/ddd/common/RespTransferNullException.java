@@ -1,7 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.common;
 
-import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 
 /**
  * RespTransferNullException
@@ -11,12 +10,12 @@ import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
  * update 2025/01/02 14:34
  *
  * @author Deng Haozhi
- * @see FailedException
+ * @see TransferNullException
  * @since 1.0.0
  */
-public class RespTransferNullException extends FailedException {
+public class RespTransferNullException extends TransferNullException {
 
-    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.DTR0000;
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("DTO2000");
 
     public RespTransferNullException() {
         super(ERROR_CODE);
@@ -32,5 +31,21 @@ public class RespTransferNullException extends FailedException {
 
     public RespTransferNullException(String message, Throwable throwable) {
         super(ERROR_CODE, message, throwable);
+    }
+
+    public RespTransferNullException(ErrorCode errorCode) {
+        super(errorCode);
+    }
+
+    public RespTransferNullException(ErrorCode errorCode, String message) {
+        super(errorCode, message);
+    }
+
+    public RespTransferNullException(ErrorCode errorCode, Throwable throwable) {
+        super(errorCode, throwable);
+    }
+
+    public RespTransferNullException(ErrorCode errorCode, String message, Throwable throwable) {
+        super(errorCode, message, throwable);
     }
 }

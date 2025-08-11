@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.security.password;
 
-import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.security.common.SecurityFailedException;
 
 /**
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.exception.security.common.SecurityFailedEx
  */
 public class PasswordErrorException extends SecurityFailedException {
 
-    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.SEC0003;
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("SEC0003");
 
     public PasswordErrorException() {
         super(ERROR_CODE);

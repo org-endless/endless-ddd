@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.utils.model;
 
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * TreeException
@@ -17,18 +17,18 @@ import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 public class TreeException extends FailedException {
 
     public TreeException() {
-        super(ErrorCommonCode.UTL0012);
+        super(ErrorCode.of("UTL0012"));
     }
 
     public TreeException(String message) {
-        super(ErrorCommonCode.UTL0012, message);
+        super(ErrorCode.of("UTL0012"), message);
     }
 
     public TreeException(Throwable throwable) {
-        super(ErrorCommonCode.UTL0012, throwable);
+        super(ErrorCode.of("UTL0012"), throwable);
     }
 
     public TreeException(String message, Throwable throwable) {
-        super(ErrorCommonCode.UTL0012, message, throwable);
+        super(ErrorCode.of("UTL0012"), message, throwable);
     }
 }

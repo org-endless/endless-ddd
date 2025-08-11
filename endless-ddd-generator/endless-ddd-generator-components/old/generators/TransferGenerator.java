@@ -43,15 +43,15 @@ public class TransferGenerator {
 
         if (adapterType == AdapterType.DRIVING) {
             if (cqrsType == CQRSType.QUERY) {
-                subPackage = "application.query.transfer";
+                subPackage = "application.query.exchange";
                 superClassName = aggregate.getServiceName() + "QueryTransfer";
 
             } else {
-                subPackage = "application.command.transfer";
+                subPackage = "application.command.exchange";
                 superClassName = aggregate.getServiceName() + "CommandTransfer";
             }
         } else {
-            subPackage = "infrastructure.adapter.transfer";
+            subPackage = "infrastructure.adapter.exchange";
             superClassName = aggregate.getServiceName() + "DrivenTransfer";
 
         }

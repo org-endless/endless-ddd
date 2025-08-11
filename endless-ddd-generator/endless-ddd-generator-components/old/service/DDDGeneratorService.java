@@ -21,7 +21,7 @@
 //  * update 2024/10/16 19:29
 //  *
 //  * @author Deng Haozhi
-//  * @since 2.0.0
+//  * @since 1.0.0
 //  */
 // @Slf4j
 // @Service
@@ -158,17 +158,17 @@
 //             // 处理传输对象
 //             Optional.ofNullable(domain.getTransfers())
 //                     .filter(transfers -> !transfers.isEmpty())
-//                     .ifPresent(transfers -> transfers.forEach(transfer -> {
+//                     .ifPresent(transfers -> transfers.forEach(exchange -> {
 //                         try {
-//                             if (generatorDTO.getEnableCommandTransfer() && transfer.getCqrsType() == org.endless.ddd.generator.object.type.DomainOperationTypeEnum.COMMAND && transfer.getAdapterType() == org.endless.ddd.generator.object.type.DomainAdapterTypeEnum.DRIVING) {
-//                                 new TransferGenerator().generate(domain, transfer);
-//                             } else if (generatorDTO.getEnableQueryTransfer() && transfer.getCqrsType() == org.endless.ddd.generator.object.type.DomainOperationTypeEnum.QUERY && transfer.getAdapterType() == org.endless.ddd.generator.object.type.DomainAdapterTypeEnum.DRIVING) {
-//                                 new TransferGenerator().generate(domain, transfer);
-//                             } else if (generatorDTO.getEnableDrivenTransfer() && transfer.getAdapterType() == org.endless.ddd.generator.object.type.DomainAdapterTypeEnum.DRIVEN) {
-//                                 new TransferGenerator().generate(domain, transfer);
+//                             if (generatorDTO.getEnableCommandTransfer() && exchange.getCqrsType() == org.endless.ddd.generator.object.type.DomainOperationTypeEnum.COMMAND && exchange.getAdapterType() == org.endless.ddd.generator.object.type.DomainAdapterTypeEnum.DRIVING) {
+//                                 new TransferGenerator().generate(domain, exchange);
+//                             } else if (generatorDTO.getEnableQueryTransfer() && exchange.getCqrsType() == org.endless.ddd.generator.object.type.DomainOperationTypeEnum.QUERY && exchange.getAdapterType() == org.endless.ddd.generator.object.type.DomainAdapterTypeEnum.DRIVING) {
+//                                 new TransferGenerator().generate(domain, exchange);
+//                             } else if (generatorDTO.getEnableDrivenTransfer() && exchange.getAdapterType() == org.endless.ddd.generator.object.type.DomainAdapterTypeEnum.DRIVEN) {
+//                                 new TransferGenerator().generate(domain, exchange);
 //                             }
 //                         } catch (Exception e) {
-//                             throw new RuntimeException("生成传输对象 " + transfer.getName() + " 失败: " + e.getMessage());
+//                             throw new RuntimeException("生成传输对象 " + exchange.getName() + " 失败: " + e.getMessage());
 //                         }
 //                     }));
 //             // 处理其他实体类

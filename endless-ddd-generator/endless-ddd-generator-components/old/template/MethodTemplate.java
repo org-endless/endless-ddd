@@ -18,7 +18,7 @@ import static com.tansun.ddd.generator.utils.StringTools.*;
  * update 2024/09/29 17:13
  *
  * @author Deng Haozhi
- * @since 2.0.0
+ * @since 1.0.0
  */
 public class MethodTemplate {
 

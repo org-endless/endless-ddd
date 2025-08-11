@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.utils.id;
 
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * IdException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
  */
 public class IdException extends FailedException {
 
-    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.UTL0000;
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("UTL0000");
 
     public IdException() {
         super(ERROR_CODE);

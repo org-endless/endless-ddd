@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.security.common;
 
 import lombok.Getter;
-import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 import org.endless.ddd.starter.common.utils.model.string.StringTools;
 import org.springframework.security.core.AuthenticationException;
 
@@ -19,24 +19,24 @@ import org.springframework.security.core.AuthenticationException;
 @Getter
 public class AbstractSecurityException extends AuthenticationException {
 
-    private final ErrorCommonCode errorCode;
+    private final ErrorCode errorCode;
 
-    public AbstractSecurityException(ErrorCommonCode errorCode) {
+    public AbstractSecurityException(ErrorCode errorCode) {
         super("[" + errorCode.getDescription() + "]");
         this.errorCode = errorCode;
     }
 
-    public AbstractSecurityException(ErrorCommonCode errorCode, String message) {
+    public AbstractSecurityException(ErrorCode errorCode, String message) {
         super(StringTools.addBrackets(message));
         this.errorCode = errorCode;
     }
 
-    public AbstractSecurityException(ErrorCommonCode errorCode, Throwable throwable) {
+    public AbstractSecurityException(ErrorCode errorCode, Throwable throwable) {
         super(StringTools.addBrackets(throwable.getMessage()), throwable);
         this.errorCode = errorCode;
     }
 
-    public AbstractSecurityException(ErrorCommonCode errorCode, String message, Throwable throwable) {
+    public AbstractSecurityException(ErrorCode errorCode, String message, Throwable throwable) {
         super(StringTools.addBrackets(message), throwable);
         this.errorCode = errorCode;
     }

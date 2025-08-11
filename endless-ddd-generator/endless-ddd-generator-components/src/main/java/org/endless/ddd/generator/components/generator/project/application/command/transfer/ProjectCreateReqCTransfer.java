@@ -3,7 +3,7 @@ package org.endless.ddd.generator.components.generator.project.application.comma
 import com.alibaba.fastjson2.annotation.JSONType;
 import lombok.Builder;
 import org.endless.ddd.generator.common.model.application.command.transfer.DDDGeneratorCommandTransfer;
-import org.endless.ddd.starter.common.exception.ddd.application.command.transfer.CommandTransferValidateException;
+import org.endless.ddd.starter.common.exception.ddd.application.command.transfer.CommandReqTransferValidateException;
 import org.springframework.util.StringUtils;
 
 /**
@@ -60,79 +60,79 @@ public record ProjectCreateReqCTransfer(
 
     private void validateProjectArtifactId() {
         if (!StringUtils.hasText(projectArtifactId)) {
-            throw new CommandTransferValidateException("项目构件ID不能为空");
+            throw new CommandReqTransferValidateException("项目构件ID不能为空");
         }
     }
 
     private void validateGroupId() {
         if (!StringUtils.hasText(groupId)) {
-            throw new CommandTransferValidateException("项目组织ID不能为空");
+            throw new CommandReqTransferValidateException("项目组织ID不能为空");
         }
     }
 
     private void validateName() {
         if (!StringUtils.hasText(name)) {
-            throw new CommandTransferValidateException("项目名称不能为空");
+            throw new CommandReqTransferValidateException("项目名称不能为空");
         }
     }
 
     private void validateDescription() {
         if (!StringUtils.hasText(description)) {
-            throw new CommandTransferValidateException("项目描述不能为空");
+            throw new CommandReqTransferValidateException("项目描述不能为空");
         }
     }
 
     private void validateVersion() {
         if (!StringUtils.hasText(version)) {
-            throw new CommandTransferValidateException("项目版本号不能为空");
+            throw new CommandReqTransferValidateException("项目版本号不能为空");
         }
     }
 
     private void validateAuthor() {
         if (!StringUtils.hasText(author)) {
-            throw new CommandTransferValidateException("项目作者不能为空");
+            throw new CommandReqTransferValidateException("项目作者不能为空");
         }
     }
 
     private void validateRootPath() {
         if (!StringUtils.hasText(rootPath)) {
-            throw new CommandTransferValidateException("项目根路径不能为空");
+            throw new CommandReqTransferValidateException("项目根路径不能为空");
         }
     }
 
     private void validateBasePackage() {
         if (!StringUtils.hasText(basePackage)) {
-            throw new CommandTransferValidateException("项目基础包名不能为空");
+            throw new CommandReqTransferValidateException("项目基础包名不能为空");
         }
     }
 
     private void validateEnableSpringDoc() {
         if (enableSpringDoc == null) {
-            throw new CommandTransferValidateException("项目是否启用Spring Doc不能为 null ");
+            throw new CommandReqTransferValidateException("项目是否启用Spring Doc不能为 null ");
         }
     }
 
     private void validateJavaVersion() {
         if (!StringUtils.hasText(javaVersion)) {
-            throw new CommandTransferValidateException("项目Java版本不能为空");
+            throw new CommandReqTransferValidateException("项目Java版本不能为空");
         }
     }
 
     private void validateLoggingFramework() {
         if (!StringUtils.hasText(loggingFramework)) {
-            throw new CommandTransferValidateException("项目日志框架不能为空");
+            throw new CommandReqTransferValidateException("项目日志框架不能为空");
         }
     }
 
     private void validatePersistenceFramework() {
         if (!StringUtils.hasText(persistenceFramework)) {
-            throw new CommandTransferValidateException("项目持久化框架不能为空");
+            throw new CommandReqTransferValidateException("项目持久化框架不能为空");
         }
     }
 
     private void validateDatabaseType() {
         if (!StringUtils.hasText(databaseType)) {
-            throw new CommandTransferValidateException("项目数据库类型不能为空");
+            throw new CommandReqTransferValidateException("项目数据库类型不能为空");
         }
     }
 }

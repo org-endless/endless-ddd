@@ -1,9 +1,9 @@
 package org.endless.ddd.starter.common.config.rest.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 import org.endless.ddd.starter.common.ddd.common.Response;
 import org.endless.ddd.starter.common.exception.config.rest.RestResponseException;
-import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -42,7 +42,7 @@ public interface RestResponse extends Response {
 
 
     default Object validate() {
-        if (getErrorCode() != null && getErrorCode().equals(ErrorCommonCode.SUCCESS.getCode())) {
+        if (getErrorCode() != null && getErrorCode().equals(ErrorCode.of("SUCCESS").getCode())) {
             log.trace("[REST响应成功]: {}", this);
             return getData();
         } else {
@@ -56,144 +56,141 @@ public interface RestResponse extends Response {
     }
 
     default ResponseEntity<RestResponse> success() {
-        String message = "[" + ErrorCommonCode.SUCCESS.getDescription() + "]";
-        return response(String.valueOf(HttpStatus.OK.value()), ErrorCommonCode.SUCCESS.getCode(), message, null);
+        String message = "[" + ErrorCode.of("SUCCESS").getDescription() + "]";
+        return response(String.valueOf(HttpStatus.OK.value()), ErrorCode.of("SUCCESS").getCode(), message, null);
     }
 
     default ResponseEntity<RestResponse> success(String message) {
-        message = "[" + ErrorCommonCode.SUCCESS.getDescription() + "]" + addBrackets(message);
-        return response(String.valueOf(HttpStatus.OK.value()), ErrorCommonCode.SUCCESS.getCode(), message, null);
+        message = "[" + ErrorCode.of("SUCCESS").getDescription() + "]" + addBrackets(message);
+        return response(String.valueOf(HttpStatus.OK.value()), ErrorCode.of("SUCCESS").getCode(), message, null);
     }
 
     default ResponseEntity<RestResponse> success(Object data) {
-        String message = "[" + ErrorCommonCode.SUCCESS.getDescription() + "]";
-        return response(String.valueOf(HttpStatus.OK.value()), ErrorCommonCode.SUCCESS.getCode(), message, data);
+        String message = "[" + ErrorCode.of("SUCCESS").getDescription() + "]";
+        return response(String.valueOf(HttpStatus.OK.value()), ErrorCode.of("SUCCESS").getCode(), message, data);
     }
 
     default ResponseEntity<RestResponse> success(String message, Object data) {
-        message = "[" + ErrorCommonCode.SUCCESS.getDescription() + "]" + addBrackets(message);
-        return response(String.valueOf(HttpStatus.OK.value()), ErrorCommonCode.SUCCESS.getCode(), message, data);
+        message = "[" + ErrorCode.of("SUCCESS").getDescription() + "]" + addBrackets(message);
+        return response(String.valueOf(HttpStatus.OK.value()), ErrorCode.of("SUCCESS").getCode(), message, data);
     }
 
-    default ResponseEntity<RestResponse> failure(String method, ErrorCommonCode errorCode) {
+    default ResponseEntity<RestResponse> failure(String method, ErrorCode errorCode) {
         String message = "[" + method + "]" + addBrackets(errorCode.getDescription());
         return response(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()), errorCode.getCode(), message, null);
     }
 
-    default ResponseEntity<RestResponse> failure(String method, ErrorCommonCode errorCode, String message) {
+    default ResponseEntity<RestResponse> failure(String method, ErrorCode errorCode, String message) {
         message = "[" + method + "]" + addBrackets(message);
         return response(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()), errorCode.getCode(), message, null);
     }
 
-    default ResponseEntity<RestResponse> failure(String method, ErrorCommonCode errorCode, Object data) {
+    default ResponseEntity<RestResponse> failure(String method, ErrorCode errorCode, Object data) {
         String message = "[" + method + "]" + addBrackets(errorCode.getDescription());
-        if (errorCode != ErrorCommonCode.FAILURE) {
-            message = message + addBrackets(errorCode.getDescription());
-        }
         return response(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()), errorCode.getCode(), message, data);
     }
 
-    default ResponseEntity<RestResponse> failure(String method, ErrorCommonCode errorCode, String message, Object data) {
+    default ResponseEntity<RestResponse> failure(String method, ErrorCode errorCode, String message, Object data) {
         message = "[" + method + "]" + addBrackets(message);
         return response(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()), errorCode.getCode(), message, data);
     }
 
-    default ResponseEntity<RestResponse> unavailable(String method, ErrorCommonCode errorCode) {
+    default ResponseEntity<RestResponse> unavailable(String method, ErrorCode errorCode) {
         String message = "[" + method + "]" + addBrackets(errorCode.getDescription());
         return response(String.valueOf(HttpStatus.SERVICE_UNAVAILABLE.value()), errorCode.getCode(), message, null);
     }
 
-    default ResponseEntity<RestResponse> unavailable(String method, ErrorCommonCode errorCode, String message) {
+    default ResponseEntity<RestResponse> unavailable(String method, ErrorCode errorCode, String message) {
         message = "[" + method + "]" + addBrackets(message);
         return response(String.valueOf(HttpStatus.SERVICE_UNAVAILABLE.value()), errorCode.getCode(), message, null);
     }
 
-    default ResponseEntity<RestResponse> unavailable(String method, ErrorCommonCode errorCode, Object data) {
+    default ResponseEntity<RestResponse> unavailable(String method, ErrorCode errorCode, Object data) {
         String message = "[" + method + "]" + addBrackets(errorCode.getDescription());
         return response(String.valueOf(HttpStatus.SERVICE_UNAVAILABLE.value()), errorCode.getCode(), message, data);
     }
 
-    default ResponseEntity<RestResponse> unavailable(String method, ErrorCommonCode errorCode, String message, Object data) {
+    default ResponseEntity<RestResponse> unavailable(String method, ErrorCode errorCode, String message, Object data) {
         message = "[" + method + "]" + addBrackets(message);
         return response(String.valueOf(HttpStatus.SERVICE_UNAVAILABLE.value()), errorCode.getCode(), message, data);
     }
 
-    default ResponseEntity<RestResponse> unauthorized(String method, ErrorCommonCode errorCode) {
+    default ResponseEntity<RestResponse> unauthorized(String method, ErrorCode errorCode) {
         String message = "[" + method + "]" + addBrackets(errorCode.getDescription());
         return response(String.valueOf(HttpStatus.UNAUTHORIZED.value()), errorCode.getCode(), message, null);
     }
 
-    default ResponseEntity<RestResponse> unauthorized(String method, ErrorCommonCode errorCode, String message) {
+    default ResponseEntity<RestResponse> unauthorized(String method, ErrorCode errorCode, String message) {
         message = "[" + method + "]" + addBrackets(message);
         return response(String.valueOf(HttpStatus.UNAUTHORIZED.value()), errorCode.getCode(), message, null);
     }
 
-    default ResponseEntity<RestResponse> unauthorized(String method, ErrorCommonCode errorCode, Object data) {
+    default ResponseEntity<RestResponse> unauthorized(String method, ErrorCode errorCode, Object data) {
         String message = "[" + method + "]" + addBrackets(errorCode.getDescription());
         return response(String.valueOf(HttpStatus.UNAUTHORIZED.value()), errorCode.getCode(), message, data);
     }
 
-    default ResponseEntity<RestResponse> unauthorized(String method, ErrorCommonCode errorCode, String message, Object data) {
+    default ResponseEntity<RestResponse> unauthorized(String method, ErrorCode errorCode, String message, Object data) {
         message = "[" + method + "]" + addBrackets(message);
         return response(String.valueOf(HttpStatus.UNAUTHORIZED.value()), errorCode.getCode(), message, data);
     }
 
-    default ResponseEntity<RestResponse> badRequest(String method, ErrorCommonCode errorCode) {
+    default ResponseEntity<RestResponse> badRequest(String method, ErrorCode errorCode) {
         String message = "[" + method + "]" + addBrackets(errorCode.getDescription());
         return response(String.valueOf(HttpStatus.BAD_REQUEST.value()), errorCode.getCode(), message, null);
     }
 
-    default ResponseEntity<RestResponse> badRequest(String method, ErrorCommonCode errorCode, String message) {
+    default ResponseEntity<RestResponse> badRequest(String method, ErrorCode errorCode, String message) {
         message = "[" + method + "]" + addBrackets(message);
         return response(String.valueOf(HttpStatus.BAD_REQUEST.value()), errorCode.getCode(), message, null);
     }
 
-    default ResponseEntity<RestResponse> badRequest(String method, ErrorCommonCode errorCode, Object data) {
+    default ResponseEntity<RestResponse> badRequest(String method, ErrorCode errorCode, Object data) {
         String message = "[" + method + "]" + addBrackets(errorCode.getDescription());
         return response(String.valueOf(HttpStatus.BAD_REQUEST.value()), errorCode.getCode(), message, data);
     }
 
-    default ResponseEntity<RestResponse> badRequest(String method, ErrorCommonCode errorCode, String message, Object data) {
+    default ResponseEntity<RestResponse> badRequest(String method, ErrorCode errorCode, String message, Object data) {
         message = "[" + method + "]" + addBrackets(message);
         return response(String.valueOf(HttpStatus.BAD_REQUEST.value()), errorCode.getCode(), message, data);
     }
 
-    default ResponseEntity<RestResponse> notFound(String method, ErrorCommonCode errorCode) {
+    default ResponseEntity<RestResponse> notFound(String method, ErrorCode errorCode) {
         String message = "[" + method + "]" + addBrackets(errorCode.getDescription());
         return response(String.valueOf(HttpStatus.NOT_FOUND.value()), errorCode.getCode(), message, null);
     }
 
-    default ResponseEntity<RestResponse> notFound(String method, ErrorCommonCode errorCode, String message) {
+    default ResponseEntity<RestResponse> notFound(String method, ErrorCode errorCode, String message) {
         message = "[" + method + "]" + addBrackets(message);
         return response(String.valueOf(HttpStatus.NOT_FOUND.value()), errorCode.getCode(), message, null);
     }
 
-    default ResponseEntity<RestResponse> notFound(String method, ErrorCommonCode errorCode, Object data) {
+    default ResponseEntity<RestResponse> notFound(String method, ErrorCode errorCode, Object data) {
         String message = "[" + method + "]" + addBrackets(errorCode.getDescription());
         return response(String.valueOf(HttpStatus.NOT_FOUND.value()), errorCode.getCode(), message, data);
     }
 
-    default ResponseEntity<RestResponse> notFound(String method, ErrorCommonCode errorCode, String message, Object data) {
+    default ResponseEntity<RestResponse> notFound(String method, ErrorCode errorCode, String message, Object data) {
         message = "[" + method + "]" + addBrackets(message);
         return response(String.valueOf(HttpStatus.NOT_FOUND.value()), errorCode.getCode(), message, data);
     }
 
-    default ResponseEntity<RestResponse> forbidden(String method, ErrorCommonCode errorCode) {
+    default ResponseEntity<RestResponse> forbidden(String method, ErrorCode errorCode) {
         String message = "[" + method + "]" + addBrackets(errorCode.getDescription());
         return response(String.valueOf(HttpStatus.FORBIDDEN.value()), errorCode.getCode(), message, null);
     }
 
-    default ResponseEntity<RestResponse> forbidden(String method, ErrorCommonCode errorCode, String message) {
+    default ResponseEntity<RestResponse> forbidden(String method, ErrorCode errorCode, String message) {
         message = "[" + method + "]" + addBrackets(message);
         return response(String.valueOf(HttpStatus.FORBIDDEN.value()), errorCode.getCode(), message, null);
     }
 
-    default ResponseEntity<RestResponse> forbidden(String method, ErrorCommonCode errorCode, Object data) {
+    default ResponseEntity<RestResponse> forbidden(String method, ErrorCode errorCode, Object data) {
         String message = "[" + method + "]" + addBrackets(errorCode.getDescription());
         return response(String.valueOf(HttpStatus.FORBIDDEN.value()), errorCode.getCode(), message, data);
     }
 
-    default ResponseEntity<RestResponse> forbidden(String method, ErrorCommonCode errorCode, String message, Object data) {
+    default ResponseEntity<RestResponse> forbidden(String method, ErrorCode errorCode, String message, Object data) {
         message = "[" + method + "]" + addBrackets(message);
         return response(String.valueOf(HttpStatus.FORBIDDEN.value()), errorCode.getCode(), message, data);
     }

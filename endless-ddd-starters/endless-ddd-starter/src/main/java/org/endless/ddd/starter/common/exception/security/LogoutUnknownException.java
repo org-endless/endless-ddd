@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.security;
 
-import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.security.common.SecurityUnknownException;
 
 /**
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.security.common.SecurityUnknownE
  */
 public class LogoutUnknownException extends SecurityUnknownException {
 
-    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.SEC9020;
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("SEC9020");
 
     public LogoutUnknownException() {
         super(ERROR_CODE);
