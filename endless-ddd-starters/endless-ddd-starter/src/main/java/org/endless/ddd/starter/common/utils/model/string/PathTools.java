@@ -16,7 +16,7 @@ public class PathTools {
      * 把 Windows 风格路径中的反斜杠转换为正斜杠
      * 并去除多余的连续斜杠，统一路径格式
      *
-     * @param rawPath 输入路径（可能包含反斜杠）
+     * @param path 输入路径（可能包含反斜杠）
      * @return 统一使用正斜杠的路径，空路径返回null
      */
     public static String of(String path) {

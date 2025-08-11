@@ -39,7 +39,7 @@ public enum RestErrorCode implements ErrorCode {
     RES0700("RES0700", "REST客户端响应处理失败"),
     // REST 状态未知
     RES9000("RES9000", "REST服务处理状态未知"),
-    RES9500("RES9000", "REST客户端处理状态未知");
+    RES9500("RES9500", "REST客户端处理状态未知");
 
     private final String code;
 

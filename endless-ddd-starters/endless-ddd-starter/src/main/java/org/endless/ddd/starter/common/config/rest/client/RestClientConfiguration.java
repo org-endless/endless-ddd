@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 
 /**
- * RestClientConfigutration
+ * RestClientConfiguration
  * <p>
  * create 2024/11/09 19:47
  * <p>
