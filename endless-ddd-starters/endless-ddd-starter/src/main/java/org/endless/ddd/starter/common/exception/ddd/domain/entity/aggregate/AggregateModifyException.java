@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.domain.entity.aggregate;
 
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * AggregateModifyException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  */
 public class AggregateModifyException extends AggregateException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.DAG0102;
+    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.DAG0102;
 
     public AggregateModifyException() {
         super(ERROR_CODE);

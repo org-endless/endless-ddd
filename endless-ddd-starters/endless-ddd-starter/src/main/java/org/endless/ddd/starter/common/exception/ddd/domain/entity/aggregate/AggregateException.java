@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.ddd.domain.entity.aggregate;
 
 import org.endless.ddd.starter.common.exception.ddd.domain.entity.EntityException;
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * AggregateException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  */
 public class AggregateException extends EntityException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.DAG0000;
+    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.DAG0000;
 
     public AggregateException() {
         super(ERROR_CODE);
@@ -34,19 +34,19 @@ public class AggregateException extends EntityException {
         super(ERROR_CODE, message, throwable);
     }
 
-    public AggregateException(ErrorCode errorCode) {
+    public AggregateException(ErrorCommonCode errorCode) {
         super(errorCode);
     }
 
-    public AggregateException(ErrorCode errorCode, String message) {
+    public AggregateException(ErrorCommonCode errorCode, String message) {
         super(errorCode, message);
     }
 
-    public AggregateException(ErrorCode errorCode, Throwable throwable) {
+    public AggregateException(ErrorCommonCode errorCode, Throwable throwable) {
         super(errorCode, throwable);
     }
 
-    public AggregateException(ErrorCode errorCode, String message, Throwable throwable) {
+    public AggregateException(ErrorCommonCode errorCode, String message, Throwable throwable) {
         super(errorCode, message, throwable);
     }
 }

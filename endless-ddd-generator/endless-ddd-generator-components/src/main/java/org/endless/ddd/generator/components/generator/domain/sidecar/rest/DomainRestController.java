@@ -5,9 +5,9 @@ import org.endless.ddd.generator.common.model.facade.rest.DDDGeneratorRestContro
 import org.endless.ddd.generator.components.generator.domain.application.command.transfer.DomainCreateReqCTransfer;
 import org.endless.ddd.generator.components.generator.domain.facade.adapter.DomainDrivingAdapter;
 import org.endless.ddd.starter.common.annotation.log.Log;
-import org.endless.ddd.starter.common.ddd.facade.rest.RestResponse;
+import org.endless.ddd.starter.common.config.rest.response.RestResponse;
+import org.endless.ddd.starter.common.exception.config.rest.RestException;
 import org.endless.ddd.starter.common.exception.ddd.application.command.transfer.CommandReqTransferNullException;
-import org.endless.ddd.starter.common.exception.ddd.sidecar.rest.RestErrorException;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,7 +53,7 @@ public class DomainRestController implements DDDGeneratorRestController {
             domainDrivingAdapter.create(command);
             return response().success("项目创建成功");
         } catch (JSONException | NullPointerException e) {
-            throw new RestErrorException("项目创建失败", e);
+            throw new RestException("项目创建失败", e);
         }
     }
 }

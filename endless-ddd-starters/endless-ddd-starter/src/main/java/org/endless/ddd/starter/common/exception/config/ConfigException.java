@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.config;
 
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * ConfigException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  */
 public class ConfigException extends FailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.CFG0000;
+    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.CFG0000;
 
     public ConfigException() {
         super(ERROR_CODE);
@@ -33,19 +33,19 @@ public class ConfigException extends FailedException {
         super(ERROR_CODE, message, throwable);
     }
 
-    public ConfigException(ErrorCode errorCode) {
+    public ConfigException(ErrorCommonCode errorCode) {
         super(errorCode);
     }
 
-    public ConfigException(ErrorCode errorCode, String message) {
+    public ConfigException(ErrorCommonCode errorCode, String message) {
         super(errorCode, message);
     }
 
-    public ConfigException(ErrorCode errorCode, Throwable throwable) {
+    public ConfigException(ErrorCommonCode errorCode, Throwable throwable) {
         super(errorCode, throwable);
     }
 
-    public ConfigException(ErrorCode errorCode, String message, Throwable throwable) {
+    public ConfigException(ErrorCommonCode errorCode, String message, Throwable throwable) {
         super(errorCode, message, throwable);
     }
 }

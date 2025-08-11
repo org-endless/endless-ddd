@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.ddd.common;
 
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * ReqTransferNullException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  */
 public class ReqTransferNullException extends FailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.DTS0000;
+    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.DTS0000;
 
     public ReqTransferNullException() {
         super(ERROR_CODE);

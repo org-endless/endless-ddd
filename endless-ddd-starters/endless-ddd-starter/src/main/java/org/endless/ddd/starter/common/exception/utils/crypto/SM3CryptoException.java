@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.utils.crypto;
 
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * SM3CryptoException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  */
 public class SM3CryptoException extends FailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.UTL0110;
+    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.UTL0110;
 
     public SM3CryptoException() {
         super(ERROR_CODE);

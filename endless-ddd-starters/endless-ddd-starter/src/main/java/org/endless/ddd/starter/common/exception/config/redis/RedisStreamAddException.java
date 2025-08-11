@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.config.redis;
 
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * RedisStreamAddException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  */
 public class RedisStreamAddException extends RedisConfigException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.CFG0421;
+    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.CFG0421;
 
     public RedisStreamAddException() {
         super(ERROR_CODE);

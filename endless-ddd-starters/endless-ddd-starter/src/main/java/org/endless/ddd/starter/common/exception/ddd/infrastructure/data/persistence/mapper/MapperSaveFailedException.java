@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.data.persistence.mapper;
 
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * MapperSaveFailedException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  */
 public class MapperSaveFailedException extends MapperFailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.DDP0110;
+    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.DDP0110;
 
     public MapperSaveFailedException() {
         super(ERROR_CODE);

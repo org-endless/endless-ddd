@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.handler.rest;
 
-import org.endless.ddd.starter.common.ddd.facade.rest.RestResponse;
+import org.endless.ddd.starter.common.config.rest.response.RestResponse;
 import org.endless.ddd.starter.common.exception.handler.common.ExceptionHandler;
 
 /**

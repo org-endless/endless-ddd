@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.adapter.filesystem;
 
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * FileSystemFailedException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  */
 public class FileSystemFailedException extends FailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.DFS0000;
+    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.DFS0000;
 
     public FileSystemFailedException() {
         super(ERROR_CODE);

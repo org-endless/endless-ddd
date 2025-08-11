@@ -1,4 +1,4 @@
-package org.endless.ddd.starter.common.exception.handler.type;
+package org.endless.ddd.starter.common.config.errorcode.type;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import org.endless.ddd.starter.common.ddd.domain.type.BaseEnum;
 import org.endless.ddd.starter.common.exception.ddd.domain.type.EnumException;
 
 /**
- * ErrorCode
+ * ErrorCommonCode
  * <p>
  * create 2024/11/15 00:31
  * <p>
@@ -19,7 +19,7 @@ import org.endless.ddd.starter.common.exception.ddd.domain.type.EnumException;
 @Getter
 @ToString
 @AllArgsConstructor
-public enum ErrorCode implements BaseEnum {
+public enum ErrorCommonCode implements BaseEnum {
 
 
     // 业务错误码
@@ -31,6 +31,25 @@ public enum ErrorCode implements BaseEnum {
     NOT_FND("NOT_FND", "未找到相关资源"),
     FORBIDN("FORBIDN", "服务访问被拒绝"),
 
+    // REST 错误码
+    RES0000("RES0000", "REST处理失败"),
+    RES0010("RES0010", "REST请求处理失败"),
+    RES0020("RES0020", "REST响应处理失败"),
+    RES0100("RES0100", "REST服务处理失败"),
+    RES0200("RES0200", "REST服务请求处理失败"),
+    RES0201("RES0201", "REST服务请求路径不存在"),
+    RES0202("RES0202", "REST服务请求方法不支持"),
+    RES0250("RES0250", "REST服务请求体为空或格式错误"),
+    RES0300("RES0300", "REST服务响应处理失败"),
+
+    RES0500("RES0500", "REST客户端处理失败"),
+    RES0600("RES0600", "REST客户端请求处理失败"),
+    RES0700("RES0700", "REST客户端响应处理失败"),
+
+    RES9000("RES9000", "REST服务处理状态未知"),
+    RES9500("RES9000", "REST客户端处理状态未知"),
+
+
     CFG0000("CFG0000", "配置项加载失败"),
     CFG0100("CFG0100", "日志处理失败"),
     CFG0200("CFG0200", "MINIO配置加载失败"),
@@ -38,7 +57,6 @@ public enum ErrorCode implements BaseEnum {
     CFG0410("CFG0410", "REDIS序列化配置加载失败"),
     CFG0420("CFG0420", "REDIS_STREAM初始化失败"),
     CFG0421("CFG0421", "REDIS_STREAM_ADD操作处理失败"),
-    RES0200("RES0200", "REST未找到相关资源"),
 
 
     // DDD通用错误码
@@ -107,8 +125,6 @@ public enum ErrorCode implements BaseEnum {
     DFS9002("DFS9002", "文件系统删除状态未知"),
     DFS9003("DFS9003", "文件系统读取状态未知"),
 
-    DRT0000("DRT0000", "REST请求处理失败"),
-    DRT0100("DRT0100", "REST响应处理失败"),
     // 传输对象
     DTO0000("DTO0000", "传输对象为空"),
     DTO0001("DTO0001", "传输对象校验失败"),
@@ -198,8 +214,8 @@ public enum ErrorCode implements BaseEnum {
 
     private final String description;
 
-    public static ErrorCode fromCode(String code) {
-        for (ErrorCode type : values()) {
+    public static ErrorCommonCode fromCode(String code) {
+        for (ErrorCommonCode type : values()) {
             if (type.code.equals(code)) {
                 return type;
             }

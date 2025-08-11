@@ -1,5 +1,6 @@
 package org.endless.ddd.starter.common.ddd.facade.rest;
 
+import org.endless.ddd.starter.common.config.rest.response.RestResponse;
 import org.endless.ddd.starter.common.ddd.facade.adapter.DrivingAdapter;
 
 /**

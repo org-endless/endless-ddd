@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.adapter.filesystem;
 
 import org.endless.ddd.starter.common.exception.common.UnknownException;
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * FileSystemRemoveException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  */
 public class FileSystemRemoveUnknownException extends UnknownException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.DFS9002;
+    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.DFS9002;
 
     public FileSystemRemoveUnknownException() {
         super(ERROR_CODE);

@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.common;
 
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * FailedException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  */
 public class FailedException extends AbstractException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.FAILURE;
+    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.FAILURE;
 
     public FailedException() {
         super(ERROR_CODE);
@@ -34,19 +34,19 @@ public class FailedException extends AbstractException {
         super(ERROR_CODE, message, throwable);
     }
 
-    public FailedException(ErrorCode errorCode) {
+    public FailedException(ErrorCommonCode errorCode) {
         super(errorCode);
     }
 
-    public FailedException(ErrorCode errorCode, String message) {
+    public FailedException(ErrorCommonCode errorCode, String message) {
         super(errorCode, message);
     }
 
-    public FailedException(ErrorCode errorCode, Throwable throwable) {
+    public FailedException(ErrorCommonCode errorCode, Throwable throwable) {
         super(errorCode, throwable);
     }
 
-    public FailedException(ErrorCode errorCode, String message, Throwable throwable) {
+    public FailedException(ErrorCommonCode errorCode, String message, Throwable throwable) {
         super(errorCode, message, throwable);
     }
 }

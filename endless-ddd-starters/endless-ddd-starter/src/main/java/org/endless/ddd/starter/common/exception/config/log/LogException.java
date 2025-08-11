@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.config.log;
 
 import org.endless.ddd.starter.common.exception.config.ConfigException;
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * LogException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  */
 public class LogException extends ConfigException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.CFG0100;
+    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.CFG0100;
 
     public LogException() {
         super(ERROR_CODE);

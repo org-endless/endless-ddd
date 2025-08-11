@@ -11,7 +11,7 @@ import org.endless.ddd.generator.components.generator.service.application.comman
 import org.endless.ddd.generator.components.generator.service.application.query.handler.ServiceQueryHandler;
 import org.endless.ddd.generator.components.generator.service.application.query.transfer.ServiceFindByProjectIdReqQTransfer;
 import org.endless.ddd.starter.common.annotation.log.Log;
-import org.endless.ddd.starter.common.ddd.facade.rest.RestResponse;
+import org.endless.ddd.starter.common.config.rest.response.RestResponse;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

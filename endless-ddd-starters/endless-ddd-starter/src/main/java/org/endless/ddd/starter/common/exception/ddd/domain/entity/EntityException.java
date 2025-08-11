@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.ddd.domain.entity;
 
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * EntityException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  */
 public class EntityException extends FailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.DEN0000;
+    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.DEN0000;
 
     public EntityException() {
         super(ERROR_CODE);
@@ -34,19 +34,19 @@ public class EntityException extends FailedException {
         super(ERROR_CODE, message, throwable);
     }
 
-    public EntityException(ErrorCode errorCode) {
+    public EntityException(ErrorCommonCode errorCode) {
         super(errorCode);
     }
 
-    public EntityException(ErrorCode errorCode, String message) {
+    public EntityException(ErrorCommonCode errorCode, String message) {
         super(errorCode, message);
     }
 
-    public EntityException(ErrorCode errorCode, Throwable throwable) {
+    public EntityException(ErrorCommonCode errorCode, Throwable throwable) {
         super(errorCode, throwable);
     }
 
-    public EntityException(ErrorCode errorCode, String message, Throwable throwable) {
+    public EntityException(ErrorCommonCode errorCode, String message, Throwable throwable) {
         super(errorCode, message, throwable);
     }
 }

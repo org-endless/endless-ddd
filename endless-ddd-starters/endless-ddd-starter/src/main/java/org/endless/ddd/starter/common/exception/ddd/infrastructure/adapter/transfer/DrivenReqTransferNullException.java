@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.adapter.transfer;
 
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * DrivenReqTransferNullException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  */
 public class DrivenReqTransferNullException extends FailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.DTS0300;
+    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.DTS0300;
 
     public DrivenReqTransferNullException() {
         super(ERROR_CODE);

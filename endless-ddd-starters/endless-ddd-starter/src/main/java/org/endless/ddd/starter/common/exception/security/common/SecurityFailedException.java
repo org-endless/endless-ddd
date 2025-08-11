@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.security.common;
 
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * SecurityFailedException
@@ -15,19 +15,19 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  */
 public class SecurityFailedException extends AbstractSecurityException {
 
-    public SecurityFailedException(ErrorCode errorCode) {
+    public SecurityFailedException(ErrorCommonCode errorCode) {
         super(errorCode);
     }
 
-    public SecurityFailedException(ErrorCode errorCode, String message) {
+    public SecurityFailedException(ErrorCommonCode errorCode, String message) {
         super(errorCode, message);
     }
 
-    public SecurityFailedException(ErrorCode errorCode, Throwable throwable) {
+    public SecurityFailedException(ErrorCommonCode errorCode, Throwable throwable) {
         super(errorCode, throwable);
     }
 
-    public SecurityFailedException(ErrorCode errorCode, String message, Throwable throwable) {
+    public SecurityFailedException(ErrorCommonCode errorCode, String message, Throwable throwable) {
         super(errorCode, message, throwable);
     }
 }

@@ -3,21 +3,22 @@ package org.endless.ddd.starter.common.exception.handler.rest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
-import org.endless.ddd.starter.common.ddd.facade.rest.RestResponse;
+import org.endless.ddd.starter.common.config.rest.response.RestResponse;
 import org.endless.ddd.starter.common.exception.common.FailedException;
 import org.endless.ddd.starter.common.exception.common.NotFoundException;
 import org.endless.ddd.starter.common.exception.common.UnknownException;
-import org.endless.ddd.starter.common.exception.ddd.sidecar.rest.RestBadRequestException;
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.method.annotation.HandlerMethodValidationException;
 import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.List;
 
@@ -37,49 +38,60 @@ import static org.endless.ddd.starter.common.utils.model.string.StringTools.addB
 @Slf4j
 public abstract class AbstractRestAdapterExceptionHandler implements RestAdapterExceptionHandler {
 
-    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ExceptionHandler(NoResourceFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<RestResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
+    public ResponseEntity<RestResponse> handleRestBadRequestException(NoResourceFoundException e) {
         String message = addBrackets(e.getMessage());
-        log.error("[{}][{}]{}", ErrorCode.BAD_REQ.getCode(), ErrorCode.BAD_REQ.getDescription(), message, e);
-        return response().badRequest(ErrorCode.BAD_REQ.getDescription(), ErrorCode.BAD_REQ);
-    }
-
-    @ExceptionHandler(RestBadRequestException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<RestResponse> handleRestBadRequestException(RestBadRequestException e) {
-        String message = addBrackets(e.getMessage());
-        log.error("[{}][{}]{}", ErrorCode.BAD_REQ.getCode(), ErrorCode.BAD_REQ.getDescription(), message, e);
-        return response().badRequest(ErrorCode.BAD_REQ.getDescription(), ErrorCode.BAD_REQ, message);
+        log.error("[{}][{}]{}", ErrorCommonCode.RES0201.getCode(), ErrorCommonCode.RES0201.getDescription(), message, e);
+        return response().badRequest(ErrorCommonCode.BAD_REQ.getDescription(), ErrorCommonCode.RES0201);
     }
 
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<RestResponse> handleNoHandlerFoundException(NoHandlerFoundException e) {
         String message = addBrackets(e.getMessage());
-        log.error("[{}][{}]{}", ErrorCode.BAD_REQ.getCode(), ErrorCode.BAD_REQ.getCode(), message, e);
-        return response().badRequest(ErrorCode.BAD_REQ.getCode(), ErrorCode.NOT_FND, message);
+        log.error("[{}][{}]{}", ErrorCommonCode.RES0201.getCode(), ErrorCommonCode.RES0201.getCode(), message, e);
+        return response().badRequest(ErrorCommonCode.BAD_REQ.getCode(), ErrorCommonCode.RES0201);
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<RestResponse> handleNoHandlerFoundException(HttpRequestMethodNotSupportedException e) {
+        String message = addBrackets(e.getMessage());
+        log.error("[{}][{}]{}", ErrorCommonCode.RES0202.getCode(), ErrorCommonCode.RES0202.getCode(), message, e);
+        return response().badRequest(ErrorCommonCode.BAD_REQ.getCode(), ErrorCommonCode.RES0202);
+    }
+
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<RestResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
+        String message = addBrackets(e.getMessage());
+        log.error("[{}][{}]{}", ErrorCommonCode.RES0250.getCode(), ErrorCommonCode.RES0250.getDescription(), message, e);
+        return response().badRequest(ErrorCommonCode.BAD_REQ.getDescription(), ErrorCommonCode.RES0250);
     }
 
     @ExceptionHandler(HandlerMethodValidationException.class)
     public ResponseEntity<RestResponse> handleHandlerMethodValidation(HandlerMethodValidationException e) {
-        List<String> errorMessages = e.getParameterValidationResults().stream()
+        List<String> errorFields = e.getParameterValidationResults().stream()
                 .flatMap(paramResult -> paramResult.getResolvableErrors().stream()
                         .map(error -> {
-                            String className = paramResult.getMethodParameter().getContainingClass().getSimpleName();
-                            String fieldName = paramResult.getMethodParameter().getParameterName();
+                            String className = paramResult.getMethodParameter().getContainingClass().getName();
+                            String fieldName = error instanceof org.springframework.validation.FieldError fe ? fe.getField() : paramResult.getMethodParameter().getParameterName();
                             String message = error.getDefaultMessage();
-                            return String.format("%s.%s: %s", className, fieldName, message);
+                            message = "参数 " + fieldName + " 校验失败" + ": " + message;
+                            log.error(" {} [validate][{}][{}]{}", className, ErrorCommonCode.DTS0000.getCode(), ErrorCommonCode.DTS0000.getDescription(), message);
+                            return fieldName;
                         })
                 ).toList();
         String errorMessage;
-        if (errorMessages.isEmpty()) {
+        if (errorFields.isEmpty()) {
             errorMessage = "参数校验失败";
         } else {
-            errorMessage = String.join("; ", errorMessages);
+            errorMessage = "参数 " + String.join(", ", errorFields) + " 校验失败";
         }
-        log.error("[{}][{}]{}", ErrorCode.DTS0000.getCode(), ErrorCode.DTS0000.getDescription(), errorMessage, e);
-        return response().failure(ErrorCode.DTS0000.getDescription(), ErrorCode.DTS0000, errorMessages.getFirst());
+        log.error("[{}][{}]", ErrorCommonCode.DTS0000.getCode(), ErrorCommonCode.DTS0000.getDescription(), e);
+        return response().failure(ErrorCommonCode.DTS0000.getDescription(), ErrorCommonCode.DTS0000, errorMessage);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
@@ -91,12 +103,12 @@ public abstract class AbstractRestAdapterExceptionHandler implements RestAdapter
             log.error("{}", rootBeanClass);
             log.error("{}", propertyPath);
             log.error("{}", violation.getMessage());
-            log.error("[{}][{}]{}", ErrorCode.DTO0001.getCode(), ErrorCode.DTO0001.getDescription(), message, ex);
+            log.error("[{}][{}]{}", ErrorCommonCode.DTO0001.getCode(), ErrorCommonCode.DTO0001.getDescription(), message, ex);
             // 你可以基于这些信息做日志、定制响应等
         }
-        log.error("[{}][{}]{}", ErrorCode.DTO0001.getCode(), ErrorCode.DTO0001.getDescription(), ex);
+        log.error("[{}][{}]{}", ErrorCommonCode.DTO0001.getCode(), ErrorCommonCode.DTO0001.getDescription(), ex);
 
-        return response().failure(ErrorCode.DTO0001.getDescription(), ErrorCode.DTO0001);
+        return response().failure(ErrorCommonCode.DTO0001.getDescription(), ErrorCommonCode.DTO0001);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -110,15 +122,15 @@ public abstract class AbstractRestAdapterExceptionHandler implements RestAdapter
                     .append("; ");
         }
         String message = addBrackets(sb.toString().trim());
-        log.error("[{}][{}]{}", ErrorCode.DTO0001.getCode(), ErrorCode.DTO0001.getDescription(), message, e);
-        return response().failure(ErrorCode.DTO0001.getDescription(), ErrorCode.DTO0001, message);
+        log.error("[{}][{}]{}", ErrorCommonCode.DTO0001.getCode(), ErrorCommonCode.DTO0001.getDescription(), message, e);
+        return response().failure(ErrorCommonCode.DTO0001.getDescription(), ErrorCommonCode.DTO0001, message);
     }
 
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<RestResponse> handleNotFoundException(NotFoundException e) {
         String message = addBrackets(e.getMessage());
-        ErrorCode errorCode = e.getErrorCode();
+        ErrorCommonCode errorCode = e.getErrorCode();
         log.error("[{}]{}[{}]{}", errorCode.getCode(), e.getMethod() == null ? "" : "[" + e.getMethod() + "]", errorCode.getDescription(), message, e);
         return response().notFound(e.getMethod() == null ? errorCode.getDescription() : e.getMethod(), errorCode, message);
     }
@@ -127,7 +139,7 @@ public abstract class AbstractRestAdapterExceptionHandler implements RestAdapter
     @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
     public ResponseEntity<RestResponse> handleUnknownException(UnknownException e) {
         String message = addBrackets(e.getMessage());
-        ErrorCode errorCode = e.getErrorCode();
+        ErrorCommonCode errorCode = e.getErrorCode();
         log.error("[{}]{}[{}]{}", errorCode.getCode(), e.getMethod() == null ? "" : "[" + e.getMethod() + "]", errorCode.getDescription(), message, e);
         return response().unavailable(e.getMethod() == null ? errorCode.getDescription() : e.getMethod(), errorCode, message);
     }
@@ -136,7 +148,7 @@ public abstract class AbstractRestAdapterExceptionHandler implements RestAdapter
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<RestResponse> handleFailedException(FailedException e) {
         String message = addBrackets(e.getMessage());
-        ErrorCode errorCode = e.getErrorCode();
+        ErrorCommonCode errorCode = e.getErrorCode();
         log.error("[{}]{}[{}]{}", errorCode.getCode(), e.getMethod() == null ? "" : "[" + e.getMethod() + "]", errorCode.getDescription(), message, e);
         return response().failure(e.getMethod() == null ? errorCode.getDescription() : e.getMethod(), errorCode, message);
     }
@@ -145,7 +157,7 @@ public abstract class AbstractRestAdapterExceptionHandler implements RestAdapter
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<RestResponse> handleException(Exception e) {
         String message = addBrackets(e.getMessage());
-        log.error("[{}][{}]{}", ErrorCode.FAILURE.getCode(), ErrorCode.FAILURE.getDescription(), message, e);
-        return response().failure(ErrorCode.FAILURE.getDescription(), ErrorCode.FAILURE, message);
+        log.error("[{}][{}]{}", ErrorCommonCode.FAILURE.getCode(), ErrorCommonCode.FAILURE.getDescription(), message, e);
+        return response().failure(ErrorCommonCode.FAILURE.getDescription(), ErrorCommonCode.FAILURE, message);
     }
 }

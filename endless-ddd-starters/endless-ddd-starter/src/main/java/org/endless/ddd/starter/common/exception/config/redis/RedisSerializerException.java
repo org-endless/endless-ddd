@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.config.redis;
 
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * RedisSerializerException
@@ -17,7 +17,7 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  */
 public class RedisSerializerException extends RedisConfigException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.CFG0410;
+    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.CFG0410;
 
     public RedisSerializerException() {
         super(ERROR_CODE);

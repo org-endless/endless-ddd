@@ -9,7 +9,7 @@ import org.endless.ddd.starter.common.annotation.log.Log;
 import org.endless.ddd.starter.common.config.aspect.log.type.LogLevel;
 import org.endless.ddd.starter.common.exception.common.AbstractException;
 import org.endless.ddd.starter.common.exception.config.log.LogException;
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 import org.endless.ddd.starter.common.utils.model.object.ObjectTools;
 import org.endless.ddd.starter.common.utils.model.time.TimeStampTools;
 import org.springframework.core.annotation.Order;
@@ -83,7 +83,7 @@ public class LogAspect {
         } catch (AbstractException e) {
             throw e.put(message + "执行失败");
         } catch (Exception e) {
-            throw new AbstractException(ErrorCode.FAILURE, e.getMessage(), e).put(message + "执行失败");
+            throw new AbstractException(ErrorCommonCode.FAILURE, e.getMessage(), e).put(message + "执行失败");
         } finally {
             long duration = TimeStampTools.between(start, TimeStampTools.now());
             logExecutionEnd(isSuccess, className, message, ObjectTools.maskSensitive(result), duration, annotation.level());

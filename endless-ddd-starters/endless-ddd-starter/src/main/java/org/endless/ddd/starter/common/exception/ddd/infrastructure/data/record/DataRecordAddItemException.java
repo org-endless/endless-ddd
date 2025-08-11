@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.data.record;
 
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * DataRecordAddItemException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  */
 public class DataRecordAddItemException extends FailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.DDR0002;
+    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.DDR0002;
 
     public DataRecordAddItemException() {
         super(ERROR_CODE);

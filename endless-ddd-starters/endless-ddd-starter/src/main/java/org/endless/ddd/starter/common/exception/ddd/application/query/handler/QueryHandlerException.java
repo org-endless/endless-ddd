@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.ddd.application.query.handler;
 
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * QueryHandlerException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  */
 public class QueryHandlerException extends FailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.DQR0000;
+    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.DQR0000;
 
     public QueryHandlerException() {
         super(ERROR_CODE);

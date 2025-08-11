@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.utils.crypto;
 
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * SM2EncryptException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  */
 public class RSAEncryptException extends FailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.UTL0131;
+    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.UTL0131;
 
     public RSAEncryptException() {
         super(ERROR_CODE);

@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.data.persistence.mapper;
 
 import org.endless.ddd.starter.common.exception.common.UnknownException;
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * MapperSaveUnknownException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  */
 public class MapperSaveUnknownException extends MapperUnknownException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.DDP0111;
+    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.DDP0111;
 
     public MapperSaveUnknownException() {
         super(ERROR_CODE);

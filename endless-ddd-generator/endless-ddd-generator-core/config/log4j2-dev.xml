@@ -4,8 +4,8 @@
         <property name="APP_NAME" value="endless-ddd-generator"/>
         <property name="LOG_HOME" value="/logs"/>
         <property name="LOG_NAME" value="${APP_NAME}"/>
-        <property name="LOG_PATTERN_ASPECT">[%d{yyyy-MM-dd HH:mm:ss.SSS}][%-5p][%T]%msg%xEx%n</property>
-        <property name="LOG_PATTERN">[%d{yyyy-MM-dd HH:mm:ss.SSS}][%-5p][%T][%c.%M:%L]%msg%xEx%n</property>
+        <property name="LOG_PATTERN_ASPECT">[%d{yyyy-MM-dd HH:mm:ss.SSS}][%-5p][%T] %msg%xEx%n</property>
+        <property name="LOG_PATTERN">[%d{yyyy-MM-dd HH:mm:ss.SSS}][%-5p][%T] %c:%L [%M] %msg%xEx%n</property>
         <property name="FILE_SIZE">20MB</property>
     </Properties>
 
@@ -33,8 +33,6 @@
         <Logger name="com.baomidou.mybatisplus" level="INFO"/>
         <Logger name="org.apache" level="INFO"/>
         <Logger name="org.springframework" level="INFO"/>
-        <Logger name="org.springframework.security" level="INFO"/>
-        <Logger name="org.springframework.boot.context.properties" level="TRACE"/>
         <Logger name="_org.springframework" level="INFO"/>
         <Logger name="org.jboss" level="INFO"/>
         <Logger name="org.thymeleaf" level="INFO"/>
@@ -48,9 +46,14 @@
         <Logger name="okhttp3" level="INFO"/>
         <Logger name="io.minio" level="INFO"/>
         <Logger name="org.springdoc" level="INFO"/>
-        <Logger name="druid" level="TRACE"/>
+        <Logger name="druid" level="INFO"/>
         <Logger name="java.io.serialization" level="INFO"/>
         <Logger name="org.endless.ddd.starter.common.config.aspect.log.LogAspect"
+                level="TRACE"
+                additivity="false">
+            <AppenderRef ref="Console_aspect"/>
+        </Logger>
+        <Logger name="org.endless.ddd.starter.common.exception.handler.rest.AbstractRestAdapterExceptionHandler"
                 level="TRACE"
                 additivity="false">
             <AppenderRef ref="Console_aspect"/>

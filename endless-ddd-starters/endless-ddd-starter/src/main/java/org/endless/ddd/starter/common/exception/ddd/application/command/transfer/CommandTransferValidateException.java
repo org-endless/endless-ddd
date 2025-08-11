@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.ddd.application.command.transfer;
 
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * CommandTransferValidateException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  */
 public class CommandTransferValidateException extends FailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.DTO0101;
+    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.DTO0101;
 
     public CommandTransferValidateException() {
         super(ERROR_CODE);

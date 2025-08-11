@@ -1,9 +1,9 @@
 package org.endless.ddd.starter.common.ddd.infrastructure.adapter.rest;
 
 import com.alibaba.fastjson2.util.TypeUtils;
+import org.endless.ddd.starter.common.config.rest.response.RestResponse;
 import org.endless.ddd.starter.common.ddd.common.Transfer;
 import org.endless.ddd.starter.common.ddd.domain.anticorruption.DrivenAdapter;
-import org.endless.ddd.starter.common.ddd.facade.rest.RestResponse;
 import org.endless.ddd.starter.common.ddd.infrastructure.adapter.rest.transfer.RestExchangeTransfer;
 import org.endless.ddd.starter.common.exception.ddd.infrastructure.adapter.manager.DrivenAdapterManagerException;
 import org.springframework.core.ParameterizedTypeReference;

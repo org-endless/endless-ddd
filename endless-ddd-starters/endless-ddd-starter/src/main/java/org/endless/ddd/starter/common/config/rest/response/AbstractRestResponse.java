@@ -1,4 +1,4 @@
-package org.endless.ddd.starter.common.ddd.facade.rest;
+package org.endless.ddd.starter.common.config.rest.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -22,7 +22,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @ToString
 @SuperBuilder
-@Schema(description = "Rest适配器响应信息", name = "RestResponse")
+@Schema(description = "Rest响应信息", name = "RestResponse")
 public abstract class AbstractRestResponse implements RestResponse {
 
     @Schema(description = "响应状态", example = "200")

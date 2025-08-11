@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.security.token;
 
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 import org.endless.ddd.starter.common.exception.security.common.SecurityFailedException;
 
 /**
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.security.common.SecurityFailedEx
  */
 public class TokenRefreshException extends SecurityFailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.SEC0012;
+    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.SEC0012;
 
     public TokenRefreshException() {
         super(ERROR_CODE);

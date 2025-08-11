@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.ddd.application.query.transfer;
 
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * QueryReqTransferNullException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  */
 public class QueryReqTransferNullException extends FailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.DTS0200;
+    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.DTS0200;
 
     public QueryReqTransferNullException() {
         super(ERROR_CODE);

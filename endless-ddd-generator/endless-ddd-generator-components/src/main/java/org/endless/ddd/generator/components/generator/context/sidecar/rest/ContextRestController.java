@@ -8,10 +8,10 @@ import org.endless.ddd.generator.components.generator.context.application.comman
 import org.endless.ddd.generator.components.generator.context.application.query.transfer.ContextFindByServiceIdReqQTransfer;
 import org.endless.ddd.generator.components.generator.context.facade.adapter.ContextDrivingAdapter;
 import org.endless.ddd.starter.common.annotation.log.Log;
-import org.endless.ddd.starter.common.ddd.facade.rest.RestResponse;
+import org.endless.ddd.starter.common.config.rest.response.RestResponse;
+import org.endless.ddd.starter.common.exception.config.rest.RestException;
 import org.endless.ddd.starter.common.exception.ddd.application.command.transfer.CommandReqTransferNullException;
 import org.endless.ddd.starter.common.exception.ddd.application.query.transfer.QueryReqTransferNullException;
-import org.endless.ddd.starter.common.exception.ddd.sidecar.rest.RestErrorException;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,7 +57,7 @@ public class ContextRestController implements DDDGeneratorRestController {
             contextDrivingAdapter.create(command);
             return response().success("限界上下文创建成功");
         } catch (JSONException | NullPointerException e) {
-            throw new RestErrorException("限界上下文创建失败", e);
+            throw new RestException("限界上下文创建失败", e);
         }
     }
 
@@ -71,7 +71,7 @@ public class ContextRestController implements DDDGeneratorRestController {
             contextDrivingAdapter.remove(command);
             return response().success("限界上下文删除成功");
         } catch (JSONException | NullPointerException e) {
-            throw new RestErrorException("限界上下文删除失败", e);
+            throw new RestException("限界上下文删除失败", e);
         }
     }
 
@@ -85,7 +85,7 @@ public class ContextRestController implements DDDGeneratorRestController {
             contextDrivingAdapter.modify(command);
             return response().success("限界上下文修改成功");
         } catch (JSONException | NullPointerException e) {
-            throw new RestErrorException("限界上下文修改失败", e);
+            throw new RestException("限界上下文修改失败", e);
         }
     }
 
@@ -98,7 +98,7 @@ public class ContextRestController implements DDDGeneratorRestController {
         try {
             return response().success("根据项目ID查询限界上下文基本信息列表成功", contextDrivingAdapter.findSimpleProfilesByServiceId(query));
         } catch (JSONException | NullPointerException e) {
-            throw new RestErrorException("根据项目ID查询限界上下文基本信息列表失败", e);
+            throw new RestException("根据项目ID查询限界上下文基本信息列表失败", e);
         }
     }
 }

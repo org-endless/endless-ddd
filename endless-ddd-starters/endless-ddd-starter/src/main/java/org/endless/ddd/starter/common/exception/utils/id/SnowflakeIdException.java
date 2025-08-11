@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.utils.id;
 
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * MapperException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  */
 public class SnowflakeIdException extends FailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.UTL0001;
+    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.UTL0001;
 
     public SnowflakeIdException() {
         super(ERROR_CODE);

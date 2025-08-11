@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.ddd.application.command.handler;
 
 import org.endless.ddd.starter.common.exception.common.NotFoundException;
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * CommandHandlerException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  */
 public class CommandHandlerNotFoundException extends NotFoundException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.DCD0010;
+    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.DCD0010;
 
     public CommandHandlerNotFoundException() {
         super(ERROR_CODE);

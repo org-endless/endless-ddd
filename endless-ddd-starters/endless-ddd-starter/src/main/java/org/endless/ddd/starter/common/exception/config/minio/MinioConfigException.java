@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.config.minio;
 
 import org.endless.ddd.starter.common.exception.config.ConfigException;
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * MinioConfigException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  */
 public class MinioConfigException extends ConfigException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.CFG0200;
+    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.CFG0200;
 
     public MinioConfigException() {
         super(ERROR_CODE);

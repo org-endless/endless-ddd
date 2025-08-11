@@ -23,15 +23,15 @@ public abstract class AbstractSecurityExceptionHandler implements RestAdapterExc
     // @ResponseStatus(HttpStatus.NOT_FOUND)
     // public ResponseEntity<RestResponse> handleAuthorizationDeniedException(AuthorizationDeniedException e) {
     //     String message = addBrackets("没有访问权限");
-    //     log.error("[{}][{}]{}", ErrorCode.FORBIDN.getCode(), ErrorCode.FORBIDN.getDescription(), message, e);
-    //     return response().forbidden(ErrorCode.FORBIDN, message);
+    //     log.error("[{}][{}]{}", ErrorCommonCode.FORBIDN.getCode(), ErrorCommonCode.FORBIDN.getDescription(), message, e);
+    //     return response().forbidden(ErrorCommonCode.FORBIDN, message);
     // }
     //
     // @ExceptionHandler(SecurityUnknownException.class)
     // @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
     // public ResponseEntity<RestResponse> handleSecurityUnknownException(SecurityUnknownException e) {
     //     String message = addBrackets(e.getMessage());
-    //     ErrorCode errorCode = e.getErrorCode();
+    //     ErrorCommonCode errorCode = e.getErrorCode();
     //     log.error("[{}][{}]{}", errorCode.getCode(), errorCode.getDescription(), message, e);
     //     return response().unavailable(errorCode, message);
     // }
@@ -40,7 +40,7 @@ public abstract class AbstractSecurityExceptionHandler implements RestAdapterExc
     // @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     // public ResponseEntity<RestResponse> handleSecurityFailedException(SecurityFailedException e) {
     //     String message = addBrackets(e.getMessage());
-    //     ErrorCode errorCode = e.getErrorCode();
+    //     ErrorCommonCode errorCode = e.getErrorCode();
     //     log.error("[{}][{}]{}", errorCode.getCode(), errorCode.getDescription(), message, e);
     //     return response().failure(errorCode, message);
     // }

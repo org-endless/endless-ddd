@@ -2,7 +2,7 @@ package org.endless.ddd.generator.common.model.facade.rest;
 
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
-import org.endless.ddd.starter.common.ddd.facade.rest.AbstractRestResponse;
+import org.endless.ddd.starter.common.config.rest.response.AbstractRestResponse;
 
 /**
  * DDDGeneratorRestResponse

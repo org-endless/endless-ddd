@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.security.identity;
 
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * UnIdentityVerificationException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  */
 public class IdentityNotVerifiedException extends FailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.IDA0000;
+    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.IDA0000;
 
     public IdentityNotVerifiedException() {
         super(ERROR_CODE);

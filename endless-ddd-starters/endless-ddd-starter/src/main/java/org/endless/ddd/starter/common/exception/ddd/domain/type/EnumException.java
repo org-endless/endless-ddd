@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.ddd.domain.type;
 
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
+import org.endless.ddd.starter.common.config.errorcode.type.ErrorCommonCode;
 
 /**
  * EnumException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.handler.type.ErrorCode;
  */
 public class EnumException extends FailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.DEM0000;
+    private static final ErrorCommonCode ERROR_CODE = ErrorCommonCode.DEM0000;
 
     public EnumException() {
         super(ERROR_CODE);
