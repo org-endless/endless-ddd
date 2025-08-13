@@ -43,6 +43,7 @@
     <modules>
         <module>endless-ddd-generator</module>
         <module>endless-ddd-starters</module>
+        <module>endless-ddd-sidecar</module>
     </modules>
 
     <properties>

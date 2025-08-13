@@ -5,19 +5,19 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.endless</groupId>
-        <artifactId>endless-ddd-generator</artifactId>
+        <artifactId>endless-ddd-sidecar</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>endless-ddd-generator-components</artifactId>
+    <artifactId>endless-ddd-sidecar-components</artifactId>
     <packaging>jar</packaging>
-    <name>endless-ddd-generator-components</name>
-    <description>DDD代码生成器-核心域组件</description>
+    <name>endless-ddd-sidecar-components</name>
+    <description>DDD服务网格边车-核心组件</description>
 
     <dependencies>
         <dependency>
             <groupId>org.endless</groupId>
-            <artifactId>endless-ddd-generator-common</artifactId>
+            <artifactId>endless-ddd-sidecar-common</artifactId>
             <optional>true</optional>
         </dependency>
     </dependencies>
