@@ -1,35 +1,25 @@
-project-home: ${user.dir}
-server-port: 60001
-#Tomcat
-tomcat-connection-timeout: 20000 # 设置连接超时时间，单位为毫秒
-tomcat-max-threads: 200 # 设置最大线程数
-tomcat-min-spare-threads: 10 # 设置最小闲置线程数
-tomcat-accept-count: 100 # 设置最大请求队列数
-tomcat-max-http-header-size: 8192 # 设置最大 HTTP 请求头大小，单位为字节
-tomcat-uri-encoding: UTF-8 # 设置 URI 编码格式
-# 数据源配置（SQLite）
-datasource-type: com.alibaba.druid.pool.DruidDataSource
-datasource-driver-class-name: org.sqlite.JDBC
-datasource-url: jdbc:sqlite:file:data/demo.db/endless
-datasource-username: ""
-datasource-password: ""
-#Druid
-druid-initial-size: 1
-druid-min-idle: 1
-druid-max-active: 1          # SQLite 强烈建议单连接
-druid-max-wait: 3000
-druid-validation-query: select 1
-druid-test-on-borrow: true
-druid-test-on-return: false
-druid-test-while-idle: false
-druid-time-between-eviction-runs-millis: 60000
-druid-min-evictable-idle-time-millis: 300000
-druid-max-evictable-idle-time-millis: 900000
-druid-filters: stat
-druid-filter-stat-enabled: true
-druid-filter-stat-log-slow-sql: false
-druid-filter-stat-merge-sql: false
-druid-stat-view-servlet-enabled: false
-druid-web-stat-filter-enabled: false
+# Project
+endless-charset: UTF-8 # 字符集
+endless-date-pattern: yyyy-MM-dd # 日期格式
+endless-date-time-pattern: yyyy-MM-dd HH:mm:ss:SSS # 日期时间格式
+endless-data-center-id: 1 # 数据中心 ID
+endless-worker-id: 1 # 工作节点 ID
+endless-sidecar-mesh-mode-enabled: false # 是否启用 Service Mesh 模式
+endless-sidecar-host: 127.0.0.1 # 边车主机地址
+endless-sidecar-port: 60005 # 边车端口
+# Server
+server-port: 60005 # 服务端口
+# Undertow
+undertow-worker-threads: 100 # 最大工作线程数
+undertow-io-threads: 8 # IO 线程数
+undertow-server-options-idle-timeout: 20000 # 连接超时时间（毫秒）
+undertow-server-options-so-backlog: 100 # 请求队列长度
+undertow-max-http-header-size: 8192 # 最大请求头大小
+undertow-buffer-cache-size: 8192 # Servlet缓冲区大小
+# Datasource
+datasource-driver-class-name: org.sqlite.JDBC # 数据库驱动类
+datasource-url: jdbc:sqlite:file:data/demo.db # 数据库连接 URL
+datasource-username: "" # 数据库用户名
+datasource-password: "" # 数据库密码
 #Logging
 logging-config: file:config/log4j2-prod.xml

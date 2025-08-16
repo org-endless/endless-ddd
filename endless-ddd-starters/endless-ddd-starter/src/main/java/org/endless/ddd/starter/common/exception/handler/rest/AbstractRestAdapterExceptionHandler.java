@@ -16,11 +16,8 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.method.annotation.HandlerMethodValidationException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
-
-import java.util.List;
 
 import static org.endless.ddd.starter.common.utils.model.string.StringTools.addBrackets;
 
@@ -62,36 +59,12 @@ public abstract class AbstractRestAdapterExceptionHandler implements RestAdapter
         return response().badRequest(ErrorCode.of("BAD_REQ").getCode(), ErrorCode.of("RES0202"));
     }
 
-
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<RestResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
         String message = addBrackets(e.getMessage());
         log.error("[{}][{}]{}", ErrorCode.of("RES0250").getCode(), ErrorCode.of("RES0250").getDescription(), message, e);
         return response().badRequest(ErrorCode.of("BAD_REQ").getDescription(), ErrorCode.of("RES0250"));
-    }
-
-    @ExceptionHandler(HandlerMethodValidationException.class)
-    public ResponseEntity<RestResponse> handleHandlerMethodValidation(HandlerMethodValidationException e) {
-        List<String> errorFields = e.getParameterValidationResults().stream()
-                .flatMap(paramResult -> paramResult.getResolvableErrors().stream()
-                        .map(error -> {
-                            String className = paramResult.getMethodParameter().getContainingClass().getName();
-                            String fieldName = error instanceof org.springframework.validation.FieldError fe ? fe.getField() : paramResult.getMethodParameter().getParameterName();
-                            String message = error.getDefaultMessage();
-                            message = "参数 " + fieldName + " 校验失败" + ": " + message;
-                            log.error(" {} [validate][{}][{}]{}", className, ErrorCode.of("DTS0000").getCode(), ErrorCode.of("DTS0000").getDescription(), message);
-                            return fieldName;
-                        })
-                ).toList();
-        String errorMessage;
-        if (errorFields.isEmpty()) {
-            errorMessage = "参数校验失败";
-        } else {
-            errorMessage = "参数 " + String.join(", ", errorFields) + " 校验失败";
-        }
-        log.error("[{}][{}]", ErrorCode.of("DTS0000").getCode(), ErrorCode.of("DTS0000").getDescription(), e);
-        return response().failure(ErrorCode.of("DTS0000").getDescription(), ErrorCode.of("DTS0000"), errorMessage);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)

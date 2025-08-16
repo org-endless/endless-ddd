@@ -9,16 +9,26 @@
         <property name="FILE_SIZE">20MB</property>
     </Properties>
     <Appenders>
-        <RollingRandomAccessFile name="RollingRandomAccessFile"
+        <Console name="DefaultConsole" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN}" charset="UTF-8"/>
+        </Console>
+        <Console name="AspectConsole" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN_ASPECT}" charset="UTF-8"/>
+        </Console>
+        <RollingRandomAccessFile name="DefaultFile"
                                  fileName="${LOG_HOME}/${LOG_NAME}.log"
                                  filePattern="${LOG_HOME}/%d{yyyyMMdd}/${LOG_NAME}-%d{yyyyMMdd}-%i.log">
-            <PatternLayout charset="UTF-8">
-                <PatternMatch key="default"
-                              pattern="${LOG_PATTERN}"/>
-                <!-- 切面日志格式（LogAspect） -->
-                <PatternMatch key="aspect"
-                              pattern="${LOG_PATTERN_ASPECT}"/>
-            </PatternLayout>
+            <PatternLayout pattern="${LOG_PATTERN}" charset="UTF-8"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="${FILE_SIZE}"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingRandomAccessFile>
+        <RollingRandomAccessFile name="AspectFile"
+                                 fileName="${LOG_HOME}/${LOG_NAME}.log"
+                                 filePattern="${LOG_HOME}/%d{yyyyMMdd}/${LOG_NAME}-%d{yyyyMMdd}-%i.log">
+            <PatternLayout pattern="${LOG_PATTERN}" charset="UTF-8"/>
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
                 <SizeBasedTriggeringPolicy size="${FILE_SIZE}"/>
@@ -27,30 +37,44 @@
         </RollingRandomAccessFile>
     </Appenders>
     <Loggers>
+        <Logger name="org.springframework" level="ERROR"/>
+        <Logger name="_org.springframework" level="ERROR"/>
+        <Logger name="org.apache" level="ERROR"/>
+        <Logger name="org.jboss" level="ERROR"/>
+        <Logger name="org.thymeleaf" level="ERROR"/>
+        <Logger name="javax.management" level="ERROR"/>
+        <Logger name="sun.rmi" level="ERROR"/>
+        <Logger name="sun.net" level="ERROR"/>
+        <Logger name="io.netty" level="ERROR"/>
+        <Logger name="io.lettuce" level="ERROR"/>
+        <Logger name="io.minio" level="ERROR"/>
+        <Logger name="io.micrometer" level="ERROR"/>
+        <Logger name="okhttp3" level="ERROR"/>
+        <Logger name="java.io.serialization" level="ERROR"/>
+        <Logger name="org.springdoc" level="ERROR"/>
+
+        <Logger name="org.hibernate" level="ERROR"/>
+        <Logger name="org.mongodb" level="ERROR"/>
+        <Logger name="org.sqlite" level="ERROR"/>
+        <Logger name="com.alibaba" level="ERROR"/>
+        <Logger name="com.zaxxer.hikari" level="ERROR"/>
+        <Logger name="org.mybatis" level="ERROR"/>
+        <Logger name="com.baomidou.mybatisplus" level="ERROR"/>
+        <Logger name="com.github.pagehelper" level="ERROR"/>
+
         <Logger name="org.endless.ddd.starter.common.config.aspect.log.LogAspect"
-                level="ERROR"
-                additivity="false">
-            <AppenderRef ref="RollingRandomAccessFile">
-                <PatternSelector>
-                    <PatternMatch key="aspect"/>
-                </PatternSelector>
-            </AppenderRef>
+                level="TRACE" additivity="false">
+            <!-- <AppenderRef ref="AspectConsole"/> -->
+            <AppenderRef ref="AspectFile"/>
         </Logger>
         <Logger name="org.endless.ddd.starter.common.exception.handler.rest.AbstractRestAdapterExceptionHandler"
-                level="ERROR"
-                additivity="false">
-            <AppenderRef ref="RollingRandomAccessFile">
-                <PatternSelector>
-                    <PatternMatch key="aspect"/>
-                </PatternSelector>
-            </AppenderRef>
+                level="TRACE" additivity="false">
+            <!-- <AppenderRef ref="AspectConsole"/> -->
+            <AppenderRef ref="AspectFile"/>
         </Logger>
-        <Root level="ERROR">
-            <AppenderRef ref="RollingRandomAccessFile">
-                <PatternSelector>
-                    <PatternMatch key="default"/>
-                </PatternSelector>
-            </AppenderRef>
+        <Root level="TRACE">
+            <!-- <AppenderRef ref="DefaultConsole"/> -->
+            <AppenderRef ref="DefaultFile"/>
         </Root>
     </Loggers>
 </Configuration>

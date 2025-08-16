@@ -4,6 +4,9 @@ endless:
   date-time-pattern: yyyy-MM-dd HH:mm:ss:SSS
   data-center-id: 1
   worker-id: 1
+  sidecar:
+    host: 127.0.0.1
+    port: 60005
 #------------------------Server-------------------------
 server:
   port: ${server-port} # 服务端口
@@ -22,11 +25,23 @@ spring:
     name: endless-ddd-sidecar
   profiles:
     active: dev
+  freemarker:
+    enabled: true # 启用 Freemarker 模板引擎
+    template-loader-path: file:templates/freemarker/ # Freemarker 模板路径
+    suffix: .ftl # Freemarker 模板后缀
+    check-template-location: false #
   mvc:
     throw-exception-if-no-handler-found: true # 未找到请求处理器时，抛出异常
+  datasource:
+    driver-class-name: ${datasource-driver-class-name}  # 设置数据库驱动类
+    url: ${datasource-url} # 数据库连接 URL
+    username: ${datasource-username}  # 数据库用户名
+    password: ${datasource-password}  # 数据库密码
 #------------------------Logging------------------------
 logging:
   config: ${logging-config}
+log4j2:
+  enableScript: true
 #-----------------------Actuator------------------------
 management:
   endpoints:

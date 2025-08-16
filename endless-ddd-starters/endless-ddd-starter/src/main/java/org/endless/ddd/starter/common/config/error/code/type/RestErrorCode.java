@@ -32,6 +32,7 @@ public enum RestErrorCode implements ErrorCode {
     RES0201("RES0201", "REST服务请求路径不存在"),
     RES0202("RES0202", "REST服务请求方法不支持"),
     RES0250("RES0250", "REST服务请求体为空或格式错误"),
+    RES0251("RES0251", "REST服务请求体校验失败"),
     RES0300("RES0300", "REST服务响应处理失败"),
     // REST 客户端错误
     RES0500("RES0500", "REST客户端处理失败"),

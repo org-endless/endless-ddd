@@ -1,7 +1,9 @@
 package org.endless.ddd.starter.common.config.rest;
 
 import org.endless.ddd.starter.common.config.rest.client.RestClientConfiguration;
+import org.endless.ddd.starter.common.config.rest.resolver.RestValidationExceptionResolver;
 import org.endless.ddd.starter.common.config.rest.server.RestServerConfiguration;
+import org.endless.ddd.starter.common.config.rest.servlet.ServletConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Import;
@@ -19,7 +21,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @AutoConfiguration
 @ConditionalOnClass(WebMvcConfigurer.class)
-@Import({RestClientConfiguration.class, RestServerConfiguration.class})
+@Import({RestClientConfiguration.class, RestServerConfiguration.class, ServletConfiguration.class, RestValidationExceptionResolver.class})
 public class RestAutoConfiguration {
 
 }
