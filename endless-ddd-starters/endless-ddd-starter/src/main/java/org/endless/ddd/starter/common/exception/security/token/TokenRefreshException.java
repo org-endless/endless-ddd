@@ -1,7 +1,6 @@
 package org.endless.ddd.starter.common.exception.security.token;
 
 import org.endless.ddd.starter.common.config.error.code.ErrorCode;
-import org.endless.ddd.starter.common.exception.security.common.SecurityFailedException;
 
 /**
  * TokenRefreshException
@@ -11,26 +10,34 @@ import org.endless.ddd.starter.common.exception.security.common.SecurityFailedEx
  * update 2024/12/25 18:47
  *
  * @author Deng Haozhi
- * @see SecurityFailedException
+ * @see TokenException
  * @since 1.0.0
  */
-public class TokenRefreshException extends SecurityFailedException {
+public class TokenRefreshException extends TokenException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("SEC0012");
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("SEC0032");
 
     public TokenRefreshException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public TokenRefreshException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public TokenRefreshException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public TokenRefreshException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public TokenRefreshException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public TokenRefreshException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

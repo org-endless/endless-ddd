@@ -11,26 +11,34 @@ import org.endless.ddd.starter.common.exception.common.NotFoundException;
  * update 2024/11/17 16:20
  *
  * @author Deng Haozhi
- * @see DataManagerFailedException
+ * @see NotFoundException
  * @since 1.0.0
  */
 public class DataManagerNotFoundException extends NotFoundException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DDM0011");
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("DDM1001");
 
     public DataManagerNotFoundException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public DataManagerNotFoundException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public DataManagerNotFoundException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public DataManagerNotFoundException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public DataManagerNotFoundException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public DataManagerNotFoundException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

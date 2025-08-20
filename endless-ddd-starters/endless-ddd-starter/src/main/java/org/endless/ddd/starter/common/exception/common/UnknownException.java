@@ -31,23 +31,19 @@ public class UnknownException extends AbstractException {
         super(ERROR_CODE, throwable);
     }
 
+    public UnknownException(String method, String message) {
+        super(method, ERROR_CODE, message);
+    }
+
     public UnknownException(String message, Throwable throwable) {
         super(ERROR_CODE, message, throwable);
     }
 
-    public UnknownException(ErrorCode errorCode) {
-        super(errorCode);
+    public UnknownException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 
-    public UnknownException(ErrorCode errorCode, String message) {
-        super(errorCode, message);
-    }
-
-    public UnknownException(ErrorCode errorCode, Throwable throwable) {
-        super(errorCode, throwable);
-    }
-
-    public UnknownException(ErrorCode errorCode, String message, Throwable throwable) {
-        super(errorCode, message, throwable);
+    public UnknownException(String method, ErrorCode errorCode, String message, Throwable throwable) {
+        super(method, errorCode, message, throwable);
     }
 }

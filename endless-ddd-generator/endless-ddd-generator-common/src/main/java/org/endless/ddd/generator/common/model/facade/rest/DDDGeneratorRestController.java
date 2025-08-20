@@ -1,5 +1,7 @@
 package org.endless.ddd.generator.common.model.facade.rest;
 
+import org.endless.ddd.starter.common.config.rest.response.RestResponse;
+import org.endless.ddd.starter.common.ddd.common.transfer.RespTransfer;
 import org.endless.ddd.starter.common.ddd.facade.rest.RestController;
 
 /**
@@ -15,7 +17,11 @@ import org.endless.ddd.starter.common.ddd.facade.rest.RestController;
  */
 public interface DDDGeneratorRestController extends RestController {
 
-    default DDDGeneratorRestResponse response() {
-        return DDDGeneratorRestResponse.builder().build();
+    default <R extends RespTransfer> RestResponse<R> response(R response) {
+        return RestResponse.<R>builder().serviceDescription("DDD代码生成器").build();
+    }
+
+    default RestResponse<Void> response() {
+        return RestResponse.<Void>builder().serviceDescription("DDD代码生成器").build();
     }
 }

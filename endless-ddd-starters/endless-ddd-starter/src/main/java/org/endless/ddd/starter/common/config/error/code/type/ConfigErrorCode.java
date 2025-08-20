@@ -24,12 +24,16 @@ public enum ConfigErrorCode implements ErrorCode {
 
     // 配置项错误码
     CFG0000("CFG0000", "配置项加载失败"),
-    CFG0100("CFG0100", "日志处理失败"),
-    CFG0200("CFG0200", "MINIO配置加载失败"),
+    CFG0100("CFG0100", "日志切面处理失败"),
+    CFG0200("CFG0200", "REST配置项加载失败"),
+    CFG0300("CFG0300", "MINIO配置加载失败"),
     CFG0400("CFG0400", "REDIS配置加载失败"),
     CFG0410("CFG0410", "REDIS序列化配置加载失败"),
-    CFG0420("CFG0420", "REDIS_STREAM初始化失败"),
-    CFG0421("CFG0421", "REDIS_STREAM_ADD操作处理失败");
+    CFG0420("CFG0420", "REDIS-STREAM配置加载失败"),
+    CFG0421("CFG0421", "REDIS-STREAM初始化失败"),
+    CFG8000("CFG8000", "ID生成失败"),
+    CFG8001("CFG8001", "雪花ID生成失败");
+
 
     private final String code;
 
@@ -37,7 +41,7 @@ public enum ConfigErrorCode implements ErrorCode {
 
     public static void register() {
         for (ConfigErrorCode value : values()) {
-            ErrorCode.register(value);
+            ErrorCode.Cache.register(value);
         }
     }
 }

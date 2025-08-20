@@ -2,14 +2,14 @@ package org.endless.ddd.generator.components.generator.project.infrastructure.da
 
 import org.endless.ddd.generator.common.model.infrastructure.data.manager.DDDGeneratorAggregateDataManager;
 import org.endless.ddd.generator.components.generator.project.application.query.anticorruption.ProjectQueryRepository;
-import org.endless.ddd.generator.components.generator.project.application.query.transfer.ProjectFindSimpleProfileRespQTransfer;
+import org.endless.ddd.generator.components.generator.project.application.query.transfer.ProjectFindSimpleProfileRespQTransferReq;
 import org.endless.ddd.generator.components.generator.project.domain.anticorruption.ProjectRepository;
 import org.endless.ddd.generator.components.generator.project.domain.entity.ProjectAggregate;
 import org.endless.ddd.generator.components.generator.project.infrastructure.data.persistence.mapper.ProjectMapper;
 import org.endless.ddd.generator.components.generator.project.infrastructure.data.record.ProjectRecord;
 import org.endless.ddd.starter.common.annotation.log.Log;
 import org.endless.ddd.starter.common.config.aspect.log.type.LogLevel;
-import org.endless.ddd.starter.common.exception.ddd.infrastructure.data.manager.DataManagerRequestNullException;
+import org.endless.ddd.starter.common.exception.ddd.infrastructure.data.manager.DataManagerParameterNullException;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -49,7 +49,7 @@ public class ProjectDataManager implements ProjectRepository, ProjectQueryReposi
     public ProjectAggregate save(ProjectAggregate aggregate) {
         Optional.ofNullable(aggregate)
                 .map(ProjectAggregate::validate)
-                .orElseThrow(() -> new DataManagerRequestNullException("保存项目聚合数据不能为空"));
+                .orElseThrow(() -> new DataManagerParameterNullException("保存项目聚合数据不能为空"));
         projectMapper.save(ProjectRecord.from(aggregate));
         return aggregate;
     }
@@ -58,7 +58,7 @@ public class ProjectDataManager implements ProjectRepository, ProjectQueryReposi
     @Log(message = "删除项目聚合数据", value = "#aggregate", level = LogLevel.TRACE)
     public void remove(ProjectAggregate aggregate) {
         Optional.ofNullable(aggregate)
-                .orElseThrow(() -> new DataManagerRequestNullException("删除项目聚合数据不能为空"));
+                .orElseThrow(() -> new DataManagerParameterNullException("删除项目聚合数据不能为空"));
         projectMapper.remove(ProjectRecord.from(aggregate));
     }
 
@@ -67,7 +67,7 @@ public class ProjectDataManager implements ProjectRepository, ProjectQueryReposi
     public ProjectAggregate modify(ProjectAggregate aggregate) {
         Optional.ofNullable(aggregate)
                 .map(ProjectAggregate::validate)
-                .orElseThrow(() -> new DataManagerRequestNullException("修改项目聚合数据不能为空"));
+                .orElseThrow(() -> new DataManagerParameterNullException("修改项目聚合数据不能为空"));
         projectMapper.modify(ProjectRecord.from(aggregate));
         return aggregate;
     }
@@ -77,7 +77,7 @@ public class ProjectDataManager implements ProjectRepository, ProjectQueryReposi
     public Optional<ProjectAggregate> findById(String projectId) {
         Optional.ofNullable(projectId)
                 .filter(StringUtils::hasText)
-                .orElseThrow(() -> new DataManagerRequestNullException("项目聚合ID不能为空"));
+                .orElseThrow(() -> new DataManagerParameterNullException("项目聚合ID不能为空"));
         return projectMapper.findById(projectId).map(ProjectRecord::to);
     }
 
@@ -88,9 +88,9 @@ public class ProjectDataManager implements ProjectRepository, ProjectQueryReposi
 
     @Override
     @Log(message = "根据ID列表查询项目基本信息列表数据", value = "#projectIds", level = LogLevel.TRACE)
-    public List<ProjectFindSimpleProfileRespQTransfer> findSimpleProfilesByIds(List<String> projectIds) {
+    public List<ProjectFindSimpleProfileRespQTransferReq> findSimpleProfilesByIds(List<String> projectIds) {
         return projectMapper.findSimpleProfilesByIds(projectIds).stream()
-                .map(record -> ProjectFindSimpleProfileRespQTransfer.builder()
+                .map(record -> ProjectFindSimpleProfileRespQTransferReq.builder()
                         .projectId(record.getProjectId())
                         .name(record.getName())
                         .build().validate())
@@ -102,7 +102,7 @@ public class ProjectDataManager implements ProjectRepository, ProjectQueryReposi
     public Boolean existsById(String projectId) {
         Optional.ofNullable(projectId)
                 .filter(StringUtils::hasText)
-                .orElseThrow(() -> new DataManagerRequestNullException("项目聚合ID不能为空"));
+                .orElseThrow(() -> new DataManagerParameterNullException("项目聚合ID不能为空"));
         return projectMapper.existsById(projectId);
     }
 }

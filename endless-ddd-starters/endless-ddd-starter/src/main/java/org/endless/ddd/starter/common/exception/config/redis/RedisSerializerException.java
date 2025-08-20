@@ -8,7 +8,6 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  * create 2025/07/09 18:25
  * <p>
  * update 2025/07/09 18:25
- * update 2025/07/09 18:25
  *
  * @author Deng Haozhi
  * @see RedisConfigException
@@ -19,18 +18,26 @@ public class RedisSerializerException extends RedisConfigException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("CFG0410");
 
     public RedisSerializerException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public RedisSerializerException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public RedisSerializerException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public RedisSerializerException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public RedisSerializerException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public RedisSerializerException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

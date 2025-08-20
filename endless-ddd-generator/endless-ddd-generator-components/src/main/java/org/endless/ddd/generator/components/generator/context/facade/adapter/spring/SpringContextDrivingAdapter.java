@@ -1,12 +1,12 @@
 package org.endless.ddd.generator.components.generator.context.facade.adapter.spring;
 
 import org.endless.ddd.generator.components.generator.context.application.command.handler.ContextCommandHandler;
-import org.endless.ddd.generator.components.generator.context.application.command.transfer.ContextCreateReqCTransfer;
-import org.endless.ddd.generator.components.generator.context.application.command.transfer.ContextModifyReqCTransfer;
-import org.endless.ddd.generator.components.generator.context.application.command.transfer.ContextRemoveReqCTransfer;
+import org.endless.ddd.generator.components.generator.context.application.command.transfer.ContextCreateReqCTransferReq;
+import org.endless.ddd.generator.components.generator.context.application.command.transfer.ContextModifyReqCTransferReq;
+import org.endless.ddd.generator.components.generator.context.application.command.transfer.ContextRemoveReqCTransferReq;
 import org.endless.ddd.generator.components.generator.context.application.query.handler.ContextQueryHandler;
-import org.endless.ddd.generator.components.generator.context.application.query.transfer.ContextFindByServiceIdReqQTransfer;
-import org.endless.ddd.generator.components.generator.context.application.query.transfer.ContextFindSimpleProfilesRespQTransfer;
+import org.endless.ddd.generator.components.generator.context.application.query.transfer.ContextFindByServiceIdReqQTransferReq;
+import org.endless.ddd.generator.components.generator.context.application.query.transfer.ContextFindSimpleProfilesRespQTransferReq;
 import org.endless.ddd.generator.components.generator.context.facade.adapter.ContextDrivingAdapter;
 
 /**
@@ -39,22 +39,22 @@ public class SpringContextDrivingAdapter implements ContextDrivingAdapter {
     }
 
     @Override
-    public void create(ContextCreateReqCTransfer command) {
+    public void create(ContextCreateReqCTransferReq command) {
         contextCommandHandler.create(command);
     }
 
     @Override
-    public void remove(ContextRemoveReqCTransfer command) {
+    public void remove(ContextRemoveReqCTransferReq command) {
         contextCommandHandler.remove(command);
     }
 
     @Override
-    public void modify(ContextModifyReqCTransfer command) {
+    public void modify(ContextModifyReqCTransferReq command) {
         contextCommandHandler.modify(command);
     }
 
     @Override
-    public ContextFindSimpleProfilesRespQTransfer findSimpleProfilesByServiceId(ContextFindByServiceIdReqQTransfer query) {
+    public ContextFindSimpleProfilesRespQTransferReq findSimpleProfilesByServiceId(ContextFindByServiceIdReqQTransferReq query) {
         return contextQueryHandler.findSimpleProfilesByServiceId(query);
     }
 }

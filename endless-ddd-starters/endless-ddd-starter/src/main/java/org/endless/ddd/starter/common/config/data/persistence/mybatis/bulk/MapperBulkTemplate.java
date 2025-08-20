@@ -5,7 +5,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.endless.ddd.starter.common.ddd.domain.entity.Entity;
 import org.endless.ddd.starter.common.ddd.infrastructure.data.persistence.mapper.DataMapper;
 import org.endless.ddd.starter.common.ddd.infrastructure.data.record.DataRecord;
-import org.endless.ddd.starter.common.exception.ddd.infrastructure.data.persistence.mapper.MapperBulkException;
+import org.endless.ddd.starter.common.exception.ddd.infrastructure.data.persistence.mapper.MybatisBulkFailedException;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.util.CollectionUtils;
 
@@ -36,14 +36,14 @@ public class MapperBulkTemplate<R extends DataRecord<? extends Entity>> implemen
     public void execute(List<R> records, Class<? extends DataMapper<R>> mapperClass, BiConsumer<DataMapper<R>, R> consumer) {
         Optional.ofNullable(records)
                 .filter(l -> !CollectionUtils.isEmpty(l))
-                .orElseThrow(() -> new MapperBulkException("批量执行的数据记录不能为空"));
+                .orElseThrow(() -> new MybatisBulkFailedException("批量执行的数据记录不能为空"));
         try (SqlSession session = sqlSessionTemplate.getSqlSessionFactory()
                 .openSession(ExecutorType.BATCH, false)) {
             DataMapper<R> mapper = session.getMapper(mapperClass);
-            records.forEach(record -> consumer.accept(mapper, record));
+            records.forEach(dataRecord -> consumer.accept(mapper, dataRecord));
             session.commit();
         } catch (Exception e) {
-            throw new MapperBulkException(e);
+            throw new MybatisBulkFailedException(e);
         }
     }
 }

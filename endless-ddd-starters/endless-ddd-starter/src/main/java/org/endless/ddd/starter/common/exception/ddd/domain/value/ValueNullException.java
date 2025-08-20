@@ -18,18 +18,26 @@ public class ValueNullException extends ValueException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DVO0001");
 
     public ValueNullException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public ValueNullException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public ValueNullException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public ValueNullException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public ValueNullException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public ValueNullException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

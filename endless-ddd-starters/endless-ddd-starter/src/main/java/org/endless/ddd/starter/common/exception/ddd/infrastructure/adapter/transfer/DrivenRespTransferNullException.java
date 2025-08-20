@@ -19,18 +19,28 @@ public class DrivenRespTransferNullException extends RespTransferNullException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DTO2300");
 
     public DrivenRespTransferNullException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public DrivenRespTransferNullException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public DrivenRespTransferNullException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public DrivenRespTransferNullException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public DrivenRespTransferNullException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
     }
+
+    public DrivenRespTransferNullException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
+    }
+
+
 }

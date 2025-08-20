@@ -9,7 +9,7 @@ import org.endless.ddd.starter.common.exception.ddd.application.command.transfer
 import org.springframework.util.StringUtils;
 
 /**
- * DomainCreateReqCTransfer
+ * DomainCreateReqCTransferReq
  * <p>
  * 聚合创建命令请求传输对象
  * <p>

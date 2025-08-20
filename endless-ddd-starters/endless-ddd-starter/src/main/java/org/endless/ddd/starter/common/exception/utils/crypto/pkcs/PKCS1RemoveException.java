@@ -1,0 +1,44 @@
+package org.endless.ddd.starter.common.exception.utils.crypto.pkcs;
+
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.utils.crypto.CryptoException;
+
+/**
+ * SM2DecryptException
+ * <p>
+ * create 2024/11/16 04:04
+ * <p>
+ * update 2024/11/16 23:54
+ *
+ * @author Deng Haozhi
+ * @see CryptoException
+ * @since 1.0.0
+ */
+public class PKCS1RemoveException extends CryptoException {
+
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("UTL0141");
+
+    public PKCS1RemoveException() {
+        super(null, ERROR_CODE, null, null);
+    }
+
+    public PKCS1RemoveException(String message) {
+        super(null, ERROR_CODE, message, null);
+    }
+
+    public PKCS1RemoveException(Throwable throwable) {
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public PKCS1RemoveException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
+    }
+
+    public PKCS1RemoveException(String message, Throwable throwable) {
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public PKCS1RemoveException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
+    }
+}

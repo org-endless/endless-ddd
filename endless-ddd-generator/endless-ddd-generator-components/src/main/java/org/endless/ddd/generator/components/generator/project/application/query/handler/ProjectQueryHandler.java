@@ -1,9 +1,9 @@
 package org.endless.ddd.generator.components.generator.project.application.query.handler;
 
 import org.endless.ddd.generator.common.model.application.query.handler.DDDGeneratorQueryHandler;
-import org.endless.ddd.generator.components.generator.project.application.query.transfer.ProjectFindByIdReqQTransfer;
-import org.endless.ddd.generator.components.generator.project.application.query.transfer.ProjectFindByIdsReqQTransfer;
-import org.endless.ddd.generator.components.generator.project.application.query.transfer.ProjectFindSimpleProfilesRespQTransfer;
+import org.endless.ddd.generator.components.generator.project.application.query.transfer.ProjectFindByIdReqQTransferReq;
+import org.endless.ddd.generator.components.generator.project.application.query.transfer.ProjectFindByIdsReqQTransferReq;
+import org.endless.ddd.generator.components.generator.project.application.query.transfer.ProjectFindSimpleProfilesRespQTransferReq;
 
 /**
  * ProjectQueryHandler
@@ -19,8 +19,8 @@ import org.endless.ddd.generator.components.generator.project.application.query.
  */
 public interface ProjectQueryHandler extends DDDGeneratorQueryHandler {
 
-    ProjectFindSimpleProfilesRespQTransfer findSimpleProfilesByIds(ProjectFindByIdsReqQTransfer query);
+    ProjectFindSimpleProfilesRespQTransferReq findSimpleProfilesByIds(ProjectFindByIdsReqQTransferReq query);
 
-    void existsById(ProjectFindByIdReqQTransfer query);
+    void existsById(ProjectFindByIdReqQTransferReq query);
 
 }

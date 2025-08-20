@@ -15,21 +15,29 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class AggregateCreateException extends AggregateException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DAG0110");
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("DAG0100");
 
     public AggregateCreateException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public AggregateCreateException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public AggregateCreateException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public AggregateCreateException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public AggregateCreateException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public AggregateCreateException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

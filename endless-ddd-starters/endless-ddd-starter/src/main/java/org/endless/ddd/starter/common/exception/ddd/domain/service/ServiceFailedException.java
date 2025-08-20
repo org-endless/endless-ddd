@@ -19,34 +19,30 @@ public class ServiceFailedException extends FailedException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DSV0000");
 
     public ServiceFailedException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public ServiceFailedException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public ServiceFailedException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public ServiceFailedException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public ServiceFailedException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
     }
 
-    public ServiceFailedException(ErrorCode errorCode) {
-        super(errorCode);
+    public ServiceFailedException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 
-    public ServiceFailedException(ErrorCode errorCode, String message) {
-        super(errorCode, message);
-    }
-
-    public ServiceFailedException(ErrorCode errorCode, Throwable throwable) {
-        super(errorCode, throwable);
-    }
-
-    public ServiceFailedException(ErrorCode errorCode, String message, Throwable throwable) {
-        super(errorCode, message, throwable);
+    public ServiceFailedException(String method, ErrorCode errorCode, String message, Throwable throwable) {
+        super(method, errorCode, message, throwable);
     }
 }

@@ -2,7 +2,7 @@ package org.endless.ddd.generator.components.generator.service.application.query
 
 import org.endless.ddd.generator.components.generator.service.application.query.anticorruption.ServiceQueryRepository;
 import org.endless.ddd.generator.components.generator.service.application.query.handler.ServiceQueryHandler;
-import org.endless.ddd.generator.components.generator.service.application.query.transfer.ServiceFindByProjectIdReqQTransfer;
+import org.endless.ddd.generator.components.generator.service.application.query.transfer.ServiceFindByProjectIdReqQTransferReq;
 import org.endless.ddd.generator.components.generator.service.application.query.transfer.ServiceFindSimpleProfilesRespQTransfer;
 import org.endless.ddd.starter.common.annotation.log.Log;
 import org.endless.ddd.starter.common.config.aspect.log.type.LogLevel;
@@ -42,9 +42,9 @@ public class ServiceQueryHandlerImpl implements ServiceQueryHandler {
 
     @Override
     @Log(message = "根据项目ID查询服务基本信息列表", value = "#query", level = LogLevel.TRACE)
-    public ServiceFindSimpleProfilesRespQTransfer findSimpleProfilesByProjectId(ServiceFindByProjectIdReqQTransfer query) {
+    public ServiceFindSimpleProfilesRespQTransfer findSimpleProfilesByProjectId(ServiceFindByProjectIdReqQTransferReq query) {
         Optional.ofNullable(query)
-                .map(ServiceFindByProjectIdReqQTransfer::validate)
+                .map(ServiceFindByProjectIdReqQTransferReq::validate)
                 .orElseThrow(() -> new QueryReqTransferNullException("根据项目ID查询项目基本信息列表参数不能为空"));
         return ServiceFindSimpleProfilesRespQTransfer.builder()
                 .simpleProfiles(serviceQueryRepository.findSimpleProfilesByProjectId(query.projectId()))

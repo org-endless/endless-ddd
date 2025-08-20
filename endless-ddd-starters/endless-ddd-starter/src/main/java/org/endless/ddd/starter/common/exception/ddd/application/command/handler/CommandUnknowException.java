@@ -19,34 +19,30 @@ public class CommandUnknowException extends UnknownException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DCD9000");
 
     public CommandUnknowException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public CommandUnknowException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public CommandUnknowException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public CommandUnknowException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public CommandUnknowException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
     }
 
-    public CommandUnknowException(ErrorCode errorCode) {
-        super(errorCode);
+    public CommandUnknowException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 
-    public CommandUnknowException(ErrorCode errorCode, String message) {
-        super(errorCode, message);
-    }
-
-    public CommandUnknowException(ErrorCode errorCode, Throwable throwable) {
-        super(errorCode, throwable);
-    }
-
-    public CommandUnknowException(ErrorCode errorCode, String message, Throwable throwable) {
-        super(errorCode, message, throwable);
+    public CommandUnknowException(String method, ErrorCode errorCode, String message, Throwable throwable) {
+        super(method, errorCode, message, throwable);
     }
 }

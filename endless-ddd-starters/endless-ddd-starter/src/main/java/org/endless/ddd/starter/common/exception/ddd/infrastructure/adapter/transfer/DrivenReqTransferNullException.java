@@ -19,18 +19,28 @@ public class DrivenReqTransferNullException extends ReqTransferNullException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DTO1300");
 
     public DrivenReqTransferNullException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public DrivenReqTransferNullException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public DrivenReqTransferNullException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public DrivenReqTransferNullException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public DrivenReqTransferNullException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
     }
+
+    public DrivenReqTransferNullException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
+    }
+
+
 }

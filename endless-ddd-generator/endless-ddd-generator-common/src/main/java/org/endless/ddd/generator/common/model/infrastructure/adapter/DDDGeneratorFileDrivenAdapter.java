@@ -2,10 +2,10 @@ package org.endless.ddd.generator.common.model.infrastructure.adapter;
 
 import org.endless.ddd.generator.common.model.domain.anticorruption.DDDGeneratorDrivenAdapter;
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.exception.config.minio.FileSystemRemoveFailedException;
-import org.endless.ddd.starter.common.exception.config.minio.FileSystemStoreFailedException;
+import org.endless.ddd.starter.common.exception.config.minio.MinioRemoveFailedException;
+import org.endless.ddd.starter.common.exception.config.minio.MinioStoreFailedException;
 import org.endless.ddd.starter.common.utils.model.time.DateTimeTools;
-import org.endless.ddd.starter.common.utils.model.time.TimeStampTools;
+import org.endless.ddd.starter.common.utils.model.time.TimestampTools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,14 +30,21 @@ import java.util.Comparator;
 public interface DDDGeneratorFileDrivenAdapter extends DDDGeneratorDrivenAdapter {
 
     String SERVICE_COMMON_PACKAGE = "common";
+
     String SERVICE_COMPONENTS_PACKAGE = "components";
+
     String SERVICE_CORE_PACKAGE = "core";
+
     String SERVICE_SUPPORT_PACKAGE = "support";
 
     String DEFAULT_DESIGN_DIRECTORY = "design";
+
     String DEFAULT_MODEL_DIRECTORY = "ddd";
+
     String DEFAULT_DRAWING_DIRECTORY = "drawing";
+
     String DEFAULT_BACKUP_DIRECTORY = ".ddd";
+
     Integer MAX_BACKUP_COUNTS = 10;
 
     Logger log = LoggerFactory.getLogger(DDDGeneratorFileDrivenAdapter.class);
@@ -48,7 +55,7 @@ public interface DDDGeneratorFileDrivenAdapter extends DDDGeneratorDrivenAdapter
             File directory = new File(filePath);
             if (!directory.exists()) {
                 if (!directory.mkdirs()) {
-                    throw new FileSystemStoreFailedException("创建目录失败 " + directory);
+                    throw new MinioStoreFailedException("创建目录失败 " + directory);
                 }
             }
             File file = Paths.get(filePath, fileName).toFile();
@@ -58,14 +65,14 @@ public interface DDDGeneratorFileDrivenAdapter extends DDDGeneratorDrivenAdapter
             try (FileWriter writer = new FileWriter(file)) {
                 writer.write(content);
             } catch (Exception e) {
-                throw new FileSystemStoreFailedException("文件写入失败: " + file);
+                throw new MinioStoreFailedException("文件写入失败: " + file);
 
             }
             log.trace("文件 {} 已生成", fileName);
         } catch (FailedException e) {
             throw e;
         } catch (Exception e) {
-            throw new FileSystemStoreFailedException("文件存储失败: " + fileName, e);
+            throw new MinioStoreFailedException("文件存储失败: " + fileName, e);
         }
     }
 
@@ -75,14 +82,14 @@ public interface DDDGeneratorFileDrivenAdapter extends DDDGeneratorDrivenAdapter
             if (file.exists()) {
                 backup(file, filePath, fileName);
                 if (!file.delete()) {
-                    throw new FileSystemRemoveFailedException("删除文件失败 " + fileName);
+                    throw new MinioRemoveFailedException("删除文件失败 " + fileName);
                 }
                 log.trace("文件 {} 已删除", fileName);
             }
         } catch (FailedException e) {
             throw e;
         } catch (Exception e) {
-            throw new FileSystemRemoveFailedException("文件删除失败: " + fileName, e);
+            throw new MinioRemoveFailedException("文件删除失败: " + fileName, e);
         }
     }
 
@@ -92,11 +99,11 @@ public interface DDDGeneratorFileDrivenAdapter extends DDDGeneratorDrivenAdapter
             File directory = new File(backupPath);
             if (!directory.exists()) {
                 if (!directory.mkdirs()) {
-                    throw new FileSystemStoreFailedException("创建备份目录失败 " + directory);
+                    throw new MinioStoreFailedException("创建备份目录失败 " + directory);
                 }
             }
             File backupFile = Paths.get(backupPath,
-                            fileName + "." + DateTimeTools.from(TimeStampTools.now(), "yyyyMMddHHmmssSSS"))
+                            fileName + "." + DateTimeTools.from(TimestampTools.now(), "yyyyMMddHHmmssSSS"))
                     .toFile();
             Files.copy(file.toPath(), backupFile.toPath());
             log.trace("文件 {} 已备份", fileName);
@@ -104,7 +111,7 @@ public interface DDDGeneratorFileDrivenAdapter extends DDDGeneratorDrivenAdapter
         } catch (FailedException e) {
             throw e;
         } catch (Exception e) {
-            throw new FileSystemStoreFailedException("文件备份失败: " + fileName, e);
+            throw new MinioStoreFailedException("文件备份失败: " + fileName, e);
         }
     }
 
@@ -117,7 +124,7 @@ public interface DDDGeneratorFileDrivenAdapter extends DDDGeneratorDrivenAdapter
                 int removeCounts = backupFiles.length - MAX_BACKUP_COUNTS;
                 for (int i = 0; i < removeCounts; i++) {
                     if (!backupFiles[i].delete()) {
-                        throw new FileSystemRemoveFailedException("删除备份文件失败 " + backupFiles[i].getName());
+                        throw new MinioRemoveFailedException("删除备份文件失败 " + backupFiles[i].getName());
                     }
                 }
                 log.trace("已删除多余的备份文件");
@@ -125,7 +132,7 @@ public interface DDDGeneratorFileDrivenAdapter extends DDDGeneratorDrivenAdapter
         } catch (FailedException e) {
             throw e;
         } catch (Exception e) {
-            throw new FileSystemRemoveFailedException("备份文件删除失败: " + fileName, e);
+            throw new MinioRemoveFailedException("备份文件删除失败: " + fileName, e);
         }
     }
 }

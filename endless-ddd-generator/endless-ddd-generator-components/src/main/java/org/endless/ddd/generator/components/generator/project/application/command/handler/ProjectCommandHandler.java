@@ -3,10 +3,9 @@ package org.endless.ddd.generator.components.generator.project.application.comma
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.endless.ddd.generator.common.model.application.command.handler.DDDGeneratorCommandHandler;
-import org.endless.ddd.generator.components.generator.project.application.command.transfer.ProjectCreateReqCTransfer;
-import org.endless.ddd.generator.components.generator.project.application.command.transfer.ProjectGenerateReqCTransfer;
-import org.endless.ddd.generator.components.generator.project.application.command.transfer.ProjectModifyReqCTransfer;
-import org.endless.ddd.generator.components.generator.project.application.command.transfer.ProjectRemoveReqCTransfer;
+import org.endless.ddd.generator.components.generator.project.application.command.transfer.*;
+import org.endless.ddd.generator.components.generator.project.application.command.transfer.ProjectCreateReqCTransferReq;
+import org.endless.ddd.generator.components.generator.project.application.command.transfer.ProjectModifyReqCTransferReq;
 import org.endless.ddd.generator.components.generator.project.domain.entity.ProjectAggregate;
 
 /**
@@ -25,21 +24,21 @@ public interface ProjectCommandHandler extends DDDGeneratorCommandHandler<Projec
 
     void create(
             @NotNull(message = "项目创建命令请求对象不能为空")
-            @Valid ProjectCreateReqCTransfer command
+            @Valid ProjectCreateReqCTransferReq command
     );
 
     void remove(
             @NotNull(message = "项目删除命令请求对象不能为空")
-            @Valid ProjectRemoveReqCTransfer command
+            @Valid ProjectRemoveReqCTransferReq command
     );
 
     void modify(
             @NotNull(message = "项目修改命令请求对象不能为空")
-            @Valid ProjectModifyReqCTransfer command
+            @Valid ProjectModifyReqCTransferReq command
     );
 
     void generate(
             @NotNull(message = "项目生成命令请求对象不能为空")
-            @Valid ProjectGenerateReqCTransfer command
+            @Valid ProjectGenerateReqCTransferReq command
     );
 }

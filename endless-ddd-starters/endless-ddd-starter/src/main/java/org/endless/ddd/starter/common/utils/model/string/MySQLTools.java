@@ -1,5 +1,8 @@
 package org.endless.ddd.starter.common.utils.model.string;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -15,6 +18,7 @@ import java.util.regex.Pattern;
  * @author Deng Haozhi
  * @since 1.0.0
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MySQLTools {
 
     public static String getLength(String description) {

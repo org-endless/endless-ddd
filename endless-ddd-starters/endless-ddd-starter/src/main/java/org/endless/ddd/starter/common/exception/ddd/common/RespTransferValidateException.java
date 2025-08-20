@@ -19,34 +19,30 @@ public class RespTransferValidateException extends TransferValidateException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DTO2001");
 
     public RespTransferValidateException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public RespTransferValidateException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public RespTransferValidateException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public RespTransferValidateException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public RespTransferValidateException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
     }
 
-    public RespTransferValidateException(ErrorCode errorCode) {
-        super(errorCode);
+    public RespTransferValidateException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 
-    public RespTransferValidateException(ErrorCode errorCode, String message) {
-        super(errorCode, message);
-    }
-
-    public RespTransferValidateException(ErrorCode errorCode, Throwable throwable) {
-        super(errorCode, throwable);
-    }
-
-    public RespTransferValidateException(ErrorCode errorCode, String message, Throwable throwable) {
-        super(errorCode, message, throwable);
+    public RespTransferValidateException(String method, ErrorCode errorCode, String message, Throwable throwable) {
+        super(method, errorCode, message, throwable);
     }
 }

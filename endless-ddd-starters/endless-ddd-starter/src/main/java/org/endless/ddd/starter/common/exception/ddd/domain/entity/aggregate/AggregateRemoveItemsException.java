@@ -18,18 +18,26 @@ public class AggregateRemoveItemsException extends AggregateException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DAG0203");
 
     public AggregateRemoveItemsException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public AggregateRemoveItemsException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public AggregateRemoveItemsException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public AggregateRemoveItemsException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public AggregateRemoveItemsException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public AggregateRemoveItemsException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

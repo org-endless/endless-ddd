@@ -18,18 +18,26 @@ public class ValueValidateException extends ValueException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DVO0002");
 
     public ValueValidateException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public ValueValidateException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public ValueValidateException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public ValueValidateException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public ValueValidateException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public ValueValidateException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

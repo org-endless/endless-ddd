@@ -1,6 +1,9 @@
 package org.endless.ddd.starter.common.utils.crypto.pkcs.pkcs1;
 
-import org.endless.ddd.starter.common.exception.utils.crypto.PKCS1PaddingException;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import org.endless.ddd.starter.common.exception.utils.crypto.pkcs.PKCS1PaddingException;
+import org.endless.ddd.starter.common.exception.utils.crypto.pkcs.PKCS1RemoveException;
 
 import java.security.SecureRandom;
 import java.util.Arrays;
@@ -15,6 +18,7 @@ import java.util.Arrays;
  * @author Deng Haozhi
  * @since 1.0.0
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PKCS1 {
 
     private static final SecureRandom random = new SecureRandom();
@@ -34,7 +38,7 @@ public class PKCS1 {
         int dataLength = data.length;
         // 填充后的总长度必须与密钥大小（blockSize）一致
         if (dataLength >= blockSize - 11) {
-            throw new IllegalArgumentException("Data is too long to fit in the block size.");
+            throw new PKCS1PaddingException("原始数据长度必须小于等于密钥大小 - 11");
         }
 
         int paddingLength = blockSize - dataLength - 3;
@@ -53,8 +57,6 @@ public class PKCS1 {
         byte[] result = new byte[blockSize];
         System.arraycopy(padding, 0, result, 0, padding.length);
         System.arraycopy(data, 0, result, padding.length, dataLength);
-        System.out.println(data.length);
-        System.out.println(result.length);
         return result;
     }
 
@@ -74,7 +76,7 @@ public class PKCS1 {
             }
         }
         if (index == -1) {
-            throw new IllegalArgumentException("Invalid PKCS#1 padding.");
+            throw new PKCS1RemoveException("未找到填充数据结束位置");
         }
         // 返回去掉填充字节后的数据
         return Arrays.copyOfRange(data, index + 1, data.length);

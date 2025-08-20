@@ -1,11 +1,11 @@
 package org.endless.ddd.generator.components.generator.context.facade.adapter;
 
 import org.endless.ddd.generator.common.model.facade.adapter.DDDGeneratorDrivingAdapter;
-import org.endless.ddd.generator.components.generator.context.application.command.transfer.ContextCreateReqCTransfer;
-import org.endless.ddd.generator.components.generator.context.application.command.transfer.ContextModifyReqCTransfer;
-import org.endless.ddd.generator.components.generator.context.application.command.transfer.ContextRemoveReqCTransfer;
-import org.endless.ddd.generator.components.generator.context.application.query.transfer.ContextFindByServiceIdReqQTransfer;
-import org.endless.ddd.generator.components.generator.context.application.query.transfer.ContextFindSimpleProfilesRespQTransfer;
+import org.endless.ddd.generator.components.generator.context.application.command.transfer.ContextCreateReqCTransferReq;
+import org.endless.ddd.generator.components.generator.context.application.command.transfer.ContextModifyReqCTransferReq;
+import org.endless.ddd.generator.components.generator.context.application.command.transfer.ContextRemoveReqCTransferReq;
+import org.endless.ddd.generator.components.generator.context.application.query.transfer.ContextFindByServiceIdReqQTransferReq;
+import org.endless.ddd.generator.components.generator.context.application.query.transfer.ContextFindSimpleProfilesRespQTransferReq;
 
 /**
  * ContextDrivingAdapter
@@ -21,11 +21,11 @@ import org.endless.ddd.generator.components.generator.context.application.query.
  */
 public interface ContextDrivingAdapter extends DDDGeneratorDrivingAdapter {
 
-    void create(ContextCreateReqCTransfer command);
+    void create(ContextCreateReqCTransferReq command);
 
-    void remove(ContextRemoveReqCTransfer command);
+    void remove(ContextRemoveReqCTransferReq command);
 
-    void modify(ContextModifyReqCTransfer command);
+    void modify(ContextModifyReqCTransferReq command);
 
-    ContextFindSimpleProfilesRespQTransfer findSimpleProfilesByServiceId(ContextFindByServiceIdReqQTransfer query);
+    ContextFindSimpleProfilesRespQTransferReq findSimpleProfilesByServiceId(ContextFindByServiceIdReqQTransferReq query);
 }

@@ -10,9 +10,11 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  * <p>
  * create 2025/08/11 20:41
  * <p>
- * update 2025/08/11 20:41
+ * update 2025/08/21 01:41
  *
  * @author Deng Haozhi
+ * @see Enum
+ * @see ErrorCode
  * @since 1.0.0
  */
 @Getter
@@ -20,15 +22,15 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 @AllArgsConstructor
 public enum MinioErrorCode implements ErrorCode {
 
-    // 文件系统异常
-    DFS0000("DFS0000", "文件系统处理失败"),
-    DFS0001("DFS0001", "文件系统存储失败"),
-    DFS0002("DFS0002", "文件系统删除失败"),
-    DFS0003("DFS0003", "文件系统读取失败"),
-    DFS9000("DFS9000", "文件系统处理状态未知"),
-    DFS9001("DFS9001", "文件系统存储状态未知"),
-    DFS9002("DFS9002", "文件系统删除状态未知"),
-    DFS9003("DFS9003", "文件系统读取状态未知");
+    // Minio
+    MIO0000("MIO0000", "MINIO处理失败"),
+    MIO0001("MIO0001", "MINIO存储失败"),
+    MIO0002("MIO0002", "MINIO删除失败"),
+    MIO0003("MIO0003", "MINIO读取失败"),
+    MIO9000("MIO9000", "MINIO处理状态未知"),
+    MIO9001("MIO9001", "MINIO存储状态未知"),
+    MIO9002("MIO9002", "MINIO删除状态未知"),
+    MIO9003("MIO9003", "MINIO读取状态未知");
 
     private final String code;
 
@@ -36,8 +38,7 @@ public enum MinioErrorCode implements ErrorCode {
 
     public static void register() {
         for (MinioErrorCode value : values()) {
-            ErrorCode.register(value);
+            ErrorCode.Cache.register(value);
         }
     }
-
 }

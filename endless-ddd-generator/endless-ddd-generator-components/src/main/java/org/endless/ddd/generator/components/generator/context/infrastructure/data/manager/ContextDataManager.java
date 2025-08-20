@@ -2,14 +2,14 @@ package org.endless.ddd.generator.components.generator.context.infrastructure.da
 
 import org.endless.ddd.generator.common.model.infrastructure.data.manager.DDDGeneratorAggregateDataManager;
 import org.endless.ddd.generator.components.generator.context.application.query.anticorruption.ContextQueryRepository;
-import org.endless.ddd.generator.components.generator.context.application.query.transfer.ContextFindSimpleProfileRespQTransfer;
+import org.endless.ddd.generator.components.generator.context.application.query.transfer.ContextFindSimpleProfileRespQTransferReq;
 import org.endless.ddd.generator.components.generator.context.domain.anticorruption.ContextRepository;
 import org.endless.ddd.generator.components.generator.context.domain.entity.ContextAggregate;
 import org.endless.ddd.generator.components.generator.context.infrastructure.data.persistence.mapper.ContextMapper;
 import org.endless.ddd.generator.components.generator.context.infrastructure.data.record.ContextRecord;
 import org.endless.ddd.starter.common.annotation.log.Log;
 import org.endless.ddd.starter.common.config.aspect.log.type.LogLevel;
-import org.endless.ddd.starter.common.exception.ddd.infrastructure.data.manager.DataManagerRequestNullException;
+import org.endless.ddd.starter.common.exception.ddd.infrastructure.data.manager.DataManagerParameterNullException;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -49,7 +49,7 @@ public class ContextDataManager implements ContextRepository, ContextQueryReposi
     public ContextAggregate save(ContextAggregate aggregate) {
         Optional.ofNullable(aggregate)
                 .map(ContextAggregate::validate)
-                .orElseThrow(() -> new DataManagerRequestNullException("保存限界上下文聚合数据不能为空"));
+                .orElseThrow(() -> new DataManagerParameterNullException("保存限界上下文聚合数据不能为空"));
         contextMapper.save(ContextRecord.from(aggregate));
         return aggregate;
     }
@@ -58,7 +58,7 @@ public class ContextDataManager implements ContextRepository, ContextQueryReposi
     @Log(message = "删除限界上下文聚合数据", value = "#aggregate", level = LogLevel.TRACE)
     public void remove(ContextAggregate aggregate) {
         Optional.ofNullable(aggregate)
-                .orElseThrow(() -> new DataManagerRequestNullException("删除限界上下文聚合数据不能为空"));
+                .orElseThrow(() -> new DataManagerParameterNullException("删除限界上下文聚合数据不能为空"));
         contextMapper.remove(ContextRecord.from(aggregate));
     }
 
@@ -67,7 +67,7 @@ public class ContextDataManager implements ContextRepository, ContextQueryReposi
     public ContextAggregate modify(ContextAggregate aggregate) {
         Optional.ofNullable(aggregate)
                 .map(ContextAggregate::validate)
-                .orElseThrow(() -> new DataManagerRequestNullException("修改限界上下文聚合数据不能为空"));
+                .orElseThrow(() -> new DataManagerParameterNullException("修改限界上下文聚合数据不能为空"));
         contextMapper.modify(ContextRecord.from(aggregate));
         return aggregate;
     }
@@ -77,7 +77,7 @@ public class ContextDataManager implements ContextRepository, ContextQueryReposi
     public Optional<ContextAggregate> findById(String contextId) {
         Optional.ofNullable(contextId)
                 .filter(StringUtils::hasText)
-                .orElseThrow(() -> new DataManagerRequestNullException("限界上下文ID不能为空"));
+                .orElseThrow(() -> new DataManagerParameterNullException("限界上下文ID不能为空"));
         return contextMapper.findById(contextId).map(ContextRecord::to);
     }
 
@@ -88,12 +88,12 @@ public class ContextDataManager implements ContextRepository, ContextQueryReposi
 
     @Override
     @Log(message = "根据服务ID查询限界上下文基本信息列表数据", value = "#serviceId", level = LogLevel.TRACE)
-    public List<ContextFindSimpleProfileRespQTransfer> findSimpleProfilesByServiceId(String serviceId) {
+    public List<ContextFindSimpleProfileRespQTransferReq> findSimpleProfilesByServiceId(String serviceId) {
         Optional.ofNullable(serviceId)
                 .filter(StringUtils::hasText)
-                .orElseThrow(() -> new DataManagerRequestNullException("服务ID不能为空"));
+                .orElseThrow(() -> new DataManagerParameterNullException("服务ID不能为空"));
         return contextMapper.findSimpleProfilesByServiceId(serviceId).stream()
-                .map(record -> ContextFindSimpleProfileRespQTransfer.builder()
+                .map(record -> ContextFindSimpleProfileRespQTransferReq.builder()
                         .contextId(record.getContextId())
                         .name(record.getName())
                         .build().validate())

@@ -2,10 +2,12 @@ package org.endless.ddd.starter.common.ddd.infrastructure.adapter.rest;
 
 import com.alibaba.fastjson2.util.TypeUtils;
 import org.endless.ddd.starter.common.config.rest.response.RestResponse;
-import org.endless.ddd.starter.common.ddd.common.Transfer;
+import org.endless.ddd.starter.common.ddd.common.transfer.ReqTransfer;
+import org.endless.ddd.starter.common.ddd.common.transfer.RespTransfer;
+import org.endless.ddd.starter.common.ddd.common.transfer.Transfer;
 import org.endless.ddd.starter.common.ddd.domain.anticorruption.DrivenAdapter;
 import org.endless.ddd.starter.common.ddd.infrastructure.adapter.rest.exchange.RestExchange;
-import org.endless.ddd.starter.common.exception.ddd.infrastructure.adapter.manager.DrivenAdapterException;
+import org.endless.ddd.starter.common.exception.ddd.infrastructure.adapter.DrivenAdapterFailedException;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -50,10 +52,10 @@ public interface RestClientAdapter extends DrivenAdapter {
                     }
             );
         } catch (URISyntaxException e) {
-            throw new DrivenAdapterException(e);
+            throw new DrivenAdapterFailedException(e);
         }
         if (!responseEntity.getStatusCode().is2xxSuccessful()) {
-            throw new DrivenAdapterException("被动适配器服务返回异常状态码: " + responseEntity.getStatusCode());
+            throw new DrivenAdapterFailedException("被动适配器服务返回异常状态码: " + responseEntity.getStatusCode());
         }
         return Optional.ofNullable(responseEntity.getBody());
     }
@@ -65,22 +67,29 @@ public interface RestClientAdapter extends DrivenAdapter {
         return factory.createClient(exchangeClass);
     }
 
-    default <S extends Transfer, R extends Transfer> Optional<R> post(RestClient restClient, String uri, S request, Class<R> responseClass, Consumer<HttpHeaders> headers) {
+    default <E extends RestExchange, R extends RespTransfer> E exchange(RestClient restClient, Class<E> exchangeClass, Class<R> responseClass) {
+        HttpServiceProxyFactory factory = HttpServiceProxyFactory
+                .builderFor(org.springframework.web.client.support.RestClientAdapter.create(restClient))
+                .build();
+        return factory.createClient(exchangeClass);
+    }
+
+    default <S extends ReqTransfer, R extends RespTransfer> Optional<R> post(RestClient restClient, String uri, S request, Class<R> responseClass, Consumer<HttpHeaders> headers) {
         Optional.ofNullable(request)
                 .map(Transfer::validate)
-                .orElseThrow(() -> new DrivenAdapterException("被动适配器请求参数不能为空"));
+                .orElseThrow(() -> new DrivenAdapterFailedException("被动适配器请求参数不能为空"));
         return Optional.ofNullable(TypeUtils.cast(Optional.ofNullable(restClient.post()
                         .uri(uri)
                         .headers(headers)
                         .body(request)
                         .retrieve()
                         .body(RestResponse.class))
-                .orElseThrow(() -> new DrivenAdapterException("被动适配器服务返回信息为空"))
+                .orElseThrow(() -> new DrivenAdapterFailedException("被动适配器服务返回信息为空"))
                 .validate(), responseClass));
     }
 
 
-    default <S extends Transfer, R extends Transfer> Optional<R> post(
+    default <S extends ReqTransfer, R extends RespTransfer> Optional<R> post(
             RestTemplate restTemplate,
             String url,
             S request,
@@ -92,7 +101,7 @@ public interface RestClientAdapter extends DrivenAdapter {
             HttpHeaders headers) {
         Optional.ofNullable(request)
                 .map(Transfer::validate)
-                .orElseThrow(() -> new DrivenAdapterException("被动适配器请求参数不能为空"));
+                .orElseThrow(() -> new DrivenAdapterFailedException("被动适配器请求参数不能为空"));
 
         HttpHeaders requestPartHeaders = new HttpHeaders();
         requestPartHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -107,7 +116,7 @@ public interface RestClientAdapter extends DrivenAdapter {
             }
             buffer.flush();
         } catch (IOException e) {
-            throw new DrivenAdapterException("读取文件流失败", e);
+            throw new DrivenAdapterFailedException("读取文件流失败", e);
         }
         ByteArrayResource fileResource = new ByteArrayResource(buffer.toByteArray()) {
             @Override
@@ -132,7 +141,7 @@ public interface RestClientAdapter extends DrivenAdapter {
         HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(multipartRequest, multipartRequestHeaders);
         RestResponse restResponse = Optional.ofNullable(
                 restTemplate.postForEntity(url, httpEntity, RestResponse.class).getBody()
-        ).orElseThrow(() -> new DrivenAdapterException("被动适配器服务返回信息为空"));
+        ).orElseThrow(() -> new DrivenAdapterFailedException("被动适配器服务返回信息为空"));
         return Optional.ofNullable(TypeUtils.cast(restResponse.validate(), responseClass));
     }
 }

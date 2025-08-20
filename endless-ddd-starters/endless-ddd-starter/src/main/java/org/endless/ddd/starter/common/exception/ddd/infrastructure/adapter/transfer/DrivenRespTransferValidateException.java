@@ -19,18 +19,28 @@ public class DrivenRespTransferValidateException extends RespTransferValidateExc
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DTO2301");
 
     public DrivenRespTransferValidateException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public DrivenRespTransferValidateException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public DrivenRespTransferValidateException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public DrivenRespTransferValidateException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public DrivenRespTransferValidateException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
     }
+
+    public DrivenRespTransferValidateException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
+    }
+
+
 }

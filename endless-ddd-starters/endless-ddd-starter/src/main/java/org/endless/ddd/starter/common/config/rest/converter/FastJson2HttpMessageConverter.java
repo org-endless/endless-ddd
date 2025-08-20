@@ -6,7 +6,7 @@ import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.filter.Filter;
 import lombok.extern.slf4j.Slf4j;
 import org.endless.ddd.starter.common.config.endless.properties.EndlessProperties;
-import org.endless.ddd.starter.common.exception.config.rest.RestException;
+import org.endless.ddd.starter.common.exception.config.rest.RestFailedException;
 import org.endless.ddd.starter.common.utils.model.json.JsonTools;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
@@ -45,20 +45,6 @@ public class FastJson2HttpMessageConverter<T> extends AbstractGenericHttpMessage
         this.charset = properties.charset().getCharset();
     }
 
-    @Override
-    protected boolean supports(@NonNull Class<?> clazz) {
-        return true;
-    }
-
-    @Override
-    protected @NonNull T readInternal(@NonNull Class<? extends T> clazz, @NonNull HttpInputMessage inputMessage) {
-        try {
-            return read(clazz, clazz, inputMessage);
-        } catch (IOException | HttpMessageNotReadableException e) {
-            throw new RestException("Rest反序列化对象异常: " + e.getMessage(), e);
-        }
-    }
-
     @NonNull
     @Override
     public T read(@NonNull Type type, Class<?> contextClass, @NonNull HttpInputMessage inputMessage) throws IOException, HttpMessageNotReadableException {
@@ -68,8 +54,13 @@ public class FastJson2HttpMessageConverter<T> extends AbstractGenericHttpMessage
             log.trace("[Rest反序列化对象]: {}", JsonTools.maskSensitive(string.replaceAll("[\\r\\n\\s]", "")));
             return JSON.parseObject(string, type, filter());
         } catch (Exception e) {
-            throw new RestException("Rest反序列化对象异常: " + e.getMessage(), e);
+            throw new RestFailedException("Rest反序列化对象异常: " + e.getMessage(), e);
         }
+    }
+
+    @Override
+    protected boolean supports(@NonNull Class<?> clazz) {
+        return true;
     }
 
     @Override
@@ -77,7 +68,7 @@ public class FastJson2HttpMessageConverter<T> extends AbstractGenericHttpMessage
         try {
             writeInternal(t, t.getClass(), outputMessage);
         } catch (IOException | HttpMessageNotWritableException e) {
-            throw new RestException("Rest序列化对象异常: " + e.getMessage(), e);
+            throw new RestFailedException("Rest序列化对象异常: " + e.getMessage(), e);
         }
     }
 
@@ -88,7 +79,16 @@ public class FastJson2HttpMessageConverter<T> extends AbstractGenericHttpMessage
             log.trace("[Rest序列化对象]: {}", JsonTools.maskSensitive(json.replaceAll("[\\r\\n\\s]", "")));
             outputMessage.getBody().write(json.getBytes(charset));
         } catch (Exception e) {
-            throw new RestException("Rest序列化对象异常: " + e.getMessage(), e);
+            throw new RestFailedException("Rest序列化对象异常: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    protected @NonNull T readInternal(@NonNull Class<? extends T> clazz, @NonNull HttpInputMessage inputMessage) {
+        try {
+            return read(clazz, clazz, inputMessage);
+        } catch (IOException | HttpMessageNotReadableException e) {
+            throw new RestFailedException("Rest反序列化对象异常: " + e.getMessage(), e);
         }
     }
 

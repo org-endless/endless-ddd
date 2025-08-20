@@ -1,5 +1,8 @@
 package org.endless.ddd.starter.common.utils.crypto.pkcs.pkcs7;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import java.util.Arrays;
 
 /**
@@ -12,6 +15,7 @@ import java.util.Arrays;
  * @author Deng Haozhi
  * @since 1.0.0
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PKCS7 {
 
     /**

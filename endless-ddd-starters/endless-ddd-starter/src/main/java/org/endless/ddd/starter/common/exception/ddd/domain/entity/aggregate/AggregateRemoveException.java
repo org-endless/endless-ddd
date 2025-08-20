@@ -15,21 +15,29 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class AggregateRemoveException extends AggregateException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DAG0111");
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("DAG0101");
 
     public AggregateRemoveException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public AggregateRemoveException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public AggregateRemoveException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public AggregateRemoveException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public AggregateRemoveException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public AggregateRemoveException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

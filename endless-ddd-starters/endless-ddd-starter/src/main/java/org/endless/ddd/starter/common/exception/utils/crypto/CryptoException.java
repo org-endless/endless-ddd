@@ -8,28 +8,41 @@ import org.endless.ddd.starter.common.exception.common.FailedException;
  * <p>
  * create 2025/07/21 01:09
  * <p>
- * update 2025/07/21 01:09
+ * update 2025/08/21 01:55
  *
  * @author Deng Haozhi
+ * @see FailedException
  * @since 1.0.0
  */
 public class CryptoException extends FailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("UTL0002");
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("UTL0100");
 
     public CryptoException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public CryptoException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public CryptoException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public CryptoException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public CryptoException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public CryptoException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
+    }
+
+    public CryptoException(String method, ErrorCode errorCode, String message, Throwable throwable) {
+        super(method, errorCode, message, throwable);
     }
 }

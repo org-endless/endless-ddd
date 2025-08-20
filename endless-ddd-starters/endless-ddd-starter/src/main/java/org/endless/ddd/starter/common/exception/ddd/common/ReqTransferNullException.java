@@ -18,34 +18,30 @@ public class ReqTransferNullException extends TransferNullException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DTO1000");
 
     public ReqTransferNullException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public ReqTransferNullException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public ReqTransferNullException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public ReqTransferNullException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public ReqTransferNullException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
     }
 
-    public ReqTransferNullException(ErrorCode errorCode) {
-        super(errorCode);
+    public ReqTransferNullException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 
-    public ReqTransferNullException(ErrorCode errorCode, String message) {
-        super(errorCode, message);
-    }
-
-    public ReqTransferNullException(ErrorCode errorCode, Throwable throwable) {
-        super(errorCode, throwable);
-    }
-
-    public ReqTransferNullException(ErrorCode errorCode, String message, Throwable throwable) {
-        super(errorCode, message, throwable);
+    public ReqTransferNullException(String method, ErrorCode errorCode, String message, Throwable throwable) {
+        super(method, errorCode, message, throwable);
     }
 }

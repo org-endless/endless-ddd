@@ -1,5 +1,8 @@
 package org.endless.ddd.starter.common.utils.model.string;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
  * PathTools
  * <p>
@@ -10,6 +13,7 @@ package org.endless.ddd.starter.common.utils.model.string;
  * @author Deng Haozhi
  * @since 1.0.0
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PathTools {
 
     /**

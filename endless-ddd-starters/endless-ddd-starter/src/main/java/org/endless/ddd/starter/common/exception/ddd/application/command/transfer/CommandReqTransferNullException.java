@@ -19,18 +19,26 @@ public class CommandReqTransferNullException extends ReqTransferNullException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DTO1100");
 
     public CommandReqTransferNullException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public CommandReqTransferNullException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public CommandReqTransferNullException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public CommandReqTransferNullException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public CommandReqTransferNullException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public CommandReqTransferNullException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

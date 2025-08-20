@@ -5,6 +5,7 @@ import org.endless.ddd.starter.common.ddd.domain.entity.Entity;
 import org.endless.ddd.starter.common.exception.ddd.infrastructure.data.record.DataRecordValidateException;
 
 import java.lang.reflect.Field;
+import java.util.Optional;
 
 /**
  * DataRecord
@@ -47,11 +48,10 @@ public interface DataRecord<E extends Entity> {
      *
      * @return {@link String} ID 字段值
      */
-    default String idValue() {
+    default Optional<String> idValue() {
         try {
             Field idField = idField();
-            idField.setAccessible(true);
-            return idField.get(this).toString();
+            return Optional.ofNullable(idField.get(this).toString());
         } catch (IllegalAccessException e) {
             throw new DataRecordValidateException("无法访问数据库实体的 ID 字段", e);
         } catch (NullPointerException e) {

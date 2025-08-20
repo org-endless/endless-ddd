@@ -2,7 +2,6 @@ package org.endless.ddd.starter.common.config.error.code;
 
 import org.endless.ddd.starter.common.config.error.code.type.*;
 import org.endless.ddd.starter.common.ddd.domain.type.BaseEnum;
-import org.endless.ddd.starter.common.exception.ddd.domain.type.EnumException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,20 +19,8 @@ import java.util.Map;
  */
 public interface ErrorCode extends BaseEnum {
 
-    Map<String, ErrorCode> CACHE = new HashMap<>();
-
-    static void register(ErrorCode errorCode) {
-        if (CACHE.containsKey(errorCode.getCode())) {
-            throw new EnumException("重复的错误码: " + errorCode.getCode());
-        }
-        CACHE.put(errorCode.getCode(), errorCode);
-    }
-
     static ErrorCode of(String code) {
-        if (!CACHE.containsKey(code)) {
-            throw new EnumException("错误码不存在: " + code);
-        }
-        return CACHE.get(code);
+        return Cache.of(code);
     }
 
     static void init() {
@@ -41,10 +28,36 @@ public interface ErrorCode extends BaseEnum {
         ConfigErrorCode.register();
         DDDErrorCode.register();
         MinioErrorCode.register();
+        MybatisErrorCode.register();
+        RedisErrorCode.register();
         RestErrorCode.register();
+        SecurityErrorCode.register();
+        UtilsErrorCode.register();
     }
 
     String getCode();
 
     String getDescription();
+
+    class Cache {
+
+        private static final Map<String, ErrorCode> ERROR_CODE_CACHE = new HashMap<>();
+
+        private Cache() {
+        }
+
+        public static void register(ErrorCode errorCode) {
+            if (ERROR_CODE_CACHE.containsKey(errorCode.getCode())) {
+                throw new IllegalArgumentException("重复的错误码: " + errorCode.getCode());
+            }
+            ERROR_CODE_CACHE.put(errorCode.getCode(), errorCode);
+        }
+
+        public static ErrorCode of(String code) {
+            if (!ERROR_CODE_CACHE.containsKey(code)) {
+                throw new IllegalArgumentException("错误码不存在: " + code);
+            }
+            return ERROR_CODE_CACHE.get(code);
+        }
+    }
 }

@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.utils.crypto.cert;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.endless.ddd.starter.common.exception.utils.crypto.PEMCertException;
+import org.endless.ddd.starter.common.exception.utils.crypto.cert.PEMCertException;
 
 import java.io.FileInputStream;
 import java.io.InputStream;

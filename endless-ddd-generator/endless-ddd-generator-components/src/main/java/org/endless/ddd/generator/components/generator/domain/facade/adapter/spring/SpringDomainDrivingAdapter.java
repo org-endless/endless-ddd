@@ -1,7 +1,7 @@
 package org.endless.ddd.generator.components.generator.domain.facade.adapter.spring;
 
 import org.endless.ddd.generator.components.generator.domain.application.command.handler.DomainCommandHandler;
-import org.endless.ddd.generator.components.generator.domain.application.command.transfer.DomainCreateReqCTransfer;
+import org.endless.ddd.generator.components.generator.domain.application.command.transfer.DomainCreateReqCTransferReq;
 import org.endless.ddd.generator.components.generator.domain.application.query.handler.DomainQueryHandler;
 import org.endless.ddd.generator.components.generator.domain.facade.adapter.DomainDrivingAdapter;
 
@@ -35,7 +35,7 @@ public class SpringDomainDrivingAdapter implements DomainDrivingAdapter {
     }
 
     @Override
-    public void create(DomainCreateReqCTransfer command) {
+    public void create(DomainCreateReqCTransferReq command) {
         domainCommandHandler.create(command);
     }
 }

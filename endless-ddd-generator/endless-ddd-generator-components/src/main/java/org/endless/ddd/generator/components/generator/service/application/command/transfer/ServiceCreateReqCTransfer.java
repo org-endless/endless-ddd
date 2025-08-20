@@ -4,8 +4,9 @@ import com.alibaba.fastjson2.annotation.JSONType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
-import org.endless.ddd.generator.common.model.application.command.transfer.DDDGeneratorCommandTransfer;
-import org.endless.ddd.starter.common.annotation.validate.ddd.transfer.Transfer;
+import org.endless.ddd.generator.common.model.application.command.transfer.DDDGeneratorReqCommandTransfer;
+import org.endless.ddd.generator.common.model.application.command.transfer.DDDGeneratorRespCommandTransfer;
+import org.endless.ddd.starter.common.annotation.validate.ddd.Transfer;
 import org.endless.ddd.starter.common.annotation.validate.number.port.Port;
 import org.endless.ddd.starter.common.annotation.validate.string.cases.ArtifactId;
 import org.endless.ddd.starter.common.annotation.validate.string.cases.PackageName;
@@ -13,7 +14,7 @@ import org.endless.ddd.starter.common.annotation.validate.string.cases.TransferP
 import org.endless.ddd.starter.common.annotation.validate.string.cases.UpperCamelCase;
 
 /**
- * ServiceCreateReqCTransfer
+ * ServiceCreateReqCTransferReq
  * <p>服务创建命令请求传输对象
  * <p>
  * create 2025/08/06 23:53
@@ -31,7 +32,7 @@ import org.endless.ddd.starter.common.annotation.validate.string.cases.UpperCame
  * @param type              服务类型
  * @param port              服务端口
  * @author Deng Haozhi
- * @see DDDGeneratorCommandTransfer
+ * @see DDDGeneratorReqCommandTransfer
  * @since 1.0.0
  */
 @Transfer
@@ -50,7 +51,7 @@ public record ServiceCreateReqCTransfer(
         @NotBlank(message = "服务类名前缀不能为空") @UpperCamelCase String classNamePrefix,
         @NotBlank(message = "服务类型不能为空") String type,
         @NotNull(message = "服务端口不能为空") @Port Integer port
-) implements DDDGeneratorCommandTransfer {
+) implements DDDGeneratorRespCommandTransfer {
 
     @Override
     public ServiceCreateReqCTransfer validate() {

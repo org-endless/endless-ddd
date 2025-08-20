@@ -19,18 +19,26 @@ public class QueryReqTransferValidateException extends ReqTransferValidateExcept
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DTO1201");
 
     public QueryReqTransferValidateException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public QueryReqTransferValidateException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public QueryReqTransferValidateException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public QueryReqTransferValidateException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public QueryReqTransferValidateException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public QueryReqTransferValidateException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

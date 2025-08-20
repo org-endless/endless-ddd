@@ -1,7 +1,8 @@
 package org.endless.ddd.starter.common.config.data;
 
 import org.endless.ddd.starter.common.config.data.cache.CacheConfiguration;
-import org.endless.ddd.starter.common.config.data.persistence.mybatis.MybatisPlusConfiguration;
+import org.endless.ddd.starter.common.config.data.persistence.PersistenceConfiguration;
+import org.endless.ddd.starter.common.config.data.store.StoreConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Import;
 
@@ -16,7 +17,7 @@ import org.springframework.context.annotation.Import;
  * @since 1.0.0
  */
 @AutoConfiguration
-@Import({MybatisPlusConfiguration.class, CacheConfiguration.class})
+@Import({CacheConfiguration.class, PersistenceConfiguration.class, StoreConfiguration.class})
 public class DataAutoConfiguration {
 
 }

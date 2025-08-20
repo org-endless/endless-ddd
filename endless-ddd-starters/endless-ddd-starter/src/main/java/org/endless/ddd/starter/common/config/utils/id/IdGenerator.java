@@ -1,8 +1,9 @@
 package org.endless.ddd.starter.common.config.utils.id;
 
-import org.endless.ddd.starter.common.config.endless.properties.EndlessProperties;
-import org.endless.ddd.starter.common.exception.utils.id.IdException;
-import org.endless.ddd.starter.common.utils.id.snowflake.SnowflakeIdGenerator;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import org.endless.ddd.starter.common.config.utils.id.snowflake.SnowflakeIdGenerator;
+import org.endless.ddd.starter.common.exception.config.utils.id.IdGeneratorException;
 import org.springframework.util.StringUtils;
 
 /**
@@ -15,37 +16,29 @@ import org.springframework.util.StringUtils;
  * @author Deng Haozhi
  * @since 1.0.0
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class IdGenerator {
 
-    private static SnowflakeIdGenerator idGenerator;
-
-    private static Long dataCenterId;
-
-    private static Long workerId;
-
-    public IdGenerator(EndlessProperties properties) {
-        IdGenerator.dataCenterId = properties.getDataCenterId();
-        IdGenerator.workerId = properties.getWorkerId();
-    }
-
-    private static synchronized void init() {
-        if (idGenerator == null) {
-            idGenerator = new SnowflakeIdGenerator(dataCenterId, workerId);
-        }
-    }
+    private static SnowflakeIdGenerator snowflakeIdGenerator;
 
     public static String of() {
-        if (idGenerator == null) {
-            init(); // 懒加载
+        if (snowflakeIdGenerator == null) {
+            throw new IdGeneratorException("ID生成器未初始化");
         }
         try {
-            String nextId = String.valueOf(idGenerator.nextId());
+            String nextId = String.valueOf(snowflakeIdGenerator.nextId());
             if (!StringUtils.hasText(nextId)) {
-                throw new IdException("ID生成异常");
+                throw new IdGeneratorException();
             }
             return nextId;
         } catch (Exception e) {
-            throw new IdException("ID生成异常: " + e.getMessage(), e);
+            throw new IdGeneratorException("ID生成异常: " + e.getMessage(), e);
+        }
+    }
+
+    protected static synchronized void init(Long dataCenterId, Long workerId) {
+        if (snowflakeIdGenerator == null) {
+            snowflakeIdGenerator = new SnowflakeIdGenerator(dataCenterId, workerId);
         }
     }
 }

@@ -15,21 +15,29 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class AggregateReturnNullException extends AggregateException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DAG0103");
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("DAG8100");
 
     public AggregateReturnNullException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public AggregateReturnNullException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public AggregateReturnNullException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public AggregateReturnNullException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public AggregateReturnNullException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public AggregateReturnNullException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

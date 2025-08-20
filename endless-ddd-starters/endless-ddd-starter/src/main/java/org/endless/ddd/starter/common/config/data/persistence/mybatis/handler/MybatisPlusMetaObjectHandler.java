@@ -2,7 +2,7 @@ package org.endless.ddd.starter.common.config.data.persistence.mybatis.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
-import org.endless.ddd.starter.common.utils.model.time.TimeStampTools;
+import org.endless.ddd.starter.common.utils.model.time.TimestampTools;
 
 /**
  * MybatisPlusMetaObjectHandler
@@ -21,14 +21,14 @@ public class MybatisPlusMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        Long now = TimeStampTools.now();
+        Long now = TimestampTools.now();
         this.strictInsertFill(metaObject, "createAt", Long.class, now);
         this.strictInsertFill(metaObject, "modifyAt", Long.class, now);
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        Long now = TimeStampTools.now();
+        Long now = TimestampTools.now();
         this.strictUpdateFill(metaObject, "modifyAt", Long.class, now);
     }
 }

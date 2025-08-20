@@ -19,34 +19,30 @@ public class CommandFailedException extends FailedException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DCD0000");
 
     public CommandFailedException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public CommandFailedException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public CommandFailedException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public CommandFailedException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public CommandFailedException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
     }
 
-    public CommandFailedException(ErrorCode errorCode) {
-        super(errorCode);
+    public CommandFailedException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 
-    public CommandFailedException(ErrorCode errorCode, String message) {
-        super(errorCode, message);
-    }
-
-    public CommandFailedException(ErrorCode errorCode, Throwable throwable) {
-        super(errorCode, throwable);
-    }
-
-    public CommandFailedException(ErrorCode errorCode, String message, Throwable throwable) {
-        super(errorCode, message, throwable);
+    public CommandFailedException(String method, ErrorCode errorCode, String message, Throwable throwable) {
+        super(method, errorCode, message, throwable);
     }
 }

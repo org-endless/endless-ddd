@@ -19,34 +19,30 @@ public class ServiceUnknowException extends UnknownException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DSV9000");
 
     public ServiceUnknowException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public ServiceUnknowException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public ServiceUnknowException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public ServiceUnknowException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public ServiceUnknowException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
     }
 
-    public ServiceUnknowException(ErrorCode errorCode) {
-        super(errorCode);
+    public ServiceUnknowException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 
-    public ServiceUnknowException(ErrorCode errorCode, String message) {
-        super(errorCode, message);
-    }
-
-    public ServiceUnknowException(ErrorCode errorCode, Throwable throwable) {
-        super(errorCode, throwable);
-    }
-
-    public ServiceUnknowException(ErrorCode errorCode, String message, Throwable throwable) {
-        super(errorCode, message, throwable);
+    public ServiceUnknowException(String method, ErrorCode errorCode, String message, Throwable throwable) {
+        super(method, errorCode, message, throwable);
     }
 }

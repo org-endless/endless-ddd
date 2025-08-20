@@ -69,7 +69,7 @@
             <AppenderRef ref="AspectConsole"/>
             <!-- <AppenderRef ref="AspectFile"/> -->
         </Logger>
-        <Logger name="org.endless.ddd.starter.common.exception.handler.rest.AbstractRestAdapterExceptionHandler"
+        <Logger name="org.endless.ddd.starter.common.exception.AbstractRestExceptionHandler"
                 level="TRACE" additivity="false">
             <AppenderRef ref="AspectConsole"/>
             <!-- <AppenderRef ref="AspectFile"/> -->

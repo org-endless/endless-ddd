@@ -20,34 +20,30 @@ public class RedisConfigException extends ConfigException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("CFG0400");
 
     public RedisConfigException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public RedisConfigException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public RedisConfigException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public RedisConfigException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public RedisConfigException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
     }
 
-    public RedisConfigException(ErrorCode errorCode) {
-        super(errorCode);
+    public RedisConfigException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 
-    public RedisConfigException(ErrorCode errorCode, String message) {
-        super(errorCode, message);
-    }
-
-    public RedisConfigException(ErrorCode errorCode, Throwable throwable) {
-        super(errorCode, throwable);
-    }
-
-    public RedisConfigException(ErrorCode errorCode, String message, Throwable throwable) {
-        super(errorCode, message, throwable);
+    public RedisConfigException(String method, ErrorCode errorCode, String message, Throwable throwable) {
+        super(method, errorCode, message, throwable);
     }
 }

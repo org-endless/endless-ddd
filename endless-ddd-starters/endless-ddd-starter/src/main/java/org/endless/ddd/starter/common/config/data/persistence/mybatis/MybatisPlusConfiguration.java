@@ -16,8 +16,8 @@ import org.springframework.context.annotation.Import;
  * @author Deng Haozhi
  * @since 1.0.0
  */
-@Import({MybatisPlusMetaObjectHandler.class, MapperBulkTemplate.class})
 @ConditionalOnClass(MetaObjectHandler.class)
+@Import({MybatisPlusMetaObjectHandler.class, MapperBulkTemplate.class})
 public class MybatisPlusConfiguration {
 
 }

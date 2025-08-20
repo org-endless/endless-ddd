@@ -8,7 +8,7 @@ import org.endless.ddd.generator.components.generator.context.domain.type.Contex
 import org.endless.ddd.starter.common.config.utils.id.IdGenerator;
 import org.endless.ddd.starter.common.exception.ddd.domain.entity.aggregate.AggregateRemoveException;
 import org.endless.ddd.starter.common.exception.ddd.domain.entity.aggregate.AggregateValidateException;
-import org.endless.ddd.starter.common.utils.model.time.TimeStampTools;
+import org.endless.ddd.starter.common.utils.model.time.TimestampTools;
 import org.springframework.util.StringUtils;
 
 /**
@@ -99,7 +99,7 @@ public class ContextAggregate implements DDDGeneratorAggregate {
     private Boolean isRemoved;
 
     public static ContextAggregate create(ContextAggregateBuilder builder) {
-        Long now = TimeStampTools.now();
+        Long now = TimestampTools.now();
         return builder
                 .contextId(IdGenerator.of())
                 .createAt(now)
@@ -131,13 +131,9 @@ public class ContextAggregate implements DDDGeneratorAggregate {
         this.rootPath = builder.rootPath == null ? this.rootPath : builder.rootPath;
         this.basePackage = builder.basePackage == null ? this.basePackage : builder.basePackage;
         this.type = builder.type == null ? this.type : builder.type;
-        this.modifyAt = TimeStampTools.now();
+        this.modifyAt = TimestampTools.now();
         this.modifyUserId = builder.modifyUserId;
         return this.validate();
-    }
-
-    private boolean canRemove() {
-        return true;
     }
 
     @Override
@@ -157,6 +153,10 @@ public class ContextAggregate implements DDDGeneratorAggregate {
         validateModifyUserId();
         validateIsRemoved();
         return this;
+    }
+
+    private boolean canRemove() {
+        return true;
     }
 
     private void validateContextId() {

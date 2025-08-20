@@ -2,7 +2,7 @@ package org.endless.ddd.starter.common.exception.common;
 
 import lombok.Getter;
 import org.endless.ddd.starter.common.config.error.code.ErrorCode;
-import org.endless.ddd.starter.common.utils.model.string.StringTools;
+import org.endless.ddd.starter.common.utils.error.message.exception.ExceptionErrorParser;
 
 /**
  * AbstractException
@@ -18,32 +18,55 @@ import org.endless.ddd.starter.common.utils.model.string.StringTools;
 @Getter
 public class AbstractException extends RuntimeException {
 
-    private final ErrorCode errorCode;
+    private final String method;
 
-    private String method;
+    private final transient ErrorCode errorCode;
 
     public AbstractException(ErrorCode errorCode) {
-        super("[" + errorCode.getDescription() + "]");
+        super(ExceptionErrorParser.parse(null, errorCode, null));
+        this.method = null;
+        this.errorCode = errorCode;
+    }
+
+    public AbstractException(String method, ErrorCode errorCode) {
+        super(ExceptionErrorParser.parse(method, errorCode, null));
+        this.method = method;
         this.errorCode = errorCode;
     }
 
     public AbstractException(ErrorCode errorCode, String message) {
-        super(StringTools.addBrackets(message));
+        super(ExceptionErrorParser.parse(null, errorCode, message));
+        this.method = null;
         this.errorCode = errorCode;
     }
 
     public AbstractException(ErrorCode errorCode, Throwable throwable) {
-        super(StringTools.addBrackets(throwable.getMessage()), throwable);
+        super(ExceptionErrorParser.parse(null, errorCode, null), throwable);
+        this.method = null;
+        this.errorCode = errorCode;
+    }
+
+    public AbstractException(String method, ErrorCode errorCode, String message) {
+        super(ExceptionErrorParser.parse(method, errorCode, message));
+        this.method = method;
+        this.errorCode = errorCode;
+    }
+
+    public AbstractException(String method, ErrorCode errorCode, Throwable throwable) {
+        super(ExceptionErrorParser.parse(method, errorCode, null), throwable);
+        this.method = method;
         this.errorCode = errorCode;
     }
 
     public AbstractException(ErrorCode errorCode, String message, Throwable throwable) {
-        super(StringTools.addBrackets(message), throwable);
+        super(ExceptionErrorParser.parse(null, errorCode, message), throwable);
+        this.method = null;
         this.errorCode = errorCode;
     }
 
-    public AbstractException put(String method) {
+    public AbstractException(String method, ErrorCode errorCode, String message, Throwable throwable) {
+        super(ExceptionErrorParser.parse(method, errorCode, message), throwable);
         this.method = method;
-        return this;
+        this.errorCode = errorCode;
     }
 }

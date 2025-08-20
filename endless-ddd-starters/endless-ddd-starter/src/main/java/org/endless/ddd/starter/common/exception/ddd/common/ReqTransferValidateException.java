@@ -19,34 +19,30 @@ public class ReqTransferValidateException extends TransferValidateException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DTO1001");
 
     public ReqTransferValidateException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public ReqTransferValidateException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public ReqTransferValidateException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public ReqTransferValidateException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public ReqTransferValidateException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
     }
 
-    public ReqTransferValidateException(ErrorCode errorCode) {
-        super(errorCode);
+    public ReqTransferValidateException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 
-    public ReqTransferValidateException(ErrorCode errorCode, String message) {
-        super(errorCode, message);
-    }
-
-    public ReqTransferValidateException(ErrorCode errorCode, Throwable throwable) {
-        super(errorCode, throwable);
-    }
-
-    public ReqTransferValidateException(ErrorCode errorCode, String message, Throwable throwable) {
-        super(errorCode, message, throwable);
+    public ReqTransferValidateException(String method, ErrorCode errorCode, String message, Throwable throwable) {
+        super(method, errorCode, message, throwable);
     }
 }

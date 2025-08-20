@@ -1,9 +1,9 @@
 package org.endless.ddd.generator.components.generator.context.application.command.handler;
 
 import org.endless.ddd.generator.common.model.application.command.handler.DDDGeneratorCommandHandler;
-import org.endless.ddd.generator.components.generator.context.application.command.transfer.ContextCreateReqCTransfer;
-import org.endless.ddd.generator.components.generator.context.application.command.transfer.ContextModifyReqCTransfer;
-import org.endless.ddd.generator.components.generator.context.application.command.transfer.ContextRemoveReqCTransfer;
+import org.endless.ddd.generator.components.generator.context.application.command.transfer.ContextCreateReqCTransferReq;
+import org.endless.ddd.generator.components.generator.context.application.command.transfer.ContextModifyReqCTransferReq;
+import org.endless.ddd.generator.components.generator.context.application.command.transfer.ContextRemoveReqCTransferReq;
 import org.endless.ddd.generator.components.generator.context.domain.entity.ContextAggregate;
 
 /**
@@ -20,9 +20,9 @@ import org.endless.ddd.generator.components.generator.context.domain.entity.Cont
  */
 public interface ContextCommandHandler extends DDDGeneratorCommandHandler<ContextAggregate> {
 
-    void create(ContextCreateReqCTransfer command);
+    void create(ContextCreateReqCTransferReq command);
 
-    void remove(ContextRemoveReqCTransfer command);
+    void remove(ContextRemoveReqCTransferReq command);
 
-    void modify(ContextModifyReqCTransfer command);
+    void modify(ContextModifyReqCTransferReq command);
 }

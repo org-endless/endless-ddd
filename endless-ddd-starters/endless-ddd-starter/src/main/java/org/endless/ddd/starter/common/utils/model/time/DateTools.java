@@ -1,5 +1,8 @@
 package org.endless.ddd.starter.common.utils.model.time;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import org.endless.ddd.starter.common.exception.utils.model.time.DateException;
 import org.springframework.util.StringUtils;
 
 import java.time.Instant;
@@ -15,12 +18,13 @@ import java.time.Instant;
  * @author Deng Haozhi
  * @since 1.0.0
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DateTools {
 
-    public final static String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
+    public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
 
     public static String now() {
-        return TimeStampTools.format(Instant.now(), DEFAULT_DATE_FORMAT);
+        return TimestampTools.format(Instant.now(), DEFAULT_DATE_FORMAT);
     }
 
     public static String from(Long timestamp) {
@@ -29,8 +33,8 @@ public class DateTools {
 
     public static String from(Long timestamp, String pattern) {
         if (timestamp == null || !StringUtils.hasText(pattern)) {
-            throw new IllegalArgumentException("timestamp or pattern is null or empty");
+            throw new DateException("时间戳或格式不能为空");
         }
-        return TimeStampTools.format(Instant.ofEpochMilli(timestamp), pattern);
+        return TimestampTools.format(Instant.ofEpochMilli(timestamp), pattern);
     }
 }

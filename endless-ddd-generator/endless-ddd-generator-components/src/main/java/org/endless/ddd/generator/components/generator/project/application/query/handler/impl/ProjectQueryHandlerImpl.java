@@ -2,9 +2,9 @@ package org.endless.ddd.generator.components.generator.project.application.query
 
 import org.endless.ddd.generator.components.generator.project.application.query.anticorruption.ProjectQueryRepository;
 import org.endless.ddd.generator.components.generator.project.application.query.handler.ProjectQueryHandler;
-import org.endless.ddd.generator.components.generator.project.application.query.transfer.ProjectFindByIdReqQTransfer;
-import org.endless.ddd.generator.components.generator.project.application.query.transfer.ProjectFindByIdsReqQTransfer;
-import org.endless.ddd.generator.components.generator.project.application.query.transfer.ProjectFindSimpleProfilesRespQTransfer;
+import org.endless.ddd.generator.components.generator.project.application.query.transfer.ProjectFindByIdReqQTransferReq;
+import org.endless.ddd.generator.components.generator.project.application.query.transfer.ProjectFindByIdsReqQTransferReq;
+import org.endless.ddd.generator.components.generator.project.application.query.transfer.ProjectFindSimpleProfilesRespQTransferReq;
 import org.endless.ddd.starter.common.annotation.log.Log;
 import org.endless.ddd.starter.common.config.aspect.log.type.LogLevel;
 import org.endless.ddd.starter.common.exception.ddd.application.query.handler.QueryNotFoundException;
@@ -39,20 +39,20 @@ public class ProjectQueryHandlerImpl implements ProjectQueryHandler {
 
     @Override
     @Log(message = "根据ID列表查询项目基本信息列表", value = "#query", level = LogLevel.TRACE)
-    public ProjectFindSimpleProfilesRespQTransfer findSimpleProfilesByIds(ProjectFindByIdsReqQTransfer query) {
+    public ProjectFindSimpleProfilesRespQTransferReq findSimpleProfilesByIds(ProjectFindByIdsReqQTransferReq query) {
         Optional.ofNullable(query)
-                .map(ProjectFindByIdsReqQTransfer::validate)
+                .map(ProjectFindByIdsReqQTransferReq::validate)
                 .orElseThrow(() -> new QueryReqTransferNullException("根据ID列表查询项目基本信息列表参数不能为空"));
-        return ProjectFindSimpleProfilesRespQTransfer.builder()
+        return ProjectFindSimpleProfilesRespQTransferReq.builder()
                 .simpleProfiles(projectQueryRepository.findSimpleProfilesByIds(query.projectIds()))
                 .build().validate();
     }
 
     @Override
     @Log(message = "根据ID查询项目是否存在", value = "#query", level = LogLevel.TRACE)
-    public void existsById(ProjectFindByIdReqQTransfer query) {
+    public void existsById(ProjectFindByIdReqQTransferReq query) {
         Optional.ofNullable(query)
-                .map(ProjectFindByIdReqQTransfer::validate)
+                .map(ProjectFindByIdReqQTransferReq::validate)
                 .orElseThrow(() -> new QueryReqTransferNullException("根据ID查询项目是否存在参数不能为空"));
         if (!projectQueryRepository.existsById(query.projectId())) {
             throw new QueryNotFoundException("根据ID查询项目不存在");

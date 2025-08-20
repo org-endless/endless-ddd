@@ -1,5 +1,7 @@
 package org.endless.ddd.starter.common.utils.model.string;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.springframework.util.StringUtils;
 
 import java.util.regex.Matcher;
@@ -17,6 +19,7 @@ import static org.endless.ddd.starter.common.config.endless.constant.EndlessCons
  * @author Deng Haozhi
  * @since 1.0.0
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class StringTools {
 
     public static Boolean isEmailAddress(String string) {
@@ -51,20 +54,6 @@ public class StringTools {
         return nameZh.matches(regex);
     }
 
-    public static String addBrackets(String string) {
-        if (StringUtils.hasText(string)) {
-            if (string.startsWith("[") && string.endsWith("]")) {
-                return string;
-            } else if (string.startsWith("<") && string.endsWith(">")) {
-                return string;
-            } else if ((string.startsWith("[") && string.contains("]"))) {
-                return string;
-            } else {
-                return "<" + string + ">";
-            }
-        }
-        return "<" + string + ">";
-    }
 
     /**
      * 判断是否包含任意敏感字段

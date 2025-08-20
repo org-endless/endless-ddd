@@ -1,5 +1,7 @@
 package org.endless.ddd.starter.common.utils.error.message.database;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.endless.ddd.starter.common.utils.error.message.database.recognizer.DatabaseRecognizer;
 import org.endless.ddd.starter.common.utils.error.message.database.recognizer.MySQLRecognizer;
 import org.endless.ddd.starter.common.utils.error.message.database.recognizer.SQLiteRecognizer;
@@ -18,6 +20,7 @@ import java.util.regex.Matcher;
  * @author Deng Haozhi
  * @since 1.0.0
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DatabaseErrorParser {
 
     private static final List<DatabaseRecognizer> recognizers = List.of(

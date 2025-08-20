@@ -12,7 +12,7 @@ import org.bouncycastle.crypto.engines.RSAEngine;
 import org.bouncycastle.crypto.params.RSAKeyParameters;
 import org.bouncycastle.crypto.signers.RSADigestSigner;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.endless.ddd.starter.common.exception.utils.crypto.*;
+import org.endless.ddd.starter.common.exception.utils.crypto.rsa.*;
 
 import java.io.ByteArrayOutputStream;
 import java.security.*;

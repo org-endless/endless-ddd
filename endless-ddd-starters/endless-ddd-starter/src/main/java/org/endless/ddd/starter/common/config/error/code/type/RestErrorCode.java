@@ -24,9 +24,6 @@ public enum RestErrorCode implements ErrorCode {
 
     // REST 错误码
     RES0000("RES0000", "REST处理失败"),
-    RES0010("RES0010", "REST请求处理失败"),
-    RES0020("RES0020", "REST响应处理失败"),
-    // REST 服务错误
     RES0100("RES0100", "REST服务处理失败"),
     RES0200("RES0200", "REST服务请求处理失败"),
     RES0201("RES0201", "REST服务请求路径不存在"),
@@ -48,7 +45,7 @@ public enum RestErrorCode implements ErrorCode {
 
     public static void register() {
         for (RestErrorCode value : values()) {
-            ErrorCode.register(value);
+            ErrorCode.Cache.register(value);
         }
     }
 }

@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.ToString;
 import org.endless.ddd.generator.common.model.domain.entity.DDDGeneratorAggregate;
 import org.endless.ddd.generator.components.generator.service.domain.type.ServiceTypeEnum;
-import org.endless.ddd.starter.common.annotation.validate.ddd.aggregate.Aggregate;
+import org.endless.ddd.starter.common.annotation.validate.ddd.Aggregate;
 import org.endless.ddd.starter.common.annotation.validate.number.port.Port;
 import org.endless.ddd.starter.common.annotation.validate.number.time.TimeStamp;
 import org.endless.ddd.starter.common.annotation.validate.string.cases.Path;
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.annotation.validate.string.cases.UpperCame
 import org.endless.ddd.starter.common.ddd.domain.entity.Entity;
 import org.endless.ddd.starter.common.exception.ddd.domain.entity.aggregate.AggregateRemoveException;
 import org.endless.ddd.starter.common.utils.model.object.ObjectTools;
-import org.endless.ddd.starter.common.utils.model.time.TimeStampTools;
+import org.endless.ddd.starter.common.utils.model.time.TimestampTools;
 import org.springframework.validation.annotation.Validated;
 
 /**
@@ -139,15 +139,13 @@ public class ServiceAggregate implements DDDGeneratorAggregate {
     private Boolean isRemoved;
 
     public static ServiceAggregate create(
-            @NotNull(message = "服务聚合创建对象不能为空") ServiceAggregateBuilder builder) {
-        Long now = TimeStampTools.now();
-        builder.createAt(now).modifyAt(now);
-        return (ServiceAggregate) Entity.create(builder, ServiceAggregateBuilder::innerBuild);
+            @NotNull(message = "服务聚合根构造器不能为空") ServiceAggregateBuilder builder) {
+        return Entity.create(builder, ServiceAggregateBuilder::innerBuild);
     }
 
     public ServiceAggregate remove(
             @NotNull(message = "修改用户ID不能为空") String modifyUserId) {
-        if (this.isRemoved) {
+        if (Boolean.TRUE.equals(this.isRemoved)) {
             throw new AggregateRemoveException("已经被删除的聚合根<服务聚合根>不能再次删除, ID: " + serviceId);
         }
         this.isRemoved = true;
@@ -167,7 +165,7 @@ public class ServiceAggregate implements DDDGeneratorAggregate {
         this.classNamePrefix = builder.classNamePrefix == null ? this.classNamePrefix : builder.classNamePrefix;
         this.type = builder.type == null ? this.type : builder.type;
         this.port = builder.port == null ? this.port : builder.port;
-        this.modifyAt = TimeStampTools.now();
+        this.modifyAt = TimestampTools.now();
         this.modifyUserId = builder.modifyUserId;
         return ObjectTools.JSRValidate(this).validate();
     }

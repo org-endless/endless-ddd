@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import org.bouncycastle.crypto.engines.SM4Engine;
 import org.bouncycastle.crypto.params.KeyParameter;
-import org.endless.ddd.starter.common.exception.utils.crypto.SM4CryptoException;
+import org.endless.ddd.starter.common.exception.utils.crypto.sm.SM4CryptoException;
 import org.endless.ddd.starter.common.utils.crypto.pkcs.pkcs7.PKCS7;
 
 import java.security.SecureRandom;

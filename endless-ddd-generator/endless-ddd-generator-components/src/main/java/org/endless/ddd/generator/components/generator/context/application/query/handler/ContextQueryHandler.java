@@ -1,8 +1,8 @@
 package org.endless.ddd.generator.components.generator.context.application.query.handler;
 
 import org.endless.ddd.generator.common.model.application.query.handler.DDDGeneratorQueryHandler;
-import org.endless.ddd.generator.components.generator.context.application.query.transfer.ContextFindByServiceIdReqQTransfer;
-import org.endless.ddd.generator.components.generator.context.application.query.transfer.ContextFindSimpleProfilesRespQTransfer;
+import org.endless.ddd.generator.components.generator.context.application.query.transfer.ContextFindByServiceIdReqQTransferReq;
+import org.endless.ddd.generator.components.generator.context.application.query.transfer.ContextFindSimpleProfilesRespQTransferReq;
 
 /**
  * ContextQueryHandler
@@ -18,6 +18,6 @@ import org.endless.ddd.generator.components.generator.context.application.query.
  */
 public interface ContextQueryHandler extends DDDGeneratorQueryHandler {
 
-    ContextFindSimpleProfilesRespQTransfer findSimpleProfilesByServiceId(ContextFindByServiceIdReqQTransfer query);
+    ContextFindSimpleProfilesRespQTransferReq findSimpleProfilesByServiceId(ContextFindByServiceIdReqQTransferReq query);
 
 }

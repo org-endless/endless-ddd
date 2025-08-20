@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.config.utils;
 
 import org.endless.ddd.starter.common.config.utils.freemarker.FreemarkerConfiguration;
-import org.endless.ddd.starter.common.config.utils.id.IdGenerator;
+import org.endless.ddd.starter.common.config.utils.id.IdGeneratorConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Import;
 
@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Import;
  * @since 1.0.0
  */
 @AutoConfiguration
-@Import({IdGenerator.class, FreemarkerConfiguration.class})
+@Import({IdGeneratorConfiguration.class, FreemarkerConfiguration.class})
 public class UtilsAutoConfiguration {
 
 }

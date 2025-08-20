@@ -1,7 +1,7 @@
 package org.endless.ddd.generator.components.generator.domain.application.command.handler;
 
 import org.endless.ddd.generator.common.model.application.command.handler.DDDGeneratorCommandHandler;
-import org.endless.ddd.generator.components.generator.domain.application.command.transfer.DomainCreateReqCTransfer;
+import org.endless.ddd.generator.components.generator.domain.application.command.transfer.DomainCreateReqCTransferReq;
 import org.endless.ddd.generator.components.generator.domain.domain.entity.DomainAggregate;
 
 /**
@@ -18,6 +18,6 @@ import org.endless.ddd.generator.components.generator.domain.domain.entity.Domai
  */
 public interface DomainCommandHandler extends DDDGeneratorCommandHandler<DomainAggregate> {
 
-    void create(DomainCreateReqCTransfer command);
+    void create(DomainCreateReqCTransferReq command);
 
 }

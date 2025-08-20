@@ -19,18 +19,26 @@ public class QueryRespTransferNullException extends RespTransferNullException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DTO2200");
 
     public QueryRespTransferNullException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public QueryRespTransferNullException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public QueryRespTransferNullException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public QueryRespTransferNullException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public QueryRespTransferNullException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public QueryRespTransferNullException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

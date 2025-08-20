@@ -7,7 +7,7 @@ import com.alibaba.fastjson2.TypeReference;
 import com.alibaba.fastjson2.filter.Filter;
 import lombok.extern.slf4j.Slf4j;
 import org.endless.ddd.starter.common.config.endless.properties.EndlessProperties;
-import org.endless.ddd.starter.common.exception.config.rest.RestException;
+import org.endless.ddd.starter.common.exception.config.rest.RestFailedException;
 import org.endless.ddd.starter.common.utils.model.json.JsonTools;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
@@ -72,7 +72,7 @@ public class FormHttpMessageConverter<T> extends AbstractHttpMessageConverter<T>
             }
             return JSON.parseObject(JSON.toJSONString(result), clazz, filter());
         } catch (Exception e) {
-            throw new RestException("表单数据反序列化对象异常: " + e.getMessage(), e);
+            throw new RestFailedException("表单数据反序列化对象异常: " + e.getMessage(), e);
         }
     }
 
@@ -94,7 +94,7 @@ public class FormHttpMessageConverter<T> extends AbstractHttpMessageConverter<T>
             log.trace("[Rest序列化对象]: {}", JsonTools.maskSensitive(json.replaceAll("[\\r\\n\\s]", "")));
             outputMessage.getBody().write(builder.toString().getBytes(charset));
         } catch (Exception e) {
-            throw new RestException("表单数据序列化对象异常: " + e.getMessage(), e);
+            throw new RestFailedException("表单数据序列化对象异常: " + e.getMessage(), e);
         }
     }
 

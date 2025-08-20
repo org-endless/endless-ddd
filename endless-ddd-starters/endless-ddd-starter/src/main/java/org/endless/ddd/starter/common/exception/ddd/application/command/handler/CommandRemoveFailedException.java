@@ -18,18 +18,26 @@ public class CommandRemoveFailedException extends CommandFailedException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DCD0002");
 
     public CommandRemoveFailedException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public CommandRemoveFailedException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public CommandRemoveFailedException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public CommandRemoveFailedException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public CommandRemoveFailedException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public CommandRemoveFailedException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

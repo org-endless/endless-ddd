@@ -3,9 +3,6 @@ package org.endless.ddd.starter.common.ddd.common.transfer;
 import com.alibaba.fastjson2.annotation.JSONType;
 import com.alibaba.fastjson2.util.TypeUtils;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
-import org.endless.ddd.starter.common.ddd.common.Transfer;
 import org.endless.ddd.starter.common.exception.ddd.common.TransferValidateException;
 import org.springframework.util.CollectionUtils;
 
@@ -23,36 +20,23 @@ import java.util.stream.Collectors;
  * <p>
  * update 2025/01/02 14:15
  *
+ * @param rows     查询结果
+ * @param total    查询总条数
+ * @param pageNum  页码
+ * @param pageSize 分页大小
  * @author Deng Haozhi
  * @see Transfer
  * @since 1.0.0
  */
-@Getter
-@ToString
 @Builder
+@org.endless.ddd.starter.common.annotation.validate.ddd.Transfer
 @JSONType(orders = {"rows", "total", "pageSize", "pageNum"})
-public class FindPageRespTransfer implements Transfer {
-
-    /**
-     * 查询结果
-     */
-    private final List<?> rows;
-
-    /**
-     * 查询总条数
-     */
-    private final Long total;
-
-    /**
-     * 页码
-     */
-    private final Integer pageNum;
-
-    /**
-     * 分页大小
-     */
-    private final Integer pageSize;
-
+public record FindPageRespTransfer(
+        List<?> rows,
+        Long total,
+        Integer pageNum,
+        Integer pageSize
+) implements Transfer {
 
     @Override
     public FindPageRespTransfer validate() {

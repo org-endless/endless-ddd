@@ -1,7 +1,6 @@
 package org.endless.ddd.starter.common.exception.security.token;
 
 import org.endless.ddd.starter.common.config.error.code.ErrorCode;
-import org.endless.ddd.starter.common.exception.security.common.SecurityFailedException;
 
 /**
  * TokenValidateException
@@ -11,26 +10,34 @@ import org.endless.ddd.starter.common.exception.security.common.SecurityFailedEx
  * update 2024/12/25 13:53
  *
  * @author Deng Haozhi
- * @see SecurityFailedException
+ * @see TokenException
  * @since 1.0.0
  */
-public class TokenValidateException extends SecurityFailedException {
+public class TokenValidateException extends TokenException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("SEC0013");
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("SEC0033");
 
     public TokenValidateException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public TokenValidateException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public TokenValidateException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public TokenValidateException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public TokenValidateException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public TokenValidateException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

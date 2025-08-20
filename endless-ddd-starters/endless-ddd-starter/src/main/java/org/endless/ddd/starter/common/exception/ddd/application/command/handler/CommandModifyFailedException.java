@@ -18,18 +18,26 @@ public class CommandModifyFailedException extends CommandFailedException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DCD0003");
 
     public CommandModifyFailedException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public CommandModifyFailedException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public CommandModifyFailedException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public CommandModifyFailedException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public CommandModifyFailedException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public CommandModifyFailedException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

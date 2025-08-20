@@ -19,18 +19,30 @@ public class DataManagerFailedException extends FailedException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DDM0000");
 
     public DataManagerFailedException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public DataManagerFailedException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public DataManagerFailedException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public DataManagerFailedException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public DataManagerFailedException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public DataManagerFailedException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
+    }
+
+    public DataManagerFailedException(String method, ErrorCode errorCode, String message, Throwable throwable) {
+        super(method, errorCode, message, throwable);
     }
 }

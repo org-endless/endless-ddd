@@ -3,11 +3,11 @@ package org.endless.ddd.generator.components.generator.service.application.comma
 import com.alibaba.fastjson2.annotation.JSONType;
 import lombok.Builder;
 import org.apache.logging.log4j.core.config.plugins.validation.constraints.NotBlank;
-import org.endless.ddd.generator.common.model.application.command.transfer.DDDGeneratorCommandTransfer;
-import org.endless.ddd.starter.common.annotation.validate.ddd.transfer.Transfer;
+import org.endless.ddd.generator.common.model.application.command.transfer.DDDGeneratorReqCommandTransfer;
+import org.endless.ddd.starter.common.annotation.validate.ddd.Transfer;
 
 /**
- * ServiceGenerateReqCTransfer
+ * ServiceGenerateReqCTransferReq
  * <p>服务生成命令请求传输对象
  * <p>
  * create 2025/08/06 23:53
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.annotation.validate.ddd.transfer.Transfer;
  *
  * @param serviceId 服务ID
  * @author Deng Haozhi
- * @see DDDGeneratorCommandTransfer
+ * @see DDDGeneratorReqCommandTransfer
  * @since 1.0.0
  */
 @Transfer
@@ -24,7 +24,7 @@ import org.endless.ddd.starter.common.annotation.validate.ddd.transfer.Transfer;
 @JSONType(orders = {"serviceId"})
 public record ServiceGenerateReqCTransfer(
         @NotBlank(message = "服务ID不能为空") String serviceId
-) implements DDDGeneratorCommandTransfer {
+) implements DDDGeneratorReqCommandTransfer {
 
     @Override
     public ServiceGenerateReqCTransfer validate() {

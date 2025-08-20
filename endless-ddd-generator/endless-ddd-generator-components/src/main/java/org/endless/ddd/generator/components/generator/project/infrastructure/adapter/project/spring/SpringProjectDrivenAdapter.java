@@ -37,11 +37,11 @@ public class SpringProjectDrivenAdapter implements ProjectDrivenAdapter, DDDGene
 
     @Override
     public void generate(ProjectAggregate aggregate) {
-        // List<String> serviceArtifactIds = serviceDrivingAdapter.findSimpleProfilesByProjectId(ServiceFindByProjectIdReqQTransfer.builder()
+        // List<String> serviceArtifactIds = serviceDrivingAdapter.findSimpleProfilesByProjectId(ServiceFindByProjectIdReqQTransferReq.builder()
         //                 .projectId(aggregate.getProjectId())
         //                 .build().validate())
         //         .validate().simpleProfiles().stream()
-        //         .map(ServiceFindSimpleProfileRespQTransfer::serviceId).toList();
+        //         .map(ServiceFindSimpleProfileRespQTransferReq::serviceId).toList();
         // pom(aggregate, serviceArtifactIds);
     }
 

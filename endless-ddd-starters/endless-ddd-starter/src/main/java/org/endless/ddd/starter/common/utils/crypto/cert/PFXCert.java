@@ -3,7 +3,7 @@ package org.endless.ddd.starter.common.utils.crypto.cert;
 import lombok.Builder;
 import lombok.Getter;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.endless.ddd.starter.common.exception.utils.crypto.PFXCertException;
+import org.endless.ddd.starter.common.exception.utils.crypto.cert.PFXCertException;
 
 import java.io.FileInputStream;
 import java.io.InputStream;

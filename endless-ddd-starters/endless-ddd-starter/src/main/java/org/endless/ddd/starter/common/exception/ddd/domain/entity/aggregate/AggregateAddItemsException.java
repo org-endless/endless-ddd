@@ -18,18 +18,26 @@ public class AggregateAddItemsException extends AggregateException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DAG0201");
 
     public AggregateAddItemsException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public AggregateAddItemsException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public AggregateAddItemsException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public AggregateAddItemsException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public AggregateAddItemsException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public AggregateAddItemsException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

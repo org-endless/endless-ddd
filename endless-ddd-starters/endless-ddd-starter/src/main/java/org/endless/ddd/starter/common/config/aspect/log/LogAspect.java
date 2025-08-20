@@ -7,11 +7,9 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.endless.ddd.starter.common.annotation.log.Log;
 import org.endless.ddd.starter.common.config.aspect.log.type.LogLevel;
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
-import org.endless.ddd.starter.common.exception.common.AbstractException;
-import org.endless.ddd.starter.common.exception.config.log.LogException;
+import org.endless.ddd.starter.common.exception.config.log.LogConfigException;
 import org.endless.ddd.starter.common.utils.model.object.ObjectTools;
-import org.endless.ddd.starter.common.utils.model.time.TimeStampTools;
+import org.endless.ddd.starter.common.utils.model.time.TimestampTools;
 import org.springframework.core.annotation.Order;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
@@ -40,7 +38,7 @@ public class LogAspect {
 
     @Around("execution(* *.*(..)) && @annotation(annotation)")
     public Object logging(ProceedingJoinPoint joinPoint, Log annotation) throws Throwable {
-        long start = TimeStampTools.now();
+        long start = TimestampTools.now();
         String className = joinPoint.getSignature().getDeclaringTypeName(); // 获取类名
         String methodName = joinPoint.getSignature().getName();
         Object[] args = joinPoint.getArgs();
@@ -67,7 +65,7 @@ public class LogAspect {
                     result = "";
                 }
             } catch (Exception e) {
-                throw new LogException("Spring EL表达式解析失败: " + e.getMessage(), e);
+                throw new LogConfigException("Spring EL表达式解析失败: " + e.getMessage(), e);
             }
             value = result;
         }
@@ -80,12 +78,8 @@ public class LogAspect {
         try {
             result = joinPoint.proceed();
             isSuccess = true;
-        } catch (AbstractException e) {
-            throw e.put(message + "执行失败");
-        } catch (Exception e) {
-            throw new AbstractException(ErrorCode.of("FAILURE"), e.getMessage(), e).put(message + "执行失败");
         } finally {
-            long duration = TimeStampTools.between(start, TimeStampTools.now());
+            long duration = TimestampTools.between(start, TimestampTools.now());
             logExecutionEnd(isSuccess, className, message, ObjectTools.maskSensitive(result), duration, annotation.level());
         }
         return result;

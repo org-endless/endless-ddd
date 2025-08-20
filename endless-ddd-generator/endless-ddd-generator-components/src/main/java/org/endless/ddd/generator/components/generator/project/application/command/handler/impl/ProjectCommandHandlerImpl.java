@@ -1,10 +1,9 @@
 package org.endless.ddd.generator.components.generator.project.application.command.handler.impl;
 
 import org.endless.ddd.generator.components.generator.project.application.command.handler.ProjectCommandHandler;
-import org.endless.ddd.generator.components.generator.project.application.command.transfer.ProjectCreateReqCTransfer;
-import org.endless.ddd.generator.components.generator.project.application.command.transfer.ProjectGenerateReqCTransfer;
-import org.endless.ddd.generator.components.generator.project.application.command.transfer.ProjectModifyReqCTransfer;
-import org.endless.ddd.generator.components.generator.project.application.command.transfer.ProjectRemoveReqCTransfer;
+import org.endless.ddd.generator.components.generator.project.application.command.transfer.*;
+import org.endless.ddd.generator.components.generator.project.application.command.transfer.ProjectCreateReqCTransferReq;
+import org.endless.ddd.generator.components.generator.project.application.command.transfer.ProjectModifyReqCTransferReq;
 import org.endless.ddd.generator.components.generator.project.domain.anticorruption.ProjectDrivenAdapter;
 import org.endless.ddd.generator.components.generator.project.domain.anticorruption.ProjectRepository;
 import org.endless.ddd.generator.components.generator.project.domain.entity.ProjectAggregate;
@@ -54,9 +53,9 @@ public class ProjectCommandHandlerImpl implements ProjectCommandHandler {
     @Override
     @Transactional
     @Log(message = "项目创建命令", value = "#command", level = LogLevel.TRACE)
-    public void create(ProjectCreateReqCTransfer command) {
+    public void create(ProjectCreateReqCTransferReq command) {
         Optional.ofNullable(command)
-                .map(ProjectCreateReqCTransfer::validate)
+                .map(ProjectCreateReqCTransferReq::validate)
                 .orElseThrow(() -> new CommandReqTransferNullException("项目创建命令参数不能为空"));
         ProjectAggregate aggregate = ProjectAggregate.create(ProjectAggregate.builder()
                 .projectArtifactId(command.projectArtifactId())
@@ -79,9 +78,9 @@ public class ProjectCommandHandlerImpl implements ProjectCommandHandler {
     @Override
     @Transactional
     @Log(message = "项目删除命令", value = "#command", level = LogLevel.TRACE)
-    public void remove(ProjectRemoveReqCTransfer command) {
+    public void remove(ProjectRemoveReqCTransferReq command) {
         Optional.ofNullable(command)
-                .map(ProjectRemoveReqCTransfer::validate)
+                .map(ProjectRemoveReqCTransferReq::validate)
                 .orElseThrow(() -> new CommandReqTransferNullException("项目删除命令参数不能为空"));
         ProjectAggregate aggregate = projectRepository.findById(command.projectId())
                 .orElseThrow(() -> new CommandNotFoundException("项目不存在"));
@@ -92,9 +91,9 @@ public class ProjectCommandHandlerImpl implements ProjectCommandHandler {
     @Override
     @Transactional
     @Log(message = "项目修改命令", value = "#command", level = LogLevel.TRACE)
-    public void modify(ProjectModifyReqCTransfer command) {
+    public void modify(ProjectModifyReqCTransferReq command) {
         Optional.ofNullable(command)
-                .map(ProjectModifyReqCTransfer::validate)
+                .map(ProjectModifyReqCTransferReq::validate)
                 .orElseThrow(() -> new CommandReqTransferNullException("项目修改命令参数不能为空"));
         ProjectAggregate aggregate = projectRepository.findById(command.projectId())
                 .orElseThrow(() -> new CommandNotFoundException("项目不存在"));
@@ -118,9 +117,9 @@ public class ProjectCommandHandlerImpl implements ProjectCommandHandler {
     @Override
     @Transactional
     @Log(message = "项目生成命令", value = "#command", level = LogLevel.TRACE)
-    public void generate(ProjectGenerateReqCTransfer command) {
+    public void generate(ProjectGenerateReqCTransferReq command) {
         Optional.ofNullable(command)
-                .map(ProjectGenerateReqCTransfer::validate)
+                .map(ProjectGenerateReqCTransferReq::validate)
                 .orElseThrow(() -> new CommandReqTransferNullException("项目删除命令参数不能为空"));
         ProjectAggregate aggregate = projectRepository.findById(command.projectId())
                 .orElseThrow(() -> new CommandNotFoundException("项目不存在"));

@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.ddd.infrastructure.event.handler;
 
-import org.endless.ddd.starter.common.annotation.validate.ddd.aggregate.Aggregate;
+import org.endless.ddd.starter.common.annotation.validate.ddd.Aggregate;
 import org.endless.ddd.starter.common.ddd.domain.event.Event;
 
 /**

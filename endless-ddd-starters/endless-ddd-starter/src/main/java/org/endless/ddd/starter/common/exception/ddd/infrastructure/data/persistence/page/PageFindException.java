@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.data.persistence.page;
 
-import org.endless.ddd.starter.common.utils.model.string.StringTools;
+import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 
 /**
  * PageFindException
@@ -15,17 +15,33 @@ import org.endless.ddd.starter.common.utils.model.string.StringTools;
  */
 public class PageFindException extends PageException {
 
-    private static final String DEFAULT_MESSAGE = "查询异常";
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("DPG1001");
 
-    public PageFindException(String message) {
-        super("[" + DEFAULT_MESSAGE + "]" + StringTools.addBrackets(message));
+    public PageFindException() {
+        super(null, ERROR_CODE, null, null);
     }
 
-    public PageFindException(String message, Throwable throwable) {
-        super("[" + DEFAULT_MESSAGE + "]" + StringTools.addBrackets(message), throwable);
+    public PageFindException(String message) {
+        super(null, ERROR_CODE, message, null);
     }
 
     public PageFindException(Throwable throwable) {
-        super("[" + DEFAULT_MESSAGE + "]" + StringTools.addBrackets(throwable.getMessage()), throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public PageFindException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
+    }
+
+    public PageFindException(String message, Throwable throwable) {
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public PageFindException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
+    }
+
+    public PageFindException(String method, ErrorCode errorCode, String message, Throwable throwable) {
+        super(method, errorCode, message, throwable);
     }
 }

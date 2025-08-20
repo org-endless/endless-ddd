@@ -4,12 +4,12 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.endless.ddd.generator.common.model.facade.rest.DDDGeneratorRestController;
 import org.endless.ddd.generator.components.generator.project.application.command.handler.ProjectCommandHandler;
-import org.endless.ddd.generator.components.generator.project.application.command.transfer.ProjectCreateReqCTransfer;
-import org.endless.ddd.generator.components.generator.project.application.command.transfer.ProjectGenerateReqCTransfer;
-import org.endless.ddd.generator.components.generator.project.application.command.transfer.ProjectModifyReqCTransfer;
-import org.endless.ddd.generator.components.generator.project.application.command.transfer.ProjectRemoveReqCTransfer;
+import org.endless.ddd.generator.components.generator.project.application.command.transfer.ProjectCreateReqCTransferReq;
+import org.endless.ddd.generator.components.generator.project.application.command.transfer.ProjectGenerateReqCTransferReq;
+import org.endless.ddd.generator.components.generator.project.application.command.transfer.ProjectModifyReqCTransferReq;
+import org.endless.ddd.generator.components.generator.project.application.command.transfer.ProjectRemoveReqCTransferReq;
 import org.endless.ddd.generator.components.generator.project.application.query.handler.ProjectQueryHandler;
-import org.endless.ddd.generator.components.generator.project.application.query.transfer.ProjectFindByIdsReqQTransfer;
+import org.endless.ddd.generator.components.generator.project.application.query.transfer.ProjectFindByIdsReqQTransferReq;
 import org.endless.ddd.starter.common.annotation.log.Log;
 import org.endless.ddd.starter.common.config.rest.response.RestResponse;
 import org.springframework.context.annotation.Lazy;
@@ -56,7 +56,7 @@ public class ProjectRestController implements DDDGeneratorRestController {
     @Log(message = "项目创建", value = "#command")
     public ResponseEntity<RestResponse> create(
             @NotNull(message = "项目创建请求对象不能为空")
-            @Valid @RequestBody ProjectCreateReqCTransfer command) {
+            @Valid @RequestBody ProjectCreateReqCTransferReq command) {
         projectCommandHandler.create(command);
         return response().success("项目创建成功");
     }
@@ -65,7 +65,7 @@ public class ProjectRestController implements DDDGeneratorRestController {
     @Log(message = "项目删除", value = "#command")
     public ResponseEntity<RestResponse> remove(
             @NotNull(message = "项目删除请求对象不能为空")
-            @Valid @RequestBody ProjectRemoveReqCTransfer command) {
+            @Valid @RequestBody ProjectRemoveReqCTransferReq command) {
         projectCommandHandler.remove(command);
         return response().success("项目删除成功");
     }
@@ -74,7 +74,7 @@ public class ProjectRestController implements DDDGeneratorRestController {
     @Log(message = "项目修改", value = "#command")
     public ResponseEntity<RestResponse> modify(
             @NotNull(message = "项目修改请求对象不能为空")
-            @Valid @RequestBody ProjectModifyReqCTransfer command) {
+            @Valid @RequestBody ProjectModifyReqCTransferReq command) {
         projectCommandHandler.modify(command);
         return response().success("项目修改成功");
     }
@@ -83,7 +83,7 @@ public class ProjectRestController implements DDDGeneratorRestController {
     @Log(message = "项目生成", value = "#command")
     public ResponseEntity<RestResponse> generate(
             @NotNull(message = "项目生成请求对象不能为空")
-            @Valid @RequestBody ProjectGenerateReqCTransfer command) {
+            @Valid @RequestBody ProjectGenerateReqCTransferReq command) {
         projectCommandHandler.generate(command);
         return response().success("项目生成成功");
     }
@@ -92,7 +92,7 @@ public class ProjectRestController implements DDDGeneratorRestController {
     @Log(message = "根据ID列表查询项目基本信息列表", value = "#query")
     public ResponseEntity<RestResponse> findSimpleProfilesByIds(
             @NotNull(message = "根据ID列表查询项目基本信息列表请求对象不能为空")
-            @Valid @RequestBody ProjectFindByIdsReqQTransfer query) {
+            @Valid @RequestBody ProjectFindByIdsReqQTransferReq query) {
         return response().success("根据ID列表查询项目名称列表成功", projectQueryHandler.findSimpleProfilesByIds(query));
     }
 }

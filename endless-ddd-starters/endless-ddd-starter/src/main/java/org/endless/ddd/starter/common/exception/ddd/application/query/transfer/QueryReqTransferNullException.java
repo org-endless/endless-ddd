@@ -19,18 +19,26 @@ public class QueryReqTransferNullException extends ReqTransferNullException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DTO1200");
 
     public QueryReqTransferNullException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public QueryReqTransferNullException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public QueryReqTransferNullException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public QueryReqTransferNullException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public QueryReqTransferNullException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public QueryReqTransferNullException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

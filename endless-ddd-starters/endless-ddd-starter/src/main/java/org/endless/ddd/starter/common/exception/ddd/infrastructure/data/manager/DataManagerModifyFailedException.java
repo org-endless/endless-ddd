@@ -1,7 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.data.manager;
 
 import org.endless.ddd.starter.common.config.error.code.ErrorCode;
-import org.endless.ddd.starter.common.exception.common.FailedException;
 
 /**
  * DataManagerModifyFailedException
@@ -14,23 +13,31 @@ import org.endless.ddd.starter.common.exception.common.FailedException;
  * @see DataManagerFailedException
  * @since 1.0.0
  */
-public class DataManagerModifyFailedException extends FailedException {
+public class DataManagerModifyFailedException extends DataManagerFailedException {
 
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DDM0003");
 
     public DataManagerModifyFailedException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public DataManagerModifyFailedException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public DataManagerModifyFailedException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public DataManagerModifyFailedException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public DataManagerModifyFailedException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public DataManagerModifyFailedException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

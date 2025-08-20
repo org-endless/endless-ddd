@@ -9,9 +9,9 @@ import org.bouncycastle.crypto.paddings.PaddedBufferedBlockCipher;
 import org.bouncycastle.crypto.paddings.ZeroBytePadding;
 import org.bouncycastle.crypto.params.KeyParameter;
 import org.bouncycastle.crypto.params.ParametersWithIV;
-import org.endless.ddd.starter.common.exception.utils.crypto.AESDecryptException;
-import org.endless.ddd.starter.common.exception.utils.crypto.AESEncryptException;
-import org.endless.ddd.starter.common.exception.utils.crypto.AESKeyPairException;
+import org.endless.ddd.starter.common.exception.utils.crypto.aes.AESDecryptException;
+import org.endless.ddd.starter.common.exception.utils.crypto.aes.AESEncryptException;
+import org.endless.ddd.starter.common.exception.utils.crypto.aes.AESKeyPairException;
 
 import java.security.SecureRandom;
 import java.util.Base64;

@@ -3,7 +3,7 @@ package org.endless.ddd.starter.common.utils.crypto.sm.sm3;
 import lombok.Builder;
 import lombok.Getter;
 import org.bouncycastle.crypto.digests.SM3Digest;
-import org.endless.ddd.starter.common.exception.utils.crypto.SM3CryptoException;
+import org.endless.ddd.starter.common.exception.utils.crypto.sm.SM3CryptoException;
 
 import java.security.SecureRandom;
 import java.util.Base64;

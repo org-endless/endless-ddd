@@ -4,7 +4,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.ddd.common.RespTransferNullException;
 
 /**
- * CommandReqTransferNullException
+ * CommandRespTransferNullException
  * <p>
  * create 2024/09/29 11:19
  * <p>
@@ -19,18 +19,26 @@ public class CommandRespTransferNullException extends RespTransferNullException 
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DTO2100");
 
     public CommandRespTransferNullException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public CommandRespTransferNullException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public CommandRespTransferNullException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public CommandRespTransferNullException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public CommandRespTransferNullException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public CommandRespTransferNullException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

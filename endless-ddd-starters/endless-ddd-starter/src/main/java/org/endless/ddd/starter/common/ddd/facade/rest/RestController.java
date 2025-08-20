@@ -1,6 +1,7 @@
 package org.endless.ddd.starter.common.ddd.facade.rest;
 
 import org.endless.ddd.starter.common.config.rest.response.RestResponse;
+import org.endless.ddd.starter.common.ddd.common.transfer.RespTransfer;
 import org.endless.ddd.starter.common.ddd.facade.adapter.DrivingAdapter;
 
 /**
@@ -18,6 +19,12 @@ import org.endless.ddd.starter.common.ddd.facade.adapter.DrivingAdapter;
  */
 public interface RestController extends DrivingAdapter {
 
-    RestResponse response();
+    <R extends RespTransfer> RestResponse<R> response(R response);
+
+    RestResponse<Void> response();
+
+    String serviceDescription();
+
+    String domainDescription();
 
 }

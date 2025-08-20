@@ -11,7 +11,7 @@ import org.endless.ddd.generator.components.generator.project.domain.type.Projec
 import org.endless.ddd.starter.common.config.utils.id.IdGenerator;
 import org.endless.ddd.starter.common.exception.ddd.domain.entity.aggregate.AggregateRemoveException;
 import org.endless.ddd.starter.common.exception.ddd.domain.entity.aggregate.AggregateValidateException;
-import org.endless.ddd.starter.common.utils.model.time.TimeStampTools;
+import org.endless.ddd.starter.common.utils.model.time.TimestampTools;
 import org.springframework.util.StringUtils;
 
 /**
@@ -127,7 +127,7 @@ public class ProjectAggregate implements DDDGeneratorAggregate {
     private Boolean isRemoved;
 
     public static ProjectAggregate create(ProjectAggregateBuilder builder) {
-        Long now = TimeStampTools.now();
+        Long now = TimestampTools.now();
         return builder
                 .projectId(IdGenerator.of())
                 .createAt(now)
@@ -164,13 +164,9 @@ public class ProjectAggregate implements DDDGeneratorAggregate {
         this.loggingFramework = builder.loggingFramework == null ? this.loggingFramework : builder.loggingFramework;
         this.persistenceFramework = builder.persistenceFramework == null ? this.persistenceFramework : builder.persistenceFramework;
         this.databaseType = builder.databaseType == null ? this.databaseType : builder.databaseType;
-        this.modifyAt = TimeStampTools.now();
+        this.modifyAt = TimestampTools.now();
         this.modifyUserId = builder.modifyUserId;
         return this.validate();
-    }
-
-    private boolean canRemove() {
-        return true;
     }
 
     @Override
@@ -195,6 +191,10 @@ public class ProjectAggregate implements DDDGeneratorAggregate {
         validateModifyUserId();
         validateIsRemoved();
         return this;
+    }
+
+    private boolean canRemove() {
+        return true;
     }
 
     private void validateProjectId() {

@@ -15,7 +15,7 @@ import org.bouncycastle.jcajce.provider.asymmetric.ec.BCECPublicKey;
 import org.bouncycastle.jcajce.provider.config.ProviderConfiguration;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.math.ec.ECPoint;
-import org.endless.ddd.starter.common.exception.utils.crypto.*;
+import org.endless.ddd.starter.common.exception.utils.crypto.sm.*;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;

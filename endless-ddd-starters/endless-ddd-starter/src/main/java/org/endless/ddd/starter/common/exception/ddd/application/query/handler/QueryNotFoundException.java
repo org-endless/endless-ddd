@@ -16,21 +16,33 @@ import org.endless.ddd.starter.common.exception.common.NotFoundException;
  */
 public class QueryNotFoundException extends NotFoundException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DQR0001");
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("DQR0010");
 
     public QueryNotFoundException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public QueryNotFoundException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public QueryNotFoundException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public QueryNotFoundException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public QueryNotFoundException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public QueryNotFoundException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
+    }
+
+    public QueryNotFoundException(String method, ErrorCode errorCode, String message, Throwable throwable) {
+        super(method, errorCode, message, throwable);
     }
 }

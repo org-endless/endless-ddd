@@ -19,34 +19,30 @@ public class ValueException extends FailedException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DVO0000");
 
     public ValueException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public ValueException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public ValueException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public ValueException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public ValueException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
     }
 
-    public ValueException(ErrorCode errorCode) {
-        super(errorCode);
+    public ValueException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 
-    public ValueException(ErrorCode errorCode, String message) {
-        super(errorCode, message);
-    }
-
-    public ValueException(ErrorCode errorCode, Throwable throwable) {
-        super(errorCode, throwable);
-    }
-
-    public ValueException(ErrorCode errorCode, String message, Throwable throwable) {
-        super(errorCode, message, throwable);
+    public ValueException(String method, ErrorCode errorCode, String message, Throwable throwable) {
+        super(method, errorCode, message, throwable);
     }
 }

@@ -1,7 +1,6 @@
 package org.endless.ddd.starter.common.exception.security.password;
 
 import org.endless.ddd.starter.common.config.error.code.ErrorCode;
-import org.endless.ddd.starter.common.exception.security.common.SecurityFailedException;
 
 /**
  * PasswordValidateException
@@ -11,25 +10,34 @@ import org.endless.ddd.starter.common.exception.security.common.SecurityFailedEx
  * update 2025/01/25 06:06
  *
  * @author Deng Haozhi
+ * @see PasswordException
  * @since 1.0.0
  */
-public class PasswordValidateException extends SecurityFailedException {
+public class PasswordValidateException extends PasswordException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("SEC0004");
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("SEC0022");
 
     public PasswordValidateException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public PasswordValidateException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public PasswordValidateException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public PasswordValidateException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public PasswordValidateException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public PasswordValidateException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

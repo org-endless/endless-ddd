@@ -19,18 +19,26 @@ public class CommandNotFoundException extends NotFoundException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DCD0010");
 
     public CommandNotFoundException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public CommandNotFoundException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public CommandNotFoundException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public CommandNotFoundException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public CommandNotFoundException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public CommandNotFoundException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

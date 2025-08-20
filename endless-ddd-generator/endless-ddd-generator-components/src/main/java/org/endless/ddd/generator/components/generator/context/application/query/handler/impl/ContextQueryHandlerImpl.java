@@ -2,8 +2,8 @@ package org.endless.ddd.generator.components.generator.context.application.query
 
 import org.endless.ddd.generator.components.generator.context.application.query.anticorruption.ContextQueryRepository;
 import org.endless.ddd.generator.components.generator.context.application.query.handler.ContextQueryHandler;
-import org.endless.ddd.generator.components.generator.context.application.query.transfer.ContextFindByServiceIdReqQTransfer;
-import org.endless.ddd.generator.components.generator.context.application.query.transfer.ContextFindSimpleProfilesRespQTransfer;
+import org.endless.ddd.generator.components.generator.context.application.query.transfer.ContextFindByServiceIdReqQTransferReq;
+import org.endless.ddd.generator.components.generator.context.application.query.transfer.ContextFindSimpleProfilesRespQTransferReq;
 import org.endless.ddd.starter.common.annotation.log.Log;
 import org.endless.ddd.starter.common.config.aspect.log.type.LogLevel;
 import org.endless.ddd.starter.common.exception.ddd.application.query.transfer.QueryReqTransferNullException;
@@ -35,11 +35,11 @@ public class ContextQueryHandlerImpl implements ContextQueryHandler {
 
     @Override
     @Log(message = "根据服务ID查询限界上下文基本信息列表", value = "#query", level = LogLevel.TRACE)
-    public ContextFindSimpleProfilesRespQTransfer findSimpleProfilesByServiceId(ContextFindByServiceIdReqQTransfer query) {
+    public ContextFindSimpleProfilesRespQTransferReq findSimpleProfilesByServiceId(ContextFindByServiceIdReqQTransferReq query) {
         Optional.ofNullable(query)
-                .map(ContextFindByServiceIdReqQTransfer::validate)
+                .map(ContextFindByServiceIdReqQTransferReq::validate)
                 .orElseThrow(() -> new QueryReqTransferNullException("根据项目ID查询项目基本信息列表参数不能为空"));
-        return ContextFindSimpleProfilesRespQTransfer.builder()
+        return ContextFindSimpleProfilesRespQTransferReq.builder()
                 .simpleProfiles(contextQueryRepository.findSimpleProfilesByServiceId(query.serviceId()))
                 .build().validate();
     }

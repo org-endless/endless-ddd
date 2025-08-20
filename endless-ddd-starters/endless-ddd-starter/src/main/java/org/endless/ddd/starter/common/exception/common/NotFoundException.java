@@ -29,23 +29,19 @@ public class NotFoundException extends AbstractException {
         super(ERROR_CODE, throwable);
     }
 
+    public NotFoundException(String method, String message) {
+        super(method, ERROR_CODE, message);
+    }
+
     public NotFoundException(String message, Throwable throwable) {
         super(ERROR_CODE, message, throwable);
     }
 
-    public NotFoundException(ErrorCode errorCode) {
-        super(errorCode);
+    public NotFoundException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 
-    public NotFoundException(ErrorCode errorCode, String message) {
-        super(errorCode, message);
-    }
-
-    public NotFoundException(ErrorCode errorCode, Throwable throwable) {
-        super(errorCode, throwable);
-    }
-
-    public NotFoundException(ErrorCode errorCode, String message, Throwable throwable) {
-        super(errorCode, message, throwable);
+    public NotFoundException(String method, ErrorCode errorCode, String message, Throwable throwable) {
+        super(method, errorCode, message, throwable);
     }
 }

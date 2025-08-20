@@ -1,7 +1,6 @@
 package org.endless.ddd.starter.common.exception.security.token;
 
 import org.endless.ddd.starter.common.config.error.code.ErrorCode;
-import org.endless.ddd.starter.common.exception.security.common.SecurityFailedException;
 
 /**
  * TokenGenerateException
@@ -11,26 +10,34 @@ import org.endless.ddd.starter.common.exception.security.common.SecurityFailedEx
  * update 2024/12/24 16:54
  *
  * @author Deng Haozhi
- * @see SecurityFailedException
+ * @see TokenException
  * @since 1.0.0
  */
-public class TokenGenerateException extends SecurityFailedException {
+public class TokenGenerateException extends TokenException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("SEC0011");
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("SEC0031");
 
     public TokenGenerateException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public TokenGenerateException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public TokenGenerateException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public TokenGenerateException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public TokenGenerateException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public TokenGenerateException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

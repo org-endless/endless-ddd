@@ -13,6 +13,7 @@ import org.endless.ddd.generator.components.generator.service.domain.type.Servic
 import org.endless.ddd.starter.common.annotation.log.Log;
 import org.endless.ddd.starter.common.config.aspect.log.type.LogLevel;
 import org.endless.ddd.starter.common.exception.ddd.application.command.handler.CommandNotFoundException;
+import org.endless.ddd.starter.common.utils.model.time.TimestampTools;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,6 +63,7 @@ public class ServiceCommandHandlerImpl implements ServiceCommandHandler {
     @Log(message = "服务创建命令", value = "#command", level = LogLevel.TRACE)
     public void create(ServiceCreateReqCTransfer command) {
         serviceProjectDrivenAdapter.existsById(command.projectId());
+        Long now = TimestampTools.now();
         ServiceAggregate aggregate = ServiceAggregate.create(ServiceAggregate.builder()
                 .projectId(command.projectId())
                 .serviceArtifactId(command.serviceArtifactId())
@@ -73,6 +75,8 @@ public class ServiceCommandHandlerImpl implements ServiceCommandHandler {
                 .classNamePrefix(command.classNamePrefix())
                 .type(ServiceTypeEnum.fromCode(command.type()))
                 .port(command.port())
+                .createAt(now)
+                .modifyAt(now)
                 .createUserId(DDD_SIMPLIFIED_GENERATOR_USER_ID));
         serviceRepository.save(aggregate);
     }

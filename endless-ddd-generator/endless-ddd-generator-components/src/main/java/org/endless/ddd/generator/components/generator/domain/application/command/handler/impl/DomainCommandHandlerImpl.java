@@ -1,7 +1,7 @@
 package org.endless.ddd.generator.components.generator.domain.application.command.handler.impl;
 
 import org.endless.ddd.generator.components.generator.domain.application.command.handler.DomainCommandHandler;
-import org.endless.ddd.generator.components.generator.domain.application.command.transfer.DomainCreateReqCTransfer;
+import org.endless.ddd.generator.components.generator.domain.application.command.transfer.DomainCreateReqCTransferReq;
 import org.endless.ddd.generator.components.generator.domain.domain.anticorruption.DomainRepository;
 
 /**
@@ -28,7 +28,7 @@ public class DomainCommandHandlerImpl implements DomainCommandHandler {
     }
 
     @Override
-    public void create(DomainCreateReqCTransfer command) {
+    public void create(DomainCreateReqCTransferReq command) {
 
     }
 }

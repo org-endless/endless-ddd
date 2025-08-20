@@ -19,34 +19,30 @@ public class EventUnknowException extends UnknownException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DEV9000");
 
     public EventUnknowException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public EventUnknowException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public EventUnknowException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public EventUnknowException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public EventUnknowException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
     }
 
-    public EventUnknowException(ErrorCode errorCode) {
-        super(errorCode);
+    public EventUnknowException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 
-    public EventUnknowException(ErrorCode errorCode, String message) {
-        super(errorCode, message);
-    }
-
-    public EventUnknowException(ErrorCode errorCode, Throwable throwable) {
-        super(errorCode, throwable);
-    }
-
-    public EventUnknowException(ErrorCode errorCode, String message, Throwable throwable) {
-        super(errorCode, message, throwable);
+    public EventUnknowException(String method, ErrorCode errorCode, String message, Throwable throwable) {
+        super(method, errorCode, message, throwable);
     }
 }

@@ -18,18 +18,26 @@ public class CommandCreateUnknowException extends CommandUnknowException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DCD9001");
 
     public CommandCreateUnknowException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public CommandCreateUnknowException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public CommandCreateUnknowException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public CommandCreateUnknowException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public CommandCreateUnknowException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public CommandCreateUnknowException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

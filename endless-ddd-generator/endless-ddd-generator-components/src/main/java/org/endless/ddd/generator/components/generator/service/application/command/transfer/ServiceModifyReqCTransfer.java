@@ -3,8 +3,8 @@ package org.endless.ddd.generator.components.generator.service.application.comma
 import com.alibaba.fastjson2.annotation.JSONType;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
-import org.endless.ddd.generator.common.model.application.command.transfer.DDDGeneratorCommandTransfer;
-import org.endless.ddd.starter.common.annotation.validate.ddd.transfer.Transfer;
+import org.endless.ddd.generator.common.model.application.command.transfer.DDDGeneratorReqCommandTransfer;
+import org.endless.ddd.starter.common.annotation.validate.ddd.Transfer;
 import org.endless.ddd.starter.common.annotation.validate.number.port.Port;
 import org.endless.ddd.starter.common.annotation.validate.string.cases.ArtifactId;
 import org.endless.ddd.starter.common.annotation.validate.string.cases.PackageName;
@@ -12,7 +12,7 @@ import org.endless.ddd.starter.common.annotation.validate.string.cases.TransferP
 import org.endless.ddd.starter.common.annotation.validate.string.cases.UpperCamelCase;
 
 /**
- * ServiceModifyReqCTransfer
+ * ServiceModifyReqCTransferReq
  * <p>服务修改命令请求传输对象
  * <p>
  * create 2025/08/06 23:53
@@ -31,7 +31,7 @@ import org.endless.ddd.starter.common.annotation.validate.string.cases.UpperCame
  * @param type              服务类型
  * @param port              服务端口
  * @author Deng Haozhi
- * @see DDDGeneratorCommandTransfer
+ * @see DDDGeneratorReqCommandTransfer
  * @since 1.0.0
  */
 @Transfer
@@ -51,7 +51,7 @@ public record ServiceModifyReqCTransfer(
         @UpperCamelCase String classNamePrefix,
         String type,
         @Port Integer port
-) implements DDDGeneratorCommandTransfer {
+) implements DDDGeneratorReqCommandTransfer {
 
     @Override
     public ServiceModifyReqCTransfer validate() {

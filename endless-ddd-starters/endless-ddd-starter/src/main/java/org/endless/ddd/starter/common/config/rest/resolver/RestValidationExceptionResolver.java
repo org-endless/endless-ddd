@@ -9,13 +9,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.endless.ddd.starter.common.config.endless.properties.EndlessProperties;
 import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 import org.endless.ddd.starter.common.config.rest.response.RestResponse;
-import org.endless.ddd.starter.common.exception.config.rest.RestException;
-import org.endless.ddd.starter.common.exception.handler.rest.RestAdapterExceptionHandler;
+import org.endless.ddd.starter.common.exception.AbstractRestExceptionHandler;
+import org.endless.ddd.starter.common.utils.error.message.exception.ExceptionErrorParser;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
+import org.springframework.validation.FieldError;
 import org.springframework.web.method.annotation.HandlerMethodValidationException;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -38,15 +40,16 @@ import static org.endless.ddd.starter.common.config.endless.constant.EndlessCons
  * @since 1.0.0
  */
 @Slf4j
+@Lazy
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class RestValidationExceptionResolver implements HandlerExceptionResolver {
 
-    private final RestAdapterExceptionHandler restAdapterExceptionHandler;
+    private final AbstractRestExceptionHandler abstractRestExceptionHandler;
 
     private final String charset;
 
-    public RestValidationExceptionResolver(RestAdapterExceptionHandler restAdapterExceptionHandler, EndlessProperties properties) {
-        this.restAdapterExceptionHandler = restAdapterExceptionHandler;
+    public RestValidationExceptionResolver(AbstractRestExceptionHandler abstractRestExceptionHandler, EndlessProperties properties) {
+        this.abstractRestExceptionHandler = abstractRestExceptionHandler;
         this.charset = properties.charset().getCode();
     }
 
@@ -58,29 +61,30 @@ public class RestValidationExceptionResolver implements HandlerExceptionResolver
         return null;
     }
 
-    private ResponseEntity<RestResponse> resolveHandlerMethodValidationException(HandlerMethodValidationException e) {
+    private ResponseEntity<RestResponse<Void>> resolveHandlerMethodValidationException(HandlerMethodValidationException e) {
         List<String> errorFields = e.getParameterValidationResults().stream()
                 .flatMap(paramResult -> paramResult.getResolvableErrors().stream()
                         .map(error -> {
                             String className = paramResult.getMethodParameter().getContainingClass().getName();
-                            String fieldName = error instanceof org.springframework.validation.FieldError fe ? fe.getField() : paramResult.getMethodParameter().getParameterName();
-                            String message = error.getDefaultMessage();
-                            message = "参数 " + fieldName + " 校验失败" + ": " + message;
-                            log.error(" {} [validate][{}][{}]{}", className, ErrorCode.of("RES0251").getCode(), ErrorCode.of("RES0251").getDescription(), message);
+                            String fieldName = error instanceof FieldError fieldError
+                                    ? fieldError.getField()
+                                    : paramResult.getMethodParameter().getParameterName();
+                            String errorMessage = error.getDefaultMessage();
+                            errorMessage = "参数 " + fieldName + " 校验失败" + ": " + errorMessage;
+                            log.error(" {} [validate]{}", className, errorMessage);
                             return fieldName;
                         })
                 ).toList();
-        String errorMessage;
-        if (errorFields.isEmpty()) {
-            errorMessage = "参数校验失败";
-        } else {
-            errorMessage = "参数 " + String.join(", ", errorFields) + " 校验失败";
-        }
-        log.error("[{}][{}]", ErrorCode.of("RES0251").getCode(), ErrorCode.of("RES0251").getDescription(), e);
-        return restAdapterExceptionHandler.response().failure(ErrorCode.of("RES0251").getDescription(), ErrorCode.of("RES0251"), errorMessage);
+        ErrorCode errorCode = ErrorCode.of("RES0251");
+        String message = ExceptionErrorParser.parse(null, errorCode,
+                errorFields.isEmpty()
+                        ? "参数校验失败"
+                        : "参数 " + String.join(", ", errorFields) + " 校验失败");
+        log.error("[{}]{}", errorCode, message, e);
+        return abstractRestExceptionHandler.response().failure(errorCode, message);
     }
 
-    private ModelAndView resolveResponse(@NonNull HttpServletResponse response, ResponseEntity<RestResponse> responseEntity) {
+    private ModelAndView resolveResponse(@NonNull HttpServletResponse response, ResponseEntity<RestResponse<Void>> responseEntity) {
         response.setCharacterEncoding(charset);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         String json;
@@ -89,7 +93,7 @@ public class RestValidationExceptionResolver implements HandlerExceptionResolver
         try (PrintWriter writer = response.getWriter()) {
             writer.write(json);
         } catch (IOException ex) {
-            throw new RestException(ex);
+            log.error("resolveResponse error", ex);
         }
         return new ModelAndView();
     }

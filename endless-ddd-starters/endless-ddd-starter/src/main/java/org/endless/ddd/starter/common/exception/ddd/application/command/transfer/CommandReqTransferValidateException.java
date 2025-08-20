@@ -19,18 +19,26 @@ public class CommandReqTransferValidateException extends ReqTransferValidateExce
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DTO1101");
 
     public CommandReqTransferValidateException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public CommandReqTransferValidateException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public CommandReqTransferValidateException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public CommandReqTransferValidateException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public CommandReqTransferValidateException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public CommandReqTransferValidateException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

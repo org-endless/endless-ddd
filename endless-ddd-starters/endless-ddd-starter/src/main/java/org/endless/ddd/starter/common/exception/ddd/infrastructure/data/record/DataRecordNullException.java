@@ -1,7 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.data.record;
 
 import org.endless.ddd.starter.common.config.error.code.ErrorCode;
-import org.endless.ddd.starter.common.exception.common.FailedException;
 
 /**
  * DataRecordNullException
@@ -11,26 +10,34 @@ import org.endless.ddd.starter.common.exception.common.FailedException;
  * update 2025/08/07 23:56
  *
  * @author Deng Haozhi
- * @see FailedException
+ * @see DataRecordException
  * @since 1.0.0
  */
-public class DataRecordNullException extends FailedException {
+public class DataRecordNullException extends DataRecordException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DDR0000");
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("DDR0001");
 
     public DataRecordNullException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public DataRecordNullException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public DataRecordNullException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public DataRecordNullException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public DataRecordNullException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public DataRecordNullException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

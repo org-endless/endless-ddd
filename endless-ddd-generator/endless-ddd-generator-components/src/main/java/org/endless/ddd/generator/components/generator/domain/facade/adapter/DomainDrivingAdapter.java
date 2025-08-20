@@ -1,7 +1,7 @@
 package org.endless.ddd.generator.components.generator.domain.facade.adapter;
 
 import org.endless.ddd.generator.common.model.facade.adapter.DDDGeneratorDrivingAdapter;
-import org.endless.ddd.generator.components.generator.domain.application.command.transfer.DomainCreateReqCTransfer;
+import org.endless.ddd.generator.components.generator.domain.application.command.transfer.DomainCreateReqCTransferReq;
 
 /**
  * DomainDrivingAdapter
@@ -17,6 +17,6 @@ import org.endless.ddd.generator.components.generator.domain.application.command
  */
 public interface DomainDrivingAdapter extends DDDGeneratorDrivingAdapter {
 
-    void create(DomainCreateReqCTransfer command);
+    void create(DomainCreateReqCTransferReq command);
 
 }

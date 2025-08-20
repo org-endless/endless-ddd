@@ -10,26 +10,34 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  * update 2025/07/10 03:58
  *
  * @author Deng Haozhi
- * @see RedisConfigException
+ * @see RedisStreamFailedException
  * @since 1.0.0
  */
-public class RedisStreamAddException extends RedisConfigException {
+public class RedisStreamAddException extends RedisStreamFailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("CFG0421");
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("RDS0101");
 
     public RedisStreamAddException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public RedisStreamAddException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public RedisStreamAddException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public RedisStreamAddException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public RedisStreamAddException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public RedisStreamAddException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

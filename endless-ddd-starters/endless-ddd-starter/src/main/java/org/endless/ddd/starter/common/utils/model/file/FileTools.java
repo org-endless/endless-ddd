@@ -1,5 +1,8 @@
 package org.endless.ddd.starter.common.utils.model.file;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +16,7 @@ import java.util.Map;
  * @author Deng Haozhi
  * @since 1.0.0
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FileTools {
 
     private static final Map<String, String> CONTENT_TYPE_TO_EXTENSION = new HashMap<>();
@@ -37,16 +41,16 @@ public class FileTools {
         add(".csv", "text/csv");
     }
 
-    private static void add(String extension, String contentType) {
-        CONTENT_TYPE_TO_EXTENSION.put(contentType, extension);
-        EXTENSION_TO_CONTENT_TYPE.put(extension, contentType);
-    }
-
     public static String extension(String contentType) {
         return CONTENT_TYPE_TO_EXTENSION.getOrDefault(contentType, "");
     }
 
     public static String contentType(String extension) {
         return EXTENSION_TO_CONTENT_TYPE.getOrDefault(extension.toLowerCase(), "application/octet-stream");
+    }
+
+    private static void add(String extension, String contentType) {
+        CONTENT_TYPE_TO_EXTENSION.put(contentType, extension);
+        EXTENSION_TO_CONTENT_TYPE.put(extension, contentType);
     }
 }

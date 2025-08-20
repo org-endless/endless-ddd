@@ -19,18 +19,28 @@ public class DrivenReqTransferValidateException extends ReqTransferValidateExcep
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DTO1301");
 
     public DrivenReqTransferValidateException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public DrivenReqTransferValidateException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public DrivenReqTransferValidateException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public DrivenReqTransferValidateException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public DrivenReqTransferValidateException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
     }
+
+    public DrivenReqTransferValidateException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
+    }
+
+
 }

@@ -37,7 +37,7 @@ public enum CommonErrorCode implements ErrorCode {
 
     public static void register() {
         for (CommonErrorCode value : values()) {
-            ErrorCode.register(value);
+            ErrorCode.Cache.register(value);
         }
     }
 }

@@ -2,7 +2,9 @@ package org.endless.ddd.starter.common.utils.model.object;
 
 import com.alibaba.fastjson2.util.TypeUtils;
 import jakarta.validation.*;
-import org.endless.ddd.starter.common.exception.utils.model.ObjectToolsException;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import org.endless.ddd.starter.common.exception.utils.model.object.ObjectToolsException;
 import org.endless.ddd.starter.common.utils.model.string.StringTools;
 
 import java.lang.reflect.Field;
@@ -23,15 +25,10 @@ import static org.endless.ddd.starter.common.config.endless.constant.EndlessCons
  * @author Deng Haozhi
  * @since 1.0.0
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ObjectTools {
 
     private static final Validator validator = buildValidator();
-
-    private static Validator buildValidator() {
-        try (ValidatorFactory factory = Validation.buildDefaultValidatorFactory()) {
-            return factory.getValidator();
-        }
-    }
 
     /**
      * JSR380 验证对象
@@ -116,6 +113,16 @@ public class ObjectTools {
         return originalString;
     }
 
+    public static boolean isPrimitiveOrWrapper(Object object) {
+        return object.getClass().isPrimitive() || isWrapperType(object.getClass());
+    }
+
+    private static Validator buildValidator() {
+        try (ValidatorFactory factory = Validation.buildDefaultValidatorFactory()) {
+            return factory.getValidator();
+        }
+    }
+
     /**
      * 对象脱敏
      *
@@ -152,10 +159,6 @@ public class ObjectTools {
                 throw new ObjectToolsException("对象脱敏异常: " + e.getMessage(), e);
             }
         }
-    }
-
-    public static boolean isPrimitiveOrWrapper(Object object) {
-        return object.getClass().isPrimitive() || isWrapperType(object.getClass());
     }
 
     private static boolean isWrapperType(Class<?> clazz) {

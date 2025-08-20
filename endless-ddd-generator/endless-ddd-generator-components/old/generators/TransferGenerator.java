@@ -52,7 +52,7 @@ public class TransferGenerator {
             }
         } else {
             subPackage = "infrastructure.adapter.exchange";
-            superClassName = aggregate.getServiceName() + "DrivenTransfer";
+            superClassName = aggregate.getServiceName() + "DrivenReqTransfer";
 
         }
         String packageName = domainPackage + "." + subPackage;

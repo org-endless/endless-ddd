@@ -3,6 +3,8 @@ package org.endless.ddd.starter.common.utils.model.json;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.endless.ddd.starter.common.utils.model.string.StringTools;
 
 /**
@@ -15,6 +17,7 @@ import org.endless.ddd.starter.common.utils.model.string.StringTools;
  * @author Deng Haozhi
  * @since 1.0.0
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class JsonTools {
 
     public static String maskSensitive(String json) {

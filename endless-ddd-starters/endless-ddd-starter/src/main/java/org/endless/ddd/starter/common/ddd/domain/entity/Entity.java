@@ -1,9 +1,9 @@
 package org.endless.ddd.starter.common.ddd.domain.entity;
 
 import org.endless.ddd.starter.common.config.utils.id.IdGenerator;
-import org.endless.ddd.starter.common.exception.ddd.domain.entity.EntityCreateException;
-import org.endless.ddd.starter.common.exception.ddd.domain.entity.EntityException;
 import org.endless.ddd.starter.common.exception.ddd.domain.entity.aggregate.AggregateCreateException;
+import org.endless.ddd.starter.common.exception.ddd.domain.entity.entity.EntityCreateException;
+import org.endless.ddd.starter.common.exception.ddd.domain.entity.entity.EntityException;
 import org.endless.ddd.starter.common.utils.model.object.ObjectTools;
 
 import java.io.Serializable;
@@ -30,26 +30,25 @@ import java.util.function.Function;
  */
 public interface Entity extends Serializable {
 
-    @SuppressWarnings("unchecked")
-    static <B, E extends Entity> Entity create(B builder, Function<B, E> buildFunction) {
+    static <B, E extends Entity> E create(B builder, Function<B, E> buildFunction) {
         String className = builder.getClass().getSimpleName();
         try {
             MethodHandles.Lookup lookup = MethodHandles.lookup();
             Field field = builder.getClass().getDeclaredField("createUserId");
-            field.setAccessible(true);
-            MethodHandle idHandle = lookup.findVirtual(builder.getClass(), id(className), MethodType.methodType(builder.getClass(), String.class));
             MethodHandle createUserIdGetter = lookup.unreflectGetter(field);
+            MethodHandle idHandle = lookup.findVirtual(builder.getClass(), id(className), MethodType.methodType(builder.getClass(), String.class));
             MethodHandle modifyUserIdHandle = lookup.findVirtual(builder.getClass(), "modifyUserId", MethodType.methodType(builder.getClass(), String.class));
             MethodHandle isRemovedHandle = lookup.findVirtual(builder.getClass(), "isRemoved", MethodType.methodType(builder.getClass(), Boolean.class));
-            builder = (B) idHandle.invoke(builder, IdGenerator.of());
-            builder = (B) modifyUserIdHandle.invoke(builder, createUserIdGetter.invoke(builder));
-            builder = (B) isRemovedHandle.invoke(builder, false);
+
+            builder = invokeBuilder(idHandle, builder, IdGenerator.of());
+            builder = invokeBuilder(modifyUserIdHandle, builder, createUserIdGetter.invoke(builder));
+            builder = invokeBuilder(isRemovedHandle, builder, false);
             E entity = buildFunction.apply(builder);
-            return ObjectTools.JSRValidate(entity).validate();
+            return ObjectTools.JSRValidate(entity);
         } catch (Throwable e) {
             if (className.endsWith("AggregateBuilder")) {
                 throw new AggregateCreateException(e.getMessage(), e);
-            } else if (className.endsWith("EntityModifyException")) {
+            } else if (className.endsWith("EntityBuilder")) {
                 throw new EntityCreateException(e.getMessage(), e);
             } else {
                 throw new EntityException(e.getMessage(), e);
@@ -66,6 +65,11 @@ public interface Entity extends Serializable {
             throw new EntityException("领域实体类名必须以Entity或Aggregate结尾");
         }
         return className.substring(0, 1).toLowerCase() + className.substring(1) + "Id";
+    }
+
+    @SuppressWarnings("unchecked")
+    static <B> B invokeBuilder(MethodHandle handle, B builder, Object arg) throws Throwable {
+        return (B) handle.invoke(builder, arg);
     }
 
     Entity validate();

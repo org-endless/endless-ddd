@@ -19,34 +19,30 @@ public class TransferValidateException extends FailedException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DTO0001");
 
     public TransferValidateException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public TransferValidateException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public TransferValidateException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public TransferValidateException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public TransferValidateException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
     }
 
-    public TransferValidateException(ErrorCode errorCode) {
-        super(errorCode);
+    public TransferValidateException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 
-    public TransferValidateException(ErrorCode errorCode, String message) {
-        super(errorCode, message);
-    }
-
-    public TransferValidateException(ErrorCode errorCode, Throwable throwable) {
-        super(errorCode, throwable);
-    }
-
-    public TransferValidateException(ErrorCode errorCode, String message, Throwable throwable) {
-        super(errorCode, message, throwable);
+    public TransferValidateException(String method, ErrorCode errorCode, String message, Throwable throwable) {
+        super(method, errorCode, message, throwable);
     }
 }

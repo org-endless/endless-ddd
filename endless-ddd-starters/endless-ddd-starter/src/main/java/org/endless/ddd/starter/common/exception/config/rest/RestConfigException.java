@@ -16,21 +16,33 @@ import org.endless.ddd.starter.common.exception.config.ConfigException;
  */
 public class RestConfigException extends ConfigException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DEN0100");
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("CFG0200");
 
     public RestConfigException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public RestConfigException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public RestConfigException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public RestConfigException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public RestConfigException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public RestConfigException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
+    }
+
+    public RestConfigException(String method, ErrorCode errorCode, String message, Throwable throwable) {
+        super(method, errorCode, message, throwable);
     }
 }

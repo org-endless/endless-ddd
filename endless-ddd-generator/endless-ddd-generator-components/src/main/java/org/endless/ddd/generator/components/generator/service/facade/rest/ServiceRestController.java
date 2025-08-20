@@ -9,7 +9,8 @@ import org.endless.ddd.generator.components.generator.service.application.comman
 import org.endless.ddd.generator.components.generator.service.application.command.transfer.ServiceModifyReqCTransfer;
 import org.endless.ddd.generator.components.generator.service.application.command.transfer.ServiceRemoveReqCTransfer;
 import org.endless.ddd.generator.components.generator.service.application.query.handler.ServiceQueryHandler;
-import org.endless.ddd.generator.components.generator.service.application.query.transfer.ServiceFindByProjectIdReqQTransfer;
+import org.endless.ddd.generator.components.generator.service.application.query.transfer.ServiceFindByProjectIdReqQTransferReq;
+import org.endless.ddd.generator.components.generator.service.application.query.transfer.ServiceFindSimpleProfilesRespQTransfer;
 import org.endless.ddd.starter.common.annotation.log.Log;
 import org.endless.ddd.starter.common.config.rest.response.RestResponse;
 import org.springframework.context.annotation.Lazy;
@@ -54,7 +55,7 @@ public class ServiceRestController implements DDDGeneratorRestController {
 
     @PostMapping("/command/create")
     @Log(message = "服务创建", value = "#command")
-    public ResponseEntity<RestResponse> create(
+    public ResponseEntity<RestResponse<Void>> create(
             @NotNull(message = "服务创建请求对象不能为空")
             @Valid @RequestBody ServiceCreateReqCTransfer command) {
         serviceCommandHandler.create(command);
@@ -64,7 +65,7 @@ public class ServiceRestController implements DDDGeneratorRestController {
 
     @PostMapping("/command/remove")
     @Log(message = "服务删除", value = "#command")
-    public ResponseEntity<RestResponse> remove(
+    public ResponseEntity<RestResponse<Void>> remove(
             @NotNull(message = "服务删除请求对象不能为空")
             @Valid @RequestBody ServiceRemoveReqCTransfer command) {
         serviceCommandHandler.remove(command);
@@ -73,7 +74,7 @@ public class ServiceRestController implements DDDGeneratorRestController {
 
     @PostMapping("/command/modify")
     @Log(message = "服务修改", value = "#command")
-    public ResponseEntity<RestResponse> modify(
+    public ResponseEntity<RestResponse<Void>> modify(
             @NotNull(message = "服务修改请求对象不能为空")
             @Valid @RequestBody ServiceModifyReqCTransfer command) {
         serviceCommandHandler.modify(command);
@@ -82,7 +83,7 @@ public class ServiceRestController implements DDDGeneratorRestController {
 
     @PostMapping("/command/generate")
     @Log(message = "服务生成", value = "#command")
-    public ResponseEntity<RestResponse> generate(
+    public ResponseEntity<RestResponse<Void>> generate(
             @NotNull(message = "服务生成请求对象不能为空")
             @Valid @RequestBody ServiceGenerateReqCTransfer command) {
         serviceCommandHandler.generate(command);
@@ -91,9 +92,9 @@ public class ServiceRestController implements DDDGeneratorRestController {
 
     @PostMapping("/query/find_simple_profiles_by_project_id")
     @Log(message = "根据项目ID查询项目基本信息列表", value = "#query")
-    public ResponseEntity<RestResponse> findSimpleProfilesByProjectId(
+    public ResponseEntity<RestResponse<ServiceFindSimpleProfilesRespQTransfer>> findSimpleProfilesByProjectId(
             @NotNull(message = "根据项目ID查询项目基本信息列表请求对象不能为空")
-            @Valid @RequestBody ServiceFindByProjectIdReqQTransfer query) {
-        return response().success("根据项目ID查询项目基本信息列表成功", serviceQueryHandler.findSimpleProfilesByProjectId(query));
+            @Valid @RequestBody ServiceFindByProjectIdReqQTransferReq query) {
+        return response(serviceQueryHandler.findSimpleProfilesByProjectId(query)).success("根据项目ID查询项目基本信息列表成功");
     }
 }

@@ -30,23 +30,19 @@ public class FailedException extends AbstractException {
         super(ERROR_CODE, throwable);
     }
 
+    public FailedException(String method, String message) {
+        super(method, ERROR_CODE, message);
+    }
+
     public FailedException(String message, Throwable throwable) {
         super(ERROR_CODE, message, throwable);
     }
 
-    public FailedException(ErrorCode errorCode) {
-        super(errorCode);
+    public FailedException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 
-    public FailedException(ErrorCode errorCode, String message) {
-        super(errorCode, message);
-    }
-
-    public FailedException(ErrorCode errorCode, Throwable throwable) {
-        super(errorCode, throwable);
-    }
-
-    public FailedException(ErrorCode errorCode, String message, Throwable throwable) {
-        super(errorCode, message, throwable);
+    public FailedException(String method, ErrorCode errorCode, String message, Throwable throwable) {
+        super(method, errorCode, message, throwable);
     }
 }

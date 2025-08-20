@@ -1,5 +1,7 @@
 package org.endless.ddd.starter.common.utils.security;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,11 +11,12 @@ import org.springframework.security.core.userdetails.UserDetails;
  * <p>
  * create 2024/12/13 16:47
  * <p>
- * update 2024/12/13 16:47
+ * update 2025/08/18 18:01:55
  *
  * @author Deng Haozhi
  * @since 1.0.0
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SecurityTools {
 
     public static String getUserId() {

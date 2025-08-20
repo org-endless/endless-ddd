@@ -19,34 +19,30 @@ public class TransferNullException extends FailedException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DTO0000");
 
     public TransferNullException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public TransferNullException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public TransferNullException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public TransferNullException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public TransferNullException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
     }
 
-    public TransferNullException(ErrorCode errorCode) {
-        super(errorCode);
+    public TransferNullException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 
-    public TransferNullException(ErrorCode errorCode, String message) {
-        super(errorCode, message);
-    }
-
-    public TransferNullException(ErrorCode errorCode, Throwable throwable) {
-        super(errorCode, throwable);
-    }
-
-    public TransferNullException(ErrorCode errorCode, String message, Throwable throwable) {
-        super(errorCode, message, throwable);
+    public TransferNullException(String method, ErrorCode errorCode, String message, Throwable throwable) {
+        super(method, errorCode, message, throwable);
     }
 }

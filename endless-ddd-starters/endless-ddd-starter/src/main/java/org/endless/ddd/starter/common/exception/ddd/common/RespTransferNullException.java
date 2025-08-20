@@ -18,34 +18,30 @@ public class RespTransferNullException extends TransferNullException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DTO2000");
 
     public RespTransferNullException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public RespTransferNullException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public RespTransferNullException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public RespTransferNullException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public RespTransferNullException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
     }
 
-    public RespTransferNullException(ErrorCode errorCode) {
-        super(errorCode);
+    public RespTransferNullException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 
-    public RespTransferNullException(ErrorCode errorCode, String message) {
-        super(errorCode, message);
-    }
-
-    public RespTransferNullException(ErrorCode errorCode, Throwable throwable) {
-        super(errorCode, throwable);
-    }
-
-    public RespTransferNullException(ErrorCode errorCode, String message, Throwable throwable) {
-        super(errorCode, message, throwable);
+    public RespTransferNullException(String method, ErrorCode errorCode, String message, Throwable throwable) {
+        super(method, errorCode, message, throwable);
     }
 }

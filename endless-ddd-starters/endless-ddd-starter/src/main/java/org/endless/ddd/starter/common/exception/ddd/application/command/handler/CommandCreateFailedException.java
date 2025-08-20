@@ -18,18 +18,26 @@ public class CommandCreateFailedException extends CommandFailedException {
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DCD0001");
 
     public CommandCreateFailedException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public CommandCreateFailedException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public CommandCreateFailedException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public CommandCreateFailedException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public CommandCreateFailedException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public CommandCreateFailedException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

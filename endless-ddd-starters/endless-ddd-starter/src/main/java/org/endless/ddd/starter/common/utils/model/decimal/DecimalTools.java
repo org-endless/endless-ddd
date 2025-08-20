@@ -1,7 +1,9 @@
 package org.endless.ddd.starter.common.utils.model.decimal;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.endless.ddd.starter.common.exception.common.FailedException;
-import org.endless.ddd.starter.common.exception.utils.model.*;
+import org.endless.ddd.starter.common.exception.utils.model.decimal.*;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -22,6 +24,7 @@ import java.util.stream.Stream;
  * @author Deng Haozhi
  * @since 1.0.0
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DecimalTools {
 
     private static final int DEFAULT_SCALE = 2;
@@ -69,7 +72,7 @@ public class DecimalTools {
     public static void validateNonNegative(String decimalString, String errorMessage) {
         Optional.ofNullable(decimalString)
                 .filter(StringUtils::hasText)
-                .orElseThrow(() -> new DecimalEmptyException(errorMessage + "不能为空"));
+                .orElseThrow(() -> new DecimalNullException(errorMessage + "不能为空"));
         try {
             BigDecimal decimal = new BigDecimal(decimalString);
             validateNonNegative(decimal, errorMessage);
@@ -86,7 +89,7 @@ public class DecimalTools {
      */
     public static void validateNonNegative(BigDecimal decimal, String errorMessage) {
         Optional.ofNullable(decimal)
-                .orElseThrow(() -> new DecimalEmptyException(errorMessage + "不能为空"));
+                .orElseThrow(() -> new DecimalNullException(errorMessage + "不能为空"));
         if (decimal.compareTo(BigDecimal.ZERO) < 0) {
             throw new DecimalOutOfRangeException(errorMessage + "不能小于0");
         }
@@ -103,7 +106,7 @@ public class DecimalTools {
     public static void validateDecimal(String decimalString, Integer precision, Integer scale, String errorMessage) {
         Optional.ofNullable(decimalString)
                 .filter(StringUtils::hasText)
-                .orElseThrow(() -> new DecimalEmptyException(errorMessage + "不能为空"));
+                .orElseThrow(() -> new DecimalNullException(errorMessage + "不能为空"));
         try {
             BigDecimal decimal = new BigDecimal(decimalString);
             validateDecimal(decimal, precision, scale, errorMessage);
@@ -122,7 +125,7 @@ public class DecimalTools {
      */
     public static void validateDecimal(BigDecimal decimal, Integer precision, Integer scale, String errorMessage) {
         Optional.ofNullable(decimal)
-                .orElseThrow(() -> new DecimalEmptyException(errorMessage + "不能为空"));
+                .orElseThrow(() -> new DecimalNullException(errorMessage + "不能为空"));
         BigDecimal abs = decimal.abs();
         int actualScale = abs.scale();
         if (actualScale > scale) {
@@ -144,8 +147,8 @@ public class DecimalTools {
                     .filter(StringUtils::hasText)
                     .map(BigDecimal::new)
                     .map(DecimalTools::format)
-                    .orElseThrow(DecimalEmptyException::new);
-        } catch (DecimalEmptyException e) {
+                    .orElseThrow(DecimalNullException::new);
+        } catch (DecimalNullException e) {
             throw e;
         } catch (Exception e) {
             throw new DecimalFormatException(e);
@@ -156,7 +159,7 @@ public class DecimalTools {
         return Optional.ofNullable(decimal)
                 .map(String::valueOf)
                 .map(DecimalTools::format)
-                .orElseThrow(DecimalEmptyException::new);
+                .orElseThrow(DecimalNullException::new);
     }
 
     public static BigDecimal format5Bit(BigDecimal decimal) {
@@ -168,26 +171,20 @@ public class DecimalTools {
                 .filter(StringUtils::hasText)
                 .map(BigDecimal::new)
                 .map(DecimalTools::format5Bit)
-                .orElseThrow(DecimalEmptyException::new);
+                .orElseThrow(DecimalNullException::new);
     }
 
     public static BigDecimal format5Bit(Object decimal) {
         return Optional.ofNullable(decimal)
                 .map(String::valueOf)
                 .map(DecimalTools::format5Bit)
-                .orElseThrow(DecimalEmptyException::new);
-    }
-
-    private static BigDecimal format(BigDecimal decimal, int scale) {
-        return Optional.ofNullable(decimal)
-                .map(d -> d.setScale(scale, ROUNDING_MODE))
-                .orElseThrow(DecimalEmptyException::new);
+                .orElseThrow(DecimalNullException::new);
     }
 
     public static BigDecimal add(BigDecimal decimal, BigDecimal augend) {
         if (Stream.of(decimal, augend)
                 .map(Optional::ofNullable).anyMatch(Optional::isEmpty)) {
-            throw new DecimalEmptyException();
+            throw new DecimalNullException();
         }
         try {
             return format5Bit(format5Bit(decimal).add(format5Bit(augend)));
@@ -201,7 +198,7 @@ public class DecimalTools {
     public static BigDecimal subtract(BigDecimal decimal, BigDecimal subtrahend) {
         if (Stream.of(decimal, subtrahend)
                 .map(Optional::ofNullable).anyMatch(Optional::isEmpty)) {
-            throw new DecimalEmptyException();
+            throw new DecimalNullException();
         }
         try {
             return format5Bit(format5Bit(decimal).subtract(subtrahend));
@@ -215,7 +212,7 @@ public class DecimalTools {
     public static BigDecimal multiply(BigDecimal decimal, BigDecimal multiplicand) {
         if (Stream.of(decimal, multiplicand)
                 .map(Optional::ofNullable).anyMatch(Optional::isEmpty)) {
-            throw new DecimalEmptyException();
+            throw new DecimalNullException();
         }
         try {
             return format5Bit(format5Bit(decimal).multiply(multiplicand));
@@ -229,7 +226,7 @@ public class DecimalTools {
     public static BigDecimal divide(BigDecimal decimal, BigDecimal divisor) {
         if (Stream.of(decimal, divisor)
                 .map(Optional::ofNullable).anyMatch(Optional::isEmpty)) {
-            throw new DecimalEmptyException();
+            throw new DecimalNullException();
         }
         if (divisor.compareTo(BigDecimal.ZERO) == 0) {
             throw new DecimalDivisionByZeroException();
@@ -252,7 +249,7 @@ public class DecimalTools {
                     .filter(Objects::nonNull)
                     .map(DecimalTools::format5Bit)
                     .max(BigDecimal::compareTo)
-                    .orElseThrow(DecimalEmptyException::new));
+                    .orElseThrow(DecimalNullException::new));
         } catch (FailedException e) {
             throw e;
         } catch (Exception e) {
@@ -269,7 +266,7 @@ public class DecimalTools {
                     .filter(Objects::nonNull)
                     .map(DecimalTools::format5Bit)
                     .min(BigDecimal::compareTo)
-                    .orElseThrow(DecimalEmptyException::new));
+                    .orElseThrow(DecimalNullException::new));
         } catch (FailedException e) {
             throw e;
         } catch (Exception e) {
@@ -280,13 +277,13 @@ public class DecimalTools {
     public static BigDecimal average(List<BigDecimal> decimals) {
         List<BigDecimal> validDecimals = Optional.ofNullable(decimals)
                 .filter(l -> !CollectionUtils.isEmpty(l))
-                .orElseThrow(DecimalEmptyException::new)
+                .orElseThrow(DecimalNullException::new)
                 .stream()
                 .filter(Objects::nonNull)
                 .map(DecimalTools::format5Bit)
                 .toList();
         if (validDecimals.isEmpty()) {
-            throw new DecimalEmptyException();
+            throw new DecimalNullException();
         }
         try {
             BigDecimal sum = validDecimals.stream()
@@ -302,13 +299,13 @@ public class DecimalTools {
     public static BigDecimal median(List<BigDecimal> decimals) {
         List<BigDecimal> validDecimals = Optional.ofNullable(decimals)
                 .filter(l -> !CollectionUtils.isEmpty(l))
-                .orElseThrow(DecimalEmptyException::new)
+                .orElseThrow(DecimalNullException::new)
                 .stream()
                 .filter(Objects::nonNull)
                 .map(DecimalTools::format5Bit)
                 .sorted().toList();
         if (validDecimals.isEmpty()) {
-            throw new DecimalEmptyException();
+            throw new DecimalNullException();
         }
         try {
             int size = validDecimals.size();
@@ -324,5 +321,11 @@ public class DecimalTools {
         } catch (Exception e) {
             throw new DecimalCalculationException(e);
         }
+    }
+
+    private static BigDecimal format(BigDecimal decimal, int scale) {
+        return Optional.ofNullable(decimal)
+                .map(d -> d.setScale(scale, ROUNDING_MODE))
+                .orElseThrow(DecimalNullException::new);
     }
 }

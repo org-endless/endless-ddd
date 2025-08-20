@@ -16,21 +16,29 @@ import org.endless.ddd.starter.common.exception.config.ConfigException;
  */
 public class MinioConfigException extends ConfigException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("CFG0200");
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("CFG0300");
 
     public MinioConfigException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public MinioConfigException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public MinioConfigException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public MinioConfigException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public MinioConfigException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public MinioConfigException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

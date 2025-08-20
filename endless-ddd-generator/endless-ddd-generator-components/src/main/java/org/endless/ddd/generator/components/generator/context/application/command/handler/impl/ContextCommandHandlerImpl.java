@@ -1,9 +1,9 @@
 package org.endless.ddd.generator.components.generator.context.application.command.handler.impl;
 
 import org.endless.ddd.generator.components.generator.context.application.command.handler.ContextCommandHandler;
-import org.endless.ddd.generator.components.generator.context.application.command.transfer.ContextCreateReqCTransfer;
-import org.endless.ddd.generator.components.generator.context.application.command.transfer.ContextModifyReqCTransfer;
-import org.endless.ddd.generator.components.generator.context.application.command.transfer.ContextRemoveReqCTransfer;
+import org.endless.ddd.generator.components.generator.context.application.command.transfer.ContextCreateReqCTransferReq;
+import org.endless.ddd.generator.components.generator.context.application.command.transfer.ContextModifyReqCTransferReq;
+import org.endless.ddd.generator.components.generator.context.application.command.transfer.ContextRemoveReqCTransferReq;
 import org.endless.ddd.generator.components.generator.context.domain.anticorruption.ContextRepository;
 import org.endless.ddd.generator.components.generator.context.domain.entity.ContextAggregate;
 import org.endless.ddd.generator.components.generator.context.domain.type.ContextTypeEnum;
@@ -41,9 +41,9 @@ public class ContextCommandHandlerImpl implements ContextCommandHandler {
     @Override
     @Transactional
     @Log(message = "限界上下文创建命令", value = "#command", level = LogLevel.TRACE)
-    public void create(ContextCreateReqCTransfer command) {
+    public void create(ContextCreateReqCTransferReq command) {
         Optional.ofNullable(command)
-                .map(ContextCreateReqCTransfer::validate)
+                .map(ContextCreateReqCTransferReq::validate)
                 .orElseThrow(() -> new CommandReqTransferNullException("限界上下文创建命令参数不能为空"));
         ContextAggregate aggregate = ContextAggregate.create(ContextAggregate.builder()
                 .serviceId(command.serviceId())
@@ -59,9 +59,9 @@ public class ContextCommandHandlerImpl implements ContextCommandHandler {
     }
 
     @Override
-    public void remove(ContextRemoveReqCTransfer command) {
+    public void remove(ContextRemoveReqCTransferReq command) {
         Optional.ofNullable(command)
-                .map(ContextRemoveReqCTransfer::validate)
+                .map(ContextRemoveReqCTransferReq::validate)
                 .orElseThrow(() -> new CommandReqTransferNullException("限界上下文修改命令参数不能为空"));
         ContextAggregate aggregate = contextRepository.findById(command.contextId())
                 .orElseThrow(() -> new CommandNotFoundException("限界上下文不存在"));
@@ -71,9 +71,9 @@ public class ContextCommandHandlerImpl implements ContextCommandHandler {
     @Override
     @Transactional
     @Log(message = "限界上下文修改命令", value = "#command", level = LogLevel.TRACE)
-    public void modify(ContextModifyReqCTransfer command) {
+    public void modify(ContextModifyReqCTransferReq command) {
         Optional.ofNullable(command)
-                .map(ContextModifyReqCTransfer::validate)
+                .map(ContextModifyReqCTransferReq::validate)
                 .orElseThrow(() -> new CommandReqTransferNullException("限界上下文修改命令参数不能为空"));
         ContextAggregate aggregate = contextRepository.findById(command.contextId())
                 .orElseThrow(() -> new CommandNotFoundException("限界上下文不存在"));

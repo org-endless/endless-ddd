@@ -1,5 +1,9 @@
 package org.endless.ddd.starter.common.utils.model.time;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import org.endless.ddd.starter.common.exception.utils.model.time.DateTimeException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -15,12 +19,13 @@ import java.util.Date;
  * @author Deng Haozhi
  * @since 1.0.0
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DateTimeTools {
 
-    public final static String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss:SSS";
+    public static final String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss:SSS";
 
     public static String now() {
-        return TimeStampTools.format(Instant.now(), DEFAULT_DATE_TIME_FORMAT);
+        return TimestampTools.format(Instant.now(), DEFAULT_DATE_TIME_FORMAT);
     }
 
     public static String from(Long timestamp) {
@@ -28,7 +33,7 @@ public class DateTimeTools {
     }
 
     public static String from(Long timestamp, String pattern) {
-        return TimeStampTools.format(Instant.ofEpochMilli(timestamp), pattern);
+        return TimestampTools.format(Instant.ofEpochMilli(timestamp), pattern);
     }
 
     public static Long formatToTimestamp(String dateTime) {
@@ -37,7 +42,7 @@ public class DateTimeTools {
             Date date = formatter.parse(dateTime);
             return date.getTime();
         } catch (ParseException e) {
-            throw new RuntimeException("Failed to parse date", e);
+            throw new DateTimeException(e);
         }
     }
 }

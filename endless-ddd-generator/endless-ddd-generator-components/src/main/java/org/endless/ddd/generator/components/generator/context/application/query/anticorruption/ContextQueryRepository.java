@@ -1,7 +1,7 @@
 package org.endless.ddd.generator.components.generator.context.application.query.anticorruption;
 
 import org.endless.ddd.generator.common.model.application.query.anticorruption.DDDGeneratorQueryRepository;
-import org.endless.ddd.generator.components.generator.context.application.query.transfer.ContextFindSimpleProfileRespQTransfer;
+import org.endless.ddd.generator.components.generator.context.application.query.transfer.ContextFindSimpleProfileRespQTransferReq;
 import org.endless.ddd.generator.components.generator.context.domain.anticorruption.ContextRepository;
 import org.endless.ddd.generator.components.generator.context.domain.entity.ContextAggregate;
 
@@ -22,6 +22,6 @@ import java.util.List;
  */
 public interface ContextQueryRepository extends ContextRepository, DDDGeneratorQueryRepository<ContextAggregate> {
 
-    List<ContextFindSimpleProfileRespQTransfer> findSimpleProfilesByServiceId(String serviceId);
+    List<ContextFindSimpleProfileRespQTransferReq> findSimpleProfilesByServiceId(String serviceId);
 
 }

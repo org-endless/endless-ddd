@@ -6,8 +6,8 @@ import lombok.ToString;
 import org.endless.ddd.generator.common.model.domain.entity.DDDGeneratorEntity;
 import org.endless.ddd.generator.components.generator.domain.domain.type.AggregateFieldTypeEnum;
 import org.endless.ddd.starter.common.config.utils.id.IdGenerator;
-import org.endless.ddd.starter.common.exception.ddd.domain.entity.EntityRemoveException;
-import org.endless.ddd.starter.common.exception.ddd.domain.entity.EntityValidateException;
+import org.endless.ddd.starter.common.exception.ddd.domain.entity.entity.EntityRemoveException;
+import org.endless.ddd.starter.common.exception.ddd.domain.entity.entity.EntityValidateException;
 import org.springframework.util.StringUtils;
 
 /**
@@ -86,6 +86,20 @@ public class AggregateFieldEntity implements DDDGeneratorEntity {
                 .validate();
     }
 
+    @Override
+    public AggregateFieldEntity validate() {
+        validateAggregateFieldId();
+        validateName();
+        validateType();
+        validateDescription();
+        validateIsRequired();
+        validateFieldOrder();
+        validateCreateUserId();
+        validateModifyUserId();
+        validateIsRemoved();
+        return this;
+    }
+
     protected AggregateFieldEntity remove(String modifyUserId) {
         if (this.isRemoved) {
             throw new EntityRemoveException("已经被删除的实体<聚合根字段实体>不能再次删除, ID: " + aggregateFieldId);
@@ -100,20 +114,6 @@ public class AggregateFieldEntity implements DDDGeneratorEntity {
 
     private boolean canRemove() {
         return true;
-    }
-
-    @Override
-    public AggregateFieldEntity validate() {
-        validateAggregateFieldId();
-        validateName();
-        validateType();
-        validateDescription();
-        validateIsRequired();
-        validateFieldOrder();
-        validateCreateUserId();
-        validateModifyUserId();
-        validateIsRemoved();
-        return this;
     }
 
     private void validateAggregateFieldId() {

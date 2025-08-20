@@ -19,18 +19,26 @@ public class CommandRespTransferValidateException extends RespTransferValidateEx
     private static final ErrorCode ERROR_CODE = ErrorCode.of("DTO2101");
 
     public CommandRespTransferValidateException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public CommandRespTransferValidateException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public CommandRespTransferValidateException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public CommandRespTransferValidateException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public CommandRespTransferValidateException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public CommandRespTransferValidateException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }

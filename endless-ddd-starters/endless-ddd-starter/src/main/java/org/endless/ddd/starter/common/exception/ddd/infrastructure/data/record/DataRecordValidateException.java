@@ -1,7 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.data.record;
 
 import org.endless.ddd.starter.common.config.error.code.ErrorCode;
-import org.endless.ddd.starter.common.exception.common.FailedException;
 
 /**
  * DataRecordValidateException
@@ -11,26 +10,34 @@ import org.endless.ddd.starter.common.exception.common.FailedException;
  * update 2025/08/07 23:46
  *
  * @author Deng Haozhi
- * @see FailedException
+ * @see DataRecordException
  * @since 1.0.0
  */
-public class DataRecordValidateException extends FailedException {
+public class DataRecordValidateException extends DataRecordException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DDR0001");
+    private static final ErrorCode ERROR_CODE = ErrorCode.of("DDR0002");
 
     public DataRecordValidateException() {
-        super(ERROR_CODE);
+        super(null, ERROR_CODE, null, null);
     }
 
     public DataRecordValidateException(String message) {
-        super(ERROR_CODE, message);
+        super(null, ERROR_CODE, message, null);
     }
 
     public DataRecordValidateException(Throwable throwable) {
-        super(ERROR_CODE, throwable);
+        super(null, ERROR_CODE, null, throwable);
+    }
+
+    public DataRecordValidateException(String method, String message) {
+        super(method, ERROR_CODE, message, null);
     }
 
     public DataRecordValidateException(String message, Throwable throwable) {
-        super(ERROR_CODE, message, throwable);
+        super(null, ERROR_CODE, message, throwable);
+    }
+
+    public DataRecordValidateException(String method, String message, Throwable throwable) {
+        super(method, ERROR_CODE, message, throwable);
     }
 }
