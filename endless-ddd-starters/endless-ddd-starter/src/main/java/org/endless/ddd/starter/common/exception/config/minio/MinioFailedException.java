@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.config.minio;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.common.FailedException;
 
 /**
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.common.FailedException;
  */
 public class MinioFailedException extends FailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("MIO0000");
+    private static final ErrorCode ERROR_CODE = ErrorCode.MIO0000;
 
     public MinioFailedException() {
         super(null, ERROR_CODE, null, null);

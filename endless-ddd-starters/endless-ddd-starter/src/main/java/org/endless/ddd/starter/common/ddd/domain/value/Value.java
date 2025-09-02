@@ -1,5 +1,7 @@
 package org.endless.ddd.starter.common.ddd.domain.value;
 
+import java.io.Serializable;
+
 /**
  * Value
  * <p>值对象
@@ -14,7 +16,7 @@ package org.endless.ddd.starter.common.ddd.domain.value;
  * @author Deng Haozhi
  * @since 1.0.0
  */
-public interface Value {
+public interface Value extends Serializable {
 
     Value validate();
 }

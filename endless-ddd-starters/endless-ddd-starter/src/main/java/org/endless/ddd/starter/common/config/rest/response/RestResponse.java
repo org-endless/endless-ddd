@@ -1,15 +1,22 @@
 package org.endless.ddd.starter.common.config.rest.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 import org.endless.ddd.starter.common.ddd.common.Response;
 import org.endless.ddd.starter.common.exception.config.rest.RestServerResponseFailedException;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
+import org.endless.ddd.starter.common.utils.model.object.ObjectTools;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
+
+import java.io.Serializable;
 
 import static org.endless.ddd.starter.common.utils.error.message.exception.ExceptionErrorParser.addBrackets;
 
@@ -29,24 +36,25 @@ import static org.endless.ddd.starter.common.utils.error.message.exception.Excep
 @Slf4j
 @Getter
 @Builder
+@ToString
+@Validated
 @Schema(description = "通用的响应格式", name = "RestResponse")
 public class RestResponse<R> implements Response {
-
-    private static final String SUCCESS_CODE = "SUCCESS";
 
     @Schema(description = "响应状态", example = "200")
     private String status;
 
-    @Schema(description = "响应错误码", example = SUCCESS_CODE)
+    @Schema(description = "响应错误码", example = "SUCCESS")
     private String errorCode;
 
     @Schema(description = "响应信息", example = "服务处理响应成功")
     private String message;
 
     @Schema(description = "响应数据", implementation = Object.class)
-    private final transient R data;
+    private final Serializable data;
 
     @Schema(description = "服务描述", example = "DDD服务")
+    @NotBlank(message = "服务描述不能为空")
     private final String serviceDescription;
 
     @Schema(description = "领域描述", example = "DDD领域")
@@ -59,8 +67,8 @@ public class RestResponse<R> implements Response {
 
     public ResponseEntity<RestResponse<R>> success() {
         this.status = String.valueOf(HttpStatus.OK.value());
-        this.errorCode = ErrorCode.of(SUCCESS_CODE).getCode();
-        this.message = "[" + ErrorCode.of(SUCCESS_CODE).getDescription() + "]" + addBrackets(message);
+        this.errorCode = ErrorCode.SUCCESS.getCode();
+        this.message = "[" + ErrorCode.SUCCESS.getDescription() + "]" + addBrackets(message);
         return new ResponseEntity<>(this, HttpStatus.OK);
     }
 
@@ -107,10 +115,19 @@ public class RestResponse<R> implements Response {
     }
 
     public R validate() {
-        if (StringUtils.hasText(errorCode) && !SUCCESS_CODE.equals(errorCode)) {
+        return validate(null);
+    }
+
+    @NotNull(message = "响应数据不能为空")
+    public R validate(Class<R> clazz) {
+        if (StringUtils.hasText(errorCode) && ErrorCode.SUCCESS.getCode().equals(errorCode)) {
+            if (clazz == null) {
+                return null;
+            }
             log.trace("[REST响应成功]: {}", this);
-            return getData();
+            return ObjectTools.of(data, clazz);
         } else {
+            this.message = this.message.replaceAll("\\s", "");
             throw new RestServerResponseFailedException("[REST响应失败]: " + this);
         }
     }

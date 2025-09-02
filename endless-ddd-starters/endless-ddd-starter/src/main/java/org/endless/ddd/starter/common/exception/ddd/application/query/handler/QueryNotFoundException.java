@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.application.query.handler;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.common.NotFoundException;
 
 /**
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.common.NotFoundException;
  */
 public class QueryNotFoundException extends NotFoundException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DQR0010");
+    private static final ErrorCode ERROR_CODE = ErrorCode.DQR0010;
 
     public QueryNotFoundException() {
         super(null, ERROR_CODE, null, null);

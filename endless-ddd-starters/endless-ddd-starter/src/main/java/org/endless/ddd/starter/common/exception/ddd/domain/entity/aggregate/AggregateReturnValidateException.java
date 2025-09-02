@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.domain.entity.aggregate;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * AggregateReturnValidateException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class AggregateReturnValidateException extends AggregateException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DAG8101");
+    private static final ErrorCode ERROR_CODE = ErrorCode.DAG8101;
 
     public AggregateReturnValidateException() {
         super(null, ERROR_CODE, null, null);

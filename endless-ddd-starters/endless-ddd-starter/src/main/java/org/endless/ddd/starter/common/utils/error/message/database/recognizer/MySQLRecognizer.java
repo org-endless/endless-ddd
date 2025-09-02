@@ -18,7 +18,7 @@ public class MySQLRecognizer {
 
     public static final DatabaseRecognizer recognizer =
             new DatabaseRecognizer(
-                    message -> message.contains("MySQL"),
+                    message -> !message.contains("SQLITE"),
                     List.of(
                             new PatternHandler(" doesn't exist", "Table '(.+?)' doesn't exist", m -> String.format("数据库表 '%s' 不存在", m.group(1))),
                             new PatternHandler("Unknown column ", "Unknown column '(.+?)'", m -> String.format("字段 '%s' 不存在，请检查字段名是否正确", m.group(1))),

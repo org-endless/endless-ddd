@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.domain.entity.entity;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * EntityReturnNullException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class EntityReturnNullException extends EntityException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DEN8100");
+    private static final ErrorCode ERROR_CODE = ErrorCode.DEN8100;
 
     public EntityReturnNullException() {
         super(null, ERROR_CODE, null, null);

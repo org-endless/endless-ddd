@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.config.utils.id;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.config.ConfigException;
 
 /**
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.config.ConfigException;
  */
 public class IdGeneratorException extends ConfigException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("CFG8000");
+    private static final ErrorCode ERROR_CODE = ErrorCode.CFG8000;
 
     public IdGeneratorException() {
         super(null, ERROR_CODE, null, null);

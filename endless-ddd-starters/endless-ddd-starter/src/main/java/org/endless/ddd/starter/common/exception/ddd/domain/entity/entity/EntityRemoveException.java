@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.domain.entity.entity;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * EntityRemoveException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class EntityRemoveException extends EntityException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DEN0101");
+    private static final ErrorCode ERROR_CODE = ErrorCode.DEN0101;
 
     public EntityRemoveException() {
         super(null, ERROR_CODE, null, null);

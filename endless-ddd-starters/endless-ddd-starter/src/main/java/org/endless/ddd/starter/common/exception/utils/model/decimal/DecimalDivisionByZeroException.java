@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.utils.model.decimal;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * DecimalFormatException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class DecimalDivisionByZeroException extends DecimalException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("UTL0015");
+    private static final ErrorCode ERROR_CODE = ErrorCode.UTL0015;
 
     public DecimalDivisionByZeroException() {
         super(null, ERROR_CODE, null, null);

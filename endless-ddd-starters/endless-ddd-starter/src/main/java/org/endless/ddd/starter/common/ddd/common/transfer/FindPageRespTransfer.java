@@ -1,15 +1,14 @@
 package org.endless.ddd.starter.common.ddd.common.transfer;
 
 import com.alibaba.fastjson2.annotation.JSONType;
-import com.alibaba.fastjson2.util.TypeUtils;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
-import org.endless.ddd.starter.common.exception.ddd.common.TransferValidateException;
+import org.endless.ddd.starter.common.utils.model.object.ObjectTools;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * FindPageRespTransfer
@@ -31,46 +30,26 @@ import java.util.stream.Collectors;
 @Builder
 @org.endless.ddd.starter.common.annotation.validate.ddd.Transfer
 @JSONType(orders = {"rows", "total", "pageSize", "pageNum"})
-public record FindPageRespTransfer(
-        List<?> rows,
-        Long total,
-        Integer pageNum,
-        Integer pageSize
+public record FindPageRespTransfer<R extends RespTransfer>(
+        List<R> rows,
+        @NotNull(message = "查询总条数不能为空") Long total,
+        @NotNull(message = "页码不能为空") Integer pageNum,
+        @NotNull(message = "分页大小不能为空") Integer pageSize
 ) implements Transfer {
 
     @Override
-    public FindPageRespTransfer validate() {
-        validateTotal();
-        validatePageSize();
-        validatePageNum();
+    public FindPageRespTransfer<R> validate() {
         return this;
     }
 
-    public <T extends Transfer> List<T> getRows(Class<T> clazz) {
+    @NotNull(message = "查询结果不能为空对象")
+    public List<R> getRows(
+            @NotNull(message = "查询结果对象类型不能为空") Class<R> clazz) {
         return Optional.ofNullable(rows)
                 .filter(l -> !CollectionUtils.isEmpty(l))
                 .orElse(Collections.emptyList())
                 .stream()
-                .map(t -> TypeUtils.cast(t, clazz))
-                .collect(Collectors.toList());
+                .map(t -> ObjectTools.of(t, clazz))
+                .toList();
     }
-
-    private void validateTotal() {
-        if (total == null || total < 0) {
-            throw new TransferValidateException("查询总条数不正确");
-        }
-    }
-
-    private void validatePageNum() {
-        if (pageNum == null || pageNum < 1) {
-            throw new TransferValidateException("页码不正确");
-        }
-    }
-
-    private void validatePageSize() {
-        if (pageSize == null || pageSize < 1) {
-            throw new TransferValidateException("分页大小不正确");
-        }
-    }
-
 }

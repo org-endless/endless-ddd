@@ -1,6 +1,6 @@
 package org.endless.ddd.generator.components.generator.service.infrastructure.adapter.sidecar.transfer;
 
-import org.endless.ddd.generator.common.model.infrastructure.adapter.transfer.DDDGeneratorExchange;
+import org.endless.ddd.generator.common.model.infrastructure.adapter.rest.exchange.DDDGeneratorExchange;
 
 /**
  * ServiceSidecarExchange

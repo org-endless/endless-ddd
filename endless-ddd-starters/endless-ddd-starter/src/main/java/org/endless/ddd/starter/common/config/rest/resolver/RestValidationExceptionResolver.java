@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.endless.ddd.starter.common.config.endless.properties.EndlessProperties;
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 import org.endless.ddd.starter.common.config.rest.response.RestResponse;
 import org.endless.ddd.starter.common.exception.AbstractRestExceptionHandler;
 import org.endless.ddd.starter.common.utils.error.message.exception.ExceptionErrorParser;
@@ -75,12 +75,12 @@ public class RestValidationExceptionResolver implements HandlerExceptionResolver
                             return fieldName;
                         })
                 ).toList();
-        ErrorCode errorCode = ErrorCode.of("RES0251");
+        ErrorCode errorCode = ErrorCode.RES0251;
         String message = ExceptionErrorParser.parse(null, errorCode,
                 errorFields.isEmpty()
                         ? "参数校验失败"
                         : "参数 " + String.join(", ", errorFields) + " 校验失败");
-        log.error("[{}]{}", errorCode, message, e);
+        log.error("[{}]{}", errorCode.getCode(), message, e);
         return abstractRestExceptionHandler.response().failure(errorCode, message);
     }
 
@@ -92,8 +92,8 @@ public class RestValidationExceptionResolver implements HandlerExceptionResolver
         json = JSON.toJSONString(responseEntity.getBody(), JSONReader.autoTypeFilter(JSON_ALLOWED_TYPES), JSONWriter.Feature.PrettyFormat);
         try (PrintWriter writer = response.getWriter()) {
             writer.write(json);
-        } catch (IOException ex) {
-            log.error("resolveResponse error", ex);
+        } catch (IOException e) {
+            log.error("REST处理响应信息失败", e);
         }
         return new ModelAndView();
     }

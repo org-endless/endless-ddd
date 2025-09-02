@@ -51,7 +51,7 @@ public class FastJson2HttpMessageConverter<T> extends AbstractGenericHttpMessage
         try (InputStream inputStream = inputMessage.getBody()) {
             byte[] buffer = inputStream.readAllBytes();
             String string = new String(buffer, charset);
-            log.trace("[Rest反序列化对象]: {}", JsonTools.maskSensitive(string.replaceAll("[\\r\\n\\s]", "")));
+            log.trace("[Rest反序列化对象]: {}", JsonTools.maskSensitive(string.replaceAll("\\s", "")));
             return JSON.parseObject(string, type, filter());
         } catch (Exception e) {
             throw new RestFailedException("Rest反序列化对象异常: " + e.getMessage(), e);
@@ -60,7 +60,7 @@ public class FastJson2HttpMessageConverter<T> extends AbstractGenericHttpMessage
 
     @Override
     protected boolean supports(@NonNull Class<?> clazz) {
-        return true;
+        return MediaType.APPLICATION_JSON.includes(getSupportedMediaTypes().getFirst());
     }
 
     @Override
@@ -76,7 +76,7 @@ public class FastJson2HttpMessageConverter<T> extends AbstractGenericHttpMessage
     protected void writeInternal(@NonNull T t, Type type, @NonNull HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException {
         try {
             String json = JSON.toJSONString(t, filter(), JSONWriter.Feature.PrettyFormat);
-            log.trace("[Rest序列化对象]: {}", JsonTools.maskSensitive(json.replaceAll("[\\r\\n\\s]", "")));
+            log.trace("[Rest序列化对象]: {}", JsonTools.maskSensitive(json.replaceAll("\\s", "")));
             outputMessage.getBody().write(json.getBytes(charset));
         } catch (Exception e) {
             throw new RestFailedException("Rest序列化对象异常: " + e.getMessage(), e);

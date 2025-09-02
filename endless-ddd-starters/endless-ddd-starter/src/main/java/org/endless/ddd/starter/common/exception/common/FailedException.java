@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.common;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * FailedException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class FailedException extends AbstractException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("FAILURE");
+    private static final ErrorCode ERROR_CODE = ErrorCode.FAILURE;
 
     public FailedException() {
         super(ERROR_CODE);

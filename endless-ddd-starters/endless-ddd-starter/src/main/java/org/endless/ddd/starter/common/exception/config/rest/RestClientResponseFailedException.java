@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.config.rest;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * RestClientResponseFailedException
@@ -14,7 +14,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class RestClientResponseFailedException extends RestClientFailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("RES0700");
+    private static final ErrorCode ERROR_CODE = ErrorCode.RES0700;
 
     public RestClientResponseFailedException() {
         super(null, ERROR_CODE, null, null);

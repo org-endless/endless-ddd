@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.security.password;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * PasswordValidateException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class PasswordFormatException extends PasswordException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("SEC0023");
+    private static final ErrorCode ERROR_CODE = ErrorCode.SEC0023;
 
     public PasswordFormatException() {
         super(null, ERROR_CODE, null, null);

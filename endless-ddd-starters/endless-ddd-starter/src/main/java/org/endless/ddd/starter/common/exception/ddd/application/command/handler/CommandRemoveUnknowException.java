@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.application.command.handler;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * CommandRemoveUnknowException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class CommandRemoveUnknowException extends CommandUnknowException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DCD9002");
+    private static final ErrorCode ERROR_CODE = ErrorCode.DCD9002;
 
     public CommandRemoveUnknowException() {
         super(null, ERROR_CODE, null, null);

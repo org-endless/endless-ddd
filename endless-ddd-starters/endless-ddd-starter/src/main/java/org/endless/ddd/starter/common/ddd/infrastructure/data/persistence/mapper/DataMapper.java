@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import jakarta.validation.constraints.NotNull;
 import org.endless.ddd.starter.common.config.data.persistence.mybatis.bulk.MapperBulkOperations;
 import org.endless.ddd.starter.common.ddd.domain.entity.Entity;
 import org.endless.ddd.starter.common.ddd.infrastructure.data.persistence.page.PageCallback;
@@ -82,11 +83,11 @@ public interface DataMapper<R extends DataRecord<? extends Entity>> extends Base
      * @param queryWrapper 查询条件
      * @return {@link Optional }<{@link R }>
      */
-    default Optional<R> findFirstByWrapper(QueryWrapper<R> queryWrapper) {
+    default Optional<R> findFirstByWrapper(@NotNull QueryWrapper<R> queryWrapper) {
         Optional.ofNullable(queryWrapper)
-                .orElseThrow(() -> new MybatisFindException("查询条件不能为空"));
+                .orElseThrow(() -> new MybatisFindException("查询条件不能为空"))
+                .eq("is_removed", false);
         try {
-            queryWrapper.eq("is_removed", false);
             return Optional.ofNullable(this.selectOne(queryWrapper, false));
         } catch (Exception e) {
             throw new MybatisFindException("根据条件查询第一条记录失败: " + DatabaseErrorParser.parse(e.getMessage()), e);
@@ -99,11 +100,11 @@ public interface DataMapper<R extends DataRecord<? extends Entity>> extends Base
      * @param queryWrapper 查询条件
      * @return {@link Optional }<{@link R }>
      */
-    default List<R> findAllByWrapper(QueryWrapper<R> queryWrapper) {
+    default List<R> findAllByWrapper(@NotNull QueryWrapper<R> queryWrapper) {
         Optional.ofNullable(queryWrapper)
-                .orElseThrow(() -> new MybatisFindException("查询条件不能为空"));
+                .orElseThrow(() -> new MybatisFindException("查询条件不能为空"))
+                .eq("is_removed", false);
         try {
-            queryWrapper.eq("is_removed", false);
             return selectList(queryWrapper);
         } catch (Exception e) {
             throw new MybatisFindException("根据条件查询记录失败: " + DatabaseErrorParser.parse(e.getMessage()), e);
@@ -173,11 +174,12 @@ public interface DataMapper<R extends DataRecord<? extends Entity>> extends Base
      * @param queryWrapper 查询条件
      * @return {@link Boolean }
      */
-    default Boolean existsByWrapper(QueryWrapper<R> queryWrapper) {
+    default Boolean existsByWrapper(
+            @NotNull(message = "查询条件不能为空") QueryWrapper<R> queryWrapper) {
         Optional.ofNullable(queryWrapper)
-                .orElseThrow(() -> new MybatisFindException("查询条件不能为空"));
+                .orElseThrow(() -> new MybatisFindException("查询条件不能为空"))
+                .eq("is_removed", false);
         try {
-            queryWrapper.eq("is_removed", false);
             return countByWrapper(queryWrapper).orElse(0L) > 0;
         } catch (MybatisFindException e) {
             throw e;
@@ -476,6 +478,7 @@ public interface DataMapper<R extends DataRecord<? extends Entity>> extends Base
                 // 遍历所有字段，设置非空且不同的字段
                 for (Field field : dataRecord.getClass().getDeclaredFields()) {
                     try {
+                        field.setAccessible(true);
                         Object newValue = field.get(dataRecord);
                         Object existingValue = field.get(existingRecord);
                         String fieldName = field.getName();

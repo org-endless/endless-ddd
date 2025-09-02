@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.utils.model.object;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.common.FailedException;
 
 /**
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.common.FailedException;
  */
 public class ObjectToolsException extends FailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("UTL0032");
+    private static final ErrorCode ERROR_CODE = ErrorCode.UTL0030;
 
     public ObjectToolsException() {
         super(null, ERROR_CODE, null, null);

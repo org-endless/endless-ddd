@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.data.record;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * DataRecordReturnNullException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class DataRecordReturnNullException extends DataRecordException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DDR8100");
+    private static final ErrorCode ERROR_CODE = ErrorCode.DDR8100;
 
     public DataRecordReturnNullException() {
         super(null, ERROR_CODE, null, null);

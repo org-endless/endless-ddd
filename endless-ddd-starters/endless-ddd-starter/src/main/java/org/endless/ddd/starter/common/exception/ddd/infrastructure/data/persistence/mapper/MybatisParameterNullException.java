@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.data.persistence.mapper;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * MybatisParameterNullException
@@ -14,7 +14,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class MybatisParameterNullException extends MybatisFailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("MBT8000");
+    private static final ErrorCode ERROR_CODE = ErrorCode.MBT8000;
 
     public MybatisParameterNullException() {
         super(null, ERROR_CODE, null, null);

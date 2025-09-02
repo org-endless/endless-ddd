@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.config.minio;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * FileSystemRemoveFailedException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class MinioRemoveFailedException extends MinioFailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("MIO0002");
+    private static final ErrorCode ERROR_CODE = ErrorCode.MIO0002;
 
     public MinioRemoveFailedException() {
         super(null, ERROR_CODE, null, null);

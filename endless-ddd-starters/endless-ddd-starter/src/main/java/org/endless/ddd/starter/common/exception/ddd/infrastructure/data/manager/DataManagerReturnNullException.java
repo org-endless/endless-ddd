@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.data.manager;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * DataManagerReturnNullException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class DataManagerReturnNullException extends DataManagerFailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DDM8100");
+    private static final ErrorCode ERROR_CODE = ErrorCode.DDM8100;
 
     public DataManagerReturnNullException() {
         super(null, ERROR_CODE, null, null);

@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.utils.crypto.rsa;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.utils.crypto.CryptoException;
 
 /**
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.utils.crypto.CryptoException;
  */
 public class RSAKeyPairException extends CryptoException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("UTL0110");
+    private static final ErrorCode ERROR_CODE = ErrorCode.UTL0110;
 
     public RSAKeyPairException() {
         super(null, ERROR_CODE, null, null);

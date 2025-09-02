@@ -33,7 +33,7 @@ public interface Entity extends Serializable {
     static <B, E extends Entity> E create(B builder, Function<B, E> buildFunction) {
         String className = builder.getClass().getSimpleName();
         try {
-            MethodHandles.Lookup lookup = MethodHandles.lookup();
+            MethodHandles.Lookup lookup = MethodHandles.privateLookupIn(builder.getClass(), MethodHandles.lookup());
             Field field = builder.getClass().getDeclaredField("createUserId");
             MethodHandle createUserIdGetter = lookup.unreflectGetter(field);
             MethodHandle idHandle = lookup.findVirtual(builder.getClass(), id(className), MethodType.methodType(builder.getClass(), String.class));
@@ -44,7 +44,7 @@ public interface Entity extends Serializable {
             builder = invokeBuilder(modifyUserIdHandle, builder, createUserIdGetter.invoke(builder));
             builder = invokeBuilder(isRemovedHandle, builder, false);
             E entity = buildFunction.apply(builder);
-            return ObjectTools.JSRValidate(entity);
+            return ObjectTools.jsrValidate(entity);
         } catch (Throwable e) {
             if (className.endsWith("AggregateBuilder")) {
                 throw new AggregateCreateException(e.getMessage(), e);

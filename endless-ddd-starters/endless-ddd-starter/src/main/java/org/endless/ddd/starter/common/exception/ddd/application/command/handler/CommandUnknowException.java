@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.application.command.handler;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.common.UnknownException;
 
 /**
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.common.UnknownException;
  */
 public class CommandUnknowException extends UnknownException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DCD9000");
+    private static final ErrorCode ERROR_CODE = ErrorCode.DCD9000;
 
     public CommandUnknowException() {
         super(null, ERROR_CODE, null, null);

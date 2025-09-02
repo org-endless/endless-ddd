@@ -1,5 +1,7 @@
 package org.endless.ddd.starter.common.ddd.facade.rest;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.endless.ddd.starter.common.config.rest.response.RestResponse;
 import org.endless.ddd.starter.common.ddd.common.transfer.RespTransfer;
 import org.endless.ddd.starter.common.ddd.facade.adapter.DrivingAdapter;
@@ -19,12 +21,26 @@ import org.endless.ddd.starter.common.ddd.facade.adapter.DrivingAdapter;
  */
 public interface RestController extends DrivingAdapter {
 
-    <R extends RespTransfer> RestResponse<R> response(R response);
-
-    RestResponse<Void> response();
-
     String serviceDescription();
 
     String domainDescription();
+
+    default <R extends RespTransfer> RestResponse<R> response(
+            @NotNull(message = "REST响应体不能为空")
+            @Valid R response) {
+        return RestResponse.<R>builder()
+                .data(response)
+                .serviceDescription(serviceDescription())
+                .domainDescription(domainDescription())
+                .build();
+    }
+
+    default RestResponse<Void> response() {
+        return RestResponse.<Void>builder()
+                .data(null)
+                .serviceDescription(serviceDescription())
+                .domainDescription(domainDescription())
+                .build();
+    }
 
 }

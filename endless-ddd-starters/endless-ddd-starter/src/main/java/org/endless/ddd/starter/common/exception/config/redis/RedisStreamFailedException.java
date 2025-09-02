@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.config.redis;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * RedisStreamFailedException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class RedisStreamFailedException extends RedisFailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("RDS0100");
+    private static final ErrorCode ERROR_CODE = ErrorCode.RDS0100;
 
     public RedisStreamFailedException() {
         super(null, ERROR_CODE, null, null);

@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.domain.entity.aggregate;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.common.FailedException;
 
 /**
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.common.FailedException;
  */
 public class AggregateException extends FailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DAG0000");
+    private static final ErrorCode ERROR_CODE = ErrorCode.DAG0000;
 
     public AggregateException() {
         super(null, ERROR_CODE, null, null);

@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.security.token;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * TokenExpiresException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class TokenExpiredException extends TokenException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("SEC0034");
+    private static final ErrorCode ERROR_CODE = ErrorCode.SEC0034;
 
     public TokenExpiredException() {
         super(null, ERROR_CODE, null, null);

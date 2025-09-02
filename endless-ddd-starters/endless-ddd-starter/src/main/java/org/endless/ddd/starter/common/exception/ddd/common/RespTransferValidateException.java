@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.common;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * RespTransferValidateException
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class RespTransferValidateException extends TransferValidateException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DTO2001");
+    private static final ErrorCode ERROR_CODE = ErrorCode.DTO2001;
 
     public RespTransferValidateException() {
         super(null, ERROR_CODE, null, null);

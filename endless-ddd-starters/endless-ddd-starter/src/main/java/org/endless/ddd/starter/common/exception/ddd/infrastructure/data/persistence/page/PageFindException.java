@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.data.persistence.page;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * PageFindException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class PageFindException extends PageException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DPG1001");
+    private static final ErrorCode ERROR_CODE = ErrorCode.DPG1001;
 
     public PageFindException() {
         super(null, ERROR_CODE, null, null);

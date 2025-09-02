@@ -1,12 +1,12 @@
 package org.endless.ddd.starter.common.ddd.infrastructure.adapter.rest;
 
-import com.alibaba.fastjson2.util.TypeUtils;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.endless.ddd.starter.common.config.rest.response.RestResponse;
 import org.endless.ddd.starter.common.ddd.common.transfer.ReqTransfer;
 import org.endless.ddd.starter.common.ddd.common.transfer.RespTransfer;
-import org.endless.ddd.starter.common.ddd.common.transfer.Transfer;
 import org.endless.ddd.starter.common.ddd.domain.anticorruption.DrivenAdapter;
-import org.endless.ddd.starter.common.ddd.infrastructure.adapter.rest.exchange.RestExchange;
 import org.endless.ddd.starter.common.exception.ddd.infrastructure.adapter.DrivenAdapterFailedException;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.ByteArrayResource;
@@ -16,7 +16,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -41,7 +40,10 @@ import java.util.function.Consumer;
  */
 public interface RestClientAdapter extends DrivenAdapter {
 
-    default Optional<byte[]> get(RestTemplate restTemplate, String url, HttpHeaders headers) {
+    default Optional<byte[]> get(
+            @NotNull RestTemplate restTemplate,
+            @NotBlank(message = "REST请求URI不能为空") String url,
+            HttpHeaders headers) {
         ResponseEntity<byte[]> responseEntity;
         try {
             responseEntity = restTemplate.exchange(
@@ -60,48 +62,35 @@ public interface RestClientAdapter extends DrivenAdapter {
         return Optional.ofNullable(responseEntity.getBody());
     }
 
-    default <E extends RestExchange> E exchange(RestClient restClient, Class<E> exchangeClass) {
-        HttpServiceProxyFactory factory = HttpServiceProxyFactory
-                .builderFor(org.springframework.web.client.support.RestClientAdapter.create(restClient))
-                .build();
-        return factory.createClient(exchangeClass);
-    }
 
-    default <E extends RestExchange, R extends RespTransfer> E exchange(RestClient restClient, Class<E> exchangeClass, Class<R> responseClass) {
-        HttpServiceProxyFactory factory = HttpServiceProxyFactory
-                .builderFor(org.springframework.web.client.support.RestClientAdapter.create(restClient))
-                .build();
-        return factory.createClient(exchangeClass);
-    }
-
-    default <S extends ReqTransfer, R extends RespTransfer> Optional<R> post(RestClient restClient, String uri, S request, Class<R> responseClass, Consumer<HttpHeaders> headers) {
-        Optional.ofNullable(request)
-                .map(Transfer::validate)
-                .orElseThrow(() -> new DrivenAdapterFailedException("被动适配器请求参数不能为空"));
-        return Optional.ofNullable(TypeUtils.cast(Optional.ofNullable(restClient.post()
+    default <S extends ReqTransfer, R extends RespTransfer> Optional<R> post(
+            @NotNull RestClient restClient,
+            @NotBlank(message = "REST请求URI不能为空") String uri,
+            @Valid S request,
+            Class<R> responseClass,
+            Consumer<HttpHeaders> headers) {
+        return Optional.ofNullable(Optional.ofNullable(restClient.post()
                         .uri(uri)
                         .headers(headers)
                         .body(request)
                         .retrieve()
-                        .body(RestResponse.class))
-                .orElseThrow(() -> new DrivenAdapterFailedException("被动适配器服务返回信息为空"))
-                .validate(), responseClass));
+                        .body(new ParameterizedTypeReference<RestResponse<R>>() {
+                        }))
+                .orElseThrow(() -> new DrivenAdapterFailedException("REST响应信息不能为空"))
+                .validate(responseClass));
     }
 
 
     default <S extends ReqTransfer, R extends RespTransfer> Optional<R> post(
-            RestTemplate restTemplate,
-            String url,
-            S request,
+            @NotNull RestTemplate restTemplate,
+            @NotBlank(message = "REST请求URI不能为空") String url,
+            @Valid S request,
             String requestPartName,
             InputStream fileStream,
-            String fileName,
-            String filePartName,
+            @NotBlank(message = "文件名不能为空") String fileName,
+            @NotBlank(message = "文件请求体名称不能为空") String filePartName,
             Class<R> responseClass,
             HttpHeaders headers) {
-        Optional.ofNullable(request)
-                .map(Transfer::validate)
-                .orElseThrow(() -> new DrivenAdapterFailedException("被动适配器请求参数不能为空"));
 
         HttpHeaders requestPartHeaders = new HttpHeaders();
         requestPartHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -139,9 +128,14 @@ public interface RestClientAdapter extends DrivenAdapter {
         }
 
         HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(multipartRequest, multipartRequestHeaders);
-        RestResponse restResponse = Optional.ofNullable(
-                restTemplate.postForEntity(url, httpEntity, RestResponse.class).getBody()
-        ).orElseThrow(() -> new DrivenAdapterFailedException("被动适配器服务返回信息为空"));
-        return Optional.ofNullable(TypeUtils.cast(restResponse.validate(), responseClass));
+        RestResponse<R> restResponse = Optional.ofNullable(
+                restTemplate.exchange(
+                        url,
+                        HttpMethod.POST,
+                        httpEntity,
+                        new ParameterizedTypeReference<RestResponse<R>>() {
+                        }).getBody()
+        ).orElseThrow(() -> new DrivenAdapterFailedException("REST响应信息不能为空"));
+        return Optional.ofNullable(restResponse.validate(responseClass));
     }
 }

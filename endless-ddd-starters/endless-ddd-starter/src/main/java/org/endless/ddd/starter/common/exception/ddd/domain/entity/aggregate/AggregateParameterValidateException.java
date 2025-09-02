@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.domain.entity.aggregate;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * AggregateParameterValidateException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class AggregateParameterValidateException extends AggregateException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DAG8001");
+    private static final ErrorCode ERROR_CODE = ErrorCode.DAG8001;
 
     public AggregateParameterValidateException() {
         super(null, ERROR_CODE, null, null);

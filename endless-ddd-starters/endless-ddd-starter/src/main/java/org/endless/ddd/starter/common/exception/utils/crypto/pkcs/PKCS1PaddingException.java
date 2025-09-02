@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.utils.crypto.pkcs;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.utils.crypto.CryptoException;
 
 /**
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.utils.crypto.CryptoException;
  */
 public class PKCS1PaddingException extends CryptoException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("UTL0140");
+    private static final ErrorCode ERROR_CODE = ErrorCode.UTL0140;
 
     public PKCS1PaddingException() {
         super(null, ERROR_CODE, null, null);

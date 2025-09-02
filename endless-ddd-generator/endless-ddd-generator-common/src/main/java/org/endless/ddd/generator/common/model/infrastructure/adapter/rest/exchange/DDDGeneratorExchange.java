@@ -1,4 +1,4 @@
-package org.endless.ddd.generator.common.model.infrastructure.adapter.transfer;
+package org.endless.ddd.generator.common.model.infrastructure.adapter.rest.exchange;
 
 import org.endless.ddd.starter.common.ddd.infrastructure.adapter.rest.exchange.RestExchange;
 

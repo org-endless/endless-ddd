@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.adapter;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.common.UnknownException;
 
 /**
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.common.UnknownException;
  */
 public class DrivenAdapterUnknowException extends UnknownException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DDA9000");
+    private static final ErrorCode ERROR_CODE = ErrorCode.DDA9000;
 
     public DrivenAdapterUnknowException() {
         super(null, ERROR_CODE, null, null);

@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.data.record;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.common.FailedException;
 
 /**
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.common.FailedException;
  */
 public class DataRecordException extends FailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DDR0000");
+    private static final ErrorCode ERROR_CODE = ErrorCode.DDR0000;
 
     public DataRecordException() {
         super(null, ERROR_CODE, null, null);

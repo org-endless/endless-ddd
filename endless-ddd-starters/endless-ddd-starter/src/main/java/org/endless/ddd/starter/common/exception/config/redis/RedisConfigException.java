@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.config.redis;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.config.ConfigException;
 
 /**
@@ -17,7 +17,7 @@ import org.endless.ddd.starter.common.exception.config.ConfigException;
  */
 public class RedisConfigException extends ConfigException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("CFG0400");
+    private static final ErrorCode ERROR_CODE = ErrorCode.CFG0400;
 
     public RedisConfigException() {
         super(null, ERROR_CODE, null, null);

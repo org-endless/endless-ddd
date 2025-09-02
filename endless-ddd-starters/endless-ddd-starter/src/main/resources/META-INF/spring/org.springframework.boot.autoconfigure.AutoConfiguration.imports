@@ -1,7 +1,6 @@
 org.endless.ddd.starter.common.config.aspect.AspectAutoConfiguration
 org.endless.ddd.starter.common.config.data.DataAutoConfiguration
 org.endless.ddd.starter.common.config.endless.EndlessAutoConfiguration
-org.endless.ddd.starter.common.config.error.code.ErrorCodeAutoConfiguration
 org.endless.ddd.starter.common.config.rest.RestAutoConfiguration
 org.endless.ddd.starter.common.config.data.store.StoreConfiguration
 org.endless.ddd.starter.common.config.thread.virtual.VirtualThreadAutoConfiguration

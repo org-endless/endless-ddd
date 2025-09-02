@@ -26,11 +26,12 @@ server:
   error:
     whitelabel:
       enabled: false # 禁用默认错误页面
+#------------------------Spring-------------------------
 spring:
-  main:
-    web-application-type: servlet # 项目类型为 servlet
   application:
     name: endless-ddd-generator
+  main:
+    web-application-type: servlet # 项目类型为 servlet
   profiles:
     active: dev
   freemarker:
@@ -51,8 +52,6 @@ spring:
 #------------------------Logging------------------------
 logging:
   config: ${logging-config} # 日志配置文件
-log4j2:
-  enableScript: true # Log4j2 允许使用脚本
 #-----------------------Actuator------------------------
 management:
   endpoints:

@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.data.persistence.mapper;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.common.NotFoundException;
 
 /**
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.common.NotFoundException;
  */
 public class MybatisNotFoundException extends NotFoundException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("MBT1001");
+    private static final ErrorCode ERROR_CODE = ErrorCode.MBT1001;
 
     public MybatisNotFoundException() {
         super(null, ERROR_CODE, null, null);

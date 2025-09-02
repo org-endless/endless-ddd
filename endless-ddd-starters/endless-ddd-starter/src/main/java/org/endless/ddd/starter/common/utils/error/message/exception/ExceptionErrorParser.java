@@ -1,6 +1,8 @@
 package org.endless.ddd.starter.common.utils.error.message.exception;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 import org.springframework.util.StringUtils;
 
 /**
@@ -13,6 +15,7 @@ import org.springframework.util.StringUtils;
  * @author Deng Haozhi
  * @since 1.0.0
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ExceptionErrorParser {
 
     public static String parse(String method, ErrorCode errorCode, String message) {

@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.data.record;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * DataRecordReturnValidateException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class DataRecordReturnValidateException extends DataRecordException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DDR8101");
+    private static final ErrorCode ERROR_CODE = ErrorCode.DDR8101;
 
     public DataRecordReturnValidateException() {
         super(null, ERROR_CODE, null, null);

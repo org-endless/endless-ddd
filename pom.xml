@@ -64,6 +64,10 @@
         <pagehelper.version>2.1.1</pagehelper.version>
         <freemarker.version>2.3.34</freemarker.version>
 
+        <!-- Cloud -->
+        <spring-cloud.version>5.0.0-M1</spring-cloud.version>
+        <sentinel.version>2023.0.3.3</sentinel.version>
+
         <!-- Infrastructure -->
         <minio.version>8.5.17</minio.version>
         <mysql.version>9.4.0</mysql.version>
@@ -138,6 +142,19 @@
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper-spring-boot-starter</artifactId>
                 <version>${pagehelper.version}</version>
+            </dependency>
+            <!-- Cloud -->
+            <!-- Consul -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-consul-discovery</artifactId>
+                <version>${spring-cloud.version}</version>
+            </dependency>
+            <!-- Sentinel -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+                <version>${sentinel.version}</version>
             </dependency>
             <!-- Infrastructure -->
             <!-- MinIO -->

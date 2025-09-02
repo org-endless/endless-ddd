@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.adapter;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.common.FailedException;
 
 /**
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.common.FailedException;
  */
 public class DrivenAdapterFailedException extends FailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DDA0000");
+    private static final ErrorCode ERROR_CODE = ErrorCode.DDA0000;
 
     public DrivenAdapterFailedException() {
         super(null, ERROR_CODE, null, null);

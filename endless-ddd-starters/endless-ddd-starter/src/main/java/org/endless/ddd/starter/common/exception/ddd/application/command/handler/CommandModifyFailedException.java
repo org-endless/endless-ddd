@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.application.command.handler;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * CommandModifyFailedException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class CommandModifyFailedException extends CommandFailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DCD0003");
+    private static final ErrorCode ERROR_CODE = ErrorCode.DCD0003;
 
     public CommandModifyFailedException() {
         super(null, ERROR_CODE, null, null);

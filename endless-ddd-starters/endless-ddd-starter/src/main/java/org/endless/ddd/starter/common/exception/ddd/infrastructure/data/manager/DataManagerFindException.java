@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.data.manager;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * DataManagerFindFailedException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class DataManagerFindException extends DataManagerFailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DDM1000");
+    private static final ErrorCode ERROR_CODE = ErrorCode.DDM1000;
 
     public DataManagerFindException() {
         super(null, ERROR_CODE, null, null);

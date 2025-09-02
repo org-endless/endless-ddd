@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.utils.crypto.aes;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.utils.crypto.CryptoException;
 
 /**
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.utils.crypto.CryptoException;
  */
 public class AESDecryptException extends CryptoException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("UTL0122");
+    private static final ErrorCode ERROR_CODE = ErrorCode.UTL0122;
 
     public AESDecryptException() {
         super(null, ERROR_CODE, null, null);

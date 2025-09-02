@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.common;
 
 import lombok.Getter;
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 import org.endless.ddd.starter.common.utils.error.message.exception.ExceptionErrorParser;
 
 /**

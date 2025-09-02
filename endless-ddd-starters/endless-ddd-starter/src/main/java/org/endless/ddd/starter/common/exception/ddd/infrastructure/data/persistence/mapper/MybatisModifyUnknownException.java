@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.data.persistence.mapper;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * MybatisModifyUnknownException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class MybatisModifyUnknownException extends MybatisUnknownException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("MBT9003");
+    private static final ErrorCode ERROR_CODE = ErrorCode.MBT9003;
 
     public MybatisModifyUnknownException() {
         super(null, ERROR_CODE, null, null);

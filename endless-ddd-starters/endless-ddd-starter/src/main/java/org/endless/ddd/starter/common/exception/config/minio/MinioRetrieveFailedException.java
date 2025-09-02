@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.config.minio;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * FileSystemRetrieveFailedException
@@ -8,13 +8,14 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  * create 2024/09/29 10:55
  * <p>
  * update 2025/08/20 22:37
- * @see MinioFailedException
+ *
  * @author Deng Haozhi
+ * @see MinioFailedException
  * @since 1.0.0
  */
 public class MinioRetrieveFailedException extends MinioFailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("MIO0003");
+    private static final ErrorCode ERROR_CODE = ErrorCode.MIO0003;
 
     public MinioRetrieveFailedException() {
         super(null, ERROR_CODE, null, null);

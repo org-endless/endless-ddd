@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.security.http.fingerprint;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.security.SecurityException;
 
 /**
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.security.SecurityException;
  */
 public class HttpFingerprintGenerateException extends SecurityException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("SEC0051");
+    private static final ErrorCode ERROR_CODE = ErrorCode.SEC0051;
 
     public HttpFingerprintGenerateException() {
         super(null, ERROR_CODE, null, null);

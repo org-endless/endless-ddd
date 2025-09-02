@@ -35,22 +35,33 @@ public class RestClientConfiguration {
 
     @Primary
     @ConditionalOnMissingBean
-    public @Bean RestClient restClient() {
+    public @Bean RestExchangeClient restExchangeClient(RestClient restClient) {
+        return new RestExchangeClient(restClient);
+    }
+
+    @Primary
+    @ConditionalOnMissingBean
+    public @Bean RestClient restClient(RestTemplate restTemplate) {
+        return RestClient.create(restTemplate);
+    }
+
+    @Primary
+    @ConditionalOnMissingBean
+    public @Bean RestTemplate restTemplate() {
         RestTemplate restTemplate = new RestTemplate();
         // 清除默认的 Jackson 转换器
-        restTemplate.getMessageConverters().removeIf(converter ->
-                converter instanceof MappingJackson2HttpMessageConverter);
+        restTemplate.getMessageConverters().removeIf(MappingJackson2HttpMessageConverter.class::isInstance);
         // 添加 Fastjson2 转换器
         restTemplate.getMessageConverters().add(new FastJson2HttpMessageConverter<>(properties));
         restTemplate.getMessageConverters().add(new FormHttpMessageConverter<>(properties));
         restTemplate.setErrorHandler(new RestClientResponseErrorHandler());
-        return RestClient.create(restTemplate);
+        return restTemplate;
     }
 
     @ConditionalOnMissingBean(name = "sidecarRestClient")
     public @Bean RestClient sidecarRestClient(RestClient restClient, EndlessProperties properties) {
         return restClient.mutate()
-                .baseUrl("http://" + properties.getSidecar().getHost() + ":" + properties.getSidecar().getPort())
+                // .baseUrl("http://" + properties.getSidecar().getHost() + ":" + properties.getSidecar().getPort())
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE + ";charset=" + properties.getCharset())
                 .defaultHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
                 .build();

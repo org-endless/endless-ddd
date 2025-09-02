@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.domain.service;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.common.UnknownException;
 
 /**
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.common.UnknownException;
  */
 public class ServiceUnknowException extends UnknownException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DSV9000");
+    private static final ErrorCode ERROR_CODE = ErrorCode.DSV9000;
 
     public ServiceUnknowException() {
         super(null, ERROR_CODE, null, null);

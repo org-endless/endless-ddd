@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.adapter.transfer;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.ddd.common.ReqTransferValidateException;
 
 /**
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.ddd.common.ReqTransferValidateEx
  */
 public class DrivenReqTransferValidateException extends ReqTransferValidateException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DTO1301");
+    private static final ErrorCode ERROR_CODE = ErrorCode.DTO1301;
 
     public DrivenReqTransferValidateException() {
         super(null, ERROR_CODE, null, null);

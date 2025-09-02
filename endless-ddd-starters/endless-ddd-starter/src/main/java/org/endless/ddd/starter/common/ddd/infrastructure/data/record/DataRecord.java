@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import org.endless.ddd.starter.common.ddd.domain.entity.Entity;
 import org.endless.ddd.starter.common.exception.ddd.infrastructure.data.record.DataRecordValidateException;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Optional;
 
@@ -19,7 +20,7 @@ import java.util.Optional;
  * @author Deng Haozhi
  * @since 1.0.0
  */
-public interface DataRecord<E extends Entity> {
+public interface DataRecord<E extends Entity> extends Serializable {
 
     DataRecord<E> validate();
 
@@ -51,6 +52,7 @@ public interface DataRecord<E extends Entity> {
     default Optional<String> idValue() {
         try {
             Field idField = idField();
+            idField.setAccessible(true);
             return Optional.ofNullable(idField.get(this).toString());
         } catch (IllegalAccessException e) {
             throw new DataRecordValidateException("无法访问数据库实体的 ID 字段", e);

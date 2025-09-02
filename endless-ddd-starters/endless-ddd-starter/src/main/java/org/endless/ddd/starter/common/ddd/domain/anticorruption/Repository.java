@@ -1,5 +1,8 @@
 package org.endless.ddd.starter.common.ddd.domain.anticorruption;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.endless.ddd.starter.common.ddd.domain.entity.Aggregate;
 
 import java.util.Optional;
@@ -19,14 +22,21 @@ import java.util.Optional;
  */
 public interface Repository<A extends Aggregate> {
 
-    A save(A aggregate);
+    void save(
+            @NotNull(message = "保存聚合根数据不能为空")
+            @Valid A aggregate);
 
-    void remove(A aggregate);
+    void remove(
+            @NotNull(message = "删除聚合根数据不能为空")
+            @Valid A aggregate);
 
-    A modify(A aggregate);
+    void modify(
+            @NotNull(message = "修改聚合根数据不能为空")
+            @Valid A aggregate);
 
-    Optional<A> findById(String id);
+    Optional<A> findById(
+            @NotBlank(message = "聚合根ID不能为空") String id);
 
-    Optional<A> findByIdForUpdate(String id);
-
+    Optional<A> findByIdForUpdate(
+            @NotBlank(message = "聚合根ID不能为空") String id);
 }

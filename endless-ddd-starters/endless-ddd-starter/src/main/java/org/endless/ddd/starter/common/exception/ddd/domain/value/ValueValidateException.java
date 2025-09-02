@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.domain.value;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * ValueValidateException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class ValueValidateException extends ValueException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DVO0002");
+    private static final ErrorCode ERROR_CODE = ErrorCode.DVO0002;
 
     public ValueValidateException() {
         super(null, ERROR_CODE, null, null);

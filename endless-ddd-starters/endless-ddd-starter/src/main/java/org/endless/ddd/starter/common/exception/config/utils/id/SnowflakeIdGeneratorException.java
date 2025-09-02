@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.config.utils.id;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * MapperException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class SnowflakeIdGeneratorException extends IdGeneratorException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("CFG8001");
+    private static final ErrorCode ERROR_CODE = ErrorCode.CFG8001;
 
     public SnowflakeIdGeneratorException() {
         super(null, ERROR_CODE, null, null);

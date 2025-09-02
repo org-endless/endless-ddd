@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.application.query.transfer;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.ddd.common.RespTransferValidateException;
 
 /**
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.ddd.common.RespTransferValidateE
  */
 public class QueryRespTransferValidateException extends RespTransferValidateException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DTO2201");
+    private static final ErrorCode ERROR_CODE = ErrorCode.DTO2201;
 
     public QueryRespTransferValidateException() {
         super(null, ERROR_CODE, null, null);

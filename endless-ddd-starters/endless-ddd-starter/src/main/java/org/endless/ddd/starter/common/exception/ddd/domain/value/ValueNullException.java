@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.domain.value;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * ValueNullException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class ValueNullException extends ValueException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DVO0001");
+    private static final ErrorCode ERROR_CODE = ErrorCode.DVO0001;
 
     public ValueNullException() {
         super(null, ERROR_CODE, null, null);

@@ -1,4 +1,4 @@
-package org.endless.ddd.generator.common.model.infrastructure.adapter;
+package org.endless.ddd.generator.common.model.infrastructure.adapter.rest;
 
 import org.endless.ddd.starter.common.ddd.infrastructure.adapter.rest.RestClientAdapter;
 

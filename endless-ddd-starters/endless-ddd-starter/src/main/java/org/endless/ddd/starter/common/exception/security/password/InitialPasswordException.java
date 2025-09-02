@@ -1,7 +1,7 @@
 package org.endless.ddd.starter.common.exception.security.password;
 
 import lombok.Getter;
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * InitialPasswordException
@@ -17,7 +17,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
 @Getter
 public class InitialPasswordException extends PasswordException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("SEC0024");
+    private static final ErrorCode ERROR_CODE = ErrorCode.SEC0024;
 
     private final String userId;
 

@@ -1,7 +1,7 @@
 package org.endless.ddd.generator.components.generator.service.infrastructure.adapter.sidecar.rest;
 
 import jakarta.validation.constraints.NotBlank;
-import org.endless.ddd.generator.common.model.infrastructure.adapter.DDDGeneratorRestClient;
+import org.endless.ddd.generator.common.model.infrastructure.adapter.rest.DDDGeneratorRestClient;
 
 /**
  * ServiceSidecarRestClient

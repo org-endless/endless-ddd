@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.adapter.transfer;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.ddd.common.RespTransferNullException;
 
 /**
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.ddd.common.RespTransferNullExcep
  */
 public class DrivenRespTransferNullException extends RespTransferNullException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DTO2300");
+    private static final ErrorCode ERROR_CODE = ErrorCode.DTO2300;
 
     public DrivenRespTransferNullException() {
         super(null, ERROR_CODE, null, null);

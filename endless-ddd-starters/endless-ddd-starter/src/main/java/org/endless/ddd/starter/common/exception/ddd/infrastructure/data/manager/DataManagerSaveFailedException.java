@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.data.manager;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * DataManagerSaveFailedException
@@ -15,7 +15,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class DataManagerSaveFailedException extends DataManagerFailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DDM0001");
+    private static final ErrorCode ERROR_CODE = ErrorCode.DDM0001;
 
     public DataManagerSaveFailedException() {
         super(null, ERROR_CODE, null, null);

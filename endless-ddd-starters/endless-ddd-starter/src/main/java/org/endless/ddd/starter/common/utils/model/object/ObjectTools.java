@@ -4,6 +4,7 @@ import com.alibaba.fastjson2.util.TypeUtils;
 import jakarta.validation.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.endless.ddd.starter.common.exception.utils.model.object.ObjectToolsException;
 import org.endless.ddd.starter.common.utils.model.string.StringTools;
 
@@ -26,17 +27,21 @@ import static org.endless.ddd.starter.common.config.endless.constant.EndlessCons
  * @since 1.0.0
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Slf4j
 public class ObjectTools {
 
     private static final Validator validator = buildValidator();
 
     /**
-     * JSR380 验证对象
+     * JSR 验证对象
      *
      * @param object 要验证的对象
      * @return {@link T }
      */
-    public static <T> T JSRValidate(T object) {
+    public static <T> T jsrValidate(T object) {
+        if (object == null) {
+            return null;
+        }
         Set<ConstraintViolation<T>> violations = validator.validate(object);
         if (!violations.isEmpty()) {
             throw new ConstraintViolationException(violations);
@@ -52,8 +57,18 @@ public class ObjectTools {
      * @return {@link T }
      */
     public static <T> T of(Object object, Class<T> clazz) {
-        if (object == null) return null;
-        return TypeUtils.cast(object, clazz);
+        if (object == null || clazz == null) return null;
+        T target;
+        if (clazz.isInstance(object)) {
+            target = jsrValidate(clazz.cast(object));
+        } else {
+            try {
+                target = TypeUtils.cast(object, clazz);
+            } catch (Exception e) {
+                throw new ObjectToolsException("对象转换异常: " + e.getMessage(), e);
+            }
+        }
+        return jsrValidate(target);
     }
 
     /**

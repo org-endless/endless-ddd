@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.security.username;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.security.SecurityException;
 
 /**
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.security.SecurityException;
  */
 public class UsernameNullException extends SecurityException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("SEC0011");
+    private static final ErrorCode ERROR_CODE = ErrorCode.SEC0011;
 
     public UsernameNullException() {
         super(null, ERROR_CODE, null, null);

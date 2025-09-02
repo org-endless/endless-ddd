@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.infrastructure.data.persistence.mapper;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 
 /**
  * MybatisReturnValidateException
@@ -14,7 +14,7 @@ import org.endless.ddd.starter.common.config.error.code.ErrorCode;
  */
 public class MybatisReturnValidateException extends MybatisFailedException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("MBT8101");
+    private static final ErrorCode ERROR_CODE = ErrorCode.MBT8101;
 
     public MybatisReturnValidateException() {
         super(null, ERROR_CODE, null, null);

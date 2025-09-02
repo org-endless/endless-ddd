@@ -1,6 +1,6 @@
 package org.endless.ddd.starter.common.exception.ddd.domain.event;
 
-import org.endless.ddd.starter.common.config.error.code.ErrorCode;
+import org.endless.ddd.starter.common.exception.error.code.ErrorCode;
 import org.endless.ddd.starter.common.exception.common.UnknownException;
 
 /**
@@ -16,7 +16,7 @@ import org.endless.ddd.starter.common.exception.common.UnknownException;
  */
 public class EventUnknowException extends UnknownException {
 
-    private static final ErrorCode ERROR_CODE = ErrorCode.of("DEV9000");
+    private static final ErrorCode ERROR_CODE = ErrorCode.DEV9000;
 
     public EventUnknowException() {
         super(null, ERROR_CODE, null, null);
